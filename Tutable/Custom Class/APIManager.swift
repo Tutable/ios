@@ -47,22 +47,24 @@ public class APIManager {
     
     //MARK:- login-signup
  
-    func serviceCallToRegister(_ imageData:Data, completion: @escaping () -> Void){
+    func serviceCallToRegister(_ completion: @escaping () -> Void){
         showLoader()
         
         let headerParams :[String : String] = getMultipartHeader()
         var params :[String : Any] = [String : Any] ()
-        params["data"] = AppModel.shared.currentUser.toJson(["firstName":AppModel.shared.currentUser.firstName,"lastName":AppModel.shared.currentUser.lastName,"email" : AppModel.shared.currentUser.email, "password" : AppModel.shared.currentUser.password])
+        params["data"] = AppModel.shared.currentUser.toJson(["name":AppModel.shared.currentUser.name,"email" : AppModel.shared.currentUser.email, "password" : AppModel.shared.currentUser.password])
         
+        var strUrl : String = "teachers/register"
+        if isStudentLogin()
+        {
+            strUrl = "students/register"
+        }
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
                 multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
             }
-            
-            multipartFormData.append(imageData, withName: "picture", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
-            
-        }, usingThreshold: UInt64.init(), to: BASE_URL+"user/signup", method: .post
+        }, usingThreshold: UInt64.init(), to: BASE_URL+strUrl, method: .post
         , headers: headerParams) { (result) in
             switch result{
             case .success(let upload, _, _):
@@ -101,20 +103,22 @@ public class APIManager {
         }
     }
     
-    func serviceCallToFBLogin(_ completion: @escaping () -> Void){
+    func serviceCallToLogin(_ completion: @escaping (_ code:Int) -> Void){
         showLoader()
         
         let headerParams :[String : String] = getJsonHeader()
-        
+    
         var params :[String : Any] = [String : Any] ()
-        params["id"] = AppModel.shared.currentUser._id
-        params["firstName"] = AppModel.shared.currentUser.firstName
-        params["lastName"] = AppModel.shared.currentUser.lastName
-        params["accessToken"] = AppModel.shared.token
-        params["picture"] = AppModel.shared.currentUser.picture
-        params["email"] = AppModel.shared.currentUser.email
+        params["username"] = AppModel.shared.currentUser.email
+        params["password"] = AppModel.shared.currentUser.password
+
+        var strUrl : String = "teachers/login"
+        if isStudentLogin()
+        {
+            strUrl = "students/login"
+        }
         
-        Alamofire.request(BASE_URL+"user/facebookLoginApp", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+        Alamofire.request(BASE_URL+strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
             
             removeLoader()
             
@@ -127,7 +131,7 @@ public class APIManager {
                             if let accessToken = result["accessToken"] as? String{
                                 AppModel.shared.token = accessToken
                                 self.serviceCallToGetUserDetail {
-                                    completion()
+                                    completion(code)
                                 }
                                 return
                             }
@@ -136,63 +140,14 @@ public class APIManager {
                             }
                             return
                         }
-                    }
-                    if let message = result["message"] as? String{
-                        displayToast(message)
-                        return
-                    }
-                }
-                if let error = response.result.error
-                {
-                    displayToast(error.localizedDescription)
-                    return
-                }
-                displayToast("Facebook login error")
-                break
-            case .failure(let error):
-                print(error)
-                //displayToast(error.localizedDescription)
-                break
-            }
-        }
-    }
-    
-    func serviceCallToLogin(_ completion: @escaping (_ isSucceed:Bool) -> Void){
-        showLoader()
-        
-        let headerParams :[String : String] = getJsonHeader()
-        
-        
-        var params :[String : Any] = [String : Any] ()
-        params["username"] = AppModel.shared.currentUser.email
-       params["password"] = AppModel.shared.currentUser.password
-
-        Alamofire.request(BASE_URL+"user/login", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
-            
-            removeLoader()
-            
-            switch response.result {
-            case .success:
-                print(response.result.value!)
-                if let result = response.result.value as? [String:Any]{
-                    if let code = result["code"] as? Int{
-                        if(code == 100){
-                            if let accessToken = result["accessToken"] as? String{
-                                AppModel.shared.token = accessToken
-                                self.serviceCallToGetUserDetail {
-                                    completion(true)
-                                }
-                                return
-                            }
-                            else{
-                                displayToast("Unauthorized user.")
-                            }
-                            return
+                        else if code == 104
+                        {
+                            completion(code)
                         }
                     }
                     if let message = result["message"] as? String{
                         if(message == "User is not verified. Verify verification code first."){
-                            completion(false)
+                            completion((result["code"] as? Int)!)
                         }
                         displayToast(message)
                         return
@@ -213,60 +168,23 @@ public class APIManager {
         }
     }
     
-    func serviceCallToGetFirebaseCustomToken(_ completion: @escaping (_ dict:[String:Any]) -> Void){
-        let headerParams :[String : String] = getJsonHeaderWithToken()
-        
-        var params :[String : Any] = [String : Any] ()
-        params["id"] = AppModel.shared.currentUser._id
-        
-        Alamofire.request(BASE_URL+"user/firebaseAuthToken", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
-            
-            removeLoader()
-            
-            switch response.result {
-            case .success:
-                print(response.result.value!)
-                if let result = response.result.value as? [String:Any]{
-                    if let code = result["code"] as? Int{
-                        if(code == 100){
-                            completion(result)
-                            return
-                        }
-                    }
-                    if let error = result["error"] as? String{
-                        print(error)
-                        return
-                    }
-                    if let message = result["message"] as? String{
-                        print(message)
-                        return
-                    }
-                }
-                if let error = response.result.error
-                {
-                    print(error.localizedDescription)
-                    return
-                }
-                break
-            case .failure(let error):
-                print(error)
-                break
-            }
-        }
-    }
-    
     //MARK:- User verification
     func serviceCallToVerifyCode(_ code:String, completion: @escaping () -> Void){
         showLoader()
         
         let headerParams :[String : String] = getJsonHeader()
-        
-        
+
         var params :[String : Any] = [String : Any] ()
         params["email"] = AppModel.shared.currentUser.email
-        params["verificationCode"] = Int(code)
+        params["token"] = Int(code)
         
-        Alamofire.request(BASE_URL+"user/verificationCodeValidator", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+        var strUrl : String = "teachers/verify"
+        if isStudentLogin()
+        {
+            strUrl = "students/verify"
+        }
+        
+        Alamofire.request(BASE_URL + strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
             
             removeLoader()
             
@@ -277,7 +195,7 @@ public class APIManager {
                     if let code = result["code"] as? Int{
                         if(code == 100){
                             self.serviceCallToLogin({ (status) in
-                                if(status == true){
+                                if(status == 100){
                                     completion()
                                 }
                             })
@@ -316,8 +234,13 @@ public class APIManager {
         
         var params :[String : Any] = [String : Any] ()
         params["email"] = AppModel.shared.currentUser.email
+        var strUrl : String = "teachers/resendVerification"
+        if isStudentLogin()
+        {
+            strUrl = "students/resendVerification"
+        }
         
-        Alamofire.request(BASE_URL+"user/resendVerificationCode", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+        Alamofire.request(BASE_URL+strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
             
             removeLoader()
             
@@ -403,7 +326,12 @@ public class APIManager {
         
         let params :[String : Any] = [String : Any] ()
       
-        Alamofire.request(BASE_URL+"user/details", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+        var strUrl : String = "teachers/details"
+        if isStudentLogin()
+        {
+            strUrl = "students/details"
+        }
+        Alamofire.request(BASE_URL+strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
             
             removeLoader()
             
@@ -431,31 +359,35 @@ public class APIManager {
             }
         }
     }
-    func serviceCallToGetUserAvatar(_ user:UserModel, btn:UIButton){
-        
-        let _ :[String : String] = [String:String]()
-        Alamofire.request(BASE_URL+"user/getProfilePic/"+user.picture).responseImage { response in
-            if let image = response.result.value {
-                btn.setBackgroundImage(image, for: .normal)
-                AppModel.shared.usersAvatar[user._id] = image
-                return
-            }
-            else
-            {
-                
-            }
-        }
-    }
     
-    func serviceCallToUploadPicture(_ imageData:Data, completion: @escaping () -> Void){
+    func serviceCallToUpdateUserDetail(_ dict : [String : Any], degreeData : Data, pictureData : Data, completion: @escaping () -> Void){
         showLoader()
         
-        let headerParams :[String : String] = getMultipartHeaderWithToken()
+        let headerParams :[String : String] = getMultipartHeader()
+        var params :[String : Any] = [String : Any] ()
+        params["data"] = AppModel.shared.currentUser.toJson(dict)
+        
+        var strUrl : String = "teachers/update"
+        if isStudentLogin()
+        {
+            strUrl = "students/update"
+        }
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
-            multipartFormData.append(imageData, withName: "picture", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
+            for (key, value) in params {
+                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+            }
             
-        }, usingThreshold: UInt64.init(), to: BASE_URL+"user/uploadProfilePic", method: .post
+            if degreeData.count != 0
+            {
+                multipartFormData.append(degreeData, withName: "degreeAsset", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
+            }
+            if pictureData.count != 0
+            {
+                multipartFormData.append(pictureData, withName: "picture", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
+            }
+            
+        }, usingThreshold: UInt64.init(), to: BASE_URL+strUrl, method: .post
         , headers: headerParams) { (result) in
             switch result{
             case .success(let upload, _, _):
@@ -466,9 +398,17 @@ public class APIManager {
                 upload.responseJSON { response in
                     removeLoader()
                     print(response.result.value!)
-                    if (response.result.value as? [String:Any]) != nil{
-                        completion()
-                        return
+                    if let result = response.result.value as? [String:Any]{
+                        if let code = result["code"] as? Int{
+                            if(code == 100){
+                                completion()
+                                return
+                            }
+                        }
+                        if let message = result["message"] as? String{
+                            displayToast(message)
+                            return
+                        }
                     }
                     
                     if let error = response.error{
@@ -486,48 +426,23 @@ public class APIManager {
         }
     }
     
-    func serviceCallToUpdateUserDetail(_ completion: @escaping (_ dict:[String:Any]) -> Void){
-        showLoader()
+    //MARK:- Get Photo
+    func serviceCallToGetUserAvatar(_ user:UserModel, btn:UIButton){
         
-        let headerParams :[String : String] = getJsonHeaderWithToken()
-        
-        var params :[String : Any] = [String : Any] ()
-        params["firstName"] = AppModel.shared.currentUser.firstName
-        params["lastName"] = AppModel.shared.currentUser.lastName
-        params["email"] = AppModel.shared.currentUser.email
-        
-        Alamofire.request(BASE_URL+"user/updateProfile", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
-            
-            removeLoader()
-            
-            switch response.result {
-            case .success:
-                print(response.result.value!)
-                if let result = response.result.value as? [String:Any]{
-                    completion(result)
-                    if let message = result["message"] as? String{
-                        displayToast(message)
-                        return
-                    }
-                    
-                    return
-                }
-                if let error = response.result.error
-                {
-                    displayToast(error.localizedDescription)
-                    return
-                }
-                displayToast("Error in getting user detail.")
-                break
-            case .failure(let error):
-                print(error)
-                displayToast(error.localizedDescription)
-                break
+        let _ :[String : String] = [String:String]()
+        Alamofire.request(BASE_URL+"user/getProfilePic/"+user.picture).responseImage { response in
+            if let image = response.result.value {
+                btn.setBackgroundImage(image, for: .normal)
+                AppModel.shared.usersAvatar[user.id] = image
+                return
+            }
+            else
+            {
+                
             }
         }
     }
     
-    //MARK:- Get Photo
     func serviceCallToGetPhoto(_ picPath:String?, isUser : Bool, btn:[UIButton]){
         
         if let picture = picPath

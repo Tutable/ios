@@ -35,8 +35,8 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
     
     func setUIDesigning()
     {
-        policeCheckBtn.addCornerRadiusOfView(8.0)
-        childrenCheckBtn.addCornerRadiusOfView(8.0)
+        policeCheckBtn.addCornerRadiusOfView(5.0)
+        childrenCheckBtn.addCornerRadiusOfView(5.0)
         submitBtn.addCornerRadiusOfView(submitBtn.frame.size.height/2)
     }
     
@@ -48,7 +48,11 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
     }
     
     @IBAction func clickToPoliceCheckURL(_ sender: Any) {
-        UIApplication.shared.open(URL(string : "https://npcoapr.police.nsw.gov.au/aspx/dataentry/Introduction.aspx")!, options: [:], completionHandler: nil)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string : "https://npcoapr.police.nsw.gov.au/aspx/dataentry/Introduction.aspx")!, options: [:], completionHandler: nil)
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     @IBAction func clickToChildrenCheck(_ sender: Any) {
@@ -62,7 +66,8 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
     }
     
     @IBAction func clickToSubmit(_ sender: Any) {
-        
+        let vc : AddClassVC = self.storyboard?.instantiateViewController(withIdentifier: "AddClassVC") as! AddClassVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     //MARK:- PhotoSelectionDelegate

@@ -13,6 +13,11 @@ func getCurrentTimeStampValue() -> String
     return String(format: "%0.0f", Date().timeIntervalSince1970*1000)
 }
 
+func getTimestampFromDate(date : Date) -> Double
+{
+    return date.timeIntervalSince1970*1000
+}
+
 func getDateStringFromServerTimeStemp(_ timeStemp:Double) -> String{
     
     let date : Date = Date(timeIntervalSince1970: TimeInterval(timeStemp/1000))

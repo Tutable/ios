@@ -59,7 +59,7 @@ func getTableBackgroundViewForNoData(_ str:String, size:CGSize) -> UIView{
 //MARK:- set button Image
 func setUserProfileImage(_ user : UserModel, button : UIButton)
 {
-    if let image : UIImage = AppModel.shared.usersAvatar[user._id]{
+    if let image : UIImage = AppModel.shared.usersAvatar[user.id]{
         button.setBackgroundImage(image, for: .normal)
     }
     else{

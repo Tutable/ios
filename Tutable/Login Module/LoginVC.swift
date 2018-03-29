@@ -32,7 +32,52 @@ class LoginVC: UIViewController {
     // MARK: - Button click event
     @IBAction func clickToLogin(_ sender: Any) {
         self.view.endEditing(true)
-        AppDelegate().sharedDelegate().navigateToDashboard()
+        if usernameTxt.text?.trimmed == ""
+        {
+            displayToast("Please enter email.")
+        }
+        else if !(usernameTxt.text?.isValidEmail)!
+        {
+            displayToast("Invalid email address.")
+        }
+        else if passwordTxt.text?.trimmed == ""
+        {
+            displayToast("Please enter password")
+        }
+        else
+        {
+            AppModel.shared.currentUser = UserModel.init(dict: [String : Any]())
+            AppModel.shared.currentUser.email = usernameTxt.text
+            AppModel.shared.currentUser.password = passwordTxt.text
+            
+            if isStudentLogin()
+            {
+                AppDelegate().sharedDelegate().navigateToDashboard()
+            }
+            else
+            {
+                APIManager.sharedInstance.serviceCallToLogin({ (code) in
+                    if code == 100
+                    {
+                        if !isStudentLogin() && AppModel.shared.currentUser.firstLogin == 1
+                        {
+                            let vc : EditTeacherProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                        else
+                        {
+                            AppDelegate().sharedDelegate().navigateToDashboard()
+                        }
+                    }
+                    else if code == 104
+                    {
+                        let vc : VerificationCodeVC = self.storyboard?.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
+                        vc.isFromLoginScreen = true
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                })
+            }
+        }
     }
     
     @IBAction func clickToForgotPassword(_ sender: Any) {

@@ -27,6 +27,8 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     var _PhotoSelectionVC:PhotoSelectionVC!
     var _imgCompress:UIImage!
     
+    var availabilityDict : [String : [String]] = [String : [String]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,6 +37,8 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         _PhotoSelectionVC = self.storyboard?.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
+        
+        setUserDetail()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +59,21 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         stateBtn.addCornerRadiusOfView(5.0)
         stateBtn.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.LIGHT_GRAY))
     }
+    
+    func setUserDetail()
+    {
+        if AppModel.shared.currentUser == nil
+        {
+            return
+        }
+        nameTxt.text = AppModel.shared.currentUser.name
+        emailTxt.text = AppModel.shared.currentUser.email
+        if emailTxt.text != ""
+        {
+            emailTxt.isUserInteractionEnabled = false
+        }
+    }
+    
     
     @IBAction func clickToBack(_ sender: Any) {
         self.view.endEditing(true)
@@ -85,11 +104,11 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     @IBAction func clickToAddAvailability(_ sender: Any) {
         self.view.endEditing(true)
         let vc : TeacherAvailabilityVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherAvailabilityVC") as! TeacherAvailabilityVC
+        vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func clickToSelectState(_ sender: Any) {
-        let stateArr : [String] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
         let dropdown : DropDown = DropDown()
         dropdown.anchorView = stateBtn
         dropdown.dataSource = stateArr
@@ -101,12 +120,42 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     
     @IBAction func clickToContinue(_ sender: Any) {
         self.view.endEditing(true)
-        let vc : TeacherCertificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        AppModel.shared.currentUser.name = nameTxt.text
+        AppModel.shared.currentUser.dob = getTimestampFromDate(date: selectedDob)
+        switch genderSegment.selectedSegmentIndex {
+        case 0:
+            AppModel.shared.currentUser.gender = "male"
+            break
+        case 1:
+            AppModel.shared.currentUser.gender = "female"
+            break
+        case 2:
+            AppModel.shared.currentUser.gender = "other"
+            break
+        default:
+            break
+        }
+        
+        AppModel.shared.currentUser.bio = aboutMeTxt.text
+        AppModel.shared.currentUser.availability = availabilityDict
+        AppModel.shared.currentUser.suburb = suburbTxt.text
+        AppModel.shared.currentUser.state = stateLbl.text
+        if let imageData = UIImagePNGRepresentation(_imgCompress){
+            APIManager.sharedInstance.serviceCallToUpdateUserDetail(AppModel.shared.currentUser.dictionary(), degreeData: Data(), pictureData: imageData, completion: {
+                let vc : TeacherCertificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
+        }
+        else{
+            displayToast("Getting error in profile pic, please select another one.")
+            return
+        }
     }
     
     func selectedAvailability(dict: [String : [String]]) {
         print(dict)
+        availabilityDict = dict
     }
     
     //MARK:- PhotoSelectionDelegate

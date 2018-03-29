@@ -108,7 +108,7 @@ func setUserType(type : Int)
 
 func isStudentLogin() -> Bool
 {
-    if getDataFromPreference(key: Preference.sharedInstance.USER_TYPE) as? Int == 1
+    if getDataFromPreference(key: Preference.sharedInstance.USER_TYPE) as? Int == 2
     {
         return true
     }

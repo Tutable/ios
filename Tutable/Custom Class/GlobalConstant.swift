@@ -14,12 +14,14 @@ import UIKit
 //let PHOTO_BASE_URL = "http://ec2-13-58-51-213.us-east-2.compute.amazonaws.com/development/api"
 
 //Live
-let BASE_URL = "http://www.mylitnite.com/development/api/"
-let PHOTO_BASE_URL = "http://www.mylitnite.com/development/api/"
+let BASE_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api/"
+let PHOTO_BASE_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api/"
 
 let ITUNES_URL = "https://itunes.apple.com/us/app/lit-nite/id1360588270?ls=1&mt=8"
 
 let TERMS_CONDITIONS = "http://mylitnite.com/terms"
+
+let stateArr : [String] = ["ACT", "JBT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"]
 
 struct SCREEN
 {

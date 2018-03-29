@@ -41,6 +41,11 @@
 		186A751F206510340013D863 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A7514206510340013D863 /* Toast.swift */; };
 		186A7521206514A60013D863 /* DateTimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A7520206514A60013D863 /* DateTimeUtility.swift */; };
 		186A7523206536FD0013D863 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A7522206536FD0013D863 /* ForgotPasswordVC.swift */; };
+		18722850206CDF2200CD3076 /* TeacherQulificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1872284F206CDF2200CD3076 /* TeacherQulificationVC.swift */; };
+		18722852206CE07D00CD3076 /* TeacherHourlyRateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18722851206CE07D00CD3076 /* TeacherHourlyRateVC.swift */; };
+		18722854206CE0B400CD3076 /* AccountDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18722853206CE0B400CD3076 /* AccountDetailVC.swift */; };
+		18722856206CE0C700CD3076 /* TeacherFinishVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18722855206CE0C700CD3076 /* TeacherFinishVC.swift */; };
+		18722858206CEF4A00CD3076 /* VerificationCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18722857206CEF4900CD3076 /* VerificationCodeVC.swift */; };
 		1880397E206A14CA00179778 /* ReviewListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880397D206A14CA00179778 /* ReviewListVC.swift */; };
 		18803980206A18E200179778 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880397F206A18E200179778 /* FloatRatingView.swift */; };
 		18803982206A283C00179778 /* TeacherDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18803981206A283C00179778 /* TeacherDetailVC.swift */; };
@@ -103,6 +108,11 @@
 		186A7514206510340013D863 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		186A7520206514A60013D863 /* DateTimeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeUtility.swift; sourceTree = "<group>"; };
 		186A7522206536FD0013D863 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
+		1872284F206CDF2200CD3076 /* TeacherQulificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherQulificationVC.swift; sourceTree = "<group>"; };
+		18722851206CE07D00CD3076 /* TeacherHourlyRateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherHourlyRateVC.swift; sourceTree = "<group>"; };
+		18722853206CE0B400CD3076 /* AccountDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailVC.swift; sourceTree = "<group>"; };
+		18722855206CE0C700CD3076 /* TeacherFinishVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFinishVC.swift; sourceTree = "<group>"; };
+		18722857206CEF4900CD3076 /* VerificationCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeVC.swift; sourceTree = "<group>"; };
 		1880397D206A14CA00179778 /* ReviewListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListVC.swift; sourceTree = "<group>"; };
 		1880397F206A18E200179778 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		18803981206A283C00179778 /* TeacherDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailVC.swift; sourceTree = "<group>"; };
@@ -185,6 +195,10 @@
 				1810644F206A80F800FE9452 /* EditTeacherProfileVC.swift */,
 				18106451206A84BB00FE9452 /* TeacherAvailabilityVC.swift */,
 				18AE596E206BAB4300B6D324 /* TeacherCertificationVC.swift */,
+				1872284F206CDF2200CD3076 /* TeacherQulificationVC.swift */,
+				18722851206CE07D00CD3076 /* TeacherHourlyRateVC.swift */,
+				18722853206CE0B400CD3076 /* AccountDetailVC.swift */,
+				18722855206CE0C700CD3076 /* TeacherFinishVC.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -238,10 +252,10 @@
 			children = (
 				186A74ED2064BFCD0013D863 /* AppDelegate.swift */,
 				186A74F12064BFCD0013D863 /* Main.storyboard */,
-				18AE5970206BCA7B00B6D324 /* Class */,
 				186A74FF206504780013D863 /* Login Module */,
 				18615BCA2068B8C9004A6876 /* Booking */,
 				18615BCB2068B8C9004A6876 /* Browse */,
+				18AE5970206BCA7B00B6D324 /* Class */,
 				18615BCC2068B8C9004A6876 /* Messages */,
 				18615BCD2068B8C9004A6876 /* Profile */,
 				18615BC92068B8C8004A6876 /* Settings */,
@@ -262,6 +276,7 @@
 				186A74EF2064BFCD0013D863 /* ViewController.swift */,
 				186A7500206504A30013D863 /* LoginVC.swift */,
 				18C441CA206A5ECC005C6251 /* RegistrationVC.swift */,
+				18722857206CEF4900CD3076 /* VerificationCodeVC.swift */,
 				186A7502206504B60013D863 /* CreateProfileVC.swift */,
 				186A7504206504CB0013D863 /* WelcomePageVC.swift */,
 				186A7522206536FD0013D863 /* ForgotPasswordVC.swift */,
@@ -499,6 +514,7 @@
 				18615BD12068B90D004A6876 /* SettingsVC.swift in Sources */,
 				18B9918D20692841009F8A13 /* CustomClassesCVC.swift in Sources */,
 				186A74F02064BFCD0013D863 /* ViewController.swift in Sources */,
+				18722856206CE0C700CD3076 /* TeacherFinishVC.swift in Sources */,
 				1880397E206A14CA00179778 /* ReviewListVC.swift in Sources */,
 				18AE5972206BCA8A00B6D324 /* AddClassVC.swift in Sources */,
 				186A7521206514A60013D863 /* DateTimeUtility.swift in Sources */,
@@ -508,8 +524,10 @@
 				186A751C206510340013D863 /* CustomTabBarController.swift in Sources */,
 				186A7519206510340013D863 /* APIManager.swift in Sources */,
 				186A7523206536FD0013D863 /* ForgotPasswordVC.swift in Sources */,
+				18722858206CEF4A00CD3076 /* VerificationCodeVC.swift in Sources */,
 				186A7518206510340013D863 /* Utility.swift in Sources */,
 				18106452206A84BB00FE9452 /* TeacherAvailabilityVC.swift in Sources */,
+				18722850206CDF2200CD3076 /* TeacherQulificationVC.swift in Sources */,
 				18803982206A283C00179778 /* TeacherDetailVC.swift in Sources */,
 				186A7517206510340013D863 /* Preference.swift in Sources */,
 				18615BDD2068D496004A6876 /* PhotoSelectionVC.swift in Sources */,
@@ -518,6 +536,7 @@
 				186A7505206504CB0013D863 /* WelcomePageVC.swift in Sources */,
 				186A74EE2064BFCD0013D863 /* AppDelegate.swift in Sources */,
 				1810644D206A7DF500FE9452 /* CustomTimeSlotTVC.swift in Sources */,
+				18722854206CE0B400CD3076 /* AccountDetailVC.swift in Sources */,
 				18615BCF2068B8E5004A6876 /* ProfileVC.swift in Sources */,
 				18AE596D206B93F500B6D324 /* DatePickerManager.swift in Sources */,
 				18B9918920692835009F8A13 /* EntertainmentVC.swift in Sources */,
@@ -536,6 +555,7 @@
 				18B99191206938E8009F8A13 /* CustomReviewsTVC.swift in Sources */,
 				18B9919320693943009F8A13 /* ExpandableLabel.swift in Sources */,
 				18615BDB2068D1CE004A6876 /* EditStudentProfileVC.swift in Sources */,
+				18722852206CE07D00CD3076 /* TeacherHourlyRateVC.swift in Sources */,
 				186A751B206510340013D863 /* CustomTabBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -610,7 +630,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -661,7 +681,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

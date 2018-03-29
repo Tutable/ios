@@ -54,14 +54,29 @@ class RegistrationVC: UIViewController {
         {
             displayToast("Please enter password")
         }
-        else if confirmPasswordTxt.text?.trimmed == passwordTxt.text?.trimmed
+        else if confirmPasswordTxt.text?.trimmed != passwordTxt.text?.trimmed
         {
             displayToast("Password not same")
         }
         else
         {
-            let vc : CreateProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "CreateProfileVC") as! CreateProfileVC
-            self.navigationController?.pushViewController(vc, animated: true)
+            AppModel.shared.currentUser = UserModel.init(dict: [String : Any]())
+            AppModel.shared.currentUser.name = nameTxt.text
+            AppModel.shared.currentUser.email = emailTxt.text
+            AppModel.shared.currentUser.password = passwordTxt.text
+            
+            if isStudentLogin()
+            {
+                let vc : CreateProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "CreateProfileVC") as! CreateProfileVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else
+            {
+                APIManager.sharedInstance.serviceCallToRegister {
+                    let vc : VerificationCodeVC = self.storyboard?.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
         }
     }
     
@@ -90,7 +105,6 @@ class RegistrationVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

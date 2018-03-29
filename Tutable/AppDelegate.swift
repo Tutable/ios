@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         GIDSignIn.sharedInstance().clientID = GOOGLE.CLIENT_ID
         GIDSignIn.sharedInstance().delegate = self
         
-        //navigateToDashboard()
+//        navigateToDashboard()
         
         return true
     }
