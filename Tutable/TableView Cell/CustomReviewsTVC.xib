@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomReviewsTVC" rowHeight="137" id="KGk-i7-Jjw" customClass="CustomReviewsTVC" customModule="Tutable" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lkx-LQ-dtL">
+                        <rect key="frame" x="10" y="5" width="300" height="79.5"/>
+                        <subviews>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1A9-E3-4Vh">
+                                <rect key="frame" x="5" y="5" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="I8Q-Mt-6lq"/>
+                                    <constraint firstAttribute="width" constant="35" id="gW4-49-F7i"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="user_avatar"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vishal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DZ-b3-aGI">
+                                <rect key="frame" x="50" y="5" width="240" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="laB-Lq-a5i"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1u-CL-1gc" customClass="FloatRatingView" customModule="Tutable" customModuleProvider="target">
+                                <rect key="frame" x="50" y="26" width="87" height="16"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="Kxy-ox-Fv8"/>
+                                    <constraint firstAttribute="width" constant="87" id="Xhd-6Z-Fpl"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="star_off_small"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="star_on_small"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello this is test review display here Hello this is test review" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EP6-qS-Zft" customClass="ExpandableLabel" customModule="Tutable" customModuleProvider="target">
+                                <rect key="frame" x="50" y="42" width="240" height="31.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="zcS-x7-F6k"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="3DZ-b3-aGI" secondAttribute="trailing" constant="10" id="01z-D8-e0o"/>
+                            <constraint firstAttribute="trailing" secondItem="EP6-qS-Zft" secondAttribute="trailing" constant="10" id="2QN-6V-En9"/>
+                            <constraint firstItem="Q1u-CL-1gc" firstAttribute="leading" secondItem="1A9-E3-4Vh" secondAttribute="trailing" constant="10" id="8tP-eP-bIp"/>
+                            <constraint firstItem="1A9-E3-4Vh" firstAttribute="top" secondItem="lkx-LQ-dtL" secondAttribute="top" constant="5" id="AIx-dJ-ho1"/>
+                            <constraint firstItem="3DZ-b3-aGI" firstAttribute="leading" secondItem="1A9-E3-4Vh" secondAttribute="trailing" constant="10" id="CVi-BF-bwh"/>
+                            <constraint firstAttribute="bottom" secondItem="EP6-qS-Zft" secondAttribute="bottom" constant="6" id="MGQ-G2-CaU"/>
+                            <constraint firstItem="EP6-qS-Zft" firstAttribute="leading" secondItem="lkx-LQ-dtL" secondAttribute="leading" constant="50" id="Zwg-rv-1ha"/>
+                            <constraint firstItem="EP6-qS-Zft" firstAttribute="top" secondItem="Q1u-CL-1gc" secondAttribute="bottom" id="cWP-Iu-X4t"/>
+                            <constraint firstItem="1A9-E3-4Vh" firstAttribute="leading" secondItem="lkx-LQ-dtL" secondAttribute="leading" constant="5" id="drm-TZ-D2f"/>
+                            <constraint firstItem="3DZ-b3-aGI" firstAttribute="top" secondItem="lkx-LQ-dtL" secondAttribute="top" constant="5" id="rmb-iC-1c0"/>
+                            <constraint firstItem="Q1u-CL-1gc" firstAttribute="top" secondItem="3DZ-b3-aGI" secondAttribute="bottom" id="x9H-26-ghl"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vHx-a5-VIa">
+                        <rect key="frame" x="10" y="88.5" width="300" height="1"/>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="4g3-1Q-I5P"/>
+                            <constraint firstAttribute="height" constant="1" id="Tcp-tv-FCa"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="lkx-LQ-dtL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="FSa-3s-fVV"/>
+                    <constraint firstItem="lkx-LQ-dtL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="In3-qs-rM7"/>
+                    <constraint firstAttribute="bottom" secondItem="vHx-a5-VIa" secondAttribute="bottom" id="Mxg-PE-EGG"/>
+                    <constraint firstAttribute="trailing" secondItem="vHx-a5-VIa" secondAttribute="trailing" constant="10" id="R33-Xe-Vgg"/>
+                    <constraint firstItem="vHx-a5-VIa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="W3S-bX-Aw7"/>
+                    <constraint firstAttribute="bottom" secondItem="lkx-LQ-dtL" secondAttribute="bottom" constant="5" id="W92-MW-Wwv"/>
+                    <constraint firstAttribute="trailing" secondItem="lkx-LQ-dtL" secondAttribute="trailing" constant="10" id="qbx-YT-RYL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="expandableLabel" destination="EP6-qS-Zft" id="tpl-5r-RXc"/>
+                <outlet property="nameLbl" destination="3DZ-b3-aGI" id="pxh-Ez-S2g"/>
+                <outlet property="profileImgBtn" destination="1A9-E3-4Vh" id="2eS-Z9-AFY"/>
+                <outlet property="starView" destination="Q1u-CL-1gc" id="Q9f-C5-i47"/>
+            </connections>
+            <point key="canvasLocation" x="-55" y="-25.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="star_off_small" width="15" height="14"/>
+        <image name="star_on_small" width="15" height="14"/>
+        <image name="user_avatar" width="90" height="90"/>
+    </resources>
+</document>
