@@ -12,6 +12,7 @@ class AppModel: NSObject {
     static let shared = AppModel()
     var token : String = ""
     var currentUser : UserModel!
+    var currentClass : ClassModel!
     var usersAvatar:[String:UIImage] = [String:UIImage]()
     var isFCMConnected : Bool = false
     var imageQueue:[String:Any] = [String:Any]()
@@ -24,6 +25,17 @@ class AppModel: NSObject {
             }
         }
         return false
+    }
+    
+    
+    func getLocationArrOfDictionary(arr:[LocationModel]) -> [[String:Any]]{ // story
+        
+        let len:Int = arr.count
+        var retArr:[[String:Any]] =  [[String:Any]] ()
+        for i in 0..<len{
+            retArr.append(arr[i].dictionary())
+        }
+        return retArr
     }
 }
 
@@ -44,8 +56,12 @@ class UserModel:AppModel{
     var gender : String!
     var bio : String!
     var availability : [String : [String]]!
-    var suburb : String!
-    var state : String!
+    var address : LocationModel!
+    var qualification : String!
+    var school : String!
+    var deviceId : String!
+    var policeCert : String!
+    var childrenCert : String!
     
     override init(){
         id = ""
@@ -64,8 +80,12 @@ class UserModel:AppModel{
         gender = ""
         bio = ""
         availability = [String : [String]]()
-        suburb = ""
-        state = ""
+        address = LocationModel.init()
+        qualification = ""
+        school = ""
+        deviceId = ""
+        policeCert = ""
+        childrenCert = ""
     }
     init(dict : [String : Any])
     {
@@ -85,8 +105,12 @@ class UserModel:AppModel{
         gender = ""
         bio = ""
         availability = [String : [String]]()
-        suburb = ""
-        state = ""
+        address = LocationModel.init()
+        qualification = ""
+        school = ""
+        deviceId = ""
+        policeCert = ""
+        childrenCert = ""
         
         if let Id = dict["id"] as? String{
             id = Id
@@ -136,16 +160,146 @@ class UserModel:AppModel{
         if let temp = dict["availability"] as? [String : [String]]{
             availability = temp
         }
-        if let temp = dict["suburb"] as? String{
-            suburb = temp
+        if let temp = dict["address"] as? [String : Any] {
+            address = LocationModel.init(dict: temp)
         }
-        if let temp = dict["state"] as? String{
-            state = temp
+        if let temp = dict["qualification"] as? String{
+            qualification = temp
+        }
+        if let temp = dict["school"] as? String{
+            school = temp
+        }
+        if let temp = dict["deviceId"] as? String{
+            deviceId = temp
+        }
+        if let temp = dict["policeCert"] as? String{
+            policeCert = temp
+        }
+        if let temp = dict["childrenCert"] as? String{
+            childrenCert = temp
         }
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "suburb":suburb, "state":state]
+        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert]
+    }
+    
+    func toJson(_ dict:[String:Any]) -> String{
+        let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: [])
+        let jsonString = String(data: jsonData!, encoding: .utf8)
+        return jsonString!
+    }
+}
+
+class LocationModel:AppModel{
+    var location:String!
+    var state:String!
+    var suburb:String!
+    var coordinates:[String]!
+    
+    override init(){
+        location = ""
+        state = ""
+        suburb = ""
+        coordinates = [String]()
+    }
+    init(dict : [String : Any])
+    {
+        location = ""
+        state = ""
+        suburb = ""
+        coordinates = [String]()
+        
+        if let temp = dict["location"] as? String{
+            location = temp
+        }
+        if let temp = dict["state"] as? String{
+            state = temp
+        }
+        if let temp = dict["suburb"] as? String{
+            suburb = temp
+        }
+        if let temp = dict["coordinates"] as? [String]{
+            coordinates = temp
+        }
+    }
+    func dictionary() -> [String:Any]{
+        return ["location" : location, "state" : state, "suburb" : suburb, "coordinates" : coordinates]
+    }
+    
+    func toJson(_ dict:[String:Any]) -> String{
+        let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: [])
+        let jsonString = String(data: jsonData!, encoding: .utf8)
+        return jsonString!
+    }
+    
+}
+
+class ClassModel:AppModel{
+    var id:String!
+    var name:String!
+    var category : Int!
+    var level : String!
+    var desc : String!
+    var bio : String!
+    var timeline : Double!
+    var picture : String!
+    var price : Int!
+    
+    override init(){
+        id = ""
+        name = ""
+        category = 0
+        level = ""
+        desc = ""
+        bio = ""
+        timeline = 0
+        picture = ""
+        price = 0
+    }
+    init(dict : [String : Any])
+    {
+        id = ""
+        name = ""
+        category = 0
+        level = ""
+        desc = ""
+        bio = ""
+        timeline = 0
+        picture = ""
+        price = 0
+        
+        if let temp = dict["id"] as? String{
+            id = temp
+        }
+        if let temp = dict["name"] as? String{
+            name = temp
+        }
+        if let temp = dict["category"] as? Int{
+            category = temp
+        }
+        if let temp = dict["level"] as? String{
+            level = temp
+        }
+        if let temp = dict["description"] as? String{
+            desc = temp
+        }
+        if let temp = dict["bio"] as? String{
+            bio = temp
+        }
+        if let block = dict["timeline"] as? Double{
+            timeline = block
+        }
+        if let image = dict["picture"] as? String{
+            picture = image
+        }
+        if let temp = dict["price"] as? Int{
+            price = temp
+        }
+    }
+    
+    func dictionary() -> [String:Any]{
+        return ["id":id,"name":name,"category" : category, "level" : level, "description" : desc, "bio":bio, "picture":picture, "timeline":timeline, "price":price]
     }
     
     func toJson(_ dict:[String:Any]) -> String{

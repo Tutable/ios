@@ -101,7 +101,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectionDele
     
     func onSelectPic(_ img: UIImage) {
         _imgCompress = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
-        profilePicBtn.setBackgroundImage(_imgCompress, for: .normal)
+        profilePicBtn.setBackgroundImage(_imgCompress.imageCropped(toFit: profilePicBtn.frame.size), for: .normal)
     }
     
     override func didReceiveMemoryWarning() {

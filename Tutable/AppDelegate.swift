@@ -34,8 +34,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         GIDSignIn.sharedInstance().clientID = GOOGLE.CLIENT_ID
         GIDSignIn.sharedInstance().delegate = self
         
-//        navigateToDashboard()
-        
+        if isUserLogin()
+        {
+            AppModel.shared.currentUser = UserModel.init(dict: getLoginUserData()!)
+            AppModel.shared.token = AppModel.shared.currentUser.accessToken
+            APIManager.sharedInstance.serviceCallToGetUserDetail {
+                
+            }
+            navigateToDashboard()
+        }
         return true
     }
 

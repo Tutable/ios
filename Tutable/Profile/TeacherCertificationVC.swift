@@ -38,6 +38,29 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
         policeCheckBtn.addCornerRadiusOfView(5.0)
         childrenCheckBtn.addCornerRadiusOfView(5.0)
         submitBtn.addCornerRadiusOfView(submitBtn.frame.size.height/2)
+        
+        if getPoliceCertificate() != "" && getChildreanCertificate() != ""
+        {
+            setUserDetail()
+        }
+        else
+        {
+            APIManager.sharedInstance.serviceCallToGetCertificate {
+                self.setUserDetail()
+            }
+        }
+    }
+    
+    func setUserDetail()
+    {
+        if getPoliceCertificate() != ""
+        {
+            APIManager.sharedInstance.serviceCallToGetCertificate(getPoliceCertificate(), placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [policeCheckBtn])
+        }
+        if getChildreanCertificate() != ""
+        {
+            APIManager.sharedInstance.serviceCallToGetCertificate(getChildreanCertificate(), placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [childrenCheckBtn])
+        }
     }
     
     // MARK: - Button click event
@@ -66,8 +89,40 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
     }
     
     @IBAction func clickToSubmit(_ sender: Any) {
-        let vc : AddClassVC = self.storyboard?.instantiateViewController(withIdentifier: "AddClassVC") as! AddClassVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        if AppModel.shared.currentUser.policeCert == "" && policeCheckImg == nil
+        {
+            displayToast("Please select certificate for police check")
+        }
+        else if AppModel.shared.currentUser.childrenCert == "" && childrenCheckImg == nil
+        {
+            displayToast("Please select certificate for children check")
+        }
+        else
+        {
+            var policeData : Data = Data()
+            var childrenData : Data = Data()
+            
+            if let tempData = UIImagePNGRepresentation(policeCheckImg){
+                policeData = tempData
+            }
+            if let tempData = UIImagePNGRepresentation(childrenCheckImg){
+                childrenData = tempData
+            }
+            if policeCheckImg == nil && childrenCheckImg == nil
+            {
+                let vc : TeacherFinishVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else
+            {
+                APIManager.sharedInstance.serviceCallToUpdateCertificates(policeData, childrenData: childrenData) {
+                    let vc : TeacherFinishVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+        
     }
     
     //MARK:- PhotoSelectionDelegate
@@ -89,12 +144,12 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
         if isPoliceCheckImg
         {
             policeCheckImg = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
-            policeCheckBtn.setBackgroundImage(policeCheckImg, for: .normal)
+            policeCheckBtn.setBackgroundImage(policeCheckImg.imageCropped(toFit: policeCheckBtn.frame.size), for: .normal)
         }
         else
         {
             childrenCheckImg = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
-            childrenCheckBtn.setBackgroundImage(childrenCheckImg, for: .normal)
+            childrenCheckBtn.setBackgroundImage(childrenCheckImg.imageCropped(toFit: childrenCheckBtn.frame.size), for: .normal)
         }
     }
     

@@ -93,29 +93,41 @@ class TeacherAvailabilityVC: UIViewController, UITableViewDelegate, UITableViewD
     {
         for i in 1...7
         {
-            finalTimeDict[String(i)] = [String]()
             let date : Date = Calendar.current.date(byAdding: .day, value: i, to: Date())!
+            let timestamp : Int = Int(getOnlyDateTimestamp(date: date))
+            if (finalTimeDict[String(timestamp)] == nil)
+            {
+                finalTimeDict[String(timestamp)] = [String]()
+            }
+            
             switch i {
             case 1:
                 btn1.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn1.tag = Int(timestamp)
                 break
             case 2:
                 btn2.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn2.tag = Int(timestamp)
                 break
             case 3:
                 btn3.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn3.tag = Int(timestamp)
                 break
             case 4:
                 btn4.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn4.tag = Int(timestamp)
                 break
             case 5:
                 btn5.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn5.tag = Int(timestamp)
                 break
             case 6:
                 btn6.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn6.tag = Int(timestamp)
                 break
             case 7:
                 btn7.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn7.tag = Int(timestamp)
                 break
             default:
                 break
@@ -170,17 +182,16 @@ class TeacherAvailabilityVC: UIViewController, UITableViewDelegate, UITableViewD
         let cell : CustomTimeSlotTVC = tblView.dequeueReusableCell(withIdentifier: "CustomTimeSlotTVC", for: indexPath) as! CustomTimeSlotTVC
         cell.titleLbl.text = timeArr[indexPath.row]["name"]
         
-        let tempArr : [String] = finalTimeDict[String(selectedDateIndex)]!
-        let index = tempArr.index { (strTime) -> Bool in
-            strTime == timeArr[indexPath.row]["value"]
-        }
-        if index == nil
+        cell.selectionBtn.isSelected = false
+        if let tempArr : [String] = finalTimeDict[String(selectedDateIndex)] as? [String]
         {
-            cell.selectionBtn.isSelected = false
-        }
-        else
-        {
-            cell.selectionBtn.isSelected = true
+            let index = tempArr.index { (strTime) -> Bool in
+                strTime == timeArr[indexPath.row]["value"]
+            }
+            if index != nil
+            {
+                cell.selectionBtn.isSelected = true
+            }
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none

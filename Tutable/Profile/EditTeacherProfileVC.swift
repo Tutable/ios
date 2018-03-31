@@ -42,9 +42,12 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
-        self.edgesForExtendedLayout = UIRectEdge.bottom
-        tabBar.setTabBarHidden(tabBarHidden: true)
+        if self.tabBarController != nil
+        {
+            let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
+            self.edgesForExtendedLayout = UIRectEdge.bottom
+            tabBar.setTabBarHidden(tabBarHidden: true)
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -72,8 +75,32 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         {
             emailTxt.isUserInteractionEnabled = false
         }
+        if AppModel.shared.currentUser.picture != ""
+        {
+            APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
+        }
+        dobTxt.text = getDateStringFromServerTimeStemp(AppModel.shared.currentUser.dob)
+        selectedDob = getDateFromTimeStamp(AppModel.shared.currentUser.dob)
+        aboutMeTxt.text = AppModel.shared.currentUser.bio
+        switch AppModel.shared.currentUser.gender {
+        case "male":
+            genderSegment.selectedSegmentIndex = 0
+            break
+        case "female":
+            genderSegment.selectedSegmentIndex = 1
+            break
+        case "other":
+            genderSegment.selectedSegmentIndex = 2
+            break
+        default:
+            break
+        }
+        availabilityDict = AppModel.shared.currentUser.availability
+        
+        let location : LocationModel = LocationModel.init(dict: AppModel.shared.currentUser.address.dictionary())
+        suburbTxt.text = location.suburb
+        stateLbl.text = location.state
     }
-    
     
     @IBAction func clickToBack(_ sender: Any) {
         self.view.endEditing(true)
@@ -105,10 +132,16 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         self.view.endEditing(true)
         let vc : TeacherAvailabilityVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherAvailabilityVC") as! TeacherAvailabilityVC
         vc.delegate = self
+        if availabilityDict.count != 0
+        {
+            vc.finalTimeDict = availabilityDict
+        }
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func clickToSelectState(_ sender: Any) {
+        self.view.endEditing(true)
         let dropdown : DropDown = DropDown()
         dropdown.anchorView = stateBtn
         dropdown.dataSource = stateArr
@@ -121,36 +154,88 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     @IBAction func clickToContinue(_ sender: Any) {
         self.view.endEditing(true)
         
-        AppModel.shared.currentUser.name = nameTxt.text
-        AppModel.shared.currentUser.dob = getTimestampFromDate(date: selectedDob)
-        switch genderSegment.selectedSegmentIndex {
-        case 0:
-            AppModel.shared.currentUser.gender = "male"
-            break
-        case 1:
-            AppModel.shared.currentUser.gender = "female"
-            break
-        case 2:
-            AppModel.shared.currentUser.gender = "other"
-            break
-        default:
-            break
+        if AppModel.shared.currentUser.picture == "" && _imgCompress == nil
+        {
+            displayToast("Please select your profile picture")
         }
-        
-        AppModel.shared.currentUser.bio = aboutMeTxt.text
-        AppModel.shared.currentUser.availability = availabilityDict
-        AppModel.shared.currentUser.suburb = suburbTxt.text
-        AppModel.shared.currentUser.state = stateLbl.text
-        if let imageData = UIImagePNGRepresentation(_imgCompress){
-            APIManager.sharedInstance.serviceCallToUpdateUserDetail(AppModel.shared.currentUser.dictionary(), degreeData: Data(), pictureData: imageData, completion: {
-                let vc : TeacherCertificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
-                self.navigationController?.pushViewController(vc, animated: true)
-            })
+        else if nameTxt.text == ""
+        {
+            displayToast("Please enter name")
         }
-        else{
-            displayToast("Getting error in profile pic, please select another one.")
-            return
+        else if selectedDob == nil
+        {
+            displayToast("Please select date of birth")
         }
+        else if aboutMeTxt.text == ""
+        {
+            displayToast("Please enter about you")
+        }
+        else if availabilityDict.count == 0
+        {
+            displayToast("Please add your availability")
+        }
+        else if suburbTxt.text == ""
+        {
+            displayToast("Please enter suburb")
+        }
+        else if stateLbl.text == "" || stateLbl.text == "State"
+        {
+            displayToast("Please select state")
+        }
+        else
+        {
+            AppModel.shared.currentUser.name = nameTxt.text
+            AppModel.shared.currentUser.dob = getTimestampFromDate(date: selectedDob)
+            switch genderSegment.selectedSegmentIndex {
+            case 0:
+                AppModel.shared.currentUser.gender = "male"
+                break
+            case 1:
+                AppModel.shared.currentUser.gender = "female"
+                break
+            case 2:
+                AppModel.shared.currentUser.gender = "other"
+                break
+            default:
+                break
+            }
+            
+            AppModel.shared.currentUser.bio = aboutMeTxt.text
+            AppModel.shared.currentUser.availability = availabilityDict
+            
+            var dict : [String : Any] = [String : Any]()
+            dict["name"] = AppModel.shared.currentUser.name
+            dict["dob"] = AppModel.shared.currentUser.dob
+            dict["gender"] = AppModel.shared.currentUser.gender
+            dict["email"] = AppModel.shared.currentUser.email
+            dict["bio"] = AppModel.shared.currentUser.bio
+            dict["availability"] = AppModel.shared.currentUser.availability
+            
+            let location : LocationModel = LocationModel.init()
+            location.state = stateLbl.text
+            location.suburb = suburbTxt.text
+            dict["address"] = location.dictionary()
+            
+            if _imgCompress == nil
+            {
+                continueUpdating(dict, Data())
+            }
+            else if let imageData = UIImagePNGRepresentation(_imgCompress){
+                continueUpdating(dict, imageData)
+            }
+            else{
+                displayToast("Getting error in profile pic, please select another one.")
+                return
+            }
+        }
+    }
+    
+    func continueUpdating(_ dict : [String : Any], _ imageData : Data)
+    {
+        APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: Data(), pictureData: imageData, completion: {
+            let vc : TeacherQulificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        })
     }
     
     func selectedAvailability(dict: [String : [String]]) {
@@ -166,7 +251,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     
     func onSelectPic(_ img: UIImage) {
         _imgCompress = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
-        userProfilePicBtn.setBackgroundImage(_imgCompress, for: .normal)
+        userProfilePicBtn.setBackgroundImage(_imgCompress.imageCropped(toFit: userProfilePicBtn.frame.size), for: .normal)
     }
     
     override func didReceiveMemoryWarning() {

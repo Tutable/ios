@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DropDown
 
 class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PhotoSelectionDelegate {
 
@@ -14,8 +15,8 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var classNameTxt: UITextField!
     @IBOutlet weak var classImgBtn: UIButton!
     @IBOutlet weak var categoryBtn: UIButton!
-    @IBOutlet weak var stateBtn: UIButton!
-    @IBOutlet weak var stateLbl: UILabel!
+    @IBOutlet weak var levelBtn: UIButton!
+    @IBOutlet weak var levelLbl: UILabel!
     @IBOutlet weak var subjectLbl: UITextField!
     @IBOutlet weak var aboutMeLbl: UITextField!
     @IBOutlet weak var nextBtn: UIButton!
@@ -25,8 +26,14 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var categoryTblView: UITableView!
     @IBOutlet weak var constraintHeightCategoryPopup: NSLayoutConstraint!
     
+    @IBOutlet weak var priceUnitLbl: UILabel!
+    @IBOutlet weak var priceTxt: UITextField!
+    @IBOutlet weak var perHourLbl: UILabel!
+    
     var _PhotoSelectionVC:PhotoSelectionVC!
     var classImg:UIImage!
+    var categoryArr : [String] = ["Entertainment", "Information & Motivation", "Helth & Fitness"]
+    var selectedCategory : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +51,8 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     func setUIDesigning()
     {
         classImgBtn.addCornerRadiusOfView(5.0)
-        stateBtn.addCornerRadiusOfView(5.0)
-        stateBtn.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.LIGHT_GRAY))
+        levelBtn.addCornerRadiusOfView(5.0)
+        levelBtn.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.LIGHT_GRAY))
         nextBtn.addCornerRadiusOfView(nextBtn.frame.size.height/2)
         categoryPopupView.addCornerRadiusOfView(10.0)
         
@@ -54,17 +61,19 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     @IBAction func clickToBack(_ sender: Any) {
         self.view.endEditing(true)
-        self.navigationController?.popViewController(animated: true)
+        AppDelegate().sharedDelegate().navigateToDashboard()
     }
     
     @IBAction func clickToUploadClassImg(_ sender: Any) {
         self.view.endEditing(true)
+        self.view.addSubview(_PhotoSelectionVC.view)
+        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
     }
     
     @IBAction func clickToSelectCategory(_ sender: Any) {
         self.view.endEditing(true)
         categoryTblView.reloadData()
-        constraintHeightCategoryPopup.constant = categoryTblView.contentSize.height
+        constraintHeightCategoryPopup.constant = categoryTblView.contentSize.height + 10
         if constraintHeightCategoryPopup.constant > (UIScreen.main.bounds.size.height - 100)
         {
             constraintHeightCategoryPopup.constant = (UIScreen.main.bounds.size.height - 100)
@@ -76,12 +85,41 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         categoryContainerView.removeFromSuperview()
     }
     
-    @IBAction func clickToState(_ sender: Any) {
+    @IBAction func clickToSelectLevel(_ sender: Any) {
         self.view.endEditing(true)
+        let dropdown : DropDown = DropDown()
+        dropdown.anchorView = levelBtn
+        dropdown.dataSource = classLevelArr
+        dropdown.selectionAction = { [weak self] (index, item) in
+            self?.levelLbl.text = classLevelArr[index]
+        }
+        dropdown.show()
     }
     
     @IBAction func clickToNext(_ sender: Any) {
         self.view.endEditing(true)
+        
+        AppModel.shared.currentClass = ClassModel.init(dict: [String : Any]())
+        AppModel.shared.currentClass.name = classNameTxt.text
+        AppModel.shared.currentClass.category = Int(selectedCategory)
+        AppModel.shared.currentClass.level = levelLbl.text
+        AppModel.shared.currentClass.desc = subjectLbl.text
+        AppModel.shared.currentClass.bio = aboutMeLbl.text
+        AppModel.shared.currentClass.timeline = Double(getCurrentTimeStampValue())
+        AppModel.shared.currentClass.price = Int(priceTxt.text!)
+        
+        if let imageData = UIImagePNGRepresentation(classImg){
+            APIManager.sharedInstance.serviceCallToCreateClass(imageData, completion: {
+                if self.tabBarController == nil
+                {
+                    AppDelegate().sharedDelegate().navigateToDashboard()
+                }
+                else
+                {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })
+        }
     }
     
     // MARK: - Tableview Delegate method
@@ -90,7 +128,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return categoryArr.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -100,14 +138,27 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : CustomTimeSlotTVC = categoryTblView.dequeueReusableCell(withIdentifier: "CustomTimeSlotTVC", for: indexPath) as! CustomTimeSlotTVC
+        cell.titleLbl.text = categoryArr[indexPath.row]
         cell.selectionBtn.setImage(UIImage.init(named: "check_circle_off"), for: .normal)
         cell.selectionBtn.setImage(UIImage.init(named: "check_circle_on"), for: .selected)
+        
+        if selectedCategory == categoryArr[indexPath.row]
+        {
+            cell.selectionBtn.isSelected = true
+        }
+        else
+        {
+            cell.selectionBtn.isSelected = false
+        }
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        selectedCategory = categoryArr[indexPath.row]
+        categoryTblView.reloadData()
+        categoryBtn.setTitle(selectedCategory, for: .normal)
+        clickToCloseCategory(self)
     }
     
     
@@ -119,7 +170,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func onSelectPic(_ img: UIImage) {
         classImg = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
-        classImgBtn.setBackgroundImage(classImg, for: .normal)
+        classImgBtn.setBackgroundImage(classImg.imageCropped(toFit: classImgBtn.frame.size), for: .normal)
     }
     
     override func didReceiveMemoryWarning() {

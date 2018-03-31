@@ -142,7 +142,15 @@ public class APIManager {
                         }
                         else if code == 104
                         {
-                            completion(code)
+                            if result["message"] as! String == "Requested user not found"
+                            {
+                                displayToast(result["message"] as! String)
+                                return
+                            }
+                            else
+                            {
+                                completion(code)
+                            }
                         }
                     }
                     if let message = result["message"] as? String{
@@ -274,6 +282,7 @@ public class APIManager {
         }
     }
     
+    //MARK:- Change Password
     func serviceCallToChangePassword(_ completion: @escaping () -> Void){
         showLoader()
         
@@ -339,11 +348,14 @@ public class APIManager {
             case .success:
                 print(response.result.value!)
                 if let result = response.result.value as? [String:Any]{
-                    AppModel.shared.currentUser = UserModel.init(dict: result)
-                    AppModel.shared.currentUser.accessToken = AppModel.shared.token
-                    setLoginUserData(AppModel.shared.currentUser.dictionary())
-                    completion()
-                    return
+                    if let data : [String : Any] = result["data"] as? [String : Any]
+                    {
+                        AppModel.shared.currentUser = UserModel.init(dict: data)
+                        AppModel.shared.currentUser.accessToken = AppModel.shared.token
+                        setLoginUserData(AppModel.shared.currentUser.dictionary())
+                        completion()
+                        return
+                    }
                 }
                 if let error = response.result.error
                 {
@@ -360,18 +372,12 @@ public class APIManager {
         }
     }
     
-    func serviceCallToUpdateUserDetail(_ dict : [String : Any], degreeData : Data, pictureData : Data, completion: @escaping () -> Void){
+    func serviceCallToUpdateTeacherDetail(_ dict : [String : Any], degreeData : Data, pictureData : Data, completion: @escaping () -> Void){
         showLoader()
         
-        let headerParams :[String : String] = getMultipartHeader()
+        let headerParams :[String : String] = getMultipartHeaderWithToken()
         var params :[String : Any] = [String : Any] ()
         params["data"] = AppModel.shared.currentUser.toJson(dict)
-        
-        var strUrl : String = "teachers/update"
-        if isStudentLogin()
-        {
-            strUrl = "students/update"
-        }
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
@@ -387,7 +393,7 @@ public class APIManager {
                 multipartFormData.append(pictureData, withName: "picture", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
             }
             
-        }, usingThreshold: UInt64.init(), to: BASE_URL+strUrl, method: .post
+        }, usingThreshold: UInt64.init(), to: BASE_URL+"teachers/update", method: .post
         , headers: headerParams) { (result) in
             switch result{
             case .success(let upload, _, _):
@@ -426,6 +432,108 @@ public class APIManager {
         }
     }
     
+    //MARK:- Certificate
+    func serviceCallToUpdateCertificates(_ policeData : Data, childrenData : Data, completion: @escaping () -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getMultipartHeaderWithToken()
+        
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            if policeData.count != 0
+            {
+                multipartFormData.append(policeData, withName: "policeCert", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
+            }
+            if childrenData.count != 0
+            {
+                multipartFormData.append(childrenData, withName: "childrenCert", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
+            }
+            
+        }, usingThreshold: UInt64.init(), to: BASE_URL+"certificates/save", method: .post
+        , headers: headerParams) { (result) in
+            switch result{
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (Progress) in
+                    print("Upload Progress: \(Progress.fractionCompleted)")
+                })
+                upload.responseJSON { response in
+                    removeLoader()
+                    print(response.result.value!)
+                    if let result = response.result.value as? [String:Any]{
+                        if let code = result["code"] as? Int{
+                            if(code == 100){
+                                self.serviceCallToGetCertificate({
+                                    
+                                })
+                                completion()
+                                return
+                            }
+                        }
+                        if let message = result["message"] as? String{
+                            displayToast(message)
+                            return
+                        }
+                    }
+                    
+                    if let error = response.error{
+                        displayToast(error.localizedDescription)
+                        return
+                    }
+                    displayToast("Registeration error")
+                }
+            case .failure(let error):
+                removeLoader()
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    func serviceCallToGetCertificate(_ completion: @escaping () -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        
+        let params :[String : Any] = [String : Any] ()
+        
+        Alamofire.request(BASE_URL+"certificates/details", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            
+            removeLoader()
+            
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let data : [String : Any] = result["data"] as? [String : Any]
+                    {
+                        if let policeCertificate : String = data["policeCertificate"] as? String
+                        {
+                            setPoliceCertificate(policeCertificate)
+                        }
+                        if let childrenCertifiate : String = data["childrenCertifiate"] as? String
+                        {
+                            setChildreanCertificate(childrenCertifiate)
+                        }
+                        completion()
+                        return
+                    }
+                }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                displayToast("Error in getting user detail.")
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
     //MARK:- Get Photo
     func serviceCallToGetUserAvatar(_ user:UserModel, btn:UIButton){
         
@@ -443,7 +551,7 @@ public class APIManager {
         }
     }
     
-    func serviceCallToGetPhoto(_ picPath:String?, isUser : Bool, btn:[UIButton]){
+    func serviceCallToGetPhoto(_ picPath:String?, placeHolder : String, btn:[UIButton]){
         
         if let picture = picPath
         {
@@ -456,10 +564,11 @@ public class APIManager {
                 
             }
             else{
+                
                 DataRequest.addAcceptableImageContentTypes(["image/jpg", "image/jpeg", "image/png", "image/gif"])
                 AppModel.shared.imageQueue[picPath!] = true
                 //let headerParams :[String : String] = getJsonHeader()
-                Alamofire.request(PHOTO_BASE_URL + picPath!).responseImage { response in
+                Alamofire.request(BASE_URL + picPath!).responseImage { response in
                     if let image = response.result.value {
                         AppModel.shared.imageQueue[picPath!] = image
                         for i in 0..<btn.count{
@@ -477,15 +586,106 @@ public class APIManager {
         else
         {
             for i in 0..<btn.count{
-                if isUser
-                {
-                    btn[i].setBackgroundImage(UIImage.init(named: "userPlaceHolder"), for: .normal)
-                }
-                else
-                {
-                    btn[i].setBackgroundImage(UIImage.init(named: "placeholder_event"), for: .normal)
-                }
+                btn[i].setBackgroundImage(UIImage.init(named: placeHolder), for: .normal)
             }
         }
     }
+
+    func serviceCallToGetCertificate(_ picPath:String?, placeHolder : String, btn:[UIButton]){
+        
+        if let picture = picPath
+        {
+            if let image = AppModel.shared.imageQueue[picture] as? UIImage{
+                for i in 0..<btn.count{
+                    btn[i].setBackgroundImage(image.imageCropped(toFit: btn[i].frame.size), for: .normal)
+                }
+            }
+            else if let _ = AppModel.shared.imageQueue[picture] as? Bool{
+                
+            }
+            else{
+                let headerParams :[String : String] = getJsonHeaderWithToken()
+                DataRequest.addAcceptableImageContentTypes(["image/jpg", "image/jpeg", "image/png", "image/gif"])
+                AppModel.shared.imageQueue[picPath!] = true
+                //let headerParams :[String : String] = getJsonHeader()
+                Alamofire.request(BASE_URL + picPath!, headers: headerParams).responseImage { response in
+                    if let image = response.result.value {
+                        AppModel.shared.imageQueue[picPath!] = image
+                        for i in 0..<btn.count{
+                            btn[i].setBackgroundImage(image.imageCropped(toFit: btn[i].frame.size), for: .normal)
+                        }
+                        return
+                    }
+                    else
+                    {
+                        AppModel.shared.imageQueue[picPath!] = nil
+                    }
+                }
+            }
+        }
+        else
+        {
+            for i in 0..<btn.count{
+                btn[i].setBackgroundImage(UIImage.init(named: placeHolder), for: .normal)
+            }
+        }
+    }
+    
+    //MARK:- Class
+    func serviceCallToCreateClass(_ classImgData : Data, completion: @escaping () -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        
+        var params :[String : Any] = [String : Any] ()
+        
+        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category, "level" : AppModel.shared.currentClass.level, "description" : AppModel.shared.currentClass.desc, "bio" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "price" : AppModel.shared.currentClass.price])
+        
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            for (key, value) in params {
+                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+            }
+            if classImgData.count != 0
+            {
+                multipartFormData.append(classImgData, withName: "picture", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
+            }
+        }, usingThreshold: UInt64.init(), to: BASE_URL+"class/create", method: .post
+        , headers: headerParams) { (result) in
+            switch result{
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (Progress) in
+                    print("Upload Progress: \(Progress.fractionCompleted)")
+                })
+                upload.responseJSON { response in
+                    removeLoader()
+                    print(response.result.value!)
+                    if let result = response.result.value as? [String:Any]{
+                        if let code = result["code"] as? Int{
+                            if(code == 100){
+                                completion()
+                                return
+                            }
+                        }
+                        if let message = result["message"] as? String{
+                            displayToast(message)
+                            return
+                        }
+                    }
+                    
+                    if let error = response.error{
+                        displayToast(error.localizedDescription)
+                        return
+                    }
+                    displayToast("Registeration error")
+                }
+            case .failure(let error):
+                removeLoader()
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+
 }

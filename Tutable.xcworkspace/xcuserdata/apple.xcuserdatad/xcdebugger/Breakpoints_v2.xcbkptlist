@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Tutable/Login Module/LoginVC.swift"
-            timestampString = "544019960.863323"
+            filePath = "Tutable/Class/AddClassVC.swift"
+            timestampString = "544199535.8093719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "clickToLogin(_:)"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "clickToNext(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

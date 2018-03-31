@@ -22,6 +22,19 @@ class LoginVC: UIViewController {
 
     override func viewWillLayoutSubviews() {
         setUIDesigning()
+        
+        if Platform.isSimulator
+        {
+            if isStudentLogin()
+            {
+                
+            }
+            else
+            {
+                usernameTxt.text = "keyurdakbari@gmail.com"
+                passwordTxt.text = "qqqq"
+            }
+        }
     }
     
     func setUIDesigning()

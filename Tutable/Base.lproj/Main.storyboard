@@ -3242,7 +3242,7 @@
                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S09-CP-jBN">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="DD MM YYYY" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S09-CP-jBN">
                                                                 <rect key="frame" x="0.0" y="21" width="300" height="39"/>
                                                                 <color key="textColor" red="0.75482905460000005" green="0.79415174219999995" blue="0.85683298090000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -4308,14 +4308,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C9e-Hj-6Z3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3819" y="707"/>
+            <point key="canvasLocation" x="4493" y="707"/>
         </scene>
         <!--Add ClassVC-->
         <scene sceneID="U15-Mv-7qv">
             <objects>
                 <viewController storyboardIdentifier="AddClassVC" id="il3-V2-tZy" customClass="AddClassVC" customModule="Tutable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8DH-Sq-8VJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="630"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="690"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a0K-51-baS">
@@ -4358,10 +4358,10 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fA4-py-ArX">
-                                <rect key="frame" x="0.0" y="70" width="320" height="560"/>
+                                <rect key="frame" x="0.0" y="70" width="320" height="620"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y1M-57-cca">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="560"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="620"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tkY-Nh-mps">
                                                 <rect key="frame" x="10" y="20" width="300" height="60"/>
@@ -4455,7 +4455,7 @@
                                                             <constraint firstAttribute="width" constant="200" id="KoS-3E-npg"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
-                                                        <state key="normal" title="Select Categories">
+                                                        <state key="normal" title="Select Category">
                                                             <color key="titleColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                         <connections>
@@ -4491,10 +4491,10 @@
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                                         <state key="normal" image="bottom_arrow"/>
                                                         <connections>
-                                                            <action selector="clickToState:" destination="il3-V2-tZy" eventType="touchUpInside" id="opw-Ak-KqX"/>
+                                                            <action selector="clickToSelectLevel:" destination="il3-V2-tZy" eventType="touchUpInside" id="81H-5g-iu5"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vy0-Ro-ubM">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vy0-Ro-ubM">
                                                         <rect key="frame" x="164.5" y="4" width="115" height="31"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                         <color key="textColor" red="0.66666666669999997" green="0.66666668650000005" blue="0.66666668650000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -4515,8 +4515,77 @@
                                                     <constraint firstItem="Vy0-Ro-ubM" firstAttribute="leading" secondItem="Cl1-Lh-xbW" secondAttribute="leading" constant="5" id="uah-QD-Ta0"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ogJ-Oe-TAZ">
+                                                <rect key="frame" x="10" y="295" width="300" height="60"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How much would you like to charge?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="byg-kI-S1G">
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="19"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="19" id="yrp-iw-PFt"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAb-4a-ieo">
+                                                        <rect key="frame" x="0.0" y="24" width="15" height="31"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="15" id="XpS-ri-Rme"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                                        <color key="textColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aML-9g-gKl">
+                                                        <rect key="frame" x="20" y="19" width="80" height="41"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="80" id="z2T-pv-IDZ"/>
+                                                        </constraints>
+                                                        <color key="textColor" red="0.75482905460000005" green="0.79415174219999995" blue="0.85683298090000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="il3-V2-tZy" id="BGX-Qz-eiu"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/Hr" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsP-6z-kAU">
+                                                        <rect key="frame" x="105" y="24" width="50" height="31"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="y2b-s1-Kew"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                                        <color key="textColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D1F-vu-cYT">
+                                                        <rect key="frame" x="20" y="59" width="80" height="1"/>
+                                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="BhW-nC-Clq"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="aML-9g-gKl" firstAttribute="top" secondItem="byg-kI-S1G" secondAttribute="bottom" id="4pp-u2-aif"/>
+                                                    <constraint firstItem="QsP-6z-kAU" firstAttribute="leading" secondItem="aML-9g-gKl" secondAttribute="trailing" constant="5" id="67p-JR-Q6R"/>
+                                                    <constraint firstItem="QsP-6z-kAU" firstAttribute="top" secondItem="byg-kI-S1G" secondAttribute="bottom" constant="5" id="JpU-hW-h7D"/>
+                                                    <constraint firstItem="MAb-4a-ieo" firstAttribute="top" secondItem="byg-kI-S1G" secondAttribute="bottom" constant="5" id="MG4-VK-Q8A"/>
+                                                    <constraint firstAttribute="bottom" secondItem="MAb-4a-ieo" secondAttribute="bottom" constant="5" id="OfL-bD-XLy"/>
+                                                    <constraint firstAttribute="height" constant="60" id="PHl-OE-idw"/>
+                                                    <constraint firstAttribute="bottom" secondItem="aML-9g-gKl" secondAttribute="bottom" id="TDA-DT-yA6"/>
+                                                    <constraint firstAttribute="trailing" secondItem="byg-kI-S1G" secondAttribute="trailing" id="bWt-EZ-Cjt"/>
+                                                    <constraint firstItem="aML-9g-gKl" firstAttribute="leading" secondItem="MAb-4a-ieo" secondAttribute="trailing" constant="5" id="cb4-EH-rDm"/>
+                                                    <constraint firstItem="D1F-vu-cYT" firstAttribute="leading" secondItem="aML-9g-gKl" secondAttribute="leading" id="e3r-Tw-A33"/>
+                                                    <constraint firstItem="byg-kI-S1G" firstAttribute="top" secondItem="ogJ-Oe-TAZ" secondAttribute="top" id="e8e-xM-Wf2"/>
+                                                    <constraint firstItem="MAb-4a-ieo" firstAttribute="leading" secondItem="ogJ-Oe-TAZ" secondAttribute="leading" id="gIP-R7-iYx"/>
+                                                    <constraint firstAttribute="bottom" secondItem="QsP-6z-kAU" secondAttribute="bottom" constant="5" id="gyJ-ij-GRH"/>
+                                                    <constraint firstItem="D1F-vu-cYT" firstAttribute="trailing" secondItem="aML-9g-gKl" secondAttribute="trailing" id="hr5-0u-Ydg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="D1F-vu-cYT" secondAttribute="bottom" id="lRi-HJ-9XG"/>
+                                                    <constraint firstItem="byg-kI-S1G" firstAttribute="leading" secondItem="ogJ-Oe-TAZ" secondAttribute="leading" id="mMV-lP-mdA"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN1-TF-rAS">
-                                                <rect key="frame" x="10" y="300" width="300" height="60"/>
+                                                <rect key="frame" x="10" y="365" width="300" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tell us why you love this subject" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpG-D0-PVO">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="19"/>
@@ -4559,7 +4628,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uci-Sn-jln">
-                                                <rect key="frame" x="10" y="370" width="300" height="60"/>
+                                                <rect key="frame" x="10" y="435" width="300" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPr-Sa-bnn">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="19"/>
@@ -4602,13 +4671,13 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* This will only be sent by Tutable staff to verify you as one of our teachers" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRY-5b-zD0">
-                                                <rect key="frame" x="10" y="440" width="300" height="26"/>
+                                                <rect key="frame" x="10" y="505" width="300" height="26"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                                 <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vyh-qJ-4as">
-                                                <rect key="frame" x="20" y="496" width="280" height="40"/>
+                                                <rect key="frame" x="20" y="561" width="280" height="40"/>
                                                 <color key="backgroundColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="aoZ-wZ-5mh"/>
@@ -4625,7 +4694,9 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="Vyh-qJ-4as" secondAttribute="bottom" constant="24" id="3Ha-QI-eMl"/>
+                                            <constraint firstItem="iN1-TF-rAS" firstAttribute="top" secondItem="ogJ-Oe-TAZ" secondAttribute="bottom" constant="10" id="08g-Gq-JoQ"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vyh-qJ-4as" secondAttribute="bottom" constant="19" id="3Ha-QI-eMl"/>
+                                            <constraint firstAttribute="trailing" secondItem="ogJ-Oe-TAZ" secondAttribute="trailing" constant="10" id="6aK-TR-qEM"/>
                                             <constraint firstItem="SRY-5b-zD0" firstAttribute="leading" secondItem="y1M-57-cca" secondAttribute="leading" constant="10" id="8EH-pH-Of2"/>
                                             <constraint firstItem="Vyh-qJ-4as" firstAttribute="top" secondItem="SRY-5b-zD0" secondAttribute="bottom" constant="30" id="9C9-SW-PcW"/>
                                             <constraint firstAttribute="trailing" secondItem="tkY-Nh-mps" secondAttribute="trailing" constant="10" id="Bvc-z1-B9M"/>
@@ -4646,7 +4717,8 @@
                                             <constraint firstAttribute="trailing" secondItem="Uci-Sn-jln" secondAttribute="trailing" constant="10" id="Zbc-GK-VMG"/>
                                             <constraint firstItem="Uci-Sn-jln" firstAttribute="top" secondItem="iN1-TF-rAS" secondAttribute="bottom" constant="10" id="gKr-TK-Q1A"/>
                                             <constraint firstItem="Uci-Sn-jln" firstAttribute="leading" secondItem="y1M-57-cca" secondAttribute="leading" constant="10" id="idp-Mh-qa6"/>
-                                            <constraint firstItem="iN1-TF-rAS" firstAttribute="top" secondItem="VfC-AD-UjB" secondAttribute="bottom" constant="10" id="mE8-SU-YJz"/>
+                                            <constraint firstItem="ogJ-Oe-TAZ" firstAttribute="top" secondItem="VfC-AD-UjB" secondAttribute="bottom" constant="5" id="n9Y-qx-u7A"/>
+                                            <constraint firstItem="ogJ-Oe-TAZ" firstAttribute="leading" secondItem="y1M-57-cca" secondAttribute="leading" constant="10" id="nMV-qN-XJA"/>
                                             <constraint firstItem="9uV-PE-RO7" firstAttribute="top" secondItem="tkY-Nh-mps" secondAttribute="bottom" constant="10" id="niW-Cm-e16"/>
                                             <constraint firstItem="9uV-PE-RO7" firstAttribute="leading" secondItem="y1M-57-cca" secondAttribute="leading" constant="10" id="o0K-El-INr"/>
                                         </constraints>
@@ -4673,7 +4745,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gXB-rO-0wq"/>
                     </view>
-                    <size key="freeformSize" width="320" height="630"/>
+                    <size key="freeformSize" width="320" height="690"/>
                     <connections>
                         <outlet property="aboutMeLbl" destination="atD-fO-lao" id="BWb-4d-xvE"/>
                         <outlet property="categoryBtn" destination="oRU-ww-7Pe" id="NDk-1T-Rz6"/>
@@ -4683,9 +4755,12 @@
                         <outlet property="classImgBtn" destination="Dqg-WQ-5ny" id="KzR-S4-4gP"/>
                         <outlet property="classNameTxt" destination="0kL-Lx-YFd" id="am7-ea-SqQ"/>
                         <outlet property="constraintHeightCategoryPopup" destination="jxv-yJ-esq" id="hLM-Ct-GHA"/>
+                        <outlet property="levelBtn" destination="Cl1-Lh-xbW" id="WbT-bf-RRS"/>
+                        <outlet property="levelLbl" destination="Vy0-Ro-ubM" id="NZH-kv-tML"/>
                         <outlet property="nextBtn" destination="Vyh-qJ-4as" id="ydE-eO-4AR"/>
-                        <outlet property="stateBtn" destination="Cl1-Lh-xbW" id="ZdA-SD-xnj"/>
-                        <outlet property="stateLbl" destination="Vy0-Ro-ubM" id="jpw-10-U1g"/>
+                        <outlet property="perHourLbl" destination="QsP-6z-kAU" id="J3h-Hs-nM6"/>
+                        <outlet property="priceTxt" destination="aML-9g-gKl" id="fo5-FZ-VPW"/>
+                        <outlet property="priceUnitLbl" destination="MAb-4a-ieo" id="5Qr-NL-rVs"/>
                         <outlet property="subjectLbl" destination="gi8-2Q-l5H" id="QBb-ed-NKj"/>
                         <outlet property="titleLbl" destination="fOt-OQ-gWf" id="uLQ-gD-E7Z"/>
                     </connections>
@@ -4744,7 +4819,7 @@
                     <viewLayoutGuide key="safeArea" id="dmC-el-zFg"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="4493" y="737"/>
+            <point key="canvasLocation" x="5841" y="770"/>
         </scene>
         <!--Teacher QulificationVC-->
         <scene sceneID="IRa-kv-BGa">
@@ -4768,7 +4843,7 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="back"/>
                                         <connections>
-                                            <action selector="clickToBack:" destination="il3-V2-tZy" eventType="touchUpInside" id="9MT-FM-pGy"/>
+                                            <action selector="clickToBack:" destination="Bo7-bE-1Ze" eventType="touchUpInside" id="g5P-Eu-YLV"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADD QULIFICATION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BqH-Vk-D78">
@@ -4847,7 +4922,7 @@
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <outlet property="delegate" destination="il3-V2-tZy" id="6SJ-qC-Ns3"/>
+                                                    <outlet property="delegate" destination="Bo7-bE-1Ze" id="REc-s8-gPY"/>
                                                 </connections>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tug-lb-Taf">
@@ -4890,7 +4965,7 @@
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <outlet property="delegate" destination="il3-V2-tZy" id="gkr-Wa-axR"/>
+                                                    <outlet property="delegate" destination="Bo7-bE-1Ze" id="jOB-lI-e1H"/>
                                                 </connections>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NIY-Nm-3ye">
@@ -4935,7 +5010,7 @@
                                                 </constraints>
                                                 <state key="normal" backgroundImage="camera_icon"/>
                                                 <connections>
-                                                    <action selector="clickToUploadClassImg:" destination="il3-V2-tZy" eventType="touchUpInside" id="7Or-YN-P1O"/>
+                                                    <action selector="clickToUploadDegreeImg:" destination="Bo7-bE-1Ze" eventType="touchUpInside" id="1Ne-fy-Sbe"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -4961,7 +5036,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="clickToNext:" destination="il3-V2-tZy" eventType="touchUpInside" id="tvx-aX-4Bk"/>
+                                            <action selector="clickToNext:" destination="Bo7-bE-1Ze" eventType="touchUpInside" id="NFO-L4-mhb"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -4996,10 +5071,17 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Dse-zM-hcJ"/>
                     </view>
+                    <connections>
+                        <outlet property="degreeImgBtn" destination="e3E-u8-wDN" id="wR4-II-Pxl"/>
+                        <outlet property="nextBtn" destination="LLW-Cs-MMg" id="mXu-J6-jxu"/>
+                        <outlet property="qulificationTxt" destination="UM2-cj-LuS" id="aqh-VH-zWt"/>
+                        <outlet property="relevantSegment" destination="mcS-OS-CEP" id="kIX-oH-MhU"/>
+                        <outlet property="schoolTxt" destination="k3Z-l8-4bG" id="mXE-qK-B8M"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pIb-uZ-osT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5162" y="705"/>
+            <point key="canvasLocation" x="3819" y="707"/>
         </scene>
         <!--Teacher Hourly RateVC-->
         <scene sceneID="FxY-B7-AjD">
@@ -5023,7 +5105,7 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="back"/>
                                         <connections>
-                                            <action selector="clickToBack:" destination="il3-V2-tZy" eventType="touchUpInside" id="eM6-fR-2eW"/>
+                                            <action selector="clickToBack:" destination="Wcr-sV-WSM" eventType="touchUpInside" id="gpw-eb-Hdz"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOURLY RATE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SaV-is-ob4">
@@ -5073,7 +5155,7 @@
                                     <constraint firstAttribute="height" constant="60" id="jQr-q7-75g"/>
                                 </constraints>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="40"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/Hr" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9f3-ZH-Ejz">
@@ -5093,11 +5175,11 @@
                                     <constraint firstAttribute="height" constant="40" id="dOY-XY-0Le"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
-                                <state key="normal" title="NEXT">
+                                <state key="normal" title="SUBMIT">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="clickToNext:" destination="il3-V2-tZy" eventType="touchUpInside" id="SYD-AT-OOW"/>
+                                    <action selector="clickToSubmit:" destination="Wcr-sV-WSM" eventType="touchUpInside" id="Jgl-6E-JST"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -5122,10 +5204,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qkY-G8-65F"/>
                     </view>
+                    <connections>
+                        <outlet property="perHourLbl" destination="9f3-ZH-Ejz" id="WyH-DS-dax"/>
+                        <outlet property="priceTxt" destination="Ipf-0q-nT4" id="VE9-pw-j4q"/>
+                        <outlet property="priceUnitLbl" destination="U78-tX-LFd" id="GJn-r9-0nC"/>
+                        <outlet property="submitBtn" destination="Hnt-xw-biu" id="BXf-qv-B60"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3C6-Dw-glM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5841" y="705"/>
+            <point key="canvasLocation" x="6548" y="706"/>
         </scene>
         <!--Account DetailVC-->
         <scene sceneID="avH-EM-bDn">
@@ -5149,7 +5237,7 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="back"/>
                                         <connections>
-                                            <action selector="clickToBack:" destination="il3-V2-tZy" eventType="touchUpInside" id="uys-6f-Yqf"/>
+                                            <action selector="clickToBack:" destination="JvK-uF-W4g" eventType="touchUpInside" id="OK3-VH-fRg"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCOUNT DETAILS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QR1-56-mUL">
@@ -5201,7 +5289,7 @@
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <connections>
-                                                                    <outlet property="delegate" destination="il3-V2-tZy" id="LME-fS-bEp"/>
+                                                                    <outlet property="delegate" destination="JvK-uF-W4g" id="Sni-Ur-n2y"/>
                                                                 </connections>
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XMZ-DH-GSy">
@@ -5244,7 +5332,7 @@
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <connections>
-                                                                    <outlet property="delegate" destination="il3-V2-tZy" id="fsm-V8-pDF"/>
+                                                                    <outlet property="delegate" destination="JvK-uF-W4g" id="zDI-ou-PfO"/>
                                                                 </connections>
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zB9-Gr-wJx">
@@ -5287,7 +5375,7 @@
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                                                 <connections>
-                                                                    <outlet property="delegate" destination="il3-V2-tZy" id="WKh-j1-Mkw"/>
+                                                                    <outlet property="delegate" destination="JvK-uF-W4g" id="NU8-sK-BAa"/>
                                                                 </connections>
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hTg-LX-Yov">
@@ -5330,7 +5418,7 @@
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                                                 <connections>
-                                                                    <outlet property="delegate" destination="il3-V2-tZy" id="fYd-er-9oi"/>
+                                                                    <outlet property="delegate" destination="JvK-uF-W4g" id="AIS-ga-ZyR"/>
                                                                 </connections>
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1cu-Xf-O8B">
@@ -5375,6 +5463,9 @@
                                                         <state key="selected" image="checked">
                                                             <color key="titleColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="clickToTermsCondition:" destination="JvK-uF-W4g" eventType="touchUpInside" id="81V-Cs-GUF"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMS-ew-vQx">
                                                         <rect key="frame" x="20" y="408" width="280" height="40"/>
@@ -5388,7 +5479,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="clickToNext:" destination="il3-V2-tZy" eventType="touchUpInside" id="VHD-eJ-Teg"/>
+                                                            <action selector="clickToDone:" destination="JvK-uF-W4g" eventType="touchUpInside" id="1qZ-Xu-gtt"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -5448,10 +5539,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4xk-nA-cPg"/>
                     </view>
+                    <connections>
+                        <outlet property="abnTxt" destination="wVa-Nk-hle" id="Tdz-wN-wQq"/>
+                        <outlet property="accountNameTxt" destination="5D9-nW-0ay" id="X4A-1d-exR"/>
+                        <outlet property="accountNumberTxt" destination="lm3-NJ-k7z" id="KrF-RL-biU"/>
+                        <outlet property="bsbTxt" destination="Ran-nX-SMn" id="6nS-uw-2LY"/>
+                        <outlet property="doneBtn" destination="nMS-ew-vQx" id="0EP-gd-wEE"/>
+                        <outlet property="termsConditionBtn" destination="nHK-fM-Pf8" id="Yxo-rM-OTX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4z6-cv-NZD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6473" y="705"/>
+            <point key="canvasLocation" x="7178" y="706"/>
         </scene>
         <!--Teacher FinishVC-->
         <scene sceneID="TF8-p3-rG2">
@@ -5472,7 +5571,7 @@
                                         <color key="tintColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="back"/>
                                         <connections>
-                                            <action selector="clickToBack:" destination="il3-V2-tZy" eventType="touchUpInside" id="AOs-MO-fCH"/>
+                                            <action selector="clickToback:" destination="Kam-t6-3mg" eventType="touchUpInside" id="x1k-aX-cZs"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -5537,7 +5636,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="clickToNext:" destination="il3-V2-tZy" eventType="touchUpInside" id="G5b-cD-6jD"/>
+                                    <action selector="clickToFinish:" destination="Kam-t6-3mg" eventType="touchUpInside" id="NRF-lp-ctB"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -5556,15 +5655,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zcG-CE-ePA"/>
                     </view>
+                    <connections>
+                        <outlet property="finishBtn" destination="Lgv-XT-oz2" id="Kyr-zn-xIB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fu3-j4-lWL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7138" y="705"/>
+            <point key="canvasLocation" x="5162" y="707"/>
         </scene>
         <!--Verification CodeVC-->
         <scene sceneID="rGT-rX-KEA">
             <objects>
-                <viewController storyboardIdentifier="VerificationCodeVC" id="7nm-K0-wpg" customClass="VerificationCodeVC" customModule="LIT_NITE" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VerificationCodeVC" id="7nm-K0-wpg" customClass="VerificationCodeVC" customModule="Tutable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yp4-dY-Eob">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

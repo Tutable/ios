@@ -18,6 +18,11 @@ func getTimestampFromDate(date : Date) -> Double
     return date.timeIntervalSince1970*1000
 }
 
+func getDateFromTimeStamp(_ timeStemp:Double) -> Date
+{
+    return Date(timeIntervalSince1970: TimeInterval(timeStemp/1000))
+}
+
 func getDateStringFromServerTimeStemp(_ timeStemp:Double) -> String{
     
     let date : Date = Date(timeIntervalSince1970: TimeInterval(timeStemp/1000))
@@ -57,6 +62,15 @@ func getDateStringFromDate(date : Date) -> String
     dateFormatter.locale = NSLocale.current
     dateFormatter.dateFormat = DATE_FORMAT.DISPLAY_DATE_FORMAT
     return dateFormatter.string(from: date)
+}
+
+func getDateFromDateString(strDate : String) -> Date
+{
+    let dateFormatter = DateFormatter()
+    //dateFormatter.timeZone = TimeZone(abbreviation: "GMT") //Set timezone that you want
+    dateFormatter.locale = NSLocale.current
+    dateFormatter.dateFormat = DATE_FORMAT.DISPLAY_DATE_FORMAT
+    return dateFormatter.date(from: strDate)!
 }
 
 //MARK: Date difference
@@ -167,3 +181,11 @@ func getDateOnlyFromDate(date : Date) -> String
     dateFormatter.dateFormat = "d"
     return dateFormatter.string(from: date)
 }
+
+
+func getOnlyDateTimestamp(date : Date) -> Double
+{
+    let strDate : String = getDateStringFromDate(date: date)
+    return getTimestampFromDate(date: getDateFromDateString(strDate: strDate))
+}
+

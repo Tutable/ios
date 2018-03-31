@@ -16,12 +16,14 @@ import UIKit
 //Live
 let BASE_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api/"
 let PHOTO_BASE_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api/"
+let CERTIFICATE_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api/certificates/asset/"
 
 let ITUNES_URL = "https://itunes.apple.com/us/app/lit-nite/id1360588270?ls=1&mt=8"
 
 let TERMS_CONDITIONS = "http://mylitnite.com/terms"
 
 let stateArr : [String] = ["ACT", "JBT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"]
+let classLevelArr : [String] = ["Beginner", "Intermediate", "Advanced"]
 
 struct SCREEN
 {
@@ -55,7 +57,7 @@ struct CONSTANT{
 
 struct IMAGE {
     static var USER_PLACEHOLDER = "user_avatar"
-    static var CAMERA_PLACEHOLDER = "user_avatar"
+    static var CAMERA_PLACEHOLDER = "camera_icon"
 }
 
 struct GOOGLE
@@ -106,5 +108,13 @@ struct COREDATA {
     struct FOLDER {
         static var CHAT_IMAGE = "chat_image"
     }
+}
+
+struct Platform {
+    
+    static var isSimulator: Bool {
+        return TARGET_OS_SIMULATOR != 0
+    }
+    
 }
 

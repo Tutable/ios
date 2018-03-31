@@ -58,20 +58,6 @@ func isUserLogin() -> Bool
     return isUserLogin == nil ? false:(isUserLogin as! Bool)
 }
 
-func setAuthToken(value: String)
-{
-    setDataToPreference(data: value as AnyObject, forKey: Preference.sharedInstance.AUTH_TOKEN_KEY)
-}
-
-func getAuthToken() -> String
-{
-    if let authToken = getDataFromPreference(key: Preference.sharedInstance.AUTH_TOKEN_KEY)
-    {
-        return authToken as! String
-    }
-    return ""
-}
-
 func setLoginUserData(_ dictData: [String : Any])
 {
     setDataToPreference(data: dictData as AnyObject, forKey: Preference.sharedInstance.USER_DATA_KEY)
@@ -118,4 +104,30 @@ func isStudentLogin() -> Bool
     }
 }
 
+func setPoliceCertificate(_ strUrl : String)
+{
+    setDataToPreference(data: strUrl as AnyObject, forKey: "police_certificate")
+}
 
+func getPoliceCertificate() -> String
+{
+    if let strUrl : String = getDataFromPreference(key: "police_certificate") as? String
+    {
+        return strUrl
+    }
+    return ""
+}
+
+func setChildreanCertificate(_ strUrl : String)
+{
+    setDataToPreference(data: strUrl as AnyObject, forKey: "childrean_certificate")
+}
+
+func getChildreanCertificate() -> String
+{
+    if let strUrl : String = getDataFromPreference(key: "childrean_certificate") as? String
+    {
+        return strUrl
+    }
+    return ""
+}
