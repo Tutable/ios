@@ -113,9 +113,10 @@ class VerificationCodeVC: UIViewController, UITextFieldDelegate {
     func serviceCalledForVerifyOTP()
     {
         APIManager.sharedInstance.serviceCallToVerifyCode(verificationCodeTxt.text!) {
-            if !isStudentLogin() && AppModel.shared.currentUser.firstLogin == 1
+            if !isStudentLogin()
             {
                 let vc : EditTeacherProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
+                vc.isBackDisplay = false
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else

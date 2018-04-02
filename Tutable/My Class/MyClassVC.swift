@@ -13,6 +13,7 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var notiCountLbl: UILabel!
     @IBOutlet weak var addClassBtn: UIButton!
+    @IBOutlet weak var noDataFoundLbl: UILabel!
     
     var myClassData : [[String : Any]] = [[String : Any]]()
     
@@ -45,6 +46,14 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
             print(dataArr)
             self.myClassData = dataArr
             self.tblView.reloadData()
+            if self.myClassData.count == 0
+            {
+                self.noDataFoundLbl.isHidden = false
+            }
+            else
+            {
+                self.noDataFoundLbl.isHidden = true
+            }
         }
     }
     
@@ -78,7 +87,7 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomMyClassTVC", for: indexPath) as! CustomMyClassTVC
         let dict : [String : Any] = myClassData[indexPath.row]
         
-        cell
+        
         
         cell.setCellDesign()
         return cell

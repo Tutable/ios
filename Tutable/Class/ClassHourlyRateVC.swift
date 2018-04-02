@@ -1,6 +1,6 @@
 
 //
-//  TeacherHourlyRateVC.swift
+//  ClassHourlyRateVC.swift
 //  Tutable
 //
 //  Created by Keyur on 29/03/18.
@@ -9,17 +9,24 @@
 
 import UIKit
 
-class TeacherHourlyRateVC: UIViewController {
+class ClassHourlyRateVC: UIViewController {
 
     @IBOutlet weak var priceUnitLbl: UILabel!
     @IBOutlet weak var priceTxt: UITextField!
     @IBOutlet weak var perHourLbl: UILabel!
     @IBOutlet weak var submitBtn: UIButton!
     
+    var classImg : UIImage!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        if AppModel.shared.currentClass.rate != 0
+        {
+            priceTxt.text = String(AppModel.shared.currentClass.rate)
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -41,8 +48,19 @@ class TeacherHourlyRateVC: UIViewController {
     
     @IBAction func clickToSubmit(_ sender: Any) {
         self.view.endEditing(true)
-        let vc : TeacherFinishVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        AppModel.shared.currentClass.rate = Int(priceTxt.text!)
+        if let imageData = UIImagePNGRepresentation(classImg){
+            APIManager.sharedInstance.serviceCallToCreateClass(imageData, completion: {
+                if self.tabBarController == nil
+                {
+                    AppDelegate().sharedDelegate().navigateToDashboard()
+                }
+                else
+                {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })
+        }
     }
     
     override func didReceiveMemoryWarning() {

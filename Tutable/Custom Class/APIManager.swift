@@ -390,7 +390,6 @@ public class APIManager {
                     {
                         AppModel.shared.currentUser = UserModel.init(dict: data)
                         AppModel.shared.currentUser.accessToken = AppModel.shared.token
-                        setLoginUserData(AppModel.shared.currentUser.dictionary())
                         completion()
                         return
                     }
@@ -400,7 +399,6 @@ public class APIManager {
                     displayToast(error.localizedDescription)
                     return
                 }
-                displayToast("Error in getting user detail.")
                 break
             case .failure(let error):
                 print(error)
@@ -459,7 +457,6 @@ public class APIManager {
                         displayToast(error.localizedDescription)
                         return
                     }
-                    displayToast("Registeration error")
                 }
             case .failure(let error):
                 removeLoader()
@@ -517,7 +514,6 @@ public class APIManager {
                         displayToast(error.localizedDescription)
                         return
                     }
-                    displayToast("Registeration error")
                 }
             case .failure(let error):
                 removeLoader()
@@ -553,16 +549,15 @@ public class APIManager {
                         {
                             setChildreanCertificate(childrenCertifiate)
                         }
-                        completion()
-                        return
                     }
+                    completion()
+                    return
                 }
                 if let error = response.result.error
                 {
                     displayToast(error.localizedDescription)
                     return
                 }
-                displayToast("Error in getting user detail.")
                 break
             case .failure(let error):
                 print(error)
@@ -677,7 +672,7 @@ public class APIManager {
         
         var params :[String : Any] = [String : Any] ()
         
-        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category, "level" : AppModel.shared.currentClass.level, "description" : AppModel.shared.currentClass.desc, "bio" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "rate" : AppModel.shared.currentClass.rate])
+        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "description" : AppModel.shared.currentClass.desc, "bio" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "rate" : AppModel.shared.currentClass.rate])
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
@@ -715,7 +710,6 @@ public class APIManager {
                         displayToast(error.localizedDescription)
                         return
                     }
-                    displayToast("Registeration error")
                 }
             case .failure(let error):
                 removeLoader()
@@ -753,7 +747,6 @@ public class APIManager {
                     displayToast(error.localizedDescription)
                     return
                 }
-                displayToast("Error in getting user detail.")
                 break
             case .failure(let error):
                 print(error)

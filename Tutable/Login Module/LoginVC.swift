@@ -18,11 +18,6 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-
-    override func viewWillLayoutSubviews() {
-        setUIDesigning()
-        
         if Platform.isSimulator
         {
             if isStudentLogin()
@@ -31,10 +26,17 @@ class LoginVC: UIViewController {
             }
             else
             {
-                usernameTxt.text = "keyurdakbari@gmail.com"
+                //                usernameTxt.text = "keyurdakbari@gmail.com"
+                usernameTxt.text = "testyear16@gmail.com"
                 passwordTxt.text = "qqqq"
             }
         }
+
+    }
+
+    override func viewWillLayoutSubviews() {
+        setUIDesigning()
+        
     }
     
     func setUIDesigning()
@@ -72,14 +74,37 @@ class LoginVC: UIViewController {
                 APIManager.sharedInstance.serviceCallToLogin({ (code) in
                     if code == 100
                     {
-                        if !isStudentLogin() && AppModel.shared.currentUser.firstLogin == 1
+                        if isStudentLogin()
                         {
-                            let vc : EditTeacherProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
-                            self.navigationController?.pushViewController(vc, animated: true)
+                            
                         }
                         else
                         {
-                            AppDelegate().sharedDelegate().navigateToDashboard()
+                            APIManager.sharedInstance.serviceCallToGetCertificate {
+                                let redirectionType : Int = AppDelegate().sharedDelegate().redirectAfterTeacherRegistration()
+                                if redirectionType == 0
+                                {
+                                    AppDelegate().sharedDelegate().navigateToDashboard()
+                                }
+                                else if redirectionType == 1
+                                {
+                                    let vc : EditTeacherProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
+                                    vc.isBackDisplay = false
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                }
+                                else if redirectionType == 2
+                                {
+                                    let vc : TeacherQulificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
+                                    vc.isBackDisplay = false
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                }
+                                else if redirectionType == 3
+                                {
+                                    let vc : TeacherCertificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
+                                    vc.isBackDisplay = false
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                }
+                            }
                         }
                     }
                     else if code == 104

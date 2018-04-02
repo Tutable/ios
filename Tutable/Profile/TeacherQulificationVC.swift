@@ -15,9 +15,12 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
     @IBOutlet weak var schoolTxt: UITextField!
     @IBOutlet weak var degreeImgBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
-    
+    @IBOutlet weak var backBtn: UIButton!
+
     var _PhotoSelectionVC:PhotoSelectionVC!
     var degreeImg:UIImage!
+    
+    var isBackDisplay : Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +29,10 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
         _PhotoSelectionVC = self.storyboard?.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
+        
+        backBtn.isHidden = !isBackDisplay
+        
+        setUserDetail()
     }
     
     override func viewWillLayoutSubviews() {
@@ -36,8 +43,6 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
     {
         degreeImgBtn.addCornerRadiusOfView(5.0)
         nextBtn.addCornerRadiusOfView(nextBtn.frame.size.height/2)
-        
-        setUserDetail()
     }
     
     func setUserDetail()
@@ -67,7 +72,6 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
     
     @IBAction func clickToNext(_ sender: Any) {
         self.view.endEditing(true)
-        
         if relevantSegment.selectedSegmentIndex == 0
         {
             if qulificationTxt.text == ""

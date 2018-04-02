@@ -12,6 +12,7 @@ import DropDown
 class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, PhotoSelectionDelegate {
 
     @IBOutlet weak var userProfilePicBtn: UIButton!
+    @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var dobTxt: UITextField!
     @IBOutlet weak var genderSegment: UISegmentedControl!
@@ -26,6 +27,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     var selectedDob : Date!
     var _PhotoSelectionVC:PhotoSelectionVC!
     var _imgCompress:UIImage!
+    var isBackDisplay : Bool = true
     
     var availabilityDict : [String : [String]] = [String : [String]]()
     
@@ -37,6 +39,10 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         _PhotoSelectionVC = self.storyboard?.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
+        
+        
+        backBtn.isHidden = !isBackDisplay
+        
         
         setUserDetail()
     }
@@ -79,8 +85,13 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         {
             APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
         }
-        dobTxt.text = getDateStringFromServerTimeStemp(AppModel.shared.currentUser.dob)
-        selectedDob = getDateFromTimeStamp(AppModel.shared.currentUser.dob)
+        if AppModel.shared.currentUser.dob != 0.0
+        {
+            dobTxt.text = getDateStringFromServerTimeStemp(AppModel.shared.currentUser.dob)
+            selectedDob = getDateFromTimeStamp(AppModel.shared.currentUser.dob)
+        }
+        
+        
         aboutMeTxt.text = AppModel.shared.currentUser.bio
         switch AppModel.shared.currentUser.gender {
         case "male":
@@ -153,7 +164,6 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     
     @IBAction func clickToContinue(_ sender: Any) {
         self.view.endEditing(true)
-        
         if AppModel.shared.currentUser.picture == "" && _imgCompress == nil
         {
             displayToast("Please select your profile picture")
@@ -170,10 +180,10 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         {
             displayToast("Please enter about you")
         }
-        else if availabilityDict.count == 0
-        {
-            displayToast("Please add your availability")
-        }
+//        else if availabilityDict.count == 0
+//        {
+//            displayToast("Please add your availability")
+//        }
         else if suburbTxt.text == ""
         {
             displayToast("Please enter suburb")

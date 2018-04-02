@@ -13,11 +13,14 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
     @IBOutlet weak var policeCheckBtn: UIButton!
     @IBOutlet weak var childrenCheckBtn: UIButton!
     @IBOutlet weak var submitBtn: UIButton!
-    
+    @IBOutlet weak var backBtn: UIButton!
+
     var _PhotoSelectionVC:PhotoSelectionVC!
     var policeCheckImg:UIImage!
     var childrenCheckImg:UIImage!
     var isPoliceCheckImg : Bool = false
+    
+    var isBackDisplay : Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +30,18 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
         _PhotoSelectionVC = self.storyboard?.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
+        
+        backBtn.isHidden = !isBackDisplay
+        if getPoliceCertificate() != "" && getChildreanCertificate() != ""
+        {
+            setUserDetail()
+        }
+        else
+        {
+            APIManager.sharedInstance.serviceCallToGetCertificate {
+                self.setUserDetail()
+            }
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -38,17 +53,6 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
         policeCheckBtn.addCornerRadiusOfView(5.0)
         childrenCheckBtn.addCornerRadiusOfView(5.0)
         submitBtn.addCornerRadiusOfView(submitBtn.frame.size.height/2)
-        
-        if getPoliceCertificate() != "" && getChildreanCertificate() != ""
-        {
-            setUserDetail()
-        }
-        else
-        {
-            APIManager.sharedInstance.serviceCallToGetCertificate {
-                self.setUserDetail()
-            }
-        }
     }
     
     func setUserDetail()
@@ -89,15 +93,14 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
     }
     
     @IBAction func clickToSubmit(_ sender: Any) {
-        
         if AppModel.shared.currentUser.policeCert == "" && policeCheckImg == nil
         {
             displayToast("Please select certificate for police check")
         }
-        else if AppModel.shared.currentUser.childrenCert == "" && childrenCheckImg == nil
-        {
-            displayToast("Please select certificate for children check")
-        }
+//        else if AppModel.shared.currentUser.childrenCert == "" && childrenCheckImg == nil
+//        {
+//            displayToast("Please select certificate for children check")
+//        }
         else
         {
             var policeData : Data = Data()
@@ -106,10 +109,10 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
             if let tempData = UIImagePNGRepresentation(policeCheckImg){
                 policeData = tempData
             }
-            if let tempData = UIImagePNGRepresentation(childrenCheckImg){
+            if childrenCheckImg != nil, let tempData = UIImagePNGRepresentation(childrenCheckImg){
                 childrenData = tempData
             }
-            if policeCheckImg == nil && childrenCheckImg == nil
+            if policeCheckImg == nil && getPoliceCertificate() != ""
             {
                 let vc : TeacherFinishVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
                 self.navigationController?.pushViewController(vc, animated: true)

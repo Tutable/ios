@@ -18,17 +18,12 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var levelBtn: UIButton!
     @IBOutlet weak var levelLbl: UILabel!
     @IBOutlet weak var subjectLbl: UITextField!
-    @IBOutlet weak var aboutMeLbl: UITextField!
     @IBOutlet weak var nextBtn: UIButton!
     
     @IBOutlet var categoryContainerView: UIView!
     @IBOutlet weak var categoryPopupView: UIView!
     @IBOutlet weak var categoryTblView: UITableView!
     @IBOutlet weak var constraintHeightCategoryPopup: NSLayoutConstraint!
-    
-    @IBOutlet weak var priceUnitLbl: UILabel!
-    @IBOutlet weak var priceTxt: UITextField!
-    @IBOutlet weak var perHourLbl: UILabel!
     
     var _PhotoSelectionVC:PhotoSelectionVC!
     var classImg:UIImage!
@@ -43,12 +38,17 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         _PhotoSelectionVC = self.storyboard?.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
+        
+        AppModel.shared.currentClass = ClassModel.init(dict: [String : Any]())
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
-        self.edgesForExtendedLayout = UIRectEdge.bottom
-        tabBar.setTabBarHidden(tabBarHidden: true)
+        if self.tabBarController != nil
+        {
+            let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
+            self.edgesForExtendedLayout = UIRectEdge.bottom
+            tabBar.setTabBarHidden(tabBarHidden: true)
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -65,12 +65,25 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         categoryTblView.register(UINib.init(nibName: "CustomTimeSlotTVC", bundle: nil), forCellReuseIdentifier: "CustomTimeSlotTVC")
         
+        if getCategoryList().count == 0
+        {
+            APIManager.sharedInstance.serviceCallToGetCategory {
+                self.setCategoryData()
+            }
+        }
+        else
+        {
+            setCategoryData()
+        }
+    }
+    
+    func setCategoryData()
+    {
         let tempData : [[String : Any]] = getCategoryList()
         for temp in tempData
         {
-            categoryArr.append(CategoryModel.init(dict: temp))
+            self.categoryArr.append(CategoryModel.init(dict: temp))
         }
-        
     }
     
     // MARK: - Button click event
@@ -115,27 +128,27 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBAction func clickToNext(_ sender: Any) {
         self.view.endEditing(true)
         
-        AppModel.shared.currentClass = ClassModel.init(dict: [String : Any]())
+        if classNameTxt.text == ""
+        {
+            displayToast("Please enter class name")
+        }
+        else if selectedCategory.dictionary().count == 0
+        {
+            displayToast("Please select class category")
+        }
+        else if selectedLevel == 0
+        {
+            displayToast("Please select class level")
+        }
         AppModel.shared.currentClass.name = classNameTxt.text
-        AppModel.shared.currentClass.category = selectedCategory.id
+        AppModel.shared.currentClass.category = selectedCategory
         AppModel.shared.currentClass.level = selectedLevel
         AppModel.shared.currentClass.desc = subjectLbl.text
-        AppModel.shared.currentClass.bio = aboutMeLbl.text
         AppModel.shared.currentClass.timeline = Double(getCurrentTimeStampValue())
-        AppModel.shared.currentClass.rate = Int(priceTxt.text!)
         
-        if let imageData = UIImagePNGRepresentation(classImg){
-            APIManager.sharedInstance.serviceCallToCreateClass(imageData, completion: {
-                if self.tabBarController == nil
-                {
-                    AppDelegate().sharedDelegate().navigateToDashboard()
-                }
-                else
-                {
-                    self.navigationController?.popViewController(animated: true)
-                }
-            })
-        }
+        let vc : ClassHourlyRateVC = self.storyboard?.instantiateViewController(withIdentifier: "ClassHourlyRateVC") as! ClassHourlyRateVC
+        vc.classImg = classImg
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - Tableview Delegate method

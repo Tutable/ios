@@ -43,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             }
             navigateToDashboard()
         }
+        
         return true
     }
 
@@ -221,6 +222,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     //MARK:- Navigate To Dashboard
     func navigateToDashboard()
     {
+        setLoginUserData(AppModel.shared.currentUser.dictionary())
         customTabbarVc = self.storyboard().instantiateViewController(withIdentifier: "CustomTabBarController") as! CustomTabBarController
         
         if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
@@ -230,6 +232,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         getCategory()
     }
     
+    //MARK:- Logout
+    func logoutApp()
+    {
+        removeUserDefaultValues()
+        navigateToLogin()
+    }
+    
+    func redirectAfterTeacherRegistration() -> Int
+    {
+        var redirectionType : Int = 0
+        if AppModel.shared.currentUser.picture == ""
+        {
+            redirectionType = 1
+        }
+        else if AppModel.shared.currentUser.name == ""
+        {
+            redirectionType = 1
+        }
+        else if AppModel.shared.currentUser.dob == 0
+        {
+            redirectionType = 1
+        }
+        else if AppModel.shared.currentUser.bio == ""
+        {
+            redirectionType = 1
+        }
+        else if AppModel.shared.currentUser.address == LocationModel.init()
+        {
+            redirectionType = 1
+        }
+        else if AppModel.shared.currentUser.qualification == ""
+        {
+            redirectionType = 2
+        }
+        else if AppModel.shared.currentUser.school == ""
+        {
+            redirectionType = 2
+        }
+        else if AppModel.shared.currentUser.degreeAsset == ""
+        {
+            redirectionType = 2
+        }
+        else if getPoliceCertificate() == ""
+        {
+            redirectionType = 3
+        }
+        
+        return redirectionType
+    }
+    
+    
+    //MARK:- Get Category
     func getCategory()
     {
         if !isUserLogin()

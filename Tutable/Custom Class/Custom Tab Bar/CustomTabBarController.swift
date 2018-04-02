@@ -60,9 +60,9 @@ class CustomTabBarController: UITabBarController, CustomTabBarViewDelegate {
         
         self.viewControllers = viewControllers;
         
-        self.tabBarView.btn1.isSelected = true;
-        self.tabBarView.lbl1.isHighlighted = true;
-        self.tabSelectedAtIndex(index: 0)
+        self.tabBarView.btn3.isSelected = true;
+        self.tabBarView.lbl3.isHighlighted = true;
+        self.tabSelectedAtIndex(index: 2)
     }
  
     func tabSelectedAtIndex(index: Int) {
