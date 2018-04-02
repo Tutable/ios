@@ -131,3 +131,19 @@ func getChildreanCertificate() -> String
     }
     return ""
 }
+
+func setCategoryList(_ data : [[String : Any]])
+{
+    setDataToPreference(data: data as AnyObject, forKey: "category_list")
+}
+
+func getCategoryList() -> [[String : Any]]
+{
+    if let data : [[String : Any]] = getDataFromPreference(key: "category_list") as? [[String : Any]]
+    {
+        return data
+    }
+    return [[String : Any]]()
+}
+
+

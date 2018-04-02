@@ -227,6 +227,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         {
             rootNavigatioVC.pushViewController(customTabbarVc, animated: false)
         }
+        getCategory()
+    }
+    
+    func getCategory()
+    {
+        if !isUserLogin()
+        {
+            return
+        }
+        var isCall : Bool = false
+        if getCategoryList().count == 0
+        {
+            isCall = true
+        }
+        else
+        {
+            if getDataFromPreference(key: "category_fetched") == nil
+            {
+                isCall = true
+            }
+            else
+            {
+                let oldDate : String = getDataFromPreference(key: "category_fetched") as! String
+                let newDate : String = getDateStringFromDate(date: Date())
+                if newDate != oldDate
+                {
+                    isCall = true
+                }
+            }
+        }
+        
+        if isCall
+        {
+            APIManager.sharedInstance.serviceCallToGetCategory {
+                setDataToPreference(data: getDateStringFromDate(date: Date()) as AnyObject, forKey: "category_fetched")
+            }
+        }
     }
     
     //MARK:- Other func.

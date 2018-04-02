@@ -28,6 +28,8 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var totalReviewLbl: UILabel!
     @IBOutlet weak var moreReviewBtn: UIButton!
     
+    let classId : String = ""
+    var classData : ClassModel = ClassModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,14 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         userProfilePicBtn.addCornerRadiusOfView(userProfilePicBtn.frame.size.height/2)
         moreReviewBtn.addCornerRadiusOfView(moreReviewBtn.frame.size.height/2)
         moreReviewBtn.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.APP_COLOR))
+    }
+    
+    func getClassDetail()
+    {
+        APIManager.sharedInstance.serviceCallToGetClassDetail(classId) { (dictData) in
+            self.classData = ClassModel.init(dict: dictData)
+            self.setClassDetail()
+        }
     }
     
     func setClassDetail()

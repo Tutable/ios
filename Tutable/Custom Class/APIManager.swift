@@ -327,6 +327,44 @@ public class APIManager {
         }
     }
     
+    //MARK:- Get Category
+    func serviceCallToGetCategory(_ completion: @escaping () -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        
+        let params :[String : Any] = [String : Any] ()
+        
+        Alamofire.request(BASE_URL+"categories/list", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            
+            removeLoader()
+            
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let data : [[String : Any]] = result["data"] as? [[String : Any]]
+                    {
+                        setCategoryList(data)
+                        completion()
+                        return
+                    }
+                }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                displayToast("Error in getting user detail.")
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
     //MARK:- Get User detail
     func serviceCallToGetUserDetail(_ completion: @escaping () -> Void){
         showLoader()
@@ -635,11 +673,11 @@ public class APIManager {
     func serviceCallToCreateClass(_ classImgData : Data, completion: @escaping () -> Void){
         showLoader()
         
-        let headerParams :[String : String] = getJsonHeaderWithToken()
+        let headerParams :[String : String] = getMultipartHeaderWithToken()
         
         var params :[String : Any] = [String : Any] ()
         
-        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category, "level" : AppModel.shared.currentClass.level, "description" : AppModel.shared.currentClass.desc, "bio" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "price" : AppModel.shared.currentClass.price])
+        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category, "level" : AppModel.shared.currentClass.level, "description" : AppModel.shared.currentClass.desc, "bio" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "rate" : AppModel.shared.currentClass.rate])
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
@@ -687,5 +725,78 @@ public class APIManager {
             }
         }
     }
-
+    
+    func serviceCallToGetClassList(_ completion: @escaping (_ dataArr : [[String : Any]]) -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        
+        var params :[String : Any] = [String : Any] ()
+        
+        params["teacherId"] = AppModel.shared.currentUser.id
+        Alamofire.request(BASE_URL+"class/list", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            
+            removeLoader()
+            
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let data : [[String : Any]] = result["data"] as? [[String : Any]]
+                    {
+                        completion(data)
+                        return
+                    }
+                }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                displayToast("Error in getting user detail.")
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    func serviceCallToGetClassDetail(_ classId : String, _ completion: @escaping (_ dataArr : [String : Any]) -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        
+        var params :[String : Any] = [String : Any] ()
+        params["classId"] = classId
+        
+        Alamofire.request(BASE_URL+"class/details", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            
+            removeLoader()
+            
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let data : [String : Any] = result["data"] as? [String : Any]
+                    {
+                        completion(data)
+                        return
+                    }
+                }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                displayToast("Error in getting user detail.")
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
 }

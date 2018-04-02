@@ -12,6 +12,9 @@
 		1810644E206A7DF500FE9452 /* CustomTimeSlotTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1810644C206A7DF500FE9452 /* CustomTimeSlotTVC.xib */; };
 		18106450206A80F800FE9452 /* EditTeacherProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810644F206A80F800FE9452 /* EditTeacherProfileVC.swift */; };
 		18106452206A84BB00FE9452 /* TeacherAvailabilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18106451206A84BB00FE9452 /* TeacherAvailabilityVC.swift */; };
+		1815CB2A2071EC410081F852 /* MyClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815CB292071EC410081F852 /* MyClassVC.swift */; };
+		1815CB332071EFCC0081F852 /* CustomMyClassTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815CB312071EFCC0081F852 /* CustomMyClassTVC.swift */; };
+		1815CB342071EFCC0081F852 /* CustomMyClassTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */; };
 		18615BCF2068B8E5004A6876 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BCE2068B8E5004A6876 /* ProfileVC.swift */; };
 		18615BD12068B90D004A6876 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BD02068B90D004A6876 /* SettingsVC.swift */; };
 		18615BD32068B926004A6876 /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BD22068B926004A6876 /* MessageVC.swift */; };
@@ -75,6 +78,9 @@
 		1810644C206A7DF500FE9452 /* CustomTimeSlotTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTimeSlotTVC.xib; sourceTree = "<group>"; };
 		1810644F206A80F800FE9452 /* EditTeacherProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTeacherProfileVC.swift; sourceTree = "<group>"; };
 		18106451206A84BB00FE9452 /* TeacherAvailabilityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherAvailabilityVC.swift; sourceTree = "<group>"; };
+		1815CB292071EC410081F852 /* MyClassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClassVC.swift; sourceTree = "<group>"; };
+		1815CB312071EFCC0081F852 /* CustomMyClassTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMyClassTVC.swift; sourceTree = "<group>"; };
+		1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMyClassTVC.xib; sourceTree = "<group>"; };
 		18615BCE2068B8E5004A6876 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		18615BD02068B90D004A6876 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		18615BD22068B926004A6876 /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
@@ -152,6 +158,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1815CB282071EC2F0081F852 /* My Class */ = {
+			isa = PBXGroup;
+			children = (
+				1815CB292071EC410081F852 /* MyClassVC.swift */,
+			);
+			path = "My Class";
+			sourceTree = "<group>";
+		};
 		18615BC92068B8C8004A6876 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +228,8 @@
 				18803984206A2A6700179778 /* CustomClassesTVC.xib */,
 				1810644B206A7DF500FE9452 /* CustomTimeSlotTVC.swift */,
 				1810644C206A7DF500FE9452 /* CustomTimeSlotTVC.xib */,
+				1815CB312071EFCC0081F852 /* CustomMyClassTVC.swift */,
+				1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */,
 			);
 			path = "TableView Cell";
 			sourceTree = "<group>";
@@ -255,6 +271,7 @@
 				186A74FF206504780013D863 /* Login Module */,
 				18615BCA2068B8C9004A6876 /* Booking */,
 				18615BCB2068B8C9004A6876 /* Browse */,
+				1815CB282071EC2F0081F852 /* My Class */,
 				18AE5970206BCA7B00B6D324 /* Class */,
 				18615BCC2068B8C9004A6876 /* Messages */,
 				18615BCD2068B8C9004A6876 /* Profile */,
@@ -413,6 +430,7 @@
 				18B9918720692620009F8A13 /* CustomCategoryCVC.xib in Resources */,
 				18803986206A2A6700179778 /* CustomClassesTVC.xib in Resources */,
 				18B99183206923FD009F8A13 /* CustomMessagesTVC.xib in Resources */,
+				1815CB342071EFCC0081F852 /* CustomMyClassTVC.xib in Resources */,
 				18B99190206938E8009F8A13 /* CustomReviewsTVC.xib in Resources */,
 				186A74F32064BFCD0013D863 /* Main.storyboard in Resources */,
 				1810644E206A7DF500FE9452 /* CustomTimeSlotTVC.xib in Resources */,
@@ -508,6 +526,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1815CB332071EFCC0081F852 /* CustomMyClassTVC.swift in Sources */,
 				18615BD72068B946004A6876 /* BookingVC.swift in Sources */,
 				18615BD92068CC42004A6876 /* ResetPasswordVC.swift in Sources */,
 				18B9918620692620009F8A13 /* CustomCategoryCVC.swift in Sources */,
@@ -539,6 +558,7 @@
 				18722854206CE0B400CD3076 /* AccountDetailVC.swift in Sources */,
 				18615BCF2068B8E5004A6876 /* ProfileVC.swift in Sources */,
 				18AE596D206B93F500B6D324 /* DatePickerManager.swift in Sources */,
+				1815CB2A2071EC410081F852 /* MyClassVC.swift in Sources */,
 				18B9918920692835009F8A13 /* EntertainmentVC.swift in Sources */,
 				186A751D206510340013D863 /* UIImage+ProportionalFill.m in Sources */,
 				18C441CB206A5ECC005C6251 /* RegistrationVC.swift in Sources */,

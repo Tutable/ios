@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Tutable/Class/AddClassVC.swift"
-            timestampString = "544199535.8093719"
+            filePath = "Tutable/Custom Class/APIManager.swift"
+            timestampString = "544345222.767794"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "clickToNext(_:)"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
+            landmarkName = "serviceCallToGetCategory(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tutable/Custom Class/APIManager.swift"
+            timestampString = "544345222.767869"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "361"
+            endingLineNumber = "361"
+            landmarkName = "serviceCallToGetCategory(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

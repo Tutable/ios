@@ -32,8 +32,9 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     var _PhotoSelectionVC:PhotoSelectionVC!
     var classImg:UIImage!
-    var categoryArr : [String] = ["Entertainment", "Information & Motivation", "Helth & Fitness"]
-    var selectedCategory : String = ""
+    var categoryArr : [CategoryModel] = [CategoryModel]()
+    var selectedCategory : CategoryModel = CategoryModel()
+    var selectedLevel : Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,12 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         self.addChildViewController(_PhotoSelectionVC)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
+        self.edgesForExtendedLayout = UIRectEdge.bottom
+        tabBar.setTabBarHidden(tabBarHidden: true)
+    }
+    
     override func viewWillLayoutSubviews() {
         setUIDesigning()
     }
@@ -57,8 +64,16 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         categoryPopupView.addCornerRadiusOfView(10.0)
         
         categoryTblView.register(UINib.init(nibName: "CustomTimeSlotTVC", bundle: nil), forCellReuseIdentifier: "CustomTimeSlotTVC")
+        
+        let tempData : [[String : Any]] = getCategoryList()
+        for temp in tempData
+        {
+            categoryArr.append(CategoryModel.init(dict: temp))
+        }
+        
     }
     
+    // MARK: - Button click event
     @IBAction func clickToBack(_ sender: Any) {
         self.view.endEditing(true)
         AppDelegate().sharedDelegate().navigateToDashboard()
@@ -92,6 +107,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         dropdown.dataSource = classLevelArr
         dropdown.selectionAction = { [weak self] (index, item) in
             self?.levelLbl.text = classLevelArr[index]
+            self?.selectedLevel = index + 1
         }
         dropdown.show()
     }
@@ -101,12 +117,12 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         AppModel.shared.currentClass = ClassModel.init(dict: [String : Any]())
         AppModel.shared.currentClass.name = classNameTxt.text
-        AppModel.shared.currentClass.category = Int(selectedCategory)
-        AppModel.shared.currentClass.level = levelLbl.text
+        AppModel.shared.currentClass.category = selectedCategory.id
+        AppModel.shared.currentClass.level = selectedLevel
         AppModel.shared.currentClass.desc = subjectLbl.text
         AppModel.shared.currentClass.bio = aboutMeLbl.text
         AppModel.shared.currentClass.timeline = Double(getCurrentTimeStampValue())
-        AppModel.shared.currentClass.price = Int(priceTxt.text!)
+        AppModel.shared.currentClass.rate = Int(priceTxt.text!)
         
         if let imageData = UIImagePNGRepresentation(classImg){
             APIManager.sharedInstance.serviceCallToCreateClass(imageData, completion: {
@@ -138,7 +154,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : CustomTimeSlotTVC = categoryTblView.dequeueReusableCell(withIdentifier: "CustomTimeSlotTVC", for: indexPath) as! CustomTimeSlotTVC
-        cell.titleLbl.text = categoryArr[indexPath.row]
+        cell.titleLbl.text = categoryArr[indexPath.row].title
         cell.selectionBtn.setImage(UIImage.init(named: "check_circle_off"), for: .normal)
         cell.selectionBtn.setImage(UIImage.init(named: "check_circle_on"), for: .selected)
         
@@ -157,7 +173,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedCategory = categoryArr[indexPath.row]
         categoryTblView.reloadData()
-        categoryBtn.setTitle(selectedCategory, for: .normal)
+        categoryBtn.setTitle(selectedCategory.title, for: .normal)
         clickToCloseCategory(self)
     }
     

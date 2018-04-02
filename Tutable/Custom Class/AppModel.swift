@@ -238,36 +238,37 @@ class LocationModel:AppModel{
 class ClassModel:AppModel{
     var id:String!
     var name:String!
-    var category : Int!
-    var level : String!
+    var category : String!
+    var
+    level : Int!
     var desc : String!
     var bio : String!
     var timeline : Double!
     var picture : String!
-    var price : Int!
+    var rate : Int!
     
     override init(){
         id = ""
         name = ""
-        category = 0
-        level = ""
+        category = ""
+        level = 0
         desc = ""
         bio = ""
         timeline = 0
         picture = ""
-        price = 0
+        rate = 0
     }
     init(dict : [String : Any])
     {
         id = ""
         name = ""
-        category = 0
-        level = ""
+        category = ""
+        level = 0
         desc = ""
         bio = ""
         timeline = 0
         picture = ""
-        price = 0
+        rate = 0
         
         if let temp = dict["id"] as? String{
             id = temp
@@ -275,10 +276,10 @@ class ClassModel:AppModel{
         if let temp = dict["name"] as? String{
             name = temp
         }
-        if let temp = dict["category"] as? Int{
+        if let temp = dict["category"] as? String{
             category = temp
         }
-        if let temp = dict["level"] as? String{
+        if let temp = dict["level"] as? Int{
             level = temp
         }
         if let temp = dict["description"] as? String{
@@ -293,13 +294,58 @@ class ClassModel:AppModel{
         if let image = dict["picture"] as? String{
             picture = image
         }
-        if let temp = dict["price"] as? Int{
-            price = temp
+        if let temp = dict["rate"] as? Int{
+            rate = temp
         }
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"category" : category, "level" : level, "description" : desc, "bio":bio, "picture":picture, "timeline":timeline, "price":price]
+        return ["id":id,"name":name,"category" : category, "level" : level, "description" : desc, "bio":bio, "picture":picture, "timeline":timeline, "rate":rate]
+    }
+    
+    func toJson(_ dict:[String:Any]) -> String{
+        let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: [])
+        let jsonString = String(data: jsonData!, encoding: .utf8)
+        return jsonString!
+    }
+}
+
+
+class CategoryModel:AppModel{
+    var id:String!
+    var v:Int!
+    var parent : String!
+    var title : String!
+    
+    override init(){
+        id = ""
+        v = 0
+        parent = ""
+        title = ""
+    }
+    init(dict : [String : Any])
+    {
+        id = ""
+        v = 0
+        parent = ""
+        title = ""
+        
+        if let temp = dict["_id"] as? String{
+            id = temp
+        }
+        if let temp = dict["__v"] as? Int{
+            v = temp
+        }
+        if let temp = dict["parent"] as? String{
+            parent = temp
+        }
+        if let temp = dict["title"] as? String{
+            title = temp
+        }
+    }
+    
+    func dictionary() -> [String:Any]{
+        return ["id":id,"v":v,"parent" : parent, "title" : title]
     }
     
     func toJson(_ dict:[String:Any]) -> String{

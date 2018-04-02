@@ -327,25 +327,13 @@ extension UIView
         self.layer.mask = mask
     }
     
-    func setInnerViewShadow(_ shadowColor : UIColor, remainigWidth : CGFloat)
+    func setInnerViewShadow(_ shadowColor : UIColor)
     {
-        var newFrame = self.frame
-        newFrame.size.width = SCREEN.WIDTH - remainigWidth
-        self.frame = newFrame
-        
-        let shadowSize : CGFloat = 1.0
-        let shadowPath = UIBezierPath(rect: CGRect(x: -shadowSize / 2,
-                                                   y: -shadowSize / 2,
-                                                   width: self.frame.size.width + shadowSize,
-                                                   height: self.frame.size.height + shadowSize))
-        
+        self.layer.masksToBounds = false;
+        self.layer.shadowOffset = CGSize(width: 0, height: 2)
         self.layer.shadowColor = shadowColor.cgColor
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        self.layer.shadowOpacity = 0.6
-        self.layer.masksToBounds = true
-        self.clipsToBounds = false
-        self.layer.shadowPath = shadowPath.cgPath
-        
+        self.layer.shadowOpacity = 1
+        self.layer.shadowRadius = 12
     }
     
 }

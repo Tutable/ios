@@ -39,8 +39,18 @@ class CustomTabBarController: UITabBarController, CustomTabBarViewDelegate {
         let navController2 : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "BookingVCNavigation") as! UINavigationController
         viewControllers.append(navController2)
         
-        let navController3 : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "BrowseVCNavigation") as! UINavigationController
-        viewControllers.append(navController3)
+        if isStudentLogin()
+        {
+            let navController3 : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "BrowseVCNavigation") as! UINavigationController
+            viewControllers.append(navController3)
+            tabBarView.lbl3.text = "BROWSE"
+        }
+        else
+        {
+            let navController3 : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "MyClassVCNavigation") as! UINavigationController
+            viewControllers.append(navController3)
+            tabBarView.lbl3.text = "MY CLASSES"
+        }
         
         let navController4 : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "MessageVCNavigation") as! UINavigationController
         viewControllers.append(navController4)

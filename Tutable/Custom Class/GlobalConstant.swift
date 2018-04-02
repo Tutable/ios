@@ -38,7 +38,7 @@ struct COLOR {
     static var BLACK_COLOR = "000000"
     static var WHITE_COLOR = "FFFFFF"
     static var LIGHT_GRAY = "AAAAAA"
-    
+    static var SHADOW_GRAY = "D3D3D3"
 }
 
 struct DATE_FORMAT {
