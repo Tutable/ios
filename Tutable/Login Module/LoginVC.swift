@@ -26,8 +26,8 @@ class LoginVC: UIViewController {
             }
             else
             {
-                //                usernameTxt.text = "keyurdakbari@gmail.com"
-                usernameTxt.text = "testyear16@gmail.com"
+                usernameTxt.text = "keyurdakbari@gmail.com"
+//                usernameTxt.text = "testyear16@gmail.com"
                 passwordTxt.text = "qqqq"
             }
         }
@@ -94,13 +94,13 @@ class LoginVC: UIViewController {
                                 }
                                 else if redirectionType == 2
                                 {
-                                    let vc : TeacherQulificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
+                                    let vc : TeacherCertificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
                                     vc.isBackDisplay = false
                                     self.navigationController?.pushViewController(vc, animated: true)
                                 }
                                 else if redirectionType == 3
                                 {
-                                    let vc : TeacherCertificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
+                                    let vc : TeacherQulificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
                                     vc.isBackDisplay = false
                                     self.navigationController?.pushViewController(vc, animated: true)
                                 }

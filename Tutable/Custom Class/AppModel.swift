@@ -240,15 +240,12 @@ class ClassModel:AppModel{
     var name:String!
     var category : CategoryModel!
     var level : Int!
-    var desc : String!
     var bio : String!
     var timeline : Double!
-    var picture : String!
+    var payload : String!
     var rate : Int!
-    
     var cancelled : Int!
     var created : Double!
-    var payload : String!
     var teacher : UserModel!
     
     override init(){
@@ -256,14 +253,12 @@ class ClassModel:AppModel{
         name = ""
         category = CategoryModel.init()
         level = 0
-        desc = ""
         bio = ""
         timeline = 0
-        picture = ""
+        payload = ""
         rate = 0
         cancelled = 0
         created = 0.0
-        payload = ""
         teacher = UserModel.init()
     }
     init(dict : [String : Any])
@@ -272,14 +267,12 @@ class ClassModel:AppModel{
         name = ""
         category = CategoryModel.init()
         level = 0
-        desc = ""
         bio = ""
         timeline = 0
-        picture = ""
+        payload = ""
         rate = 0
         cancelled = 0
         created = 0.0
-        payload = ""
         teacher = UserModel.init()
         
         if let temp = dict["id"] as? String{
@@ -294,17 +287,14 @@ class ClassModel:AppModel{
         if let temp = dict["level"] as? Int{
             level = temp
         }
-        if let temp = dict["description"] as? String{
-            desc = temp
-        }
         if let temp = dict["bio"] as? String{
             bio = temp
         }
         if let block = dict["timeline"] as? Double{
             timeline = block
         }
-        if let image = dict["picture"] as? String{
-            picture = image
+        if let image = dict["payload"] as? String{
+            payload = image
         }
         if let temp = dict["rate"] as? Int{
             rate = temp
@@ -315,16 +305,13 @@ class ClassModel:AppModel{
         if let temp = dict["created"] as? Double{
             created = temp
         }
-        if let temp = dict["payload"] as? String{
-            payload = temp
-        }
         if let temp = dict["teacher"] as? [String : Any]{
             teacher = UserModel.init(dict: temp)
         }
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"category" : category.dictionary(), "level" : level, "description" : desc, "bio":bio, "picture":picture, "timeline":timeline, "rate":rate, "cancelled" : cancelled, "created" : created, "payload" : payload, "teacher" : teacher.dictionary()]
+        return ["id":id,"name":name,"category" : category.dictionary(), "level" : level, "bio":bio, "payload":payload, "timeline":timeline, "rate":rate, "cancelled" : cancelled, "created" : created, "teacher" : teacher.dictionary()]
     }
     
     func toJson(_ dict:[String:Any]) -> String{

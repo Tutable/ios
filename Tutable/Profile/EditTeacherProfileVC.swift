@@ -243,7 +243,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     func continueUpdating(_ dict : [String : Any], _ imageData : Data)
     {
         APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: Data(), pictureData: imageData, completion: {
-            let vc : TeacherQulificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
+            let vc : TeacherCertificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
             self.navigationController?.pushViewController(vc, animated: true)
         })
     }

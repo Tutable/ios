@@ -262,22 +262,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         {
             redirectionType = 1
         }
-        else if AppModel.shared.currentUser.qualification == ""
-        {
-            redirectionType = 2
-        }
-        else if AppModel.shared.currentUser.school == ""
-        {
-            redirectionType = 2
-        }
-        else if AppModel.shared.currentUser.degreeAsset == ""
-        {
-            redirectionType = 2
-        }
         else if getPoliceCertificate() == ""
+        {
+            redirectionType = 2
+        }
+        else if AppModel.shared.currentUser.qualification == ""
         {
             redirectionType = 3
         }
+        else if AppModel.shared.currentUser.school == ""
+        {
+            redirectionType = 3
+        }
+        else if AppModel.shared.currentUser.degreeAsset == ""
+        {
+            redirectionType = 3
+        }
+        
         
         return redirectionType
     }

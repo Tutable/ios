@@ -143,7 +143,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         AppModel.shared.currentClass.name = classNameTxt.text
         AppModel.shared.currentClass.category = selectedCategory
         AppModel.shared.currentClass.level = selectedLevel
-        AppModel.shared.currentClass.desc = subjectLbl.text
+        AppModel.shared.currentClass.bio = subjectLbl.text
         AppModel.shared.currentClass.timeline = Double(getCurrentTimeStampValue())
         
         let vc : ClassHourlyRateVC = self.storyboard?.instantiateViewController(withIdentifier: "ClassHourlyRateVC") as! ClassHourlyRateVC

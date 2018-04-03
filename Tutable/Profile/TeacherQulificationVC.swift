@@ -110,7 +110,7 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
     func continueUpdating(_ dict : [String : Any], _ imageData : Data)
     {
         APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: imageData, pictureData: Data(), completion: {
-            let vc : TeacherCertificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
+            let vc : TeacherFinishVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
             self.navigationController?.pushViewController(vc, animated: true)
         })
     }

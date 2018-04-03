@@ -567,6 +567,46 @@ public class APIManager {
         }
     }
     
+    func serviceCallToGetCertificate(_ picPath:String?, placeHolder : String, btn:[UIButton]){
+        
+        if let picture = picPath
+        {
+            if let image = AppModel.shared.imageQueue[picture] as? UIImage{
+                for i in 0..<btn.count{
+                    btn[i].setBackgroundImage(image.imageCropped(toFit: btn[i].frame.size), for: .normal)
+                }
+            }
+            else if let _ = AppModel.shared.imageQueue[picture] as? Bool{
+                
+            }
+            else{
+                let headerParams :[String : String] = getJsonHeaderWithToken()
+                DataRequest.addAcceptableImageContentTypes(["image/jpg", "image/jpeg", "image/png", "image/gif"])
+                AppModel.shared.imageQueue[picPath!] = true
+                //let headerParams :[String : String] = getJsonHeader()
+                Alamofire.request(BASE_URL + picPath!, headers: headerParams).responseImage { response in
+                    if let image = response.result.value {
+                        AppModel.shared.imageQueue[picPath!] = image
+                        for i in 0..<btn.count{
+                            btn[i].setBackgroundImage(image.imageCropped(toFit: btn[i].frame.size), for: .normal)
+                        }
+                        return
+                    }
+                    else
+                    {
+                        AppModel.shared.imageQueue[picPath!] = nil
+                    }
+                }
+            }
+        }
+        else
+        {
+            for i in 0..<btn.count{
+                btn[i].setBackgroundImage(UIImage.init(named: placeHolder), for: .normal)
+            }
+        }
+    }
+    
     //MARK:- Get Photo
     func serviceCallToGetUserAvatar(_ user:UserModel, btn:UIButton){
         
@@ -623,46 +663,6 @@ public class APIManager {
             }
         }
     }
-
-    func serviceCallToGetCertificate(_ picPath:String?, placeHolder : String, btn:[UIButton]){
-        
-        if let picture = picPath
-        {
-            if let image = AppModel.shared.imageQueue[picture] as? UIImage{
-                for i in 0..<btn.count{
-                    btn[i].setBackgroundImage(image.imageCropped(toFit: btn[i].frame.size), for: .normal)
-                }
-            }
-            else if let _ = AppModel.shared.imageQueue[picture] as? Bool{
-                
-            }
-            else{
-                let headerParams :[String : String] = getJsonHeaderWithToken()
-                DataRequest.addAcceptableImageContentTypes(["image/jpg", "image/jpeg", "image/png", "image/gif"])
-                AppModel.shared.imageQueue[picPath!] = true
-                //let headerParams :[String : String] = getJsonHeader()
-                Alamofire.request(BASE_URL + picPath!, headers: headerParams).responseImage { response in
-                    if let image = response.result.value {
-                        AppModel.shared.imageQueue[picPath!] = image
-                        for i in 0..<btn.count{
-                            btn[i].setBackgroundImage(image.imageCropped(toFit: btn[i].frame.size), for: .normal)
-                        }
-                        return
-                    }
-                    else
-                    {
-                        AppModel.shared.imageQueue[picPath!] = nil
-                    }
-                }
-            }
-        }
-        else
-        {
-            for i in 0..<btn.count{
-                btn[i].setBackgroundImage(UIImage.init(named: placeHolder), for: .normal)
-            }
-        }
-    }
     
     //MARK:- Class
     func serviceCallToCreateClass(_ classImgData : Data, completion: @escaping () -> Void){
@@ -672,7 +672,7 @@ public class APIManager {
         
         var params :[String : Any] = [String : Any] ()
         
-        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "description" : AppModel.shared.currentClass.desc, "bio" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "rate" : AppModel.shared.currentClass.rate])
+        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "description" : AppModel.shared.currentClass.bio, "bio" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "rate" : AppModel.shared.currentClass.rate])
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
@@ -789,6 +789,45 @@ public class APIManager {
                 print(error)
                 displayToast(error.localizedDescription)
                 break
+            }
+        }
+    }
+    
+    func serviceCallToGetClassPhoto(_ picPath:String?, placeHolder : String, btn:[UIButton]){
+        
+        if let picture = picPath
+        {
+            if let image = AppModel.shared.imageQueue[picture] as? UIImage{
+                for i in 0..<btn.count{
+                    btn[i].setBackgroundImage(image.imageCropped(toFit: btn[i].frame.size), for: .normal)
+                }
+            }
+            else if let _ = AppModel.shared.imageQueue[picture] as? Bool{
+                
+            }
+            else{
+                let headerParams :[String : String] = getJsonHeaderWithToken()
+                DataRequest.addAcceptableImageContentTypes(["image/jpg", "image/jpeg", "image/png", "image/gif"])
+                AppModel.shared.imageQueue[picPath!] = true
+                Alamofire.request(CLASS_URL + picPath!, headers: headerParams).responseImage { response in
+                    if let image = response.result.value {
+                        AppModel.shared.imageQueue[picPath!] = image
+                        for i in 0..<btn.count{
+                            btn[i].setBackgroundImage(image.imageCropped(toFit: btn[i].frame.size), for: .normal)
+                        }
+                        return
+                    }
+                    else
+                    {
+                        AppModel.shared.imageQueue[picPath!] = nil
+                    }
+                }
+            }
+        }
+        else
+        {
+            for i in 0..<btn.count{
+                btn[i].setBackgroundImage(UIImage.init(named: placeHolder), for: .normal)
             }
         }
     }

@@ -28,7 +28,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var totalReviewLbl: UILabel!
     @IBOutlet weak var moreReviewBtn: UIButton!
     
-    let classId : String = ""
+    var classId : String = ""
     var classData : ClassModel = ClassModel()
     
     override func viewDidLoad() {
@@ -45,6 +45,8 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
         self.edgesForExtendedLayout = UIRectEdge.bottom
         tabBar.setTabBarHidden(tabBarHidden: true)
+        
+        getClassDetail()
     }
     
     override func viewWillLayoutSubviews() {

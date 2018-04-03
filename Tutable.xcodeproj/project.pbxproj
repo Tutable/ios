@@ -208,8 +208,8 @@
 				18615BDA2068D1CE004A6876 /* EditStudentProfileVC.swift */,
 				1810644F206A80F800FE9452 /* EditTeacherProfileVC.swift */,
 				18106451206A84BB00FE9452 /* TeacherAvailabilityVC.swift */,
-				1872284F206CDF2200CD3076 /* TeacherQulificationVC.swift */,
 				18AE596E206BAB4300B6D324 /* TeacherCertificationVC.swift */,
+				1872284F206CDF2200CD3076 /* TeacherQulificationVC.swift */,
 				18722855206CE0C700CD3076 /* TeacherFinishVC.swift */,
 				18722853206CE0B400CD3076 /* AccountDetailVC.swift */,
 			);

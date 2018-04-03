@@ -120,7 +120,7 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
             else
             {
                 APIManager.sharedInstance.serviceCallToUpdateCertificates(policeData, childrenData: childrenData) {
-                    let vc : TeacherFinishVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
+                    let vc : TeacherQulificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }

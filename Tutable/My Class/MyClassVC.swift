@@ -15,7 +15,7 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     @IBOutlet weak var addClassBtn: UIButton!
     @IBOutlet weak var noDataFoundLbl: UILabel!
     
-    var myClassData : [[String : Any]] = [[String : Any]]()
+    var myClassData : [ClassModel] = [ClassModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +43,12 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     func getClassList()
     {
         APIManager.sharedInstance.serviceCallToGetClassList { (dataArr) in
-            print(dataArr)
-            self.myClassData = dataArr
+            
+            for temp in dataArr
+            {
+                self.myClassData.append(ClassModel.init(dict: temp))
+            }
+            
             self.tblView.reloadData()
             if self.myClassData.count == 0
             {
@@ -85,14 +89,20 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomMyClassTVC", for: indexPath) as! CustomMyClassTVC
-        let dict : [String : Any] = myClassData[indexPath.row]
-        
-        
-        
+        let dict : ClassModel = myClassData[indexPath.row]
+        cell.className.text = dict.name
+        APIManager.sharedInstance.serviceCallToGetClassPhoto(dict.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.classImgBtn])
+        cell.priceLbl.text = String(dict.rate)
         cell.setCellDesign()
         return cell
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc : ClassDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "ClassDetailVC") as! ClassDetailVC
+        vc.classId = myClassData[indexPath.row].id
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
