@@ -33,6 +33,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     var classId : String = ""
     var classData : ClassModel = ClassModel()
+    var reviewArr : [[String : Any]] = [[String : Any]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,7 +116,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             newFrame.size.height = self.constraintHeightClassHeaderView.constant
             self.classHeaderView.frame = newFrame
             self.tblView.reloadData()
-            self.constraintHeightTblView.constant = self.tblView.contentSize.height
+            self.constraintHeightTblView.constant = CGFloat(90 * self.reviewArr.count)
         }
     }
     
@@ -136,6 +137,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     @IBAction func clickToUserProfilePicture(_ sender: Any) {
         let vc : TeacherDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherDetailVC") as! TeacherDetailVC
+        vc.teacherID = classData.teacher.id
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -147,7 +149,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     // MARK: - Tableview Delegate method
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return reviewArr.count
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

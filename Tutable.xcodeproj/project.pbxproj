@@ -71,6 +71,8 @@
 		18B9919520693973009F8A13 /* ClassDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B9919420693973009F8A13 /* ClassDetailVC.swift */; };
 		18C441CB206A5ECC005C6251 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C441CA206A5ECC005C6251 /* RegistrationVC.swift */; };
 		18C441CD206A673D005C6251 /* ClassesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C441CC206A673D005C6251 /* ClassesListVC.swift */; };
+		18FE555E207387E400FE4C36 /* CustomSettingTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE555C207387E400FE4C36 /* CustomSettingTVC.swift */; };
+		18FE555F207387E400FE4C36 /* CustomSettingTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FE555D207387E400FE4C36 /* CustomSettingTVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -141,6 +143,8 @@
 		18B9919420693973009F8A13 /* ClassDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailVC.swift; sourceTree = "<group>"; };
 		18C441CA206A5ECC005C6251 /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
 		18C441CC206A673D005C6251 /* ClassesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesListVC.swift; sourceTree = "<group>"; };
+		18FE555C207387E400FE4C36 /* CustomSettingTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSettingTVC.swift; sourceTree = "<group>"; };
+		18FE555D207387E400FE4C36 /* CustomSettingTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomSettingTVC.xib; sourceTree = "<group>"; };
 		4F24731DA21574C223798CD3 /* Pods_Tutable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tutable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95BA39A18FE7677A998F0624 /* Pods-Tutable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tutable.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tutable/Pods-Tutable.debug.xcconfig"; sourceTree = "<group>"; };
 		F3456A4016EDB82C153EC3B5 /* Pods-Tutable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tutable.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tutable/Pods-Tutable.release.xcconfig"; sourceTree = "<group>"; };
@@ -187,8 +191,6 @@
 			children = (
 				18615BD42068B93A004A6876 /* BrowseVC.swift */,
 				18B9918820692835009F8A13 /* EntertainmentVC.swift */,
-				1880397D206A14CA00179778 /* ReviewListVC.swift */,
-				18803981206A283C00179778 /* TeacherDetailVC.swift */,
 			);
 			path = Browse;
 			sourceTree = "<group>";
@@ -229,6 +231,8 @@
 				1810644C206A7DF500FE9452 /* CustomTimeSlotTVC.xib */,
 				1815CB312071EFCC0081F852 /* CustomMyClassTVC.swift */,
 				1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */,
+				18FE555C207387E400FE4C36 /* CustomSettingTVC.swift */,
+				18FE555D207387E400FE4C36 /* CustomSettingTVC.xib */,
 			);
 			path = "TableView Cell";
 			sourceTree = "<group>";
@@ -341,6 +345,8 @@
 				18722851206CE07D00CD3076 /* ClassHourlyRateVC.swift */,
 				18B9919420693973009F8A13 /* ClassDetailVC.swift */,
 				18C441CC206A673D005C6251 /* ClassesListVC.swift */,
+				18803981206A283C00179778 /* TeacherDetailVC.swift */,
+				1880397D206A14CA00179778 /* ReviewListVC.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -429,6 +435,7 @@
 				186A74F52064BFCD0013D863 /* Assets.xcassets in Resources */,
 				18B9918720692620009F8A13 /* CustomCategoryCVC.xib in Resources */,
 				18803986206A2A6700179778 /* CustomClassesTVC.xib in Resources */,
+				18FE555F207387E400FE4C36 /* CustomSettingTVC.xib in Resources */,
 				18B99183206923FD009F8A13 /* CustomMessagesTVC.xib in Resources */,
 				1815CB342071EFCC0081F852 /* CustomMyClassTVC.xib in Resources */,
 				18B99190206938E8009F8A13 /* CustomReviewsTVC.xib in Resources */,
@@ -541,6 +548,7 @@
 				186A7515206510340013D863 /* AppModel.swift in Sources */,
 				186A751E206510340013D863 /* GlobalConstant.swift in Sources */,
 				186A751C206510340013D863 /* CustomTabBarController.swift in Sources */,
+				18FE555E207387E400FE4C36 /* CustomSettingTVC.swift in Sources */,
 				186A7519206510340013D863 /* APIManager.swift in Sources */,
 				186A7523206536FD0013D863 /* ForgotPasswordVC.swift in Sources */,
 				18722858206CEF4A00CD3076 /* VerificationCodeVC.swift in Sources */,

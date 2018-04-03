@@ -11,28 +11,41 @@ import UIKit
 class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tblView: UITableView!
+    @IBOutlet weak var constraintHeightTblView: NSLayoutConstraint!
+    @IBOutlet weak var constraintHeightHeaderView: NSLayoutConstraint!
     @IBOutlet weak var classHeaderView: UIView!
     @IBOutlet weak var classFooterView: UIView!
     @IBOutlet weak var userProfilePicBtn: UIButton!
+    @IBOutlet weak var userBackgroundImgBtn: UIButton!
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var userSubTitleLbl: UILabel!
     @IBOutlet weak var aboutUserLbl: UILabel!
+    @IBOutlet weak var constraintHeightAboutUserLbl: NSLayoutConstraint!
     @IBOutlet weak var moreClassesBtn: UIButton!
+    
+    @IBOutlet weak var categoryBtn: UIButton!
+    @IBOutlet weak var exprienceBtn: UIButton!
+    @IBOutlet weak var policeCheckBtn: UIButton!
+    @IBOutlet weak var childrenCheckBtn: UIButton!
+    
+    
+    
+    var teacherID : String = ""
+    var teacherData : UserModel = UserModel.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         tblView.register(UINib(nibName: "CustomClassesTVC", bundle: nil), forCellReuseIdentifier: "CustomClassesTVC")
-        
-        tblView.tableHeaderView = classHeaderView
-        tblView.tableFooterView = classFooterView
     }
     
     override func viewWillAppear(_ animated: Bool) {
         let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
         self.edgesForExtendedLayout = UIRectEdge.bottom
         tabBar.setTabBarHidden(tabBarHidden: true)
+        
+        getTeacherDetail()
     }
     
     override func viewWillLayoutSubviews() {
@@ -46,6 +59,47 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         moreClassesBtn.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.APP_COLOR))
     }
     
+    func getTeacherDetail()
+    {
+        APIManager.sharedInstance.serviceCallToGetUserDetail {
+            self.teacherData = AppModel.shared.currentUser
+            self.setTeacherDetail()
+        }
+    }
+    
+    func setTeacherDetail()
+    {
+        APIManager.sharedInstance.serviceCallToGetPhoto(teacherData.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn, userBackgroundImgBtn])
+
+        userNameLbl.text = "By " + teacherData.name
+        if teacherData.address.suburb != ""
+        {
+            userSubTitleLbl.text = teacherData.address.suburb
+        }
+        if teacherData.address.state != ""
+        {
+            if userSubTitleLbl.text != ""
+            {
+                userSubTitleLbl.text = userSubTitleLbl.text! + " " + teacherData.address.state
+            }
+            else
+            {
+                userSubTitleLbl.text = teacherData.address.state
+            }
+        }
+        
+        aboutUserLbl.text = teacherData.bio
+        constraintHeightAboutUserLbl.constant = aboutUserLbl.getLableHeight()
+        constraintHeightHeaderView.constant = 390 - 25 + constraintHeightAboutUserLbl.constant
+        constraintHeightTblView.constant = 100 * 2
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = userBackgroundImgBtn.bounds
+        
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
+        userBackgroundImgBtn?.addSubview(blurEffectView)
+    }
 
     @IBAction func clickToBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
