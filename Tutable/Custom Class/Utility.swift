@@ -207,6 +207,11 @@ func delay(_ delay:Double, closure:@escaping ()->()) {
         deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
 
+func setFlotingPrice(_ price : Float) -> String
+{
+    return "$ " + String(format: price == floor(price) ? "%.0f" : "%.1f", price)
+}
+
 
 extension UIImage {
     
@@ -337,6 +342,24 @@ extension UIView
     }
     
 }
+
+extension UILabel
+{
+    func getLableHeight() -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = self.font
+        label.text = self.text
+        label.sizeToFit()
+        return label.frame.height
+    }
+    
+    func getLableWidth() -> CGFloat{
+        return self.intrinsicContentSize.width
+    }
+}
+
 
 extension UITextField
 {

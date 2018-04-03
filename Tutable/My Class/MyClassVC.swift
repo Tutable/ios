@@ -44,6 +44,7 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     {
         APIManager.sharedInstance.serviceCallToGetClassList { (dataArr) in
             
+            self.myClassData = [ClassModel]()
             for temp in dataArr
             {
                 self.myClassData.append(ClassModel.init(dict: temp))
@@ -92,8 +93,9 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
         let dict : ClassModel = myClassData[indexPath.row]
         cell.className.text = dict.name
         APIManager.sharedInstance.serviceCallToGetClassPhoto(dict.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.classImgBtn])
-        cell.priceLbl.text = String(dict.rate)
+        cell.priceLbl.text = setFlotingPrice(dict.rate)
         cell.setCellDesign()
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }
     

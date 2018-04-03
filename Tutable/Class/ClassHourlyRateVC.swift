@@ -48,7 +48,7 @@ class ClassHourlyRateVC: UIViewController {
     
     @IBAction func clickToSubmit(_ sender: Any) {
         self.view.endEditing(true)
-        AppModel.shared.currentClass.rate = Int(priceTxt.text!)
+        AppModel.shared.currentClass.rate = Float(priceTxt.text!)
         if let imageData = UIImagePNGRepresentation(classImg){
             APIManager.sharedInstance.serviceCallToCreateClass(imageData, completion: {
                 if self.tabBarController == nil

@@ -11,9 +11,12 @@ import UIKit
 class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tblView: UITableView!
+    @IBOutlet weak var constraintHeightTblView: NSLayoutConstraint!
     @IBOutlet weak var classHeaderView: UIView!
+    @IBOutlet weak var constraintHeightClassHeaderView: NSLayoutConstraint!
     @IBOutlet weak var classFooterView: UIView!
     
+    @IBOutlet weak var classImgBtn: UIButton!
     @IBOutlet weak var classNameLbl: UILabel!
     @IBOutlet weak var bookClassBtn: UIButton!
     @IBOutlet weak var userProfilePicBtn: UIButton!
@@ -22,8 +25,8 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var classPriceLbl: UILabel!
     @IBOutlet weak var priceUnitLbl: UILabel!
     @IBOutlet weak var studentLevelLbl: UILabel!
-    @IBOutlet weak var aboutClassLbl: UILabel!
     @IBOutlet weak var subjectLoveLbl: UILabel!
+    @IBOutlet weak var constraintHeightSubjectLoveLbl: NSLayoutConstraint!
     @IBOutlet weak var starBtn: UIButton!
     @IBOutlet weak var totalReviewLbl: UILabel!
     @IBOutlet weak var moreReviewBtn: UIButton!
@@ -37,8 +40,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         // Do any additional setup after loading the view.
         tblView.register(UINib(nibName: "CustomReviewsTVC", bundle: nil), forCellReuseIdentifier: "CustomReviewsTVC")
         
-        tblView.tableHeaderView = classHeaderView
-        tblView.tableFooterView = classFooterView
+        setUIDesigning()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -47,10 +49,6 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         tabBar.setTabBarHidden(tabBarHidden: true)
         
         getClassDetail()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        setUIDesigning()
     }
     
     func setUIDesigning()
@@ -71,8 +69,57 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func setClassDetail()
     {
+        APIManager.sharedInstance.serviceCallToGetClassPhoto(classData.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [classImgBtn])
+        classNameLbl.text = classData.name
+        APIManager.sharedInstance.serviceCallToGetPhoto(classData.teacher.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
+        userNameLbl.text = "By " + classData.teacher.name
+        if classData.teacher.address.suburb != ""
+        {
+            userSubTitleLbl.text = classData.teacher.address.suburb
+        }
+        if classData.teacher.address.state != ""
+        {
+            if userSubTitleLbl.text != ""
+            {
+                userSubTitleLbl.text = userSubTitleLbl.text! + " " + classData.teacher.address.state
+            }
+            else
+            {
+                userSubTitleLbl.text = classData.teacher.address.state
+            }
+        }
+        classPriceLbl.text = setFlotingPrice(classData.rate)
+        studentLevelLbl.text = classLevelArr[classData.level-1]
+        subjectLoveLbl.text = classData.bio
+        constraintHeightSubjectLoveLbl.constant = subjectLoveLbl.getLableHeight()
         
+        if let reviewDict : [String : Any] = classData.reviews, reviewDict.count != 0
+        {
+            if let avgStars : Int = reviewDict["avgStars"] as? Int
+            {
+                starBtn.setTitle(String(avgStars), for: .normal)
+            }
+            if let count : Int = reviewDict["count"] as? Int
+            {
+                totalReviewLbl.text = String(count) + ((count > 1) ? " reviews" : " review")
+            }
+        }
+        
+        classHeaderView.layoutSubviews()
+        classHeaderView.layoutIfNeeded()
+        classFooterView.layoutIfNeeded()
+        
+        delay(0.5) {
+            self.constraintHeightClassHeaderView.constant = 529 - 25 + self.constraintHeightSubjectLoveLbl.constant
+            var newFrame : CGRect = self.classHeaderView.frame
+            newFrame.size.height = self.constraintHeightClassHeaderView.constant
+            self.classHeaderView.frame = newFrame
+            self.tblView.reloadData()
+            self.constraintHeightTblView.constant = self.tblView.contentSize.height
+        }
     }
+    
+    
     
     // MARK: - Button click event
     @IBAction func clickToBack(_ sender: Any) {
@@ -99,17 +146,12 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     
     // MARK: - Tableview Delegate method
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 5
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-        
+        return 90
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

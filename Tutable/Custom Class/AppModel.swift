@@ -243,10 +243,11 @@ class ClassModel:AppModel{
     var bio : String!
     var timeline : Double!
     var payload : String!
-    var rate : Int!
+    var rate : Float!
     var cancelled : Int!
     var created : Double!
     var teacher : UserModel!
+    var reviews : [String : Any]!
     
     override init(){
         id = ""
@@ -256,10 +257,11 @@ class ClassModel:AppModel{
         bio = ""
         timeline = 0
         payload = ""
-        rate = 0
+        rate = 0.0
         cancelled = 0
         created = 0.0
         teacher = UserModel.init()
+        reviews = [String : Any]()
     }
     init(dict : [String : Any])
     {
@@ -270,10 +272,11 @@ class ClassModel:AppModel{
         bio = ""
         timeline = 0
         payload = ""
-        rate = 0
+        rate = 0.0
         cancelled = 0
         created = 0.0
         teacher = UserModel.init()
+        reviews = [String : Any]()
         
         if let temp = dict["id"] as? String{
             id = temp
@@ -296,7 +299,7 @@ class ClassModel:AppModel{
         if let image = dict["payload"] as? String{
             payload = image
         }
-        if let temp = dict["rate"] as? Int{
+        if let temp = dict["rate"] as? Float{
             rate = temp
         }
         if let temp = dict["cancelled"] as? Int{
@@ -308,10 +311,13 @@ class ClassModel:AppModel{
         if let temp = dict["teacher"] as? [String : Any]{
             teacher = UserModel.init(dict: temp)
         }
+        if let temp = dict["reviews"] as? [String : Any]{
+            reviews = temp
+        }
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"category" : category.dictionary(), "level" : level, "bio":bio, "payload":payload, "timeline":timeline, "rate":rate, "cancelled" : cancelled, "created" : created, "teacher" : teacher.dictionary()]
+        return ["id":id,"name":name,"category" : category.dictionary(), "level" : level, "bio":bio, "payload":payload, "timeline":timeline, "rate":rate, "cancelled" : cancelled, "created" : created, "teacher" : teacher.dictionary(), "reviews" : reviews]
     }
     
     func toJson(_ dict:[String:Any]) -> String{
