@@ -73,6 +73,10 @@
 		18C441CD206A673D005C6251 /* ClassesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C441CC206A673D005C6251 /* ClassesListVC.swift */; };
 		18FE555E207387E400FE4C36 /* CustomSettingTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE555C207387E400FE4C36 /* CustomSettingTVC.swift */; };
 		18FE555F207387E400FE4C36 /* CustomSettingTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FE555D207387E400FE4C36 /* CustomSettingTVC.xib */; };
+		18FE5562207394F600FE4C36 /* UpcomingBookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE5561207394F600FE4C36 /* UpcomingBookingVC.swift */; };
+		18FE55642073950B00FE4C36 /* PastBookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE55632073950B00FE4C36 /* PastBookingVC.swift */; };
+		18FE55692073A2E300FE4C36 /* CustomUpcomingBookingTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FE55672073A2E200FE4C36 /* CustomUpcomingBookingTVC.xib */; };
+		18FE556A2073A2E300FE4C36 /* CustomUpcomingBookingTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE55682073A2E200FE4C36 /* CustomUpcomingBookingTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,6 +149,10 @@
 		18C441CC206A673D005C6251 /* ClassesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesListVC.swift; sourceTree = "<group>"; };
 		18FE555C207387E400FE4C36 /* CustomSettingTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSettingTVC.swift; sourceTree = "<group>"; };
 		18FE555D207387E400FE4C36 /* CustomSettingTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomSettingTVC.xib; sourceTree = "<group>"; };
+		18FE5561207394F600FE4C36 /* UpcomingBookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingBookingVC.swift; sourceTree = "<group>"; };
+		18FE55632073950B00FE4C36 /* PastBookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastBookingVC.swift; sourceTree = "<group>"; };
+		18FE55672073A2E200FE4C36 /* CustomUpcomingBookingTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomUpcomingBookingTVC.xib; sourceTree = "<group>"; };
+		18FE55682073A2E200FE4C36 /* CustomUpcomingBookingTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUpcomingBookingTVC.swift; sourceTree = "<group>"; };
 		4F24731DA21574C223798CD3 /* Pods_Tutable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tutable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95BA39A18FE7677A998F0624 /* Pods-Tutable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tutable.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tutable/Pods-Tutable.debug.xcconfig"; sourceTree = "<group>"; };
 		F3456A4016EDB82C153EC3B5 /* Pods-Tutable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tutable.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tutable/Pods-Tutable.release.xcconfig"; sourceTree = "<group>"; };
@@ -182,6 +190,8 @@
 			isa = PBXGroup;
 			children = (
 				18615BD62068B946004A6876 /* BookingVC.swift */,
+				18FE5561207394F600FE4C36 /* UpcomingBookingVC.swift */,
+				18FE55632073950B00FE4C36 /* PastBookingVC.swift */,
 			);
 			path = Booking;
 			sourceTree = "<group>";
@@ -233,6 +243,8 @@
 				1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */,
 				18FE555C207387E400FE4C36 /* CustomSettingTVC.swift */,
 				18FE555D207387E400FE4C36 /* CustomSettingTVC.xib */,
+				18FE55682073A2E200FE4C36 /* CustomUpcomingBookingTVC.swift */,
+				18FE55672073A2E200FE4C36 /* CustomUpcomingBookingTVC.xib */,
 			);
 			path = "TableView Cell";
 			sourceTree = "<group>";
@@ -436,6 +448,7 @@
 				18B9918720692620009F8A13 /* CustomCategoryCVC.xib in Resources */,
 				18803986206A2A6700179778 /* CustomClassesTVC.xib in Resources */,
 				18FE555F207387E400FE4C36 /* CustomSettingTVC.xib in Resources */,
+				18FE55692073A2E300FE4C36 /* CustomUpcomingBookingTVC.xib in Resources */,
 				18B99183206923FD009F8A13 /* CustomMessagesTVC.xib in Resources */,
 				1815CB342071EFCC0081F852 /* CustomMyClassTVC.xib in Resources */,
 				18B99190206938E8009F8A13 /* CustomReviewsTVC.xib in Resources */,
@@ -460,6 +473,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/CarbonKit/CarbonKit.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
@@ -475,6 +489,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CarbonKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
@@ -537,6 +552,7 @@
 				18615BD72068B946004A6876 /* BookingVC.swift in Sources */,
 				18615BD92068CC42004A6876 /* ResetPasswordVC.swift in Sources */,
 				18B9918620692620009F8A13 /* CustomCategoryCVC.swift in Sources */,
+				18FE55642073950B00FE4C36 /* PastBookingVC.swift in Sources */,
 				18615BD12068B90D004A6876 /* SettingsVC.swift in Sources */,
 				18B9918D20692841009F8A13 /* CustomClassesCVC.swift in Sources */,
 				186A74F02064BFCD0013D863 /* ViewController.swift in Sources */,
@@ -557,6 +573,7 @@
 				18722850206CDF2200CD3076 /* TeacherQulificationVC.swift in Sources */,
 				18803982206A283C00179778 /* TeacherDetailVC.swift in Sources */,
 				186A7517206510340013D863 /* Preference.swift in Sources */,
+				18FE556A2073A2E300FE4C36 /* CustomUpcomingBookingTVC.swift in Sources */,
 				18615BDD2068D496004A6876 /* PhotoSelectionVC.swift in Sources */,
 				18B9919520693973009F8A13 /* ClassDetailVC.swift in Sources */,
 				186A751F206510340013D863 /* Toast.swift in Sources */,
@@ -570,6 +587,7 @@
 				18B9918920692835009F8A13 /* EntertainmentVC.swift in Sources */,
 				186A751D206510340013D863 /* UIImage+ProportionalFill.m in Sources */,
 				18C441CB206A5ECC005C6251 /* RegistrationVC.swift in Sources */,
+				18FE5562207394F600FE4C36 /* UpcomingBookingVC.swift in Sources */,
 				18AE596F206BAB4300B6D324 /* TeacherCertificationVC.swift in Sources */,
 				18803980206A18E200179778 /* FloatRatingView.swift in Sources */,
 				18C441CD206A673D005C6251 /* ClassesListVC.swift in Sources */,

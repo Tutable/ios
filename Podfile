@@ -16,4 +16,5 @@ target 'Tutable' do
   pod 'GoogleSignIn'
   pod 'FBSDKLoginKit'
   pod 'DropDown'
+  pod 'CarbonKit'
 end

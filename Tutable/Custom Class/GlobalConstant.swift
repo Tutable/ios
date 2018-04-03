@@ -32,8 +32,6 @@ struct SCREEN
     static var HEIGHT = UIScreen.main.bounds.size.height
 }
 
-
-
 struct COLOR {
     static var APP_COLOR = "4BDAA7"
     static var BLACK_COLOR = "000000"
