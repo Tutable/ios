@@ -1610,6 +1610,9 @@
                                                 <color key="textColor" red="0.75482905460000005" green="0.79415174219999995" blue="0.85683298090000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="QfY-vS-4vC" id="UES-AD-VBa"/>
+                                                </connections>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This review will appers on class owner's profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHc-ut-gVo">
                                                 <rect key="frame" x="40" y="503" width="240" height="14.5"/>
@@ -1677,6 +1680,7 @@
                     </view>
                     <size key="freeformSize" width="320" height="700"/>
                     <connections>
+                        <outlet property="classDetailView" destination="u2r-SK-hSR" id="wt4-ub-I4F"/>
                         <outlet property="classImgBtn" destination="q4e-gJ-PYg" id="56D-ca-rHP"/>
                         <outlet property="classNameLbl" destination="BTm-4T-fAz" id="sEA-Tt-sUn"/>
                         <outlet property="dateTimeLbl" destination="p9W-sX-2f9" id="yms-ci-HOb"/>

@@ -36,6 +36,9 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomUpcomingBookingTVC", for: indexPath) as! CustomUpcomingBookingTVC
         
+        cell.starBtn.tag = indexPath.row
+        cell.starBtn.addTarget(self, action: #selector(clickToReviewBtn(_:)), for: .touchUpInside)
+        
         cell.starBtn.isHidden = false
         cell.chatBtn.isHidden = true
         cell.cancelBtn.isHidden = true
@@ -44,6 +47,11 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         return cell
     }
 
+    @IBAction func clickToReviewBtn(_ sender: UIButton) {
+        let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
