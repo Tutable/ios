@@ -52,7 +52,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By Samantha Jamsons" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oaG-CQ-MAn">
-                                <rect key="frame" x="10" y="145" width="195" height="20"/>
+                                <rect key="frame" x="10" y="145" width="155" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Wnv-Vj-Qec"/>
                                 </constraints>
@@ -61,7 +61,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date display herer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DN8-iE-iyw">
-                                <rect key="frame" x="10" y="168" width="195" height="15.5"/>
+                                <rect key="frame" x="10" y="168" width="155" height="15.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -82,14 +82,25 @@
                                 </constraints>
                                 <state key="normal" image="round_delete"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oO7-Hr-j90">
-                                <rect key="frame" x="230" y="140" width="60" height="49.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfH-s9-n4d" customClass="FloatRatingView" customModule="Tutable" customModuleProvider="target">
+                                <rect key="frame" x="165" y="150" width="130" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="EEl-H7-k2U"/>
+                                    <constraint firstAttribute="height" constant="30" id="lue-Rp-13i"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="star_off_medium"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="star_on_medium"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oO7-Hr-j90">
+                                <rect key="frame" x="165" y="140" width="130" height="49.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="bky-KK-zy3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                 <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="4.5" image="star_on_medium">
+                                <state key="normal">
                                     <color key="titleColor" red="0.42352941179999998" green="0.42352941179999998" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
@@ -101,26 +112,29 @@
                             <constraint firstItem="Idx-2P-SR1" firstAttribute="trailing" secondItem="Mfs-b4-S0W" secondAttribute="trailing" constant="-10" id="9p5-RF-uFw"/>
                             <constraint firstAttribute="trailing" secondItem="Mfs-b4-S0W" secondAttribute="trailing" id="A8o-Mi-yez"/>
                             <constraint firstItem="gy5-Jw-jfG" firstAttribute="trailing" secondItem="Mfs-b4-S0W" secondAttribute="trailing" id="Hot-3H-FD0"/>
+                            <constraint firstItem="PfH-s9-n4d" firstAttribute="trailing" secondItem="oO7-Hr-j90" secondAttribute="trailing" id="Jft-fE-LkJ"/>
                             <constraint firstItem="ccX-dx-gch" firstAttribute="top" secondItem="Mfs-b4-S0W" secondAttribute="bottom" constant="10" id="KmG-iw-YgO"/>
                             <constraint firstItem="DN8-iE-iyw" firstAttribute="leading" secondItem="4Dv-5v-TgD" secondAttribute="leading" constant="10" id="NcO-2B-fWt"/>
                             <constraint firstItem="Mfs-b4-S0W" firstAttribute="leading" secondItem="4Dv-5v-TgD" secondAttribute="leading" id="OUe-un-mc8"/>
+                            <constraint firstItem="oO7-Hr-j90" firstAttribute="leading" secondItem="oaG-CQ-MAn" secondAttribute="trailing" id="UJT-t1-VU9"/>
                             <constraint firstItem="Q9c-en-cUL" firstAttribute="top" secondItem="Mfs-b4-S0W" secondAttribute="bottom" constant="10" id="VQf-NY-NdZ"/>
                             <constraint firstAttribute="trailing" secondItem="Q9c-en-cUL" secondAttribute="trailing" constant="15" id="Xpv-Rj-uqw"/>
                             <constraint firstItem="DN8-iE-iyw" firstAttribute="top" secondItem="oaG-CQ-MAn" secondAttribute="bottom" constant="3" id="Y1R-u0-akV"/>
                             <constraint firstItem="oO7-Hr-j90" firstAttribute="top" secondItem="Mfs-b4-S0W" secondAttribute="bottom" id="ZF2-s8-O3Q"/>
-                            <constraint firstItem="ccX-dx-gch" firstAttribute="leading" secondItem="DN8-iE-iyw" secondAttribute="trailing" constant="5" id="dHu-1G-gGs"/>
+                            <constraint firstItem="oO7-Hr-j90" firstAttribute="centerY" secondItem="PfH-s9-n4d" secondAttribute="centerY" id="cSr-L7-GVQ"/>
                             <constraint firstItem="Q9c-en-cUL" firstAttribute="leading" secondItem="ccX-dx-gch" secondAttribute="trailing" constant="15" id="dIS-Jm-vFG"/>
                             <constraint firstItem="Idx-2P-SR1" firstAttribute="leading" secondItem="Mfs-b4-S0W" secondAttribute="leading" constant="10" id="dhp-54-sYg"/>
                             <constraint firstItem="oaG-CQ-MAn" firstAttribute="top" secondItem="Mfs-b4-S0W" secondAttribute="bottom" constant="5" id="evy-0k-MGC"/>
+                            <constraint firstItem="oO7-Hr-j90" firstAttribute="leading" secondItem="DN8-iE-iyw" secondAttribute="trailing" id="gi9-ZM-nVF"/>
+                            <constraint firstItem="PfH-s9-n4d" firstAttribute="leading" secondItem="oO7-Hr-j90" secondAttribute="leading" id="jaZ-2P-3Ah"/>
                             <constraint firstItem="Wh2-qV-WmB" firstAttribute="bottom" secondItem="Mfs-b4-S0W" secondAttribute="bottom" constant="-5" id="kGT-qI-Q8Q"/>
-                            <constraint firstAttribute="trailing" secondItem="oO7-Hr-j90" secondAttribute="trailing" constant="10" id="l1o-Qe-jNz"/>
+                            <constraint firstAttribute="trailing" secondItem="oO7-Hr-j90" secondAttribute="trailing" constant="5" id="l1o-Qe-jNz"/>
                             <constraint firstItem="Mfs-b4-S0W" firstAttribute="top" secondItem="4Dv-5v-TgD" secondAttribute="top" id="ldB-eZ-xky"/>
                             <constraint firstItem="oaG-CQ-MAn" firstAttribute="leading" secondItem="4Dv-5v-TgD" secondAttribute="leading" constant="10" id="m8c-oR-6gk"/>
                             <constraint firstItem="gy5-Jw-jfG" firstAttribute="leading" secondItem="Mfs-b4-S0W" secondAttribute="leading" id="nQV-Uw-sgZ"/>
                             <constraint firstAttribute="bottom" secondItem="oO7-Hr-j90" secondAttribute="bottom" id="sq6-PV-25Y"/>
                             <constraint firstItem="gy5-Jw-jfG" firstAttribute="top" secondItem="Mfs-b4-S0W" secondAttribute="top" id="wXG-FL-msf"/>
                             <constraint firstItem="gy5-Jw-jfG" firstAttribute="bottom" secondItem="Mfs-b4-S0W" secondAttribute="bottom" id="yzI-0y-wvK"/>
-                            <constraint firstItem="ccX-dx-gch" firstAttribute="leading" secondItem="oaG-CQ-MAn" secondAttribute="trailing" constant="5" id="zEp-rP-bp1"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -137,11 +151,13 @@
                 <outlet property="cancelBtn" destination="ccX-dx-gch" id="qyk-3q-DDo"/>
                 <outlet property="chatBtn" destination="Q9c-en-cUL" id="EBt-DF-JuM"/>
                 <outlet property="classNameLbl" destination="Idx-2P-SR1" id="xhw-K9-ecE"/>
+                <outlet property="constraintWidthStarView" destination="bky-KK-zy3" id="xCp-0w-Rs1"/>
                 <outlet property="dateTimeLbl" destination="DN8-iE-iyw" id="dsa-uN-cjn"/>
                 <outlet property="imgBtn" destination="Mfs-b4-S0W" id="Akr-RU-xoa"/>
                 <outlet property="outerView" destination="4Dv-5v-TgD" id="4l3-Wn-IPc"/>
                 <outlet property="priceLbl" destination="Wh2-qV-WmB" id="bD8-Gp-WOk"/>
                 <outlet property="starBtn" destination="oO7-Hr-j90" id="eym-Jj-GNS"/>
+                <outlet property="starView" destination="PfH-s9-n4d" id="w17-Um-CV8"/>
                 <outlet property="userNameLbl" destination="oaG-CQ-MAn" id="iT8-ek-YT3"/>
             </connections>
             <point key="canvasLocation" x="-118" y="-100"/>
@@ -150,6 +166,7 @@
     <resources>
         <image name="msg_small" width="30" height="30"/>
         <image name="round_delete" width="30" height="30"/>
+        <image name="star_off_medium" width="25" height="24"/>
         <image name="star_on_medium" width="25" height="24"/>
     </resources>
 </document>

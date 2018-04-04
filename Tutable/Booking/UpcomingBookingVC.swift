@@ -46,6 +46,8 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
         cell.chatBtn.addTarget(self, action: #selector(clickToChatBtn(_:)), for: .touchUpInside)
         
         cell.starBtn.isHidden = true
+        cell.starView.isHidden = true
+        cell.constraintWidthStarView.constant = 100
         cell.chatBtn.isHidden = false
         cell.cancelBtn.isHidden = false
         cell.setCellDesign()

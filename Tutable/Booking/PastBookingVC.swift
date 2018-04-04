@@ -40,6 +40,8 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         cell.starBtn.addTarget(self, action: #selector(clickToReviewBtn(_:)), for: .touchUpInside)
         
         cell.starBtn.isHidden = false
+        cell.starView.isHidden = false
+        cell.constraintWidthStarView.constant = 130
         cell.chatBtn.isHidden = true
         cell.cancelBtn.isHidden = true
         cell.setCellDesign()

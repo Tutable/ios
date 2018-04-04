@@ -249,7 +249,8 @@ public class APIManager {
         var strUrl : String = "teachers/resendVerification"
         if isStudentLogin()
         {
-            strUrl = "student/resendVerification"
+            strUrl = "student/token"
+            params["tokenType"] = 1
         }
         
         Alamofire.request(BASE_URL+strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
@@ -380,7 +381,7 @@ public class APIManager {
         var strUrl : String = "teachers/details"
         if isStudentLogin()
         {
-            strUrl = "student/details"
+            strUrl = "student/studentDetails"
         }
         Alamofire.request(BASE_URL+strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
             
@@ -651,7 +652,14 @@ public class APIManager {
     func serviceCallToGetUserAvatar(_ user:UserModel, btn:UIButton){
         
         let _ :[String : String] = [String:String]()
-        Alamofire.request(BASE_URL+"user/getProfilePic/"+user.picture).responseImage { response in
+        
+        var strUrl : String = BASE_URL+"user/getProfilePic/"+user.picture
+        if isStudentLogin()
+        {
+            strUrl = BASE_URL+"student/assets/"+user.picture
+        }
+        
+        Alamofire.request(strUrl).responseImage { response in
             if let image = response.result.value {
                 btn.setBackgroundImage(image, for: .normal)
                 AppModel.shared.usersAvatar[user.id] = image
@@ -681,7 +689,12 @@ public class APIManager {
                 DataRequest.addAcceptableImageContentTypes(["image/jpg", "image/jpeg", "image/png", "image/gif"])
                 AppModel.shared.imageQueue[picPath!] = true
                 //let headerParams :[String : String] = getJsonHeader()
-                Alamofire.request(BASE_URL + picPath!).responseImage { response in
+                var strUrl : String = BASE_URL + picPath!
+                if isStudentLogin()
+                {
+                   strUrl = BASE_URL + "student/assets/" + picPath!
+                }
+                Alamofire.request(strUrl).responseImage { response in
                     if let image = response.result.value {
                         AppModel.shared.imageQueue[picPath!] = image
                         for i in 0..<btn.count{

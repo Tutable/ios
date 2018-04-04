@@ -65,6 +65,7 @@ class AddRateReviewVC: UIViewController, UITextViewDelegate {
     
     @IBAction func clickToBack(_ sender: Any) {
         self.view.endEditing(true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

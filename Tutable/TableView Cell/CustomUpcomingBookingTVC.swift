@@ -20,11 +20,13 @@ class CustomUpcomingBookingTVC: UITableViewCell {
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var chatBtn: UIButton!
     @IBOutlet weak var starBtn: UIButton!
+    @IBOutlet weak var starView: FloatRatingView!
+    @IBOutlet weak var constraintWidthStarView: NSLayoutConstraint!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+       starView.type = .floatRatings
     }
 
     func setCellDesign()

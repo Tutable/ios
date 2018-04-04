@@ -31,6 +31,8 @@ class ProfileVC: UIViewController {
     {
         userProfilePicBtn.addCircularRadiusOfView()
         APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
+        userNameLbl.text = ""
+        subTitleLbl.text = ""
         userNameLbl.text = AppModel.shared.currentUser.name.uppercased()
         if AppModel.shared.currentUser.address.suburb != ""
         {
@@ -52,8 +54,6 @@ class ProfileVC: UIViewController {
     
     
     @IBAction func clickToEdit(_ sender: Any) {
-        
-        AppDelegate().sharedDelegate().logoutApp()
 //        let vc : EditTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
 //        self.navigationController?.pushViewController(vc, animated: true)
     }
