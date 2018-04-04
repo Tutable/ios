@@ -10,16 +10,46 @@ import UIKit
 
 class ProfileVC: UIViewController {
 
+    @IBOutlet weak var userProfilePicBtn: UIButton!
+    @IBOutlet weak var userNameLbl: UILabel!
+    @IBOutlet weak var subTitleLbl: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setUIDesigning()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
         tabBar.setTabBarHidden(tabBarHidden: false)
     }
+    
+    func setUIDesigning()
+    {
+        userProfilePicBtn.addCircularRadiusOfView()
+        APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
+        userNameLbl.text = AppModel.shared.currentUser.name.uppercased()
+        if AppModel.shared.currentUser.address.suburb != ""
+        {
+            subTitleLbl.text = AppModel.shared.currentUser.address.suburb
+        }
+        if AppModel.shared.currentUser.address.state != ""
+        {
+            if subTitleLbl.text == ""
+            {
+                subTitleLbl.text = AppModel.shared.currentUser.address.state
+            }
+            else
+            {
+                subTitleLbl.text = subTitleLbl.text! + ", " + AppModel.shared.currentUser.address.state
+            }
+        }
+        subTitleLbl.text = subTitleLbl.text?.uppercased()
+    }
+    
     
     @IBAction func clickToEdit(_ sender: Any) {
         

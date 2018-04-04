@@ -175,7 +175,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="PmG-57-G4p">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_profile" translatesAutoresizingMaskIntoConstraints="NO" id="PmG-57-G4p">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
@@ -210,21 +210,62 @@
                                     <constraint firstAttribute="bottom" secondItem="RAb-dr-Y8k" secondAttribute="bottom" id="ngD-q9-HAx"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="chb-pO-x0H">
+                                <rect key="frame" x="4" y="118" width="271" height="281"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="281" id="Otr-Lw-wTM"/>
+                                    <constraint firstAttribute="width" constant="271" id="YBq-c5-w4X"/>
+                                </constraints>
+                                <state key="normal" image="profile_image_bg"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVp-Xv-hZc">
+                                <rect key="frame" x="60" y="184" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="1Cm-Gr-mGU"/>
+                                    <constraint firstAttribute="height" constant="200" id="fqI-YS-jot"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="user_avatar"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROFILE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8h-9I-z9Y">
+                                <rect key="frame" x="107.5" y="419" width="105.5" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROFILE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m0I-hs-uqE">
+                                <rect key="frame" x="130.5" y="459" width="59" height="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" red="0.27450980390000002" green="0.27450980390000002" blue="0.27450980390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="PmG-57-G4p" firstAttribute="top" secondItem="az5-zl-KxU" secondAttribute="top" id="0hV-f4-9jB"/>
                             <constraint firstItem="Qe1-rY-mZj" firstAttribute="trailing" secondItem="PmG-57-G4p" secondAttribute="trailing" id="1Qw-MR-Lel"/>
+                            <constraint firstItem="m0I-hs-uqE" firstAttribute="centerX" secondItem="az5-zl-KxU" secondAttribute="centerX" id="A9b-DB-wLw"/>
+                            <constraint firstItem="G8h-9I-z9Y" firstAttribute="top" secondItem="chb-pO-x0H" secondAttribute="bottom" constant="20" id="Dwe-wj-hFg"/>
+                            <constraint firstItem="AVp-Xv-hZc" firstAttribute="bottom" secondItem="chb-pO-x0H" secondAttribute="bottom" constant="-15" id="F1x-5h-vfr"/>
                             <constraint firstItem="Qe1-rY-mZj" firstAttribute="trailing" secondItem="UEu-tx-AWB" secondAttribute="trailing" id="HLm-8O-oww"/>
+                            <constraint firstItem="AVp-Xv-hZc" firstAttribute="centerX" secondItem="az5-zl-KxU" secondAttribute="centerX" id="LyQ-KP-Hbh"/>
                             <constraint firstItem="PmG-57-G4p" firstAttribute="leading" secondItem="az5-zl-KxU" secondAttribute="leading" id="MlI-xb-Zj5"/>
                             <constraint firstItem="UEu-tx-AWB" firstAttribute="leading" secondItem="Qe1-rY-mZj" secondAttribute="leading" id="SCQ-5s-Zf6"/>
+                            <constraint firstItem="AVp-Xv-hZc" firstAttribute="centerY" secondItem="az5-zl-KxU" secondAttribute="centerY" id="UFR-c3-9Tt"/>
+                            <constraint firstItem="AVp-Xv-hZc" firstAttribute="trailing" secondItem="chb-pO-x0H" secondAttribute="trailing" constant="-15" id="XlE-e9-pMw"/>
                             <constraint firstItem="Qe1-rY-mZj" firstAttribute="bottom" secondItem="PmG-57-G4p" secondAttribute="bottom" id="cES-ro-onU"/>
                             <constraint firstItem="UEu-tx-AWB" firstAttribute="top" secondItem="az5-zl-KxU" secondAttribute="top" id="kJV-Wo-EWL"/>
+                            <constraint firstItem="G8h-9I-z9Y" firstAttribute="centerX" secondItem="az5-zl-KxU" secondAttribute="centerX" id="nLs-p3-oaU"/>
+                            <constraint firstItem="m0I-hs-uqE" firstAttribute="top" secondItem="G8h-9I-z9Y" secondAttribute="bottom" constant="10" id="uAL-2s-zxC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Qe1-rY-mZj"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="ASu-Sc-a77"/>
+                    <connections>
+                        <outlet property="subTitleLbl" destination="m0I-hs-uqE" id="eji-GP-uGh"/>
+                        <outlet property="userNameLbl" destination="G8h-9I-z9Y" id="VcQ-DN-Cf0"/>
+                        <outlet property="userProfilePicBtn" destination="AVp-Xv-hZc" id="VaN-Dh-kPL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wo0-ca-xYT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4147,6 +4188,7 @@ was just sent to your Email</string>
         <image name="bg_header" width="375" height="71"/>
         <image name="bg_launchscreen" width="375" height="667"/>
         <image name="bg_login" width="375" height="667"/>
+        <image name="bg_profile" width="375" height="667"/>
         <image name="bottom_arrow" width="7" height="4"/>
         <image name="calendar_green" width="27" height="27"/>
         <image name="camera_icon" width="100" height="100"/>
@@ -4160,6 +4202,7 @@ was just sent to your Email</string>
         <image name="logo_green_big" width="47" height="57"/>
         <image name="logo_white_big" width="44" height="57"/>
         <image name="picture" width="166" height="149"/>
+        <image name="profile_image_bg" width="271" height="281"/>
         <image name="right_arrow" width="30" height="30"/>
         <image name="success" width="166" height="166"/>
         <image name="trash" width="166" height="149"/>
