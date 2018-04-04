@@ -115,6 +115,9 @@ class UserModel:AppModel{
         if let Id = dict["id"] as? String{
             id = Id
         }
+        else if let Id = dict["_id"] as? String{
+            id = Id
+        }
         if let Name = dict["name"] as? String{
             name = Name
         }

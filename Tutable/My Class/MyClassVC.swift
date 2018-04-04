@@ -70,7 +70,7 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
     @IBAction func clickToAddClass(_ sender: Any) {
         self.view.endEditing(true)
-        let vc : AddClassVC = self.storyboard?.instantiateViewController(withIdentifier: "AddClassVC") as! AddClassVC
+        let vc : AddClassVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddClassVC") as! AddClassVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -100,7 +100,7 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc : ClassDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "ClassDetailVC") as! ClassDetailVC
+        let vc : ClassDetailVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "ClassDetailVC") as! ClassDetailVC
         vc.classId = myClassData[indexPath.row].id
         self.navigationController?.pushViewController(vc, animated: true)
     }

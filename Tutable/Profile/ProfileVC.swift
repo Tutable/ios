@@ -22,8 +22,9 @@ class ProfileVC: UIViewController {
     }
     
     @IBAction func clickToEdit(_ sender: Any) {
+        
         AppDelegate().sharedDelegate().logoutApp()
-//        let vc : EditTeacherProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
+//        let vc : EditTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
 //        self.navigationController?.pushViewController(vc, animated: true)
     }
     

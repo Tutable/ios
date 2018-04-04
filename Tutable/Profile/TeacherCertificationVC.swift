@@ -27,7 +27,7 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
         
         // Do any additional setup after loading the view.
         
-        _PhotoSelectionVC = self.storyboard?.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
+        _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
         
@@ -114,13 +114,13 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
             }
             if policeCheckImg == nil && getPoliceCertificate() != ""
             {
-                let vc : TeacherFinishVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
+                let vc : TeacherFinishVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else
             {
                 APIManager.sharedInstance.serviceCallToUpdateCertificates(policeData, childrenData: childrenData) {
-                    let vc : TeacherQulificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
+                    let vc : TeacherQulificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }

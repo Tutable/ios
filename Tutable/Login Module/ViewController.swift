@@ -31,13 +31,13 @@ class ViewController: UIViewController {
     
     @IBAction func clickToTech(_ sender: Any) {
         setUserType(type: 1)
-        let vc : LoginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+        let vc : LoginVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func clickToLearn(_ sender: Any) {
         setUserType(type: 2)
-        let vc : LoginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+        let vc : LoginVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

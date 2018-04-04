@@ -33,7 +33,7 @@ class TeacherFinishVC: UIViewController {
     
     @IBAction func clickToFinish(_ sender: Any) {
         //AppDelegate().sharedDelegate().navigateToDashboard()
-        let vc : AddClassVC = self.storyboard?.instantiateViewController(withIdentifier: "AddClassVC") as! AddClassVC
+        let vc : AddClassVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddClassVC") as! AddClassVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

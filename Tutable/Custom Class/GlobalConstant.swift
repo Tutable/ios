@@ -59,6 +59,13 @@ struct IMAGE {
     static var CAMERA_PLACEHOLDER = "camera_icon"
 }
 
+struct STORYBOARD {
+    static var MAIN = UIStoryboard(name: "Main", bundle: nil)
+    static var CLASS = UIStoryboard(name: "Class", bundle: nil)
+    static var BOOKING = UIStoryboard(name: "Booking", bundle: nil)
+    static var MESSAGE = UIStoryboard(name: "Message", bundle: nil)
+}
+
 struct GOOGLE
 {
 //    static var KEY = "AIzaSyCPCVymlzk8ZbtPfFOJuvqIpcUQiaXJ2IE" // tutableapp@gmail.com

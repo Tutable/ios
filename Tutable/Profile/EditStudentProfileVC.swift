@@ -23,7 +23,7 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        _PhotoSelectionVC = self.storyboard?.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
+        _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
     }
@@ -76,7 +76,7 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
         }
         else
         {
-            let vc : WelcomePageVC = self.storyboard?.instantiateViewController(withIdentifier: "WelcomePageVC") as! WelcomePageVC
+            let vc : WelcomePageVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "WelcomePageVC") as! WelcomePageVC
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

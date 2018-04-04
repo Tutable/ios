@@ -88,19 +88,19 @@ class LoginVC: UIViewController {
                                 }
                                 else if redirectionType == 1
                                 {
-                                    let vc : EditTeacherProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
+                                    let vc : EditTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
                                     vc.isBackDisplay = false
                                     self.navigationController?.pushViewController(vc, animated: true)
                                 }
                                 else if redirectionType == 2
                                 {
-                                    let vc : TeacherCertificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
+                                    let vc : TeacherCertificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
                                     vc.isBackDisplay = false
                                     self.navigationController?.pushViewController(vc, animated: true)
                                 }
                                 else if redirectionType == 3
                                 {
-                                    let vc : TeacherQulificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
+                                    let vc : TeacherQulificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
                                     vc.isBackDisplay = false
                                     self.navigationController?.pushViewController(vc, animated: true)
                                 }
@@ -109,7 +109,7 @@ class LoginVC: UIViewController {
                     }
                     else if code == 104
                     {
-                        let vc : VerificationCodeVC = self.storyboard?.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
+                        let vc : VerificationCodeVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
                         vc.isFromLoginScreen = true
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
@@ -120,7 +120,7 @@ class LoginVC: UIViewController {
     
     @IBAction func clickToForgotPassword(_ sender: Any) {
         self.view.endEditing(true)
-        let vc : ForgotPasswordVC = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordVC") as! ForgotPasswordVC
+        let vc : ForgotPasswordVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "ForgotPasswordVC") as! ForgotPasswordVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -136,8 +136,16 @@ class LoginVC: UIViewController {
     
     @IBAction func clickToCreateNewAccount(_ sender: Any) {
         self.view.endEditing(true)
-        let vc : RegistrationVC = self.storyboard?.instantiateViewController(withIdentifier: "RegistrationVC") as! RegistrationVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        if isStudentLogin()
+        {
+            let vc : StudentRegistration = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "StudentRegistration") as! StudentRegistration
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        else
+        {
+            let vc : RegistrationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "RegistrationVC") as! RegistrationVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     override func didReceiveMemoryWarning() {

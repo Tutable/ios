@@ -41,7 +41,7 @@ class ForgotPasswordVC: UIViewController {
         }
         else
         {
-            let vc : ResetPasswordVC = self.storyboard?.instantiateViewController(withIdentifier: "ResetPasswordVC") as! ResetPasswordVC
+            let vc : ResetPasswordVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "ResetPasswordVC") as! ResetPasswordVC
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

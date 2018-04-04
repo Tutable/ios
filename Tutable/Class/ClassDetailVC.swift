@@ -136,13 +136,13 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     @IBAction func clickToUserProfilePicture(_ sender: Any) {
-        let vc : TeacherDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherDetailVC") as! TeacherDetailVC
+        let vc : TeacherDetailVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "TeacherDetailVC") as! TeacherDetailVC
         vc.teacherID = classData.teacher.id
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func clickToMoreReviews(_ sender: Any) {
-        let vc : ReviewListVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewListVC") as! ReviewListVC
+        let vc : ReviewListVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "ReviewListVC") as! ReviewListVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

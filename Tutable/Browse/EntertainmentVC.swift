@@ -65,7 +65,7 @@ class EntertainmentVC: UIViewController, UICollectionViewDataSource, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc : ClassDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "ClassDetailVC") as! ClassDetailVC
+        let vc : ClassDetailVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "ClassDetailVC") as! ClassDetailVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

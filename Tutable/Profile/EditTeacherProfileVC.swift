@@ -36,7 +36,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
 
         // Do any additional setup after loading the view.
         
-        _PhotoSelectionVC = self.storyboard?.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
+        _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
         
@@ -141,7 +141,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     
     @IBAction func clickToAddAvailability(_ sender: Any) {
         self.view.endEditing(true)
-        let vc : TeacherAvailabilityVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherAvailabilityVC") as! TeacherAvailabilityVC
+        let vc : TeacherAvailabilityVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "TeacherAvailabilityVC") as! TeacherAvailabilityVC
         vc.delegate = self
         if availabilityDict.count != 0
         {
@@ -243,7 +243,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     func continueUpdating(_ dict : [String : Any], _ imageData : Data)
     {
         APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: Data(), pictureData: imageData, completion: {
-            let vc : TeacherCertificationVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
+            let vc : TeacherCertificationVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
             self.navigationController?.pushViewController(vc, animated: true)
         })
     }

@@ -143,10 +143,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                     AppModel.shared.currentUser = UserModel.init(dict: userDict)
                     AppModel.shared.token = accessToken
                     
-                    let vc : CreateProfileVC = self.storyboard().instantiateViewController(withIdentifier: "CreateProfileVC") as! CreateProfileVC
-                    let nav : UINavigationController = self.window?.rootViewController as! UINavigationController
-                    nav.pushViewController(vc, animated: true)
-                    
                 }
                 else
                 {
@@ -170,9 +166,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         
         GIDSignIn .sharedInstance() .signIn()
         
-//        let vc : CreateProfileVC = self.storyboard().instantiateViewController(withIdentifier: "CreateProfileVC") as! CreateProfileVC
-//        let nav : UINavigationController = self.window?.rootViewController as! UINavigationController
-//        nav.pushViewController(vc, animated: true)
     }
     
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!)

@@ -61,12 +61,12 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func getTeacherDetail()
     {
-        APIManager.sharedInstance.serviceCallToGetUserDetail {
-            self.teacherData = AppModel.shared.currentUser
+        APIManager.sharedInstance.serviceCallToGetTeacehrDetail(teacherID) { (data) in
+            self.teacherData = UserModel.init(dict: data)
             self.setTeacherDetail()
         }
     }
-    
+     
     func setTeacherDetail()
     {
         APIManager.sharedInstance.serviceCallToGetPhoto(teacherData.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn, userBackgroundImgBtn])
@@ -92,13 +92,6 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         constraintHeightAboutUserLbl.constant = aboutUserLbl.getLableHeight()
         constraintHeightHeaderView.constant = 390 - 25 + constraintHeightAboutUserLbl.constant
         constraintHeightTblView.constant = 100 * 2
-        
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = userBackgroundImgBtn.bounds
-        
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
-        userBackgroundImgBtn?.addSubview(blurEffectView)
     }
 
     @IBAction func clickToBack(_ sender: Any) {
@@ -110,7 +103,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     @IBAction func clickToMoreClasses(_ sender: Any) {
-        let vc : ClassesListVC = self.storyboard?.instantiateViewController(withIdentifier: "ClassesListVC") as! ClassesListVC
+        let vc : ClassesListVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "ClassesListVC") as! ClassesListVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

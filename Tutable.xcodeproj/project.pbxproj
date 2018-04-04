@@ -29,7 +29,7 @@
 		186A74F52064BFCD0013D863 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186A74F42064BFCD0013D863 /* Assets.xcassets */; };
 		186A74F82064BFCD0013D863 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186A74F62064BFCD0013D863 /* LaunchScreen.storyboard */; };
 		186A7501206504A30013D863 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A7500206504A30013D863 /* LoginVC.swift */; };
-		186A7503206504B60013D863 /* CreateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A7502206504B60013D863 /* CreateProfileVC.swift */; };
+		186A7503206504B60013D863 /* StudentRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A7502206504B60013D863 /* StudentRegistration.swift */; };
 		186A7505206504CB0013D863 /* WelcomePageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A7504206504CB0013D863 /* WelcomePageVC.swift */; };
 		186A7515206510340013D863 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A7508206510330013D863 /* AppModel.swift */; };
 		186A7516206510340013D863 /* DisablePasteForTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A7509206510330013D863 /* DisablePasteForTextField.swift */; };
@@ -49,6 +49,9 @@
 		18722854206CE0B400CD3076 /* AccountDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18722853206CE0B400CD3076 /* AccountDetailVC.swift */; };
 		18722856206CE0C700CD3076 /* TeacherFinishVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18722855206CE0C700CD3076 /* TeacherFinishVC.swift */; };
 		18722858206CEF4A00CD3076 /* VerificationCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18722857206CEF4900CD3076 /* VerificationCodeVC.swift */; };
+		18750BB02074957300ABF3B6 /* Class.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18750BAF2074957300ABF3B6 /* Class.storyboard */; };
+		18750BB22074967E00ABF3B6 /* Message.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18750BB12074967E00ABF3B6 /* Message.storyboard */; };
+		18750BB42074970700ABF3B6 /* Booking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18750BB32074970700ABF3B6 /* Booking.storyboard */; };
 		1880397E206A14CA00179778 /* ReviewListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880397D206A14CA00179778 /* ReviewListVC.swift */; };
 		18803980206A18E200179778 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880397F206A18E200179778 /* FloatRatingView.swift */; };
 		18803982206A283C00179778 /* TeacherDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18803981206A283C00179778 /* TeacherDetailVC.swift */; };
@@ -103,7 +106,7 @@
 		186A74F72064BFCD0013D863 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		186A74F92064BFCD0013D863 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		186A7500206504A30013D863 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		186A7502206504B60013D863 /* CreateProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileVC.swift; sourceTree = "<group>"; };
+		186A7502206504B60013D863 /* StudentRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRegistration.swift; sourceTree = "<group>"; };
 		186A7504206504CB0013D863 /* WelcomePageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageVC.swift; sourceTree = "<group>"; };
 		186A7507206510330013D863 /* Tutable-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tutable-Bridging-Header.h"; sourceTree = "<group>"; };
 		186A7508206510330013D863 /* AppModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
@@ -125,6 +128,9 @@
 		18722853206CE0B400CD3076 /* AccountDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailVC.swift; sourceTree = "<group>"; };
 		18722855206CE0C700CD3076 /* TeacherFinishVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFinishVC.swift; sourceTree = "<group>"; };
 		18722857206CEF4900CD3076 /* VerificationCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeVC.swift; sourceTree = "<group>"; };
+		18750BAF2074957300ABF3B6 /* Class.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Class.storyboard; sourceTree = "<group>"; };
+		18750BB12074967E00ABF3B6 /* Message.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Message.storyboard; sourceTree = "<group>"; };
+		18750BB32074970700ABF3B6 /* Booking.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Booking.storyboard; sourceTree = "<group>"; };
 		1880397D206A14CA00179778 /* ReviewListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListVC.swift; sourceTree = "<group>"; };
 		1880397F206A18E200179778 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		18803981206A283C00179778 /* TeacherDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailVC.swift; sourceTree = "<group>"; };
@@ -283,6 +289,9 @@
 			children = (
 				186A74ED2064BFCD0013D863 /* AppDelegate.swift */,
 				186A74F12064BFCD0013D863 /* Main.storyboard */,
+				18750BAF2074957300ABF3B6 /* Class.storyboard */,
+				18750BB32074970700ABF3B6 /* Booking.storyboard */,
+				18750BB12074967E00ABF3B6 /* Message.storyboard */,
 				186A74FF206504780013D863 /* Login Module */,
 				18615BCA2068B8C9004A6876 /* Booking */,
 				18615BCB2068B8C9004A6876 /* Browse */,
@@ -309,7 +318,7 @@
 				186A7500206504A30013D863 /* LoginVC.swift */,
 				18C441CA206A5ECC005C6251 /* RegistrationVC.swift */,
 				18722857206CEF4900CD3076 /* VerificationCodeVC.swift */,
-				186A7502206504B60013D863 /* CreateProfileVC.swift */,
+				186A7502206504B60013D863 /* StudentRegistration.swift */,
 				186A7504206504CB0013D863 /* WelcomePageVC.swift */,
 				186A7522206536FD0013D863 /* ForgotPasswordVC.swift */,
 				18615BD82068CC42004A6876 /* ResetPasswordVC.swift */,
@@ -444,9 +453,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				186A74F82064BFCD0013D863 /* LaunchScreen.storyboard in Resources */,
+				18750BB02074957300ABF3B6 /* Class.storyboard in Resources */,
 				186A74F52064BFCD0013D863 /* Assets.xcassets in Resources */,
 				18B9918720692620009F8A13 /* CustomCategoryCVC.xib in Resources */,
 				18803986206A2A6700179778 /* CustomClassesTVC.xib in Resources */,
+				18750BB42074970700ABF3B6 /* Booking.storyboard in Resources */,
 				18FE555F207387E400FE4C36 /* CustomSettingTVC.xib in Resources */,
 				18FE55692073A2E300FE4C36 /* CustomUpcomingBookingTVC.xib in Resources */,
 				18B99183206923FD009F8A13 /* CustomMessagesTVC.xib in Resources */,
@@ -456,6 +467,7 @@
 				1810644E206A7DF500FE9452 /* CustomTimeSlotTVC.xib in Resources */,
 				18AE5974206BD0C700B6D324 /* GoogleService-Info.plist in Resources */,
 				186A751A206510340013D863 /* CustomTabBarView.xib in Resources */,
+				18750BB22074967E00ABF3B6 /* Message.storyboard in Resources */,
 				18B9918C20692841009F8A13 /* CustomClassesCVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -594,7 +606,7 @@
 				186A7516206510340013D863 /* DisablePasteForTextField.swift in Sources */,
 				18615BD52068B93A004A6876 /* BrowseVC.swift in Sources */,
 				18615BD32068B926004A6876 /* MessageVC.swift in Sources */,
-				186A7503206504B60013D863 /* CreateProfileVC.swift in Sources */,
+				186A7503206504B60013D863 /* StudentRegistration.swift in Sources */,
 				18106450206A80F800FE9452 /* EditTeacherProfileVC.swift in Sources */,
 				186A7501206504A30013D863 /* LoginVC.swift in Sources */,
 				18803985206A2A6700179778 /* CustomClassesTVC.swift in Sources */,

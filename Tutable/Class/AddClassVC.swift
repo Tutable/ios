@@ -35,7 +35,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        _PhotoSelectionVC = self.storyboard?.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
+        _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
         
@@ -146,7 +146,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         AppModel.shared.currentClass.bio = subjectLbl.text
         AppModel.shared.currentClass.timeline = Double(getCurrentTimeStampValue())
         
-        let vc : ClassHourlyRateVC = self.storyboard?.instantiateViewController(withIdentifier: "ClassHourlyRateVC") as! ClassHourlyRateVC
+        let vc : ClassHourlyRateVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "ClassHourlyRateVC") as! ClassHourlyRateVC
         vc.classImg = classImg
         self.navigationController?.pushViewController(vc, animated: true)
     }

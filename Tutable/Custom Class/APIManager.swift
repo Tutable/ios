@@ -408,6 +408,42 @@ public class APIManager {
         }
     }
     
+    func serviceCallToGetTeacehrDetail(_ teacherID : String, completion: @escaping ([String : Any]) -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        
+        var params :[String : Any] = [String : Any] ()
+        params["id"] = teacherID
+        
+        Alamofire.request(BASE_URL+"teachers/teacherDetails", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            
+            removeLoader()
+            
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let data : [String : Any] = result["data"] as? [String : Any]
+                    {
+                        completion(data)
+                        return
+                    }
+                }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
     func serviceCallToUpdateTeacherDetail(_ dict : [String : Any], degreeData : Data, pictureData : Data, completion: @escaping () -> Void){
         showLoader()
         

@@ -1,5 +1,5 @@
 //
-//  CreateProfileVC.swift
+//  StudentRegistration.swift
 //  Tutable
 //
 //  Created by Keyur on 23/03/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectionDelegate {
+class StudentRegistration: UIViewController, UITextFieldDelegate, PhotoSelectionDelegate {
 
     @IBOutlet weak var profilePicBtn: UIButton!
     @IBOutlet weak var nameTxt: UITextField!
@@ -24,7 +24,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectionDele
 
         // Do any additional setup after loading the view.
         
-        _PhotoSelectionVC = self.storyboard?.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
+        _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
     }
@@ -71,7 +71,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectionDele
         }
         else
         {
-            let vc : WelcomePageVC = self.storyboard?.instantiateViewController(withIdentifier: "WelcomePageVC") as! WelcomePageVC
+            let vc : WelcomePageVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "WelcomePageVC") as! WelcomePageVC
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

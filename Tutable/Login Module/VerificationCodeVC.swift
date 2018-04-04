@@ -115,7 +115,7 @@ class VerificationCodeVC: UIViewController, UITextFieldDelegate {
         APIManager.sharedInstance.serviceCallToVerifyCode(verificationCodeTxt.text!) {
             if !isStudentLogin()
             {
-                let vc : EditTeacherProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
+                let vc : EditTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
                 vc.isBackDisplay = false
                 self.navigationController?.pushViewController(vc, animated: true)
             }

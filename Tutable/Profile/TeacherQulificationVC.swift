@@ -26,7 +26,7 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        _PhotoSelectionVC = self.storyboard?.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
+        _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
         
@@ -110,7 +110,7 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
     func continueUpdating(_ dict : [String : Any], _ imageData : Data)
     {
         APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: imageData, pictureData: Data(), completion: {
-            let vc : TeacherFinishVC = self.storyboard?.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
+            let vc : TeacherFinishVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
             self.navigationController?.pushViewController(vc, animated: true)
         })
     }

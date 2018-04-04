@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Medium</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--BookingVC-->
+        <scene sceneID="IF9-by-VES">
+            <objects>
+                <viewController storyboardIdentifier="BookingVC" id="YR3-tH-hPt" customClass="BookingVC" customModule="Tutable" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kBF-TY-SOb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_header" translatesAutoresizingMaskIntoConstraints="NO" id="aA0-Qu-14m">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                                <color key="backgroundColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="Dat-nb-80M"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nba-A5-P0Z">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOOKING HISTORY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YN-SU-atP">
+                                        <rect key="frame" x="76.5" y="20" width="167" height="40"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="2YN-SU-atP" secondAttribute="bottom" id="8Dm-bH-jJt"/>
+                                    <constraint firstAttribute="height" constant="60" id="N6t-lY-0v4"/>
+                                    <constraint firstItem="2YN-SU-atP" firstAttribute="centerX" secondItem="Nba-A5-P0Z" secondAttribute="centerX" id="QD7-Ij-pUK"/>
+                                    <constraint firstItem="2YN-SU-atP" firstAttribute="top" secondItem="Nba-A5-P0Z" secondAttribute="top" constant="20" id="gpO-S8-OaA"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQD-A0-jxv">
+                                <rect key="frame" x="0.0" y="60" width="320" height="508"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="aA0-Qu-14m" firstAttribute="trailing" secondItem="zqB-sN-A0C" secondAttribute="trailing" id="5SJ-si-bxH"/>
+                            <constraint firstItem="Nba-A5-P0Z" firstAttribute="leading" secondItem="zqB-sN-A0C" secondAttribute="leading" id="BhE-hM-6BF"/>
+                            <constraint firstItem="aA0-Qu-14m" firstAttribute="top" secondItem="kBF-TY-SOb" secondAttribute="top" id="CB3-L0-bNo"/>
+                            <constraint firstItem="kQD-A0-jxv" firstAttribute="top" secondItem="Nba-A5-P0Z" secondAttribute="bottom" id="ORP-Ye-2Tg"/>
+                            <constraint firstItem="Nba-A5-P0Z" firstAttribute="trailing" secondItem="zqB-sN-A0C" secondAttribute="trailing" id="UU3-XN-6Yu"/>
+                            <constraint firstItem="Nba-A5-P0Z" firstAttribute="top" secondItem="kBF-TY-SOb" secondAttribute="top" id="WHK-7j-lmL"/>
+                            <constraint firstItem="kQD-A0-jxv" firstAttribute="leading" secondItem="zqB-sN-A0C" secondAttribute="leading" id="WMI-hz-3yT"/>
+                            <constraint firstItem="aA0-Qu-14m" firstAttribute="leading" secondItem="zqB-sN-A0C" secondAttribute="leading" id="Z3L-Mn-Rg6"/>
+                            <constraint firstItem="zqB-sN-A0C" firstAttribute="bottom" secondItem="kQD-A0-jxv" secondAttribute="bottom" id="aWk-uN-Foj"/>
+                            <constraint firstItem="zqB-sN-A0C" firstAttribute="trailing" secondItem="kQD-A0-jxv" secondAttribute="trailing" id="fNC-qG-DHu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zqB-sN-A0C"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <navigationItem key="navigationItem" id="nLX-Cd-3la"/>
+                    <connections>
+                        <outlet property="mainContainerView" destination="kQD-A0-jxv" id="f3C-u4-NLL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ypX-qb-JYm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1089" y="1401"/>
+        </scene>
+        <!--Upcoming BookingVC-->
+        <scene sceneID="gn5-DK-HP3">
+            <objects>
+                <viewController storyboardIdentifier="UpcomingBookingVC" id="t4L-tz-38P" customClass="UpcomingBookingVC" customModule="Tutable" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="k5D-8M-AK7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="q4k-dv-t1L">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="t4L-tz-38P" id="O93-XZ-s7D"/>
+                                    <outlet property="delegate" destination="t4L-tz-38P" id="zpc-rl-4gO"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="b4P-sg-RLF" firstAttribute="bottom" secondItem="q4k-dv-t1L" secondAttribute="bottom" id="4T0-1J-lC5"/>
+                            <constraint firstItem="q4k-dv-t1L" firstAttribute="leading" secondItem="b4P-sg-RLF" secondAttribute="leading" id="JXi-ui-mDf"/>
+                            <constraint firstItem="q4k-dv-t1L" firstAttribute="top" secondItem="k5D-8M-AK7" secondAttribute="top" id="lJF-e4-9lf"/>
+                            <constraint firstItem="b4P-sg-RLF" firstAttribute="trailing" secondItem="q4k-dv-t1L" secondAttribute="trailing" id="m6g-Pt-Y3X"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="b4P-sg-RLF"/>
+                    </view>
+                    <connections>
+                        <outlet property="tblView" destination="q4k-dv-t1L" id="pU1-eT-3VL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gso-jD-b0L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1770" y="1401"/>
+        </scene>
+        <!--Past BookingVC-->
+        <scene sceneID="IKn-AM-DpJ">
+            <objects>
+                <viewController storyboardIdentifier="PastBookingVC" id="Kms-al-v1i" customClass="PastBookingVC" customModule="Tutable" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bDU-QX-z0m">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8o5-Je-gEo">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Kms-al-v1i" id="iOe-5C-eCu"/>
+                                    <outlet property="delegate" destination="Kms-al-v1i" id="pbD-EW-tr1"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="L2d-tY-CxP" firstAttribute="trailing" secondItem="8o5-Je-gEo" secondAttribute="trailing" id="Yss-G6-sgI"/>
+                            <constraint firstItem="8o5-Je-gEo" firstAttribute="top" secondItem="bDU-QX-z0m" secondAttribute="top" id="huO-sd-TWk"/>
+                            <constraint firstItem="L2d-tY-CxP" firstAttribute="bottom" secondItem="8o5-Je-gEo" secondAttribute="bottom" id="n8N-QZ-03T"/>
+                            <constraint firstItem="8o5-Je-gEo" firstAttribute="leading" secondItem="L2d-tY-CxP" secondAttribute="leading" id="yr0-CC-D9y"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="L2d-tY-CxP"/>
+                    </view>
+                    <connections>
+                        <outlet property="tblView" destination="8o5-Je-gEo" id="7FY-02-0lN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4bb-Vt-jqK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2423" y="1401"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="o05-rr-v94">
+            <objects>
+                <navigationController storyboardIdentifier="BookingVCNavigation" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="7zr-q9-o86" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Vqc-JF-wSy">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="YR3-tH-hPt" kind="relationship" relationship="rootViewController" id="GLU-yM-a8E"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6hK-rN-97P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="422" y="1401"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bg_header" width="375" height="71"/>
+    </resources>
+</document>

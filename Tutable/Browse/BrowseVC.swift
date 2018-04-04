@@ -65,7 +65,7 @@ class BrowseVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc : EntertainmentVC = self.storyboard?.instantiateViewController(withIdentifier: "EntertainmentVC") as! EntertainmentVC
+        let vc : EntertainmentVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "EntertainmentVC") as! EntertainmentVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

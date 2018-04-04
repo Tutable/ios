@@ -65,17 +65,9 @@ class RegistrationVC: UIViewController {
             AppModel.shared.currentUser.email = emailTxt.text
             AppModel.shared.currentUser.password = passwordTxt.text
             
-            if isStudentLogin()
-            {
-                let vc : CreateProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "CreateProfileVC") as! CreateProfileVC
+            APIManager.sharedInstance.serviceCallToRegister {
+                let vc : VerificationCodeVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
                 self.navigationController?.pushViewController(vc, animated: true)
-            }
-            else
-            {
-                APIManager.sharedInstance.serviceCallToRegister {
-                    let vc : VerificationCodeVC = self.storyboard?.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
             }
         }
     }

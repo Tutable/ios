@@ -33,29 +33,29 @@ class CustomTabBarController: UITabBarController, CustomTabBarViewDelegate {
     func setup()
     {
         var viewControllers = [UINavigationController]()
-        let navController1 : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "ProfileVCNavigation") as! UINavigationController
+        let navController1 : UINavigationController = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "ProfileVCNavigation") as! UINavigationController
         viewControllers.append(navController1)
         
-        let navController2 : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "BookingVCNavigation") as! UINavigationController
+        let navController2 : UINavigationController = STORYBOARD.BOOKING.instantiateViewController(withIdentifier: "BookingVCNavigation") as! UINavigationController
         viewControllers.append(navController2)
         
         if isStudentLogin()
         {
-            let navController3 : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "BrowseVCNavigation") as! UINavigationController
+            let navController3 : UINavigationController = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "BrowseVCNavigation") as! UINavigationController
             viewControllers.append(navController3)
             tabBarView.lbl3.text = "BROWSE"
         }
         else
         {
-            let navController3 : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "MyClassVCNavigation") as! UINavigationController
+            let navController3 : UINavigationController = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "MyClassVCNavigation") as! UINavigationController
             viewControllers.append(navController3)
             tabBarView.lbl3.text = "MY CLASSES"
         }
         
-        let navController4 : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "MessageVCNavigation") as! UINavigationController
+        let navController4 : UINavigationController = STORYBOARD.MESSAGE.instantiateViewController(withIdentifier: "MessageVCNavigation") as! UINavigationController
         viewControllers.append(navController4)
         
-        let navController5 : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsVCNavigation") as! UINavigationController
+        let navController5 : UINavigationController = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "SettingsVCNavigation") as! UINavigationController
         viewControllers.append(navController5)
         
         self.viewControllers = viewControllers;
