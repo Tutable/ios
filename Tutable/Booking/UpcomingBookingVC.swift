@@ -11,6 +11,10 @@ import UIKit
 class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tblView: UITableView!
+    @IBOutlet var cancelContainerView: UIView!
+    @IBOutlet weak var cancelPopupView: UIView!
+    @IBOutlet weak var cancelNoBtn: UIButton!
+    @IBOutlet weak var cancelYesBtn: UIButton!
     
     var arrUpcomingBookingData : [[String : Any]] = [[String : Any]]()
     
@@ -36,12 +40,43 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomUpcomingBookingTVC", for: indexPath) as! CustomUpcomingBookingTVC
         
+        cell.cancelBtn.tag = indexPath.row
+        cell.cancelBtn.addTarget(self, action: #selector(clickToCancelBtn(_:)), for: .touchUpInside)
+        cell.chatBtn.tag = indexPath.row
+        cell.chatBtn.addTarget(self, action: #selector(clickToChatBtn(_:)), for: .touchUpInside)
+        
         cell.starBtn.isHidden = true
         cell.chatBtn.isHidden = false
         cell.cancelBtn.isHidden = false
         cell.setCellDesign()
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
+    }
+    
+    @IBAction func clickToCancelBtn(_ sender: UIButton) {
+        openCancelPopupView()
+    }
+
+    @IBAction func clickToChatBtn(_ sender: UIButton) {
+        
+    }
+
+    func openCancelPopupView()
+    {
+        cancelPopupView.addCornerRadiusOfView(10)
+        cancelNoBtn.addCornerRadiusOfView(cancelNoBtn.frame.size.height/2)
+        cancelNoBtn.applyBorderOfView(width: 1, borderColor: colorFromHex(
+            hex: COLOR.APP_COLOR))
+        cancelYesBtn.addCornerRadiusOfView(cancelNoBtn.frame.size.height/2)
+        displaySubViewtoParentView(AppDelegate().sharedDelegate().window, subview: cancelContainerView)
+    }
+    
+    @IBAction func clickToNo(_ sender: Any) {
+        cancelContainerView.removeFromSuperview()
+    }
+    
+    @IBAction func clickToYes(_ sender: Any) {
+        cancelContainerView.removeFromSuperview()
     }
     
     override func didReceiveMemoryWarning() {

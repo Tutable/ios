@@ -42,6 +42,20 @@ class MessageVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomMessagesTVC", for: indexPath) as! CustomMessagesTVC
         
+        if indexPath.row == 0
+        {
+            cell.statusImgView.backgroundColor = colorFromHex(hex: COLOR.APP_COLOR)
+        }
+        else if indexPath.row == 1
+        {
+            cell.statusImgView.backgroundColor = colorFromHex(hex: COLOR.ORANGE_COLOR)
+        }
+        else if indexPath.row == 2
+        {
+            cell.statusImgView.backgroundColor = colorFromHex(hex: COLOR.LIGHT_GRAY)
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }
     

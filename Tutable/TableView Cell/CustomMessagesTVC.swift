@@ -14,10 +14,13 @@ class CustomMessagesTVC: UITableViewCell {
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var messageLbl: UILabel!
     @IBOutlet weak var dataLbl: UILabel!
+    @IBOutlet weak var statusImgView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        imageBtn.layer.cornerRadius = imageBtn.frame.size.height/2
+        imageBtn.addCircularRadiusOfView()
+        statusImgView.addCircularRadiusOfView()
+        statusImgView.applyBorderOfView(width: 2, borderColor: colorFromHex(hex: COLOR.WHITE_COLOR))
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
