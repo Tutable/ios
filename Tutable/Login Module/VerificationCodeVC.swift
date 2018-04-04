@@ -113,15 +113,17 @@ class VerificationCodeVC: UIViewController, UITextFieldDelegate {
     func serviceCalledForVerifyOTP()
     {
         APIManager.sharedInstance.serviceCallToVerifyCode(verificationCodeTxt.text!) {
-            if !isStudentLogin()
+            if isStudentLogin()
             {
-                let vc : EditTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
-                vc.isBackDisplay = false
+                let vc : WelcomePageVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "WelcomePageVC") as! WelcomePageVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else
             {
-                AppDelegate().sharedDelegate().navigateToDashboard()
+                let vc : EditTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
+                vc.isBackDisplay = false
+                self.navigationController?.pushViewController(vc, animated: true)
+                
             }
             
         }

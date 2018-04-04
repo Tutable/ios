@@ -65,7 +65,7 @@ class RegistrationVC: UIViewController {
             AppModel.shared.currentUser.email = emailTxt.text
             AppModel.shared.currentUser.password = passwordTxt.text
             
-            APIManager.sharedInstance.serviceCallToRegister {
+            APIManager.sharedInstance.serviceCallToRegister(Data()) {
                 let vc : VerificationCodeVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }

@@ -13,7 +13,8 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, PhotoSelection
     @IBOutlet weak var profilePicBtn: UIButton!
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var emailTxt: UITextField!
-    @IBOutlet weak var addressTxt: UITextField!
+    @IBOutlet weak var passwordTxt: UITextField!
+    @IBOutlet weak var confirmPasswordTxt: UITextField!
     @IBOutlet weak var saveBtn: UIButton!
     
     var _PhotoSelectionVC:PhotoSelectionVC!
@@ -65,13 +66,40 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, PhotoSelection
         {
             displayToast("Invalid email address.")
         }
-        else if addressTxt.text?.trimmed == ""
+        else if passwordTxt.text?.trimmed == ""
         {
-            displayToast("Please enter your address.")
+            displayToast("Please enter password")
+        }
+        else if confirmPasswordTxt.text?.trimmed != passwordTxt.text?.trimmed
+        {
+            displayToast("Password not same")
         }
         else
         {
-            let vc : WelcomePageVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "WelcomePageVC") as! WelcomePageVC
+            AppModel.shared.currentUser = UserModel.init(dict: [String : Any]())
+            AppModel.shared.currentUser.name = nameTxt.text
+            AppModel.shared.currentUser.email = emailTxt.text
+            AppModel.shared.currentUser.password = passwordTxt.text
+            
+            if _imgCompress == nil
+            {
+                continueRegistration(Data())
+            }
+            else if let imageData = UIImagePNGRepresentation(_imgCompress){
+                continueRegistration(imageData)
+            }
+            else{
+                displayToast("Getting error in profile pic, please select another one.")
+                return
+            }
+            
+        }
+    }
+    
+    func continueRegistration(_ imageData : Data)
+    {
+        APIManager.sharedInstance.serviceCallToRegister(imageData) {
+            let vc : VerificationCodeVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -84,9 +112,13 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, PhotoSelection
         }
         else if textField == emailTxt
         {
-            addressTxt.becomeFirstResponder()
+            passwordTxt.becomeFirstResponder()
         }
-        else if textField == addressTxt
+        else if textField == passwordTxt
+        {
+            confirmPasswordTxt.becomeFirstResponder()
+        }
+        else if textField == confirmPasswordTxt
         {
             clickToSave(self)
         }

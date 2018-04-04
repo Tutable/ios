@@ -47,7 +47,7 @@ public class APIManager {
     
     //MARK:- login-signup
  
-    func serviceCallToRegister(_ completion: @escaping () -> Void){
+    func serviceCallToRegister(_ imageData : Data, completion: @escaping () -> Void){
         showLoader()
         
         let headerParams :[String : String] = getMultipartHeader()
@@ -57,12 +57,16 @@ public class APIManager {
         var strUrl : String = "teachers/register"
         if isStudentLogin()
         {
-            strUrl = "students/register"
+            strUrl = "student/register"
         }
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
                 multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+            }
+            if imageData.count != 0
+            {
+                multipartFormData.append(imageData, withName: "picture", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
             }
         }, usingThreshold: UInt64.init(), to: BASE_URL+strUrl, method: .post
         , headers: headerParams) { (result) in
@@ -115,7 +119,7 @@ public class APIManager {
         var strUrl : String = "teachers/login"
         if isStudentLogin()
         {
-            strUrl = "students/login"
+            strUrl = "student/login"
         }
         
         Alamofire.request(BASE_URL+strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
@@ -189,7 +193,7 @@ public class APIManager {
         var strUrl : String = "teachers/verify"
         if isStudentLogin()
         {
-            strUrl = "students/verify"
+            strUrl = "student/verify"
         }
         
         Alamofire.request(BASE_URL + strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
@@ -245,7 +249,7 @@ public class APIManager {
         var strUrl : String = "teachers/resendVerification"
         if isStudentLogin()
         {
-            strUrl = "students/resendVerification"
+            strUrl = "student/resendVerification"
         }
         
         Alamofire.request(BASE_URL+strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
@@ -376,7 +380,7 @@ public class APIManager {
         var strUrl : String = "teachers/details"
         if isStudentLogin()
         {
-            strUrl = "students/details"
+            strUrl = "student/details"
         }
         Alamofire.request(BASE_URL+strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
             

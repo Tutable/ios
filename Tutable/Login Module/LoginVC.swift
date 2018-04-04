@@ -65,56 +65,49 @@ class LoginVC: UIViewController {
             AppModel.shared.currentUser.email = usernameTxt.text
             AppModel.shared.currentUser.password = passwordTxt.text
             
-            if isStudentLogin()
-            {
-                AppDelegate().sharedDelegate().navigateToDashboard()
-            }
-            else
-            {
-                APIManager.sharedInstance.serviceCallToLogin({ (code) in
-                    if code == 100
+            APIManager.sharedInstance.serviceCallToLogin({ (code) in
+                if code == 100
+                {
+                    if isStudentLogin()
                     {
-                        if isStudentLogin()
-                        {
-                            
-                        }
-                        else
-                        {
-                            APIManager.sharedInstance.serviceCallToGetCertificate {
-                                let redirectionType : Int = AppDelegate().sharedDelegate().redirectAfterTeacherRegistration()
-                                if redirectionType == 0
-                                {
-                                    AppDelegate().sharedDelegate().navigateToDashboard()
-                                }
-                                else if redirectionType == 1
-                                {
-                                    let vc : EditTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
-                                    vc.isBackDisplay = false
-                                    self.navigationController?.pushViewController(vc, animated: true)
-                                }
-                                else if redirectionType == 2
-                                {
-                                    let vc : TeacherCertificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
-                                    vc.isBackDisplay = false
-                                    self.navigationController?.pushViewController(vc, animated: true)
-                                }
-                                else if redirectionType == 3
-                                {
-                                    let vc : TeacherQulificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
-                                    vc.isBackDisplay = false
-                                    self.navigationController?.pushViewController(vc, animated: true)
-                                }
+                        AppDelegate().sharedDelegate().navigateToDashboard()
+                    }
+                    else
+                    {
+                        APIManager.sharedInstance.serviceCallToGetCertificate {
+                            let redirectionType : Int = AppDelegate().sharedDelegate().redirectAfterTeacherRegistration()
+                            if redirectionType == 0
+                            {
+                                AppDelegate().sharedDelegate().navigateToDashboard()
+                            }
+                            else if redirectionType == 1
+                            {
+                                let vc : EditTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
+                                vc.isBackDisplay = false
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            }
+                            else if redirectionType == 2
+                            {
+                                let vc : TeacherCertificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
+                                vc.isBackDisplay = false
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            }
+                            else if redirectionType == 3
+                            {
+                                let vc : TeacherQulificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
+                                vc.isBackDisplay = false
+                                self.navigationController?.pushViewController(vc, animated: true)
                             }
                         }
                     }
-                    else if code == 104
-                    {
-                        let vc : VerificationCodeVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
-                        vc.isFromLoginScreen = true
-                        self.navigationController?.pushViewController(vc, animated: true)
-                    }
-                })
-            }
+                }
+                else if code == 104
+                {
+                    let vc : VerificationCodeVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
+                    vc.isFromLoginScreen = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            })
         }
     }
     
