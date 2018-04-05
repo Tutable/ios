@@ -238,11 +238,10 @@ public class APIManager {
         }
     }
     
-    func serviceCallToResendVerifyCode(_ completion: @escaping () -> Void){
+    func serviceCallToResendVerifyCode(_ tokenType:Int, completion: @escaping () -> Void){
         showLoader()
         
         let headerParams :[String : String] = getJsonHeader()
-        
         
         var params :[String : Any] = [String : Any] ()
         params["email"] = AppModel.shared.currentUser.email
@@ -250,10 +249,52 @@ public class APIManager {
         if isStudentLogin()
         {
             strUrl = "student/token"
-            params["tokenType"] = 1
+            params["tokenType"] = tokenType
         }
         
         Alamofire.request(BASE_URL+strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            
+            removeLoader()
+            
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let code = result["code"] as? Int{
+                        if(code == 100){
+                            completion()
+                            return
+                        }
+                    }
+                    if let message = result["message"] as? String{
+                        displayToast(message)
+                        return
+                    }
+                }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                displayToast("Verifying email error")
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    func serviceCallToGetPasswordToken(_ completion: @escaping () -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeader()
+        
+        var params :[String : Any] = [String : Any] ()
+        params["email"] = AppModel.shared.currentUser.email
+        
+        Alamofire.request(BASE_URL+"teachers/passwordToken", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
             
             removeLoader()
             
@@ -298,7 +339,13 @@ public class APIManager {
         params["token"] = AppModel.shared.currentUser.verificationCode
         params["password"] = AppModel.shared.currentUser.password
         
-        Alamofire.request(BASE_URL+"user/changePassword", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+        var strUrl : String = "teachers/changePassword"
+        if isStudentLogin()
+        {
+            strUrl = "student/changePassword"
+        }
+        
+        Alamofire.request(BASE_URL+strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
             
             removeLoader()
             
@@ -689,12 +736,8 @@ public class APIManager {
                 DataRequest.addAcceptableImageContentTypes(["image/jpg", "image/jpeg", "image/png", "image/gif"])
                 AppModel.shared.imageQueue[picPath!] = true
                 //let headerParams :[String : String] = getJsonHeader()
-                var strUrl : String = BASE_URL + picPath!
-                if isStudentLogin()
-                {
-                   strUrl = BASE_URL + "student/assets/" + picPath!
-                }
-                Alamofire.request(strUrl).responseImage { response in
+           
+                Alamofire.request(BASE_URL + picPath!).responseImage { response in
                     if let image = response.result.value {
                         AppModel.shared.imageQueue[picPath!] = image
                         for i in 0..<btn.count{

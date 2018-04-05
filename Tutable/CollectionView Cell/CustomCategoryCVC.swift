@@ -12,6 +12,7 @@ class CustomCategoryCVC: UICollectionViewCell {
 
     @IBOutlet weak var outerView: UIView!
     @IBOutlet weak var imgBtn: UIButton!
+    @IBOutlet weak var titleLbl: UILabel!
     
     
     override func awakeFromNib() {

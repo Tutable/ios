@@ -42,6 +42,18 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
     {
         profilePicBtn.addCircularRadiusOfView()
         saveBtn.addCornerRadiusOfView(saveBtn.frame.size.height/2)
+        
+        nameTxt.text = AppModel.shared.currentUser.name
+        if AppModel.shared.currentUser.email != ""
+        {
+            emailTxt.text = AppModel.shared.currentUser.email
+            emailTxt.isUserInteractionEnabled = false
+        }
+        if AppModel.shared.currentUser.address.location != ""
+        {
+            addressTxt.text = AppModel.shared.currentUser.address.location
+        }
+        
     }
     
     // MARK: - Button click event
@@ -76,8 +88,7 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
         }
         else
         {
-            let vc : WelcomePageVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "WelcomePageVC") as! WelcomePageVC
-            self.navigationController?.pushViewController(vc, animated: true)
+            
         }
     }
     

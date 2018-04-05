@@ -72,7 +72,9 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             
             break
         case 3:
-            logoutUser()
+            DispatchQueue.main.async {
+                self.logoutUser()
+            }
             break
         default:
             break

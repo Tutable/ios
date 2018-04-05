@@ -40,7 +40,8 @@ class EntertainmentVC: UIViewController, UICollectionViewDataSource, UICollectio
     }
     
     @IBAction func clickToNotification(_ sender: Any) {
-        
+        let vc : NotificationVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - Collection View Method

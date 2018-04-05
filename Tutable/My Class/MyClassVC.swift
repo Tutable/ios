@@ -66,6 +66,8 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     // MARK: - Button click event
     @IBAction func clickToNotification(_ sender: Any) {
         self.view.endEditing(true)
+        let vc : NotificationVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func clickToAddClass(_ sender: Any) {

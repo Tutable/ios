@@ -67,6 +67,7 @@ class RegistrationVC: UIViewController {
             
             APIManager.sharedInstance.serviceCallToRegister(Data()) {
                 let vc : VerificationCodeVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
+                vc.tokenType = 1
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }

@@ -304,12 +304,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                     isCall = true
                 }
             }
+            if getCategoryList().count > 0
+            {
+                let data : [[String : Any]] = getCategoryList()
+                AppModel.shared.categoryData = [CategoryModel]()
+                for temp in data
+                {
+                    AppModel.shared.categoryData.append(CategoryModel.init(dict: temp))
+                }
+            }
         }
         
         if isCall
         {
             APIManager.sharedInstance.serviceCallToGetCategory {
                 setDataToPreference(data: getDateStringFromDate(date: Date()) as AnyObject, forKey: "category_fetched")
+                if getCategoryList().count > 0
+                {
+                    let data : [[String : Any]] = getCategoryList()
+                    AppModel.shared.categoryData = [CategoryModel]()
+                    for temp in data
+                    {
+                        AppModel.shared.categoryData.append(CategoryModel.init(dict: temp))
+                    }
+                }
             }
         }
     }

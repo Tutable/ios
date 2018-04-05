@@ -16,6 +16,7 @@ class AppModel: NSObject {
     var usersAvatar:[String:UIImage] = [String:UIImage]()
     var isFCMConnected : Bool = false
     var imageQueue:[String:Any] = [String:Any]()
+    var categoryData : [CategoryModel] = [CategoryModel]()
     
     func validateUser(dict : [String : Any]) -> Bool{
         if let uID = dict["_id"] as? String, let email = dict["email"] as? String

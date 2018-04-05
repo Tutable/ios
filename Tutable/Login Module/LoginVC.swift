@@ -105,6 +105,7 @@ class LoginVC: UIViewController {
                 {
                     let vc : VerificationCodeVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
                     vc.isFromLoginScreen = true
+                    vc.tokenType = 1
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             })

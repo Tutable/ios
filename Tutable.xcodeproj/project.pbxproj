@@ -12,6 +12,9 @@
 		1810644E206A7DF500FE9452 /* CustomTimeSlotTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1810644C206A7DF500FE9452 /* CustomTimeSlotTVC.xib */; };
 		18106450206A80F800FE9452 /* EditTeacherProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810644F206A80F800FE9452 /* EditTeacherProfileVC.swift */; };
 		18106452206A84BB00FE9452 /* TeacherAvailabilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18106451206A84BB00FE9452 /* TeacherAvailabilityVC.swift */; };
+		18119192207601C900CC9D3D /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18119191207601C900CC9D3D /* NotificationVC.swift */; };
+		181191952076391D00CC9D3D /* CustomNotificationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181191932076391D00CC9D3D /* CustomNotificationTVC.swift */; };
+		181191962076391D00CC9D3D /* CustomNotificationTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181191942076391D00CC9D3D /* CustomNotificationTVC.xib */; };
 		1815CB2A2071EC410081F852 /* MyClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815CB292071EC410081F852 /* MyClassVC.swift */; };
 		1815CB332071EFCC0081F852 /* CustomMyClassTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815CB312071EFCC0081F852 /* CustomMyClassTVC.swift */; };
 		1815CB342071EFCC0081F852 /* CustomMyClassTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */; };
@@ -88,6 +91,9 @@
 		1810644C206A7DF500FE9452 /* CustomTimeSlotTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTimeSlotTVC.xib; sourceTree = "<group>"; };
 		1810644F206A80F800FE9452 /* EditTeacherProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTeacherProfileVC.swift; sourceTree = "<group>"; };
 		18106451206A84BB00FE9452 /* TeacherAvailabilityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherAvailabilityVC.swift; sourceTree = "<group>"; };
+		18119191207601C900CC9D3D /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
+		181191932076391D00CC9D3D /* CustomNotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNotificationTVC.swift; sourceTree = "<group>"; };
+		181191942076391D00CC9D3D /* CustomNotificationTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomNotificationTVC.xib; sourceTree = "<group>"; };
 		1815CB292071EC410081F852 /* MyClassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClassVC.swift; sourceTree = "<group>"; };
 		1815CB312071EFCC0081F852 /* CustomMyClassTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMyClassTVC.swift; sourceTree = "<group>"; };
 		1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMyClassTVC.xib; sourceTree = "<group>"; };
@@ -217,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				18615BD22068B926004A6876 /* MessageVC.swift */,
+				18119191207601C900CC9D3D /* NotificationVC.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -253,6 +260,8 @@
 				18FE555D207387E400FE4C36 /* CustomSettingTVC.xib */,
 				18FE55682073A2E200FE4C36 /* CustomUpcomingBookingTVC.swift */,
 				18FE55672073A2E200FE4C36 /* CustomUpcomingBookingTVC.xib */,
+				181191932076391D00CC9D3D /* CustomNotificationTVC.swift */,
+				181191942076391D00CC9D3D /* CustomNotificationTVC.xib */,
 			);
 			path = "TableView Cell";
 			sourceTree = "<group>";
@@ -303,8 +312,8 @@
 				18615BCD2068B8C9004A6876 /* Profile */,
 				18615BC92068B8C8004A6876 /* Settings */,
 				186A7506206510040013D863 /* Custom Class */,
-				18615BE12068FEF1004A6876 /* CollectionView Cell */,
 				18615BE02068FEF1004A6876 /* TableView Cell */,
+				18615BE12068FEF1004A6876 /* CollectionView Cell */,
 				186A74F42064BFCD0013D863 /* Assets.xcassets */,
 				186A74F62064BFCD0013D863 /* LaunchScreen.storyboard */,
 				186A74F92064BFCD0013D863 /* Info.plist */,
@@ -428,7 +437,7 @@
 					186A74E92064BFCD0013D863 = {
 						CreatedOnToolsVersion = 9.1;
 						LastSwiftMigration = 0910;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -462,6 +471,7 @@
 				18803986206A2A6700179778 /* CustomClassesTVC.xib in Resources */,
 				18750BB42074970700ABF3B6 /* Booking.storyboard in Resources */,
 				18FE555F207387E400FE4C36 /* CustomSettingTVC.xib in Resources */,
+				181191962076391D00CC9D3D /* CustomNotificationTVC.xib in Resources */,
 				18FE55692073A2E300FE4C36 /* CustomUpcomingBookingTVC.xib in Resources */,
 				18B99183206923FD009F8A13 /* CustomMessagesTVC.xib in Resources */,
 				1815CB342071EFCC0081F852 /* CustomMyClassTVC.xib in Resources */,
@@ -586,6 +596,7 @@
 				18722858206CEF4A00CD3076 /* VerificationCodeVC.swift in Sources */,
 				186A7518206510340013D863 /* Utility.swift in Sources */,
 				18106452206A84BB00FE9452 /* TeacherAvailabilityVC.swift in Sources */,
+				181191952076391D00CC9D3D /* CustomNotificationTVC.swift in Sources */,
 				18722850206CDF2200CD3076 /* TeacherQulificationVC.swift in Sources */,
 				18803982206A283C00179778 /* TeacherDetailVC.swift in Sources */,
 				186A7517206510340013D863 /* Preference.swift in Sources */,
@@ -606,6 +617,7 @@
 				18FE5562207394F600FE4C36 /* UpcomingBookingVC.swift in Sources */,
 				18AE596F206BAB4300B6D324 /* TeacherCertificationVC.swift in Sources */,
 				18803980206A18E200179778 /* FloatRatingView.swift in Sources */,
+				18119192207601C900CC9D3D /* NotificationVC.swift in Sources */,
 				18C441CD206A673D005C6251 /* ClassesListVC.swift in Sources */,
 				186A7516206510340013D863 /* DisablePasteForTextField.swift in Sources */,
 				18615BD52068B93A004A6876 /* BrowseVC.swift in Sources */,
@@ -758,8 +770,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JNA229E63V;
 				INFOPLIST_FILE = Tutable/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.application.Tutable;
@@ -779,8 +791,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JNA229E63V;
 				INFOPLIST_FILE = Tutable/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.application.Tutable;

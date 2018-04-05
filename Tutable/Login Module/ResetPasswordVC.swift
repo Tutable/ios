@@ -45,13 +45,17 @@ class ResetPasswordVC: UIViewController {
         {
             displayToast("Please enter password")
         }
-        else if confirmPasswordTxt.text?.trimmed == newPasswordTxt.text?.trimmed
+        else if confirmPasswordTxt.text?.trimmed != newPasswordTxt.text?.trimmed
         {
             displayToast("Password not same")
         }
         else
         {
-            AppDelegate().sharedDelegate().navigateToLogin()
+            AppModel.shared.currentUser.password = newPasswordTxt.text
+            AppModel.shared.currentUser.verificationCode = tokenTxt.text
+            APIManager.sharedInstance.serviceCallToChangePassword({
+                AppDelegate().sharedDelegate().navigateToDashboard()
+            })
         }
     }
     

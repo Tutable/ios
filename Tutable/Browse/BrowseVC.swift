@@ -36,7 +36,8 @@ class BrowseVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     
     // MARK: - Button click event
     @IBAction func clickToNotification(_ sender: Any) {
-        
+        let vc : NotificationVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - Collectionview Delegate
@@ -46,13 +47,14 @@ class BrowseVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return AppModel.shared.categoryData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = tutableCollectioView.dequeueReusableCell(withReuseIdentifier: "CustomCategoryCVC", for: indexPath) as! CustomCategoryCVC
-        
+        let categoryDict : CategoryModel = AppModel.shared.categoryData[indexPath.row]
+        cell.titleLbl.text = categoryDict.title
         
         return cell
     }

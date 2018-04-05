@@ -54,8 +54,16 @@ class ProfileVC: UIViewController {
     
     
     @IBAction func clickToEdit(_ sender: Any) {
-//        let vc : EditTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
-//        self.navigationController?.pushViewController(vc, animated: true)
+        if isStudentLogin()
+        {
+            let vc : EditStudentProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditStudentProfileVC") as! EditStudentProfileVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        else
+        {
+            let vc : EditTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -41,8 +41,22 @@ class ForgotPasswordVC: UIViewController {
         }
         else
         {
-            let vc : ResetPasswordVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "ResetPasswordVC") as! ResetPasswordVC
-            self.navigationController?.pushViewController(vc, animated: true)
+            AppModel.shared.currentUser = UserModel.init()
+            AppModel.shared.currentUser.email = emailTxt.text
+            if isStudentLogin()
+            {
+                APIManager.sharedInstance.serviceCallToResendVerifyCode(2, completion: {
+                    let vc : ResetPasswordVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "ResetPasswordVC") as! ResetPasswordVC
+                    self.navigationController?.pushViewController(vc, animated: true)
+                })
+            }
+            else
+            {
+                APIManager.sharedInstance.serviceCallToGetPasswordToken({
+                    let vc : ResetPasswordVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "ResetPasswordVC") as! ResetPasswordVC
+                    self.navigationController?.pushViewController(vc, animated: true)
+                })
+            }
         }
     }
     

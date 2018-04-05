@@ -65,6 +65,7 @@
             <connections>
                 <outlet property="imgBtn" destination="iOI-SP-i4O" id="We2-rI-yeA"/>
                 <outlet property="outerView" destination="WMt-0X-pJn" id="ky7-dH-jYq"/>
+                <outlet property="titleLbl" destination="pAn-cf-4I8" id="5cT-gg-4cx"/>
             </connections>
             <point key="canvasLocation" x="-154" y="-100"/>
         </collectionViewCell>

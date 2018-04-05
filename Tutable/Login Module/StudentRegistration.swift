@@ -100,6 +100,7 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, PhotoSelection
     {
         APIManager.sharedInstance.serviceCallToRegister(imageData) {
             let vc : VerificationCodeVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
+            vc.tokenType = 1
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="CustomNotificationTVC" customModule="Tutable" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="84.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="utJ-B2-uP9">
+                        <rect key="frame" x="10" y="7.5" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="KTB-Lt-5s1"/>
+                            <constraint firstAttribute="width" constant="70" id="idx-rB-Unq"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="user_avatar"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jpj-gQ-82n">
+                        <rect key="frame" x="90" y="12.5" width="220" height="20"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                        <color key="textColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification message display herer" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89V-xo-VpJ">
+                        <rect key="frame" x="90" y="32.5" width="220" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="ZZs-QF-Kxu"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <color key="textColor" red="0.24866290390000001" green="0.25165884249999998" blue="0.25165884249999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12th Feb 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gbp-SX-trU">
+                        <rect key="frame" x="90" y="52.5" width="220" height="15.5"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fsd-lC-W3d">
+                        <rect key="frame" x="0.0" y="98.5" width="320" height="1"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="utJ-B2-uP9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="HUH-mb-FII"/>
+                    <constraint firstAttribute="trailing" secondItem="Jpj-gQ-82n" secondAttribute="trailing" constant="10" id="MCN-sV-MJS"/>
+                    <constraint firstItem="Jpj-gQ-82n" firstAttribute="leading" secondItem="utJ-B2-uP9" secondAttribute="trailing" constant="10" id="OcV-OV-Uat"/>
+                    <constraint firstItem="89V-xo-VpJ" firstAttribute="leading" secondItem="utJ-B2-uP9" secondAttribute="trailing" constant="10" id="YwD-ja-Dhu"/>
+                    <constraint firstItem="Gbp-SX-trU" firstAttribute="leading" secondItem="utJ-B2-uP9" secondAttribute="trailing" constant="10" id="Zmj-qJ-asm"/>
+                    <constraint firstItem="89V-xo-VpJ" firstAttribute="centerY" secondItem="utJ-B2-uP9" secondAttribute="centerY" id="gSE-53-V5D"/>
+                    <constraint firstAttribute="trailing" secondItem="Gbp-SX-trU" secondAttribute="trailing" constant="10" id="kSe-Qg-Q5w"/>
+                    <constraint firstAttribute="trailing" secondItem="89V-xo-VpJ" secondAttribute="trailing" constant="10" id="kzW-8p-809"/>
+                    <constraint firstItem="utJ-B2-uP9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nBc-uc-WZY"/>
+                    <constraint firstItem="Gbp-SX-trU" firstAttribute="top" secondItem="89V-xo-VpJ" secondAttribute="bottom" id="peA-Ev-pvB"/>
+                    <constraint firstItem="89V-xo-VpJ" firstAttribute="top" secondItem="Jpj-gQ-82n" secondAttribute="bottom" id="yXK-Ag-oQR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="dateTimeLbl" destination="Gbp-SX-trU" id="LtL-rU-GIc"/>
+                <outlet property="profilePicBtn" destination="utJ-B2-uP9" id="Cau-Ge-Rd1"/>
+                <outlet property="subTitleLbl" destination="89V-xo-VpJ" id="b1e-8X-NDi"/>
+                <outlet property="titleName" destination="Jpj-gQ-82n" id="K1C-Lm-Pjf"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="user_avatar" width="90" height="90"/>
+    </resources>
+</document>

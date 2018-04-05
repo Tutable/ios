@@ -18,6 +18,7 @@ class VerificationCodeVC: UIViewController, UITextFieldDelegate {
     var timer : Timer = Timer()
     var timeValue : Int = 59
     var isFromLoginScreen : Bool = false
+    var tokenType : Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,9 +132,9 @@ class VerificationCodeVC: UIViewController, UITextFieldDelegate {
     
     func serviceCalledForResendOTP()
     {
-        APIManager.sharedInstance.serviceCallToResendVerifyCode {
+        APIManager.sharedInstance.serviceCallToResendVerifyCode(tokenType, completion: {
             displayToast("Code is sent to your email address, please verify now.")
-        }
+        })
     }
     
     override func didReceiveMemoryWarning() {
