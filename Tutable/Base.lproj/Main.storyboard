@@ -522,7 +522,7 @@
             <objects>
                 <viewController storyboardIdentifier="StudentRegistration" id="C4U-oc-NAg" customClass="StudentRegistration" customModule="Tutable" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H7g-wf-pWc">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="650"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9kd-ie-9oz">
@@ -565,7 +565,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AtV-YZ-edU">
-                                <rect key="frame" x="0.0" y="70" width="320" height="498"/>
+                                <rect key="frame" x="0.0" y="70" width="320" height="570"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QE0-wO-ohJ">
                                         <rect key="frame" x="115" y="20" width="90" height="90"/>
@@ -614,7 +614,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XhY-6h-f3l">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="674-uB-ow4"/>
                                                 </constraints>
@@ -655,7 +655,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ORV-rx-cmq">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="YRW-zW-GAC"/>
                                                 </constraints>
@@ -696,7 +696,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oRq-0E-lzs">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="85g-DW-Akl"/>
                                                 </constraints>
@@ -737,7 +737,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jvd-Xy-nYi">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="xOA-dG-Lqf"/>
                                                 </constraints>
@@ -758,8 +758,49 @@
                                             <constraint firstItem="4J8-70-M8h" firstAttribute="leading" secondItem="rZM-xr-nxA" secondAttribute="leading" id="tXD-Yj-79G"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ppN-ZP-iih">
+                                        <rect key="frame" x="10" y="450" width="300" height="60"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2nk-88-mhz">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="19"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                <color key="textColor" red="0.27450980390000002" green="0.27450980390000002" blue="0.27450980390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9G8-9D-fSs">
+                                                <rect key="frame" x="0.0" y="19" width="300" height="41"/>
+                                                <color key="textColor" red="0.75482905460000005" green="0.79415174219999995" blue="0.85683298090000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="C4U-oc-NAg" id="RvA-gY-y8g"/>
+                                                </connections>
+                                            </textField>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="alZ-j2-FU5">
+                                                <rect key="frame" x="0.0" y="59" width="300" height="1"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="xxo-C6-1Xm"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="alZ-j2-FU5" firstAttribute="leading" secondItem="ppN-ZP-iih" secondAttribute="leading" id="684-cp-0ft"/>
+                                            <constraint firstAttribute="trailing" secondItem="alZ-j2-FU5" secondAttribute="trailing" id="A7w-fk-aRe"/>
+                                            <constraint firstAttribute="trailing" secondItem="2nk-88-mhz" secondAttribute="trailing" id="F2l-bc-zFY"/>
+                                            <constraint firstAttribute="bottom" secondItem="9G8-9D-fSs" secondAttribute="bottom" id="LHW-IW-zEv"/>
+                                            <constraint firstItem="2nk-88-mhz" firstAttribute="leading" secondItem="ppN-ZP-iih" secondAttribute="leading" id="Lye-o5-noP"/>
+                                            <constraint firstAttribute="height" constant="60" id="OCo-fm-IKI"/>
+                                            <constraint firstItem="9G8-9D-fSs" firstAttribute="top" secondItem="2nk-88-mhz" secondAttribute="bottom" id="OJv-wN-Gcl"/>
+                                            <constraint firstItem="2nk-88-mhz" firstAttribute="top" secondItem="ppN-ZP-iih" secondAttribute="top" id="S1c-TN-eUM"/>
+                                            <constraint firstAttribute="trailing" secondItem="9G8-9D-fSs" secondAttribute="trailing" id="grp-Y4-yTB"/>
+                                            <constraint firstItem="9G8-9D-fSs" firstAttribute="leading" secondItem="ppN-ZP-iih" secondAttribute="leading" id="lVi-bI-N7Y"/>
+                                            <constraint firstAttribute="bottom" secondItem="alZ-j2-FU5" secondAttribute="bottom" id="yh6-1Z-J0D"/>
+                                        </constraints>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edP-7u-YyT">
-                                        <rect key="frame" x="20" y="445" width="280" height="40"/>
+                                        <rect key="frame" x="20" y="530" width="280" height="40"/>
                                         <color key="backgroundColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="HFC-Vg-vQy"/>
@@ -778,26 +819,29 @@
                                     <constraint firstItem="n6W-dD-wbN" firstAttribute="leading" secondItem="AtV-YZ-edU" secondAttribute="leading" constant="10" id="1sm-Ed-5kp"/>
                                     <constraint firstItem="rZM-xr-nxA" firstAttribute="leading" secondItem="AtV-YZ-edU" secondAttribute="leading" constant="10" id="7an-eZ-KX2"/>
                                     <constraint firstAttribute="trailing" secondItem="rZM-xr-nxA" secondAttribute="trailing" constant="10" id="Apf-4h-2bt"/>
+                                    <constraint firstItem="ppN-ZP-iih" firstAttribute="top" secondItem="rZM-xr-nxA" secondAttribute="bottom" constant="20" id="Eej-FA-fyo"/>
                                     <constraint firstItem="edP-7u-YyT" firstAttribute="centerX" secondItem="AtV-YZ-edU" secondAttribute="centerX" id="Ohs-jy-NCH"/>
                                     <constraint firstAttribute="width" constant="320" id="Osw-xm-hXe"/>
                                     <constraint firstItem="kVl-GI-QDK" firstAttribute="top" secondItem="QE0-wO-ohJ" secondAttribute="bottom" constant="20" id="Q52-3N-W8b"/>
-                                    <constraint firstAttribute="height" constant="498" id="RDn-UD-PyM"/>
+                                    <constraint firstAttribute="height" constant="570" id="RDn-UD-PyM"/>
                                     <constraint firstAttribute="trailing" secondItem="n6W-dD-wbN" secondAttribute="trailing" constant="10" id="aMb-2y-wse"/>
+                                    <constraint firstItem="edP-7u-YyT" firstAttribute="top" secondItem="ppN-ZP-iih" secondAttribute="bottom" constant="20" id="caT-dR-xSq"/>
                                     <constraint firstItem="QE0-wO-ohJ" firstAttribute="top" secondItem="AtV-YZ-edU" secondAttribute="top" constant="20" id="dvD-39-cZ9"/>
                                     <constraint firstItem="rZM-xr-nxA" firstAttribute="top" secondItem="ULG-QJ-SgY" secondAttribute="bottom" constant="20" id="e4A-qU-3XW"/>
                                     <constraint firstItem="ULG-QJ-SgY" firstAttribute="leading" secondItem="AtV-YZ-edU" secondAttribute="leading" constant="10" id="fwR-qE-9ox"/>
+                                    <constraint firstItem="ppN-ZP-iih" firstAttribute="leading" secondItem="AtV-YZ-edU" secondAttribute="leading" constant="10" id="mgT-p2-JBH"/>
                                     <constraint firstItem="QE0-wO-ohJ" firstAttribute="centerX" secondItem="AtV-YZ-edU" secondAttribute="centerX" id="pCu-aD-6kS"/>
+                                    <constraint firstAttribute="trailing" secondItem="ppN-ZP-iih" secondAttribute="trailing" constant="10" id="qdS-YG-aOI"/>
                                     <constraint firstAttribute="trailing" secondItem="kVl-GI-QDK" secondAttribute="trailing" constant="10" id="r40-nm-VXO"/>
                                     <constraint firstItem="kVl-GI-QDK" firstAttribute="leading" secondItem="AtV-YZ-edU" secondAttribute="leading" constant="10" id="rrn-ff-Fdw"/>
                                     <constraint firstItem="ULG-QJ-SgY" firstAttribute="top" secondItem="n6W-dD-wbN" secondAttribute="bottom" constant="20" id="tAm-E7-DTg"/>
-                                    <constraint firstItem="edP-7u-YyT" firstAttribute="top" secondItem="rZM-xr-nxA" secondAttribute="bottom" constant="15" id="xB7-0a-g3s"/>
                                     <constraint firstItem="n6W-dD-wbN" firstAttribute="top" secondItem="kVl-GI-QDK" secondAttribute="bottom" constant="20" id="ygd-UB-j7Z"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="AtV-YZ-edU" firstAttribute="centerY" secondItem="H7g-wf-pWc" secondAttribute="centerY" constant="35" id="7zz-bv-ipi"/>
+                            <constraint firstItem="AtV-YZ-edU" firstAttribute="centerY" secondItem="H7g-wf-pWc" secondAttribute="centerY" constant="30" id="7zz-bv-ipi"/>
                             <constraint firstItem="C6r-LP-sBx" firstAttribute="trailing" secondItem="9kd-ie-9oz" secondAttribute="trailing" id="9ec-8T-zKh"/>
                             <constraint firstItem="AtV-YZ-edU" firstAttribute="centerX" secondItem="H7g-wf-pWc" secondAttribute="centerX" id="VF9-Zj-GYF"/>
                             <constraint firstItem="9kd-ie-9oz" firstAttribute="top" secondItem="H7g-wf-pWc" secondAttribute="top" id="eGj-Ne-bFv"/>
@@ -805,7 +849,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="C6r-LP-sBx"/>
                     </view>
+                    <size key="freeformSize" width="320" height="650"/>
                     <connections>
+                        <outlet property="addressTxt" destination="9G8-9D-fSs" id="LT4-T3-pEY"/>
                         <outlet property="confirmPasswordTxt" destination="0fe-8c-w99" id="6FG-Fn-JO5"/>
                         <outlet property="emailTxt" destination="6Gd-Ks-jAV" id="aU4-Ps-bdu"/>
                         <outlet property="nameTxt" destination="25F-sG-0yk" id="dro-Kl-NWN"/>
@@ -816,7 +862,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PSm-RQ-dsg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3122" y="44"/>
+            <point key="canvasLocation" x="3122" y="1"/>
         </scene>
         <!--Welcome PageVC-->
         <scene sceneID="uAA-CU-WcD">
@@ -947,7 +993,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2K8-Iz-zhc">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="npt-B1-B07"/>
                                                 </constraints>
@@ -1181,7 +1227,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wu3-eB-GUO">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="mGZ-rp-X7C"/>
                                                 </constraints>
@@ -1222,7 +1268,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9yQ-es-5LA">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="VgB-CZ-hNQ"/>
                                                 </constraints>
@@ -1263,7 +1309,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JbB-yp-NHZ">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="D9v-gW-hN7"/>
                                                 </constraints>
@@ -1889,7 +1935,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kyg-50-oDq">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="2oU-aN-zGg"/>
                                                 </constraints>
@@ -1930,7 +1976,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ciJ-en-bFS">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="GqC-g6-rfw"/>
                                                 </constraints>
@@ -1971,7 +2017,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dqj-rE-nRa">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="lEF-RR-rIl"/>
                                                 </constraints>
@@ -2012,7 +2058,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9TS-ay-UTl">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="W65-s6-XPv"/>
                                                 </constraints>
@@ -2186,7 +2232,7 @@
                                                                     <constraint firstAttribute="height" constant="19" id="WeX-AU-MVq"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bY6-dV-1J2">
@@ -2200,7 +2246,7 @@
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YKS-zo-Wft">
                                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="FzZ-lc-kKQ"/>
                                                                 </constraints>
@@ -2229,7 +2275,7 @@
                                                                     <constraint firstAttribute="height" constant="21" id="fPT-jZ-E9d"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="DD MM YYYY" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S09-CP-jBN">
@@ -2270,7 +2316,7 @@
                                                                     <constraint firstAttribute="height" constant="21" id="BYf-TZ-Y4k"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Wqc-bS-Sg1">
@@ -2306,7 +2352,7 @@
                                                                     <constraint firstAttribute="height" constant="19" id="9HJ-xx-VgY"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OWL-MK-cEg">
@@ -2320,7 +2366,7 @@
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pjy-Mb-V1q">
                                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="jdz-Xu-OLt"/>
                                                                 </constraints>
@@ -2349,7 +2395,7 @@
                                                                     <constraint firstAttribute="height" constant="19" id="PBs-Qn-5zH"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="afk-cC-bUD">
@@ -2363,7 +2409,7 @@
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W6G-jY-7LO">
                                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="Ijo-dr-afL"/>
                                                                 </constraints>
@@ -2392,7 +2438,7 @@
                                                                     <constraint firstAttribute="height" constant="21" id="Nh0-LB-ia5"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WTx-xu-Kzc">
@@ -2428,7 +2474,7 @@
                                                                     <constraint firstAttribute="height" constant="19" id="Y29-bV-4TS"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUO-1G-4xU">
@@ -2445,7 +2491,7 @@
                                                                     </textField>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M1O-8m-RcP">
                                                                         <rect key="frame" x="0.0" y="40" width="150" height="1"/>
-                                                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="1" id="cko-1d-gsO"/>
                                                                         </constraints>
@@ -2471,12 +2517,12 @@
                                                                             <constraint firstAttribute="width" constant="35.5" id="sFk-fu-aW7"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Q5-fN-3AH">
                                                                         <rect key="frame" x="45.5" y="5" width="104.5" height="31"/>
-                                                                        <color key="tintColor" red="0.66666666669999997" green="0.66666668650000005" blue="0.66666668650000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="tintColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                                                         <state key="normal" image="bottom_arrow"/>
                                                                         <connections>
@@ -2486,7 +2532,7 @@
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikv-kC-w1v">
                                                                         <rect key="frame" x="50.5" y="5" width="89.5" height="31"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                                        <color key="textColor" red="0.66666666666666663" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
@@ -2527,7 +2573,7 @@
                                                             <constraint firstAttribute="height" constant="21" id="U9K-Ie-2x0"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fH2-dR-tom">
@@ -2794,7 +2840,7 @@
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vPW-Pc-TRi">
                                         <rect key="frame" x="0.0" y="57" width="320" height="1"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="X8X-f7-DfK"/>
                                         </constraints>
@@ -2841,7 +2887,7 @@
                                     <constraint firstItem="YrJ-2b-LgG" firstAttribute="top" secondItem="Vre-Sk-xM2" secondAttribute="top" constant="13" id="zq4-BO-Mkt"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FWk-js-TQ7">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FWk-js-TQ7">
                                 <rect key="frame" x="0.0" y="128" width="320" height="440"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -2937,7 +2983,7 @@
                                             <constraint firstAttribute="height" constant="21" id="HtU-h5-cQX"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jIz-h5-LjK">
@@ -3361,7 +3407,7 @@
                                                     <constraint firstAttribute="height" constant="19" id="E5J-Hd-UXG"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mcS-OS-CEP">
@@ -3394,7 +3440,7 @@
                                                     <constraint firstAttribute="height" constant="19" id="tIe-DM-mY6"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UM2-cj-LuS">
@@ -3405,7 +3451,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tug-lb-Taf">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="gj5-ld-RSh"/>
                                                 </constraints>
@@ -3434,7 +3480,7 @@
                                                     <constraint firstAttribute="height" constant="19" id="5NJ-h7-ugJ"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k3Z-l8-4bG">
@@ -3445,7 +3491,7 @@
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NIY-Nm-3ye">
                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="VXC-OB-8Ni"/>
                                                 </constraints>
@@ -3474,7 +3520,7 @@
                                                     <constraint firstAttribute="height" constant="19" id="yOz-te-Q2L"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e3E-u8-wDN">
@@ -3624,7 +3670,7 @@
                                                                     <constraint firstAttribute="height" constant="19" id="KsT-dK-ega"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5D9-nW-0ay">
@@ -3638,7 +3684,7 @@
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XMZ-DH-GSy">
                                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="Gc6-ix-520"/>
                                                                 </constraints>
@@ -3667,7 +3713,7 @@
                                                                     <constraint firstAttribute="height" constant="19" id="mfh-Jy-iF8"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lm3-NJ-k7z">
@@ -3681,7 +3727,7 @@
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zB9-Gr-wJx">
                                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="bSJ-ed-JbD"/>
                                                                 </constraints>
@@ -3710,7 +3756,7 @@
                                                                     <constraint firstAttribute="height" constant="19" id="LxL-Od-O5P"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ran-nX-SMn">
@@ -3724,7 +3770,7 @@
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hTg-LX-Yov">
                                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="MpV-xU-beC"/>
                                                                 </constraints>
@@ -3753,7 +3799,7 @@
                                                                     <constraint firstAttribute="height" constant="19" id="rK6-DC-RMx"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wVa-Nk-hle">
@@ -3767,7 +3813,7 @@
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1cu-Xf-O8B">
                                                                 <rect key="frame" x="0.0" y="59" width="300" height="1"/>
-                                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="DMD-Rp-K9D"/>
                                                                 </constraints>
@@ -3790,7 +3836,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You will be paid into this bank account on a weekly basis." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57S-rL-gJ9">
                                                         <rect key="frame" x="10" y="315" width="300" height="13"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
-                                                        <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHK-fM-Pf8">
@@ -3937,13 +3983,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're all done!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMh-O7-CAj">
                                         <rect key="frame" x="0.0" y="65" width="300" height="19.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Step inside the Tutable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfc-Lq-6Tm">
                                         <rect key="frame" x="0.0" y="84.5" width="300" height="19"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -4051,7 +4097,7 @@
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="22"/>
-                                        <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="24"/>
@@ -4067,7 +4113,7 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
                                         </constraints>
-                                        <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <variation key="heightClass=regular-widthClass=regular">

@@ -22,13 +22,14 @@ class LoginVC: UIViewController {
         {
             if isStudentLogin()
             {
-                
+                usernameTxt.text = "testyear17@gmail.com"
+                passwordTxt.text = "qqqq"
             }
             else
             {
                 usernameTxt.text = "keyurdakbari@gmail.com"
 //                usernameTxt.text = "testyear16@gmail.com"
-                passwordTxt.text = "qqqq"
+                passwordTxt.text = "aaaa"
             }
         }
 

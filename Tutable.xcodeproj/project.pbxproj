@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14EFEFD151CB08BB43D9B446 /* Pods_Tutable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F24731DA21574C223798CD3 /* Pods_Tutable.framework */; };
 		1810644D206A7DF500FE9452 /* CustomTimeSlotTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810644B206A7DF500FE9452 /* CustomTimeSlotTVC.swift */; };
 		1810644E206A7DF500FE9452 /* CustomTimeSlotTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1810644C206A7DF500FE9452 /* CustomTimeSlotTVC.xib */; };
 		18106450206A80F800FE9452 /* EditTeacherProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810644F206A80F800FE9452 /* EditTeacherProfileVC.swift */; };
@@ -84,6 +83,9 @@
 		18FE55642073950B00FE4C36 /* PastBookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE55632073950B00FE4C36 /* PastBookingVC.swift */; };
 		18FE55692073A2E300FE4C36 /* CustomUpcomingBookingTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FE55672073A2E200FE4C36 /* CustomUpcomingBookingTVC.xib */; };
 		18FE556A2073A2E300FE4C36 /* CustomUpcomingBookingTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE55682073A2E200FE4C36 /* CustomUpcomingBookingTVC.swift */; };
+		B71511F4C9DD70D1C99714B4 /* Pods_Tutable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC2988E7CBABE374D53E7E3F /* Pods_Tutable.framework */; };
+		D8D49B262077962F00CC4851 /* ClassBookingRequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D49B252077962F00CC4851 /* ClassBookingRequestVC.swift */; };
+		D8D49B2C2077BBF400CC4851 /* CreditCardDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D49B2B2077BBF400CC4851 /* CreditCardDetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -167,9 +169,11 @@
 		18FE55632073950B00FE4C36 /* PastBookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastBookingVC.swift; sourceTree = "<group>"; };
 		18FE55672073A2E200FE4C36 /* CustomUpcomingBookingTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomUpcomingBookingTVC.xib; sourceTree = "<group>"; };
 		18FE55682073A2E200FE4C36 /* CustomUpcomingBookingTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUpcomingBookingTVC.swift; sourceTree = "<group>"; };
-		4F24731DA21574C223798CD3 /* Pods_Tutable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tutable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		95BA39A18FE7677A998F0624 /* Pods-Tutable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tutable.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tutable/Pods-Tutable.debug.xcconfig"; sourceTree = "<group>"; };
-		F3456A4016EDB82C153EC3B5 /* Pods-Tutable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tutable.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tutable/Pods-Tutable.release.xcconfig"; sourceTree = "<group>"; };
+		D8D49B252077962F00CC4851 /* ClassBookingRequestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassBookingRequestVC.swift; sourceTree = "<group>"; };
+		D8D49B2B2077BBF400CC4851 /* CreditCardDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardDetailVC.swift; sourceTree = "<group>"; };
+		E82ECA5DF19E77D816B0CE3F /* Pods-Tutable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tutable.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tutable/Pods-Tutable.debug.xcconfig"; sourceTree = "<group>"; };
+		EC2988E7CBABE374D53E7E3F /* Pods_Tutable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tutable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6535BEE1B41F9350C4D550C /* Pods-Tutable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tutable.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tutable/Pods-Tutable.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,13 +181,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14EFEFD151CB08BB43D9B446 /* Pods_Tutable.framework in Frameworks */,
+				B71511F4C9DD70D1C99714B4 /* Pods_Tutable.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07C6445B41218EC9AF627F78 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC2988E7CBABE374D53E7E3F /* Pods_Tutable.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1815CB282071EC2F0081F852 /* My Class */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,8 +294,8 @@
 			children = (
 				186A74EC2064BFCD0013D863 /* Tutable */,
 				186A74EB2064BFCD0013D863 /* Products */,
-				49979282022EA877DF3798EB /* Pods */,
-				83BFF6A41CFFE3D9A7CE0809 /* Frameworks */,
+				7914F19116A2A7BA543AC3C6 /* Pods */,
+				07C6445B41218EC9AF627F78 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -376,29 +388,23 @@
 				18AE5971206BCA8A00B6D324 /* AddClassVC.swift */,
 				18722851206CE07D00CD3076 /* ClassHourlyRateVC.swift */,
 				18B9919420693973009F8A13 /* ClassDetailVC.swift */,
+				D8D49B252077962F00CC4851 /* ClassBookingRequestVC.swift */,
+				D8D49B2B2077BBF400CC4851 /* CreditCardDetailVC.swift */,
 				18C441CC206A673D005C6251 /* ClassesListVC.swift */,
 				18803981206A283C00179778 /* TeacherDetailVC.swift */,
-				1880397D206A14CA00179778 /* ReviewListVC.swift */,
 				18750BB52074F1DB00ABF3B6 /* AddRateReviewVC.swift */,
+				1880397D206A14CA00179778 /* ReviewListVC.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
 		};
-		49979282022EA877DF3798EB /* Pods */ = {
+		7914F19116A2A7BA543AC3C6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				95BA39A18FE7677A998F0624 /* Pods-Tutable.debug.xcconfig */,
-				F3456A4016EDB82C153EC3B5 /* Pods-Tutable.release.xcconfig */,
+				E82ECA5DF19E77D816B0CE3F /* Pods-Tutable.debug.xcconfig */,
+				F6535BEE1B41F9350C4D550C /* Pods-Tutable.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		83BFF6A41CFFE3D9A7CE0809 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4F24731DA21574C223798CD3 /* Pods_Tutable.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -408,12 +414,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 186A74FC2064BFCD0013D863 /* Build configuration list for PBXNativeTarget "Tutable" */;
 			buildPhases = (
-				B0A17CCCAABE82ADD53940BF /* [CP] Check Pods Manifest.lock */,
+				8907E71DFE3296CDDBCD1FAC /* [CP] Check Pods Manifest.lock */,
 				186A74E62064BFCD0013D863 /* Sources */,
 				186A74E72064BFCD0013D863 /* Frameworks */,
 				186A74E82064BFCD0013D863 /* Resources */,
-				9D8316BFC648E00F5A6E3435 /* [CP] Embed Pods Frameworks */,
-				B8A8482951F4440D46778BC5 /* [CP] Copy Pods Resources */,
+				0458895E4B51ADB625F07645 /* [CP] Embed Pods Frameworks */,
+				1B8776A1892CC5EFBBF27000 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -488,7 +494,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9D8316BFC648E00F5A6E3435 /* [CP] Embed Pods Frameworks */ = {
+		0458895E4B51ADB625F07645 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -508,6 +514,7 @@
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/PEPhotoCropEditor/PEPhotoCropEditor.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -524,31 +531,14 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PEPhotoCropEditor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tutable/Pods-Tutable-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B0A17CCCAABE82ADD53940BF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Tutable-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B8A8482951F4440D46778BC5 /* [CP] Copy Pods Resources */ = {
+		1B8776A1892CC5EFBBF27000 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -564,6 +554,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tutable/Pods-Tutable-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8907E71DFE3296CDDBCD1FAC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Tutable-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -591,6 +599,7 @@
 				186A751E206510340013D863 /* GlobalConstant.swift in Sources */,
 				186A751C206510340013D863 /* CustomTabBarController.swift in Sources */,
 				18FE555E207387E400FE4C36 /* CustomSettingTVC.swift in Sources */,
+				D8D49B262077962F00CC4851 /* ClassBookingRequestVC.swift in Sources */,
 				186A7519206510340013D863 /* APIManager.swift in Sources */,
 				186A7523206536FD0013D863 /* ForgotPasswordVC.swift in Sources */,
 				18722858206CEF4A00CD3076 /* VerificationCodeVC.swift in Sources */,
@@ -612,6 +621,7 @@
 				18AE596D206B93F500B6D324 /* DatePickerManager.swift in Sources */,
 				1815CB2A2071EC410081F852 /* MyClassVC.swift in Sources */,
 				18B9918920692835009F8A13 /* EntertainmentVC.swift in Sources */,
+				D8D49B2C2077BBF400CC4851 /* CreditCardDetailVC.swift in Sources */,
 				186A751D206510340013D863 /* UIImage+ProportionalFill.m in Sources */,
 				18C441CB206A5ECC005C6251 /* RegistrationVC.swift in Sources */,
 				18FE5562207394F600FE4C36 /* UpcomingBookingVC.swift in Sources */,
@@ -765,7 +775,7 @@
 		};
 		186A74FD2064BFCD0013D863 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95BA39A18FE7677A998F0624 /* Pods-Tutable.debug.xcconfig */;
+			baseConfigurationReference = E82ECA5DF19E77D816B0CE3F /* Pods-Tutable.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -786,7 +796,7 @@
 		};
 		186A74FE2064BFCD0013D863 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3456A4016EDB82C153EC3B5 /* Pods-Tutable.release.xcconfig */;
+			baseConfigurationReference = F6535BEE1B41F9350C4D550C /* Pods-Tutable.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

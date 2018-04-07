@@ -244,7 +244,7 @@ class ClassModel:AppModel{
     var name:String!
     var category : CategoryModel!
     var level : Int!
-    var bio : String!
+    var desc : String!
     var timeline : Double!
     var payload : String!
     var rate : Float!
@@ -258,7 +258,7 @@ class ClassModel:AppModel{
         name = ""
         category = CategoryModel.init()
         level = 0
-        bio = ""
+        desc = ""
         timeline = 0
         payload = ""
         rate = 0.0
@@ -273,7 +273,7 @@ class ClassModel:AppModel{
         name = ""
         category = CategoryModel.init()
         level = 0
-        bio = ""
+        desc = ""
         timeline = 0
         payload = ""
         rate = 0.0
@@ -294,13 +294,16 @@ class ClassModel:AppModel{
         if let temp = dict["level"] as? Int{
             level = temp
         }
-        if let temp = dict["bio"] as? String{
-            bio = temp
+        if let temp = dict["description"] as? String{
+            desc = temp
         }
         if let block = dict["timeline"] as? Double{
             timeline = block
         }
         if let image = dict["payload"] as? String{
+            payload = image
+        }
+        else if let image = dict["picture"] as? String{
             payload = image
         }
         if let temp = dict["rate"] as? Float{
@@ -321,7 +324,7 @@ class ClassModel:AppModel{
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"category" : category.dictionary(), "level" : level, "bio":bio, "payload":payload, "timeline":timeline, "rate":rate, "cancelled" : cancelled, "created" : created, "teacher" : teacher.dictionary(), "reviews" : reviews]
+        return ["id":id,"name":name,"category" : category.dictionary(), "level" : level, "description":desc, "payload":payload, "timeline":timeline, "rate":rate, "cancelled" : cancelled, "created" : created, "teacher" : teacher.dictionary(), "reviews" : reviews]
     }
     
     func toJson(_ dict:[String:Any]) -> String{
@@ -331,42 +334,119 @@ class ClassModel:AppModel{
     }
 }
 
-
 class CategoryModel:AppModel{
     var id:String!
     var v:Int!
-    var parent : String!
+    var picture : String!
     var title : String!
     
     override init(){
         id = ""
         v = 0
-        parent = ""
+        picture = ""
         title = ""
     }
     init(dict : [String : Any])
     {
         id = ""
         v = 0
-        parent = ""
+        picture = ""
         title = ""
         
-        if let temp = dict["_id"] as? String{
+        if let temp = dict["id"] as? String{
             id = temp
         }
         if let temp = dict["__v"] as? Int{
             v = temp
         }
-        if let temp = dict["parent"] as? String{
-            parent = temp
+        if let temp = dict["picture"] as? String{
+            picture = temp
         }
         if let temp = dict["title"] as? String{
+            title = temp
+        }
+        else if let temp = dict["name"] as? String{
             title = temp
         }
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"v":v,"parent" : parent, "title" : title]
+        return ["id":id,"v":v,"picture" : picture, "title" : title]
+    }
+    
+    func toJson(_ dict:[String:Any]) -> String{
+        let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: [])
+        let jsonString = String(data: jsonData!, encoding: .utf8)
+        return jsonString!
+    }
+}
+
+class BookingClassModel:AppModel{
+    
+    var classDetails : ClassModel!
+    var completed:Int!
+    var confirmed:Int!
+    var deleted:Int!
+    var id:String!
+    var student : UserModel!
+    var teacher : UserModel!
+    var timestamp : Double!
+    var slot : [String : Any]!
+    
+    override init(){
+        classDetails = ClassModel.init()
+        completed = 0
+        confirmed = 0
+        deleted = 0
+        id = ""
+        student = UserModel.init()
+        teacher = UserModel.init()
+        timestamp = 0.0
+        slot = [String : Any]()
+    }
+    init(dict : [String : Any])
+    {
+        classDetails = ClassModel.init()
+        completed = 0
+        confirmed = 0
+        deleted = 0
+        id = ""
+        student = UserModel.init()
+        teacher = UserModel.init()
+        timestamp = 0.0
+        slot = [String : Any]()
+        
+        if let temp = dict["classDetails"] as? [String : Any]{
+            classDetails = ClassModel.init(dict: temp)
+        }
+        if let temp = dict["completed"] as? Int{
+            completed = temp
+        }
+        if let temp = dict["confirmed"] as? Int{
+            confirmed = temp
+        }
+        if let temp = dict["deleted"] as? Int{
+            deleted = temp
+        }
+        if let temp = dict["id"] as? String{
+            id = temp
+        }
+        if let temp = dict["student"] as? [String : Any]{
+            student = UserModel.init(dict: temp)
+        }
+        if let temp = dict["teacher"] as? [String : Any]{
+            teacher = UserModel.init(dict: temp)
+        }
+        if let temp = dict["timestamp"] as? Double{
+            timestamp = temp
+        }
+        if let temp = dict["slot"] as? [String : Any]{
+            slot = temp
+        }
+    }
+    
+    func dictionary() -> [String:Any]{
+        return ["classDetails":classDetails.dictionary(),"completed":completed,"confirmed" : confirmed, "deleted" : deleted, "id" : id, "student" : student.dictionary(), "teacher" : teacher.dictionary(), "timestamp" : timestamp, "slot" : slot]
     }
     
     func toJson(_ dict:[String:Any]) -> String{

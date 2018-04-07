@@ -727,7 +727,7 @@
 }
 
 - (void)setNormalColor:(UIColor *)color {
-    [self setNormalColor:color font:[UIFont boldSystemFontOfSize:16]];
+    [self setNormalColor:color font:[UIFont boldSystemFontOfSize:14]];
 }
 
 - (void)setNormalColor:(UIColor *)color font:(UIFont *)font {
@@ -736,7 +736,7 @@
 }
 
 - (void)setSelectedColor:(UIColor *)color {
-    [self setSelectedColor:color font:[UIFont boldSystemFontOfSize:16]];
+    [self setSelectedColor:color font:[UIFont boldSystemFontOfSize:14]];
 }
 
 - (void)setSelectedColor:(UIColor *)color font:(UIFont *)font {

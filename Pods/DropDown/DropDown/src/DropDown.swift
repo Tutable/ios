@@ -540,7 +540,7 @@ extension DropDown {
 		heightConstraint.constant = layout.visibleHeight
 
 		tableView.isScrollEnabled = layout.offscreenHeight > 0
-        tableView.isScrollEnabled = true
+
 		DispatchQueue.main.async { [weak self] in
 			self?.tableView.flashScrollIndicators()
 		}
@@ -973,14 +973,7 @@ extension DropDown {
 
 	/// Returns the height needed to display all cells.
 	fileprivate var tableHeight: CGFloat {
-        if dataSource.count <= 5
-        {
-            return tableView.rowHeight * CGFloat(dataSource.count)
-        }
-		else
-        {
-            return 264
-        }
+		return tableView.rowHeight * CGFloat(dataSource.count)
 	}
 
     //MARK: Objective-C methods for converting the Swift type Index

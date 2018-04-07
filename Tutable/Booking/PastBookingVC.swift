@@ -11,20 +11,36 @@ import UIKit
 class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tblView: UITableView!
+    @IBOutlet weak var noDataFound: UILabel!
     
-    var arrPastBookingData : [[String : Any]] = [[String : Any]]()
-
+    var arrPastBookingData : [BookingClassModel] = [BookingClassModel]()
+    var page : Int = 1
+    var limit : Int = 10
+    var isLoadNextData : Bool = true
+    var refreshControl : UIRefreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         tblView.register(UINib.init(nibName: "CustomUpcomingBookingTVC", bundle: nil), forCellReuseIdentifier: "CustomUpcomingBookingTVC")
         tblView.backgroundColor = UIColor.clear
+        
+        refreshControl.tintColor = colorFromHex(hex: COLOR.APP_COLOR)
+        refreshControl.addTarget(self, action: #selector(refreshUpcomingBookingList), for: .valueChanged)
+        refreshUpcomingBookingList()
+    }
+    
+    @objc func refreshUpcomingBookingList()
+    {
+        page = 1
+        limit = 10
+        isLoadNextData = true
+        serviceCallForPastBookingList()
     }
     
     // MARK: - Tableview Delegate method
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
         return arrPastBookingData.count
     }
     
@@ -35,6 +51,13 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomUpcomingBookingTVC", for: indexPath) as! CustomUpcomingBookingTVC
+        
+        let dict : BookingClassModel = arrPastBookingData[indexPath.row]
+        cell.classNameLbl.text = dict.classDetails.name
+        cell.userNameLbl.text = "By " + dict.teacher.name
+        cell.dateTimeLbl.text = getDateStringFromDate(date: getDateFromTimeStamp(dict.timestamp), format: "MMM dd") + ", " + getTimeStringFromServerTimeStemp(dict.timestamp) + " to " + getTimeStringFromServerTimeStemp(dict.timestamp + 3600)
+        cell.priceLbl.text = setFlotingPrice(dict.classDetails.rate)
+        
         
         cell.starBtn.tag = indexPath.row
         cell.starBtn.addTarget(self, action: #selector(clickToReviewBtn(_:)), for: .touchUpInside)
@@ -49,9 +72,72 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         return cell
     }
 
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isLoadNextData && (arrPastBookingData.count - 1) == indexPath.row
+        {
+            serviceCallForPastBookingList()
+        }
+    }
+    
     @IBAction func clickToReviewBtn(_ sender: UIButton) {
-        let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        if isStudentLogin()
+        {
+            let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
+            vc.classData = arrPastBookingData[sender.tag].classDetails
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func serviceCallForPastBookingList()
+    {
+        var dict : [String : Any] = [String : Any]()
+        if isStudentLogin()
+        {
+            dict["studentId"] = AppModel.shared.currentUser.id
+        }
+        else
+        {
+            dict["teacherId"] = AppModel.shared.currentUser.id
+        }
+        dict["bookingType"] = 2
+        dict["page"] = page
+        dict["limit"] = limit
+        
+        APIManager.sharedInstance.serviceCallToGetBookingList(dict) { (dictArr) in
+            print(dictArr)
+            if self.page == 1
+            {
+                self.arrPastBookingData = [BookingClassModel]()
+                for temp in dictArr
+                {
+                    self.arrPastBookingData.append(BookingClassModel.init(dict: temp))
+                }
+            }
+            else
+            {
+                for temp in dictArr
+                {
+                    self.arrPastBookingData.append(BookingClassModel.init(dict: temp))
+                }
+            }
+            self.tblView.reloadData()
+            if dictArr.count < 10
+            {
+                self.isLoadNextData = false
+            }
+            else
+            {
+                self.page = self.page + 1
+            }
+            if self.arrPastBookingData.count == 0
+            {
+                self.noDataFound.isHidden = false
+            }
+            else
+            {
+                self.noDataFound.isHidden = true
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {

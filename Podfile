@@ -6,7 +6,7 @@ target 'Tutable' do
   use_frameworks!
 
   # Pods for Tutable
-  pod ‘IQKeyboardManagerSwift’
+pod ‘IQKeyboardManagerSwift’
   pod 'NVActivityIndicatorView'
   pod ‘PEPhotoCropEditor’
   pod 'Alamofire'
@@ -17,4 +17,5 @@ target 'Tutable' do
   pod 'FBSDKLoginKit'
   pod 'DropDown'
   pod 'CarbonKit'
+  pod 'SDWebImage'
 end

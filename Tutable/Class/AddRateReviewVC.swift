@@ -50,17 +50,44 @@ class AddRateReviewVC: UIViewController, UITextViewDelegate {
         reviewTxtView.addCornerRadiusOfView(5.0)
         reviewTxtView.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.LIGHT_GRAY))
         starView.type = .floatRatings
+        
+        setClassDetail()
     }
     
     func setClassDetail()
     {
+        APIManager.sharedInstance.serviceCallToGetPhoto(classData.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [classImgBtn])
+        
+        classNameLbl.text = classData.name
+        APIManager.sharedInstance.serviceCallToGetPhoto(classData.teacher.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userPicBtn])
+        userNameLbl.text = "By " + classData.teacher.name
+        
+        priceLbl.text = setFlotingPrice(classData.rate)
         
     }
     
     
     @IBAction func clickToSubmit(_ sender: Any) {
-        print(starView.rating)
-        print(reviewTxtView.text)
+        if starView.rating == 0.0
+        {
+            displayToast("Please give some rate.")
+        }
+        else
+        {
+            var params : [String : Any] = [String : Any]()
+            params["ref"] = classData.id
+            params["stars"] = starView.rating
+            params["review"] = reviewTxtView.text
+            
+            APIManager.sharedInstance.serviceCallToAddReview(params, completion: { (isDone) in
+                if isDone
+                {
+                    displayToast("Review added successfully.")
+                    self.clickToBack(self)
+                }
+            })
+        }
+        
     }
     
     @IBAction func clickToBack(_ sender: Any) {

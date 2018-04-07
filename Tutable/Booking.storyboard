@@ -11,6 +11,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
             <string>HelveticaNeue-Medium</string>
         </array>
         <array key="HelveticaNeueLights.ttc">
@@ -96,11 +97,20 @@
                                     <outlet property="delegate" destination="t4L-tz-38P" id="zpc-rl-4gO"/>
                                 </connections>
                             </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no any upcoming booking" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzK-aH-d2Z">
+                                <rect key="frame" x="20" y="274" width="280" height="19"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="b4P-sg-RLF" firstAttribute="bottom" secondItem="q4k-dv-t1L" secondAttribute="bottom" id="4T0-1J-lC5"/>
                             <constraint firstItem="q4k-dv-t1L" firstAttribute="leading" secondItem="b4P-sg-RLF" secondAttribute="leading" id="JXi-ui-mDf"/>
+                            <constraint firstItem="bzK-aH-d2Z" firstAttribute="leading" secondItem="b4P-sg-RLF" secondAttribute="leading" constant="20" id="b16-Pq-mxk"/>
+                            <constraint firstItem="b4P-sg-RLF" firstAttribute="trailing" secondItem="bzK-aH-d2Z" secondAttribute="trailing" constant="20" id="bv9-nE-pBG"/>
+                            <constraint firstItem="bzK-aH-d2Z" firstAttribute="centerY" secondItem="k5D-8M-AK7" secondAttribute="centerY" id="fee-3m-Nwu"/>
                             <constraint firstItem="q4k-dv-t1L" firstAttribute="top" secondItem="k5D-8M-AK7" secondAttribute="top" id="lJF-e4-9lf"/>
                             <constraint firstItem="b4P-sg-RLF" firstAttribute="trailing" secondItem="q4k-dv-t1L" secondAttribute="trailing" id="m6g-Pt-Y3X"/>
                         </constraints>
@@ -111,6 +121,7 @@
                         <outlet property="cancelNoBtn" destination="9ud-Wp-N6x" id="KJW-6q-PJ7"/>
                         <outlet property="cancelPopupView" destination="iez-1l-tne" id="K3n-K3-ARz"/>
                         <outlet property="cancelYesBtn" destination="9jm-t3-Wv3" id="IBg-3V-sYL"/>
+                        <outlet property="noDataFound" destination="bzK-aH-d2Z" id="pn8-Xs-hWG"/>
                         <outlet property="tblView" destination="q4k-dv-t1L" id="pU1-eT-3VL"/>
                     </connections>
                 </viewController>
@@ -219,10 +230,19 @@ within 24 hours of the start time.</string>
                                     <outlet property="delegate" destination="Kms-al-v1i" id="pbD-EW-tr1"/>
                                 </connections>
                             </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no any past booking" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3on-3E-UBV">
+                                <rect key="frame" x="20" y="274" width="280" height="19"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="L2d-tY-CxP" firstAttribute="trailing" secondItem="3on-3E-UBV" secondAttribute="trailing" constant="20" id="0hJ-Tp-qbt"/>
+                            <constraint firstItem="3on-3E-UBV" firstAttribute="centerY" secondItem="bDU-QX-z0m" secondAttribute="centerY" id="5R0-TZ-Y5L"/>
                             <constraint firstItem="L2d-tY-CxP" firstAttribute="trailing" secondItem="8o5-Je-gEo" secondAttribute="trailing" id="Yss-G6-sgI"/>
+                            <constraint firstItem="3on-3E-UBV" firstAttribute="leading" secondItem="L2d-tY-CxP" secondAttribute="leading" constant="20" id="Zx6-RZ-Brg"/>
                             <constraint firstItem="8o5-Je-gEo" firstAttribute="top" secondItem="bDU-QX-z0m" secondAttribute="top" id="huO-sd-TWk"/>
                             <constraint firstItem="L2d-tY-CxP" firstAttribute="bottom" secondItem="8o5-Je-gEo" secondAttribute="bottom" id="n8N-QZ-03T"/>
                             <constraint firstItem="8o5-Je-gEo" firstAttribute="leading" secondItem="L2d-tY-CxP" secondAttribute="leading" id="yr0-CC-D9y"/>
@@ -230,6 +250,7 @@ within 24 hours of the start time.</string>
                         <viewLayoutGuide key="safeArea" id="L2d-tY-CxP"/>
                     </view>
                     <connections>
+                        <outlet property="noDataFound" destination="3on-3E-UBV" id="TEP-4t-Gnb"/>
                         <outlet property="tblView" destination="8o5-Je-gEo" id="7FY-02-0lN"/>
                     </connections>
                 </viewController>

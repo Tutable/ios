@@ -16,6 +16,7 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, PhotoSelection
     @IBOutlet weak var passwordTxt: UITextField!
     @IBOutlet weak var confirmPasswordTxt: UITextField!
     @IBOutlet weak var saveBtn: UIButton!
+    @IBOutlet weak var addressTxt: UITextField!
     
     var _PhotoSelectionVC:PhotoSelectionVC!
     var _imgCompress:UIImage!
@@ -80,7 +81,8 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, PhotoSelection
             AppModel.shared.currentUser.name = nameTxt.text
             AppModel.shared.currentUser.email = emailTxt.text
             AppModel.shared.currentUser.password = passwordTxt.text
-            
+            let location : LocationModel = LocationModel.init()
+            location.location = addressTxt.text
             if _imgCompress == nil
             {
                 continueRegistration(Data())

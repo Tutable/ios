@@ -6,6 +6,7 @@ import Foundation
 import SystemConfiguration
 import Alamofire
 import AlamofireImage
+import SDWebImage
 
 public class APIManager {
     
@@ -52,7 +53,7 @@ public class APIManager {
         
         let headerParams :[String : String] = getMultipartHeader()
         var params :[String : Any] = [String : Any] ()
-        params["data"] = AppModel.shared.currentUser.toJson(["name":AppModel.shared.currentUser.name,"email" : AppModel.shared.currentUser.email, "password" : AppModel.shared.currentUser.password])
+        params["data"] = AppModel.shared.currentUser.toJson(["name":AppModel.shared.currentUser.name,"email" : AppModel.shared.currentUser.email, "password" : AppModel.shared.currentUser.password, "address" : AppModel.shared.currentUser.address.dictionary()])
         
         var strUrl : String = "teachers/register"
         if isStudentLogin()
@@ -146,7 +147,7 @@ public class APIManager {
                         }
                         else if code == 104
                         {
-                            if result["message"] as! String == "Requested user not found"
+                            if result["message"] as! String == "Requested user not found" || result["message"] as! String == "error"
                             {
                                 displayToast(result["message"] as! String)
                                 return
@@ -385,8 +386,8 @@ public class APIManager {
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
         
-        let params :[String : Any] = [String : Any] ()
-        
+        var params :[String : Any] = [String : Any] ()
+        params["parent"] = true
         Alamofire.request(BASE_URL+"categories/list", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
             
             removeLoader()
@@ -442,6 +443,10 @@ public class APIManager {
                     {
                         AppModel.shared.currentUser = UserModel.init(dict: data)
                         AppModel.shared.currentUser.accessToken = AppModel.shared.token
+                        if isStudentLogin()
+                        {
+                            setIsUserLogin(isUserLogin: true)
+                        }
                         completion()
                         return
                     }
@@ -533,6 +538,63 @@ public class APIManager {
                             if(code == 100){
                                 completion()
                                 return
+                            }
+                        }
+                        if let message = result["message"] as? String{
+                            displayToast(message)
+                            return
+                        }
+                    }
+                    
+                    if let error = response.error{
+                        displayToast(error.localizedDescription)
+                        return
+                    }
+                }
+            case .failure(let error):
+                removeLoader()
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    func serviceCallToUpdateStudentDetail(_ dict : [String : Any], pictureData : Data, completion: @escaping () -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getMultipartHeaderWithToken()
+        var params :[String : Any] = [String : Any] ()
+        params["data"] = AppModel.shared.currentUser.toJson(dict)
+        
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            for (key, value) in params {
+                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+            }
+            
+            if pictureData.count != 0
+            {
+                multipartFormData.append(pictureData, withName: "picture", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
+            }
+            
+        }, usingThreshold: UInt64.init(), to: BASE_URL+"student/update", method: .post
+        , headers: headerParams) { (result) in
+            switch result{
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (Progress) in
+                    print("Upload Progress: \(Progress.fractionCompleted)")
+                })
+                upload.responseJSON { response in
+                    removeLoader()
+                    print(response.result.value!)
+                    if let result = response.result.value as? [String:Any]{
+                        if let code = result["code"] as? Int{
+                            if(code == 100){
+                                self.serviceCallToGetUserDetail({
+                                    completion()
+                                    return
+                                })
                             }
                         }
                         if let message = result["message"] as? String{
@@ -672,7 +734,7 @@ public class APIManager {
                 DataRequest.addAcceptableImageContentTypes(["image/jpg", "image/jpeg", "image/png", "image/gif"])
                 AppModel.shared.imageQueue[picPath!] = true
                 //let headerParams :[String : String] = getJsonHeader()
-                Alamofire.request(BASE_URL + picPath!, headers: headerParams).responseImage { response in
+                Alamofire.request("http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api" + picPath!, headers: headerParams).responseImage { response in
                     if let image = response.result.value {
                         AppModel.shared.imageQueue[picPath!] = image
                         for i in 0..<btn.count{
@@ -719,47 +781,6 @@ public class APIManager {
         }
     }
     
-    func serviceCallToGetPhoto(_ picPath:String?, placeHolder : String, btn:[UIButton]){
-        
-        if let picture = picPath
-        {
-            if let image = AppModel.shared.imageQueue[picture] as? UIImage{
-                for i in 0..<btn.count{
-                    btn[i].setBackgroundImage(image.imageCropped(toFit: btn[i].frame.size), for: .normal)
-                }
-            }
-            else if let _ = AppModel.shared.imageQueue[picture] as? Bool{
-                
-            }
-            else{
-                
-                DataRequest.addAcceptableImageContentTypes(["image/jpg", "image/jpeg", "image/png", "image/gif"])
-                AppModel.shared.imageQueue[picPath!] = true
-                //let headerParams :[String : String] = getJsonHeader()
-           
-                Alamofire.request(BASE_URL + picPath!).responseImage { response in
-                    if let image = response.result.value {
-                        AppModel.shared.imageQueue[picPath!] = image
-                        for i in 0..<btn.count{
-                            btn[i].setBackgroundImage(image.imageCropped(toFit: btn[i].frame.size), for: .normal)
-                        }
-                        return
-                    }
-                    else
-                    {
-                        AppModel.shared.imageQueue[picPath!] = nil
-                    }
-                }
-            }
-        }
-        else
-        {
-            for i in 0..<btn.count{
-                btn[i].setBackgroundImage(UIImage.init(named: placeHolder), for: .normal)
-            }
-        }
-    }
-    
     //MARK:- Class
     func serviceCallToCreateClass(_ classImgData : Data, completion: @escaping () -> Void){
         showLoader()
@@ -768,7 +789,7 @@ public class APIManager {
         
         var params :[String : Any] = [String : Any] ()
         
-        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "description" : AppModel.shared.currentClass.bio, "bio" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "rate" : AppModel.shared.currentClass.rate])
+        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "description" : AppModel.shared.currentClass.desc, "timeline" : AppModel.shared.currentClass.timeline, "rate" : AppModel.shared.currentClass.rate])
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
@@ -816,14 +837,20 @@ public class APIManager {
         }
     }
     
-    func serviceCallToGetClassList(_ completion: @escaping (_ dataArr : [[String : Any]]) -> Void){
+    func serviceCallToGetClassList(_ categoryId : String, completion: @escaping (_ dataArr : [[String : Any]]) -> Void){
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
         
         var params :[String : Any] = [String : Any] ()
-        
-        params["teacherId"] = AppModel.shared.currentUser.id
+        if categoryId != ""
+        {
+            params["categoryId"] = categoryId
+        }
+        else
+        {
+            params["teacherId"] = AppModel.shared.currentUser.id
+        }
         Alamofire.request(BASE_URL+"class/list", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
             
             removeLoader()
@@ -889,42 +916,186 @@ public class APIManager {
         }
     }
     
-    func serviceCallToGetClassPhoto(_ picPath:String?, placeHolder : String, btn:[UIButton]){
+    func serviceCallToBookClass(_ classId : String, slotDict : [String : Any], completion: @escaping (_ isSuccess :Bool) -> Void){
+        showLoader()
         
-        if let picture = picPath
-        {
-            if let image = AppModel.shared.imageQueue[picture] as? UIImage{
-                for i in 0..<btn.count{
-                    btn[i].setBackgroundImage(image.imageCropped(toFit: btn[i].frame.size), for: .normal)
-                }
-            }
-            else if let _ = AppModel.shared.imageQueue[picture] as? Bool{
-                
-            }
-            else{
-                let headerParams :[String : String] = getJsonHeaderWithToken()
-                DataRequest.addAcceptableImageContentTypes(["image/jpg", "image/jpeg", "image/png", "image/gif"])
-                AppModel.shared.imageQueue[picPath!] = true
-                Alamofire.request(CLASS_URL + picPath!, headers: headerParams).responseImage { response in
-                    if let image = response.result.value {
-                        AppModel.shared.imageQueue[picPath!] = image
-                        for i in 0..<btn.count{
-                            btn[i].setBackgroundImage(image.imageCropped(toFit: btn[i].frame.size), for: .normal)
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        
+        var params :[String : Any] = [String : Any] ()
+        params["ref"] = classId
+        params["slot"] = slotDict
+        print(params)
+        Alamofire.request(BASE_URL+"bookings/create", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            removeLoader()
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let code = result["code"] as? Int{
+                        if(code == 100){
+                            completion(true)
+                            return
                         }
+                    }
+                    if let message = result["message"] as? String{
+                        displayToast(message)
                         return
                     }
-                    else
+                }
+                
+                if let error = response.error{
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    func serviceCallToGetBookingList(_ params : [String : Any], completion: @escaping (_ dictArr :[[String : Any]]) -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        print(params)
+        Alamofire.request(BASE_URL+"bookings/details", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            removeLoader()
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let data : [[String : Any]] = result["data"] as? [[String : Any]]
                     {
-                        AppModel.shared.imageQueue[picPath!] = nil
+                        completion(data)
+                        return
                     }
                 }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
             }
         }
-        else
-        {
-            for i in 0..<btn.count{
-                btn[i].setBackgroundImage(UIImage.init(named: placeHolder), for: .normal)
+    }
+    
+    
+    func serviceCallToBookingAction(_ params : [String : Any], completion: @escaping (_ isSuccess :Bool) -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        print(params)
+        Alamofire.request(BASE_URL+"bookings/action", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            removeLoader()
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if (response.result.value as? [String:Any]) != nil{
+                    completion(true)
+                    return
+                }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
             }
         }
+    }
+    
+    //MARK: - Review
+    func serviceCallToAddReview(_ params : [String : Any], completion: @escaping (_ isSuccess :Bool) -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        print(params)
+        Alamofire.request(BASE_URL+"reviews/create", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            removeLoader()
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if (response.result.value as? [String:Any]) != nil{
+                    completion(true)
+                    return
+                }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    func serviceCallToGetReviewList(_ classId : String, completion: @escaping (_ dictArr :[[String : Any]]) -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        var params : [String : Any] = [String : Any]()
+        params["classId"] = classId
+        print(params)
+        
+        Alamofire.request(BASE_URL+"reviews/list", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            removeLoader()
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let data : [[String : Any]] = result["data"] as? [[String : Any]]
+                    {
+                        completion(data)
+                        return
+                    }
+                }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    //MARK: - Fetch Image
+    func serviceCallToGetPhoto(_ picPath:String?, placeHolder : String, btn:[UIButton]){
+        
+        let url : String = BASE_URL + picPath!
+        
+        for i in 0..<btn.count{
+            btn[i].sd_setBackgroundImage(with: URL(string : url), for: .normal, completed: { (image, error, caheType, url) in
+                if error == nil
+                {
+                    btn[i].setBackgroundImage(image?.imageCropped(toFit: btn[i].frame.size), for: .normal)
+                }
+                else
+                {
+                    btn[i].setBackgroundImage(UIImage.init(named: placeHolder), for: .normal)
+                }
+            })
+        }
+        
     }
 }

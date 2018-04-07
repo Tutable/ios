@@ -27,7 +27,7 @@ class WelcomePageVC: UIViewController {
     }
     
     @IBAction func clickToStartBrowsinig(_ sender: Any) {
-        
+        AppDelegate().sharedDelegate().navigateToDashboard()
     }
     
     

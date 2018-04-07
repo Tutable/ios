@@ -18,6 +18,23 @@ class BrowseVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
 
         // Do any additional setup after loading the view.
         tutableCollectioView.register(UINib(nibName:"CustomCategoryCVC", bundle: nil), forCellWithReuseIdentifier: "CustomCategoryCVC")
+        notiCountLbl.isHidden = true
+        if AppModel.shared.categoryData.count == 0
+        {
+            APIManager.sharedInstance.serviceCallToGetCategory {
+                setDataToPreference(data: getDateStringFromDate(date: Date()) as AnyObject, forKey: "category_fetched")
+                if getCategoryList().count > 0
+                {
+                    let data : [[String : Any]] = getCategoryList()
+                    AppModel.shared.categoryData = [CategoryModel]()
+                    for temp in data
+                    {
+                        AppModel.shared.categoryData.append(CategoryModel.init(dict: temp))
+                    }
+                    self.tutableCollectioView.reloadData()
+                }
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -53,9 +70,12 @@ class BrowseVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = tutableCollectioView.dequeueReusableCell(withReuseIdentifier: "CustomCategoryCVC", for: indexPath) as! CustomCategoryCVC
+        cell.imgBtn.setBackgroundImage(nil, for: .normal)
         let categoryDict : CategoryModel = AppModel.shared.categoryData[indexPath.row]
         cell.titleLbl.text = categoryDict.title
         
+        APIManager.sharedInstance.serviceCallToGetPhoto(categoryDict.picture, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
+
         return cell
     }
     
@@ -68,6 +88,7 @@ class BrowseVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc : EntertainmentVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "EntertainmentVC") as! EntertainmentVC
+        vc.categoryData = AppModel.shared.categoryData[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

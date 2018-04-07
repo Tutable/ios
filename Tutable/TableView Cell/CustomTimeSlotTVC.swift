@@ -12,10 +12,13 @@ class CustomTimeSlotTVC: UITableViewCell {
 
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var selectionBtn: UIButton!
+    @IBOutlet weak var bookBtn: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        bookBtn.addCornerRadiusOfView(bookBtn.frame.size.height/2)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

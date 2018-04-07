@@ -11,12 +11,17 @@ import UIKit
 class ReviewListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tblView: UITableView!
+    @IBOutlet weak var noDataFound: UILabel!
+    
+    var classData : ClassModel = ClassModel.init()
+    var reviewData : [[String : Any]] = [[String : Any]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         tblView.register(UINib(nibName: "CustomReviewsTVC", bundle: nil), forCellReuseIdentifier: "CustomReviewsTVC")
+        getReviewsList()
     }
 
     @IBAction func clickToBack(_ sender: Any) {
@@ -29,7 +34,7 @@ class ReviewListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return reviewData.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -42,6 +47,23 @@ class ReviewListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomReviewsTVC", for: indexPath) as! CustomReviewsTVC
         
         return cell
+    }
+    
+    
+    func getReviewsList()
+    {
+        APIManager.sharedInstance.serviceCallToGetReviewList(classData.id) { (dictArr) in
+            self.reviewData = dictArr
+            self.tblView.reloadData()
+            if self.reviewData.count == 0
+            {
+                self.noDataFound.isHighlighted = false
+            }
+            else
+            {
+                self.noDataFound.isHighlighted = true
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {

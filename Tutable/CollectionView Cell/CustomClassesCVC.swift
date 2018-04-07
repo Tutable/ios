@@ -13,8 +13,9 @@ class CustomClassesCVC: UICollectionViewCell {
     @IBOutlet weak var imgBtn: UIButton!
     @IBOutlet weak var mainLbl: UILabel!
     @IBOutlet weak var autherLbl: UILabel!
-    @IBOutlet weak var Lbl: UILabel!
-    @IBOutlet weak var viewsLbl: UILabel!
+    @IBOutlet weak var addressLbl: UILabel!
+    @IBOutlet weak var reviewsLbl: UILabel!
+    @IBOutlet weak var starView: FloatRatingView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

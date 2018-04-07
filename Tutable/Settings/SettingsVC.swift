@@ -83,12 +83,19 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func logoutUser()
     {
-        let alert = UIAlertController(title: "Tutable", message: "Are you sure you want to Logout?", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
+//        let alert = UIAlertController(title: "Tutable", message: "Are you sure you want to Logout?", preferredStyle: UIAlertControllerStyle.alert)
+//        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
+//        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
+//            AppDelegate().sharedDelegate().logoutApp()
+//        }))
+//        alert.view.tintColor = colorFromHex(hex: COLOR.APP_COLOR)
+//        self.present(alert, animated: true, completion: nil)
+        
+        showAlertWithOption("Tutable", message: "Are you sure you want to Logout?", completionConfirm: {
             AppDelegate().sharedDelegate().logoutApp()
-        }))
-        self.present(alert, animated: true, completion: nil)
+        }) {
+            
+        }
     }
     
     

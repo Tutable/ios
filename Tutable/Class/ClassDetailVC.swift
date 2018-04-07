@@ -34,6 +34,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     var classId : String = ""
     var classData : ClassModel = ClassModel()
     var reviewArr : [[String : Any]] = [[String : Any]]()
+    var teacherData : UserModel = UserModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,14 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
         self.edgesForExtendedLayout = UIRectEdge.bottom
         tabBar.setTabBarHidden(tabBarHidden: true)
-        
+        if isStudentLogin()
+        {
+            bookClassBtn.isHidden = false
+        }
+        else
+        {
+            bookClassBtn.isHidden = true
+        }
         getClassDetail()
     }
     
@@ -65,12 +73,21 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         APIManager.sharedInstance.serviceCallToGetClassDetail(classId) { (dictData) in
             self.classData = ClassModel.init(dict: dictData)
             self.setClassDetail()
+            self.getTeacherDetail()
+        }
+    }
+    
+    func getTeacherDetail()
+    {
+        APIManager.sharedInstance.serviceCallToGetTeacehrDetail(classData.teacher.id) { (dict) in
+            self.teacherData = UserModel.init(dict: dict)
         }
     }
     
     func setClassDetail()
     {
-        APIManager.sharedInstance.serviceCallToGetClassPhoto(classData.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [classImgBtn])
+        APIManager.sharedInstance.serviceCallToGetPhoto(classData.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [classImgBtn])
+        
         classNameLbl.text = classData.name
         APIManager.sharedInstance.serviceCallToGetPhoto(classData.teacher.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
         userNameLbl.text = "By " + classData.teacher.name
@@ -91,7 +108,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
         classPriceLbl.text = setFlotingPrice(classData.rate)
         studentLevelLbl.text = classLevelArr[classData.level-1]
-        subjectLoveLbl.text = classData.bio
+        subjectLoveLbl.text = classData.desc
         constraintHeightSubjectLoveLbl.constant = subjectLoveLbl.getLableHeight()
         
         if let reviewDict : [String : Any] = classData.reviews, reviewDict.count != 0
@@ -120,15 +137,16 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    
-    
     // MARK: - Button click event
     @IBAction func clickToBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func clickToBookClass(_ sender: Any) {
-        
+        let vc : ClassBookingRequestVC = self.storyboard?.instantiateViewController(withIdentifier: "ClassBookingRequestVC") as! ClassBookingRequestVC
+        vc.teacherData = teacherData
+        vc.classData = classData
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func clickToMessage(_ sender: Any) {
@@ -141,8 +159,13 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    @IBAction func clickToAddReview(_ sender: Any) {
+        
+    }
+    
     @IBAction func clickToMoreReviews(_ sender: Any) {
         let vc : ReviewListVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "ReviewListVC") as! ReviewListVC
+        vc.classData = classData
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

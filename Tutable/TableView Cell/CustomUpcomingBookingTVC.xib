@@ -75,7 +75,7 @@
                                 <state key="normal" image="msg_small"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccX-dx-gch">
-                                <rect key="frame" x="210" y="150" width="30" height="30"/>
+                                <rect key="frame" x="215" y="150" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="4e3-ez-mIf"/>
                                     <constraint firstAttribute="width" constant="30" id="rAy-OP-uAu"/>
@@ -122,7 +122,7 @@
                             <constraint firstItem="DN8-iE-iyw" firstAttribute="top" secondItem="oaG-CQ-MAn" secondAttribute="bottom" constant="3" id="Y1R-u0-akV"/>
                             <constraint firstItem="oO7-Hr-j90" firstAttribute="top" secondItem="Mfs-b4-S0W" secondAttribute="bottom" id="ZF2-s8-O3Q"/>
                             <constraint firstItem="oO7-Hr-j90" firstAttribute="centerY" secondItem="PfH-s9-n4d" secondAttribute="centerY" id="cSr-L7-GVQ"/>
-                            <constraint firstItem="Q9c-en-cUL" firstAttribute="leading" secondItem="ccX-dx-gch" secondAttribute="trailing" constant="15" id="dIS-Jm-vFG"/>
+                            <constraint firstItem="Q9c-en-cUL" firstAttribute="leading" secondItem="ccX-dx-gch" secondAttribute="trailing" constant="10" id="dIS-Jm-vFG"/>
                             <constraint firstItem="Idx-2P-SR1" firstAttribute="leading" secondItem="Mfs-b4-S0W" secondAttribute="leading" constant="10" id="dhp-54-sYg"/>
                             <constraint firstItem="oaG-CQ-MAn" firstAttribute="top" secondItem="Mfs-b4-S0W" secondAttribute="bottom" constant="5" id="evy-0k-MGC"/>
                             <constraint firstItem="oO7-Hr-j90" firstAttribute="leading" secondItem="DN8-iE-iyw" secondAttribute="trailing" id="gi9-ZM-nVF"/>

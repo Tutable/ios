@@ -98,16 +98,19 @@ func showAlertWithOption(_ title:String, message:String, btns:[String] = ["Yes",
     })
     myAlert.addAction(rightBtn)
     myAlert.addAction(leftBtn)
+    myAlert.view.tintColor = colorFromHex(hex: COLOR.APP_COLOR)
     AppDelegate().sharedDelegate().window?.rootViewController?.present(myAlert, animated: true, completion: nil)
 }
 
 
 func showAlert(_ title:String, message:String, completion: @escaping () -> Void){
+    
     let myAlert = UIAlertController(title:title, message:message, preferredStyle: UIAlertControllerStyle.alert)
     let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler:{ (action) in
         completion()
     })
     myAlert.addAction(okAction)
+    myAlert.view.tintColor = colorFromHex(hex: COLOR.APP_COLOR)
     AppDelegate().sharedDelegate().window?.rootViewController?.present(myAlert, animated: true, completion: nil)
 }
 
@@ -121,7 +124,6 @@ func displaySubViewtoParentView(_ parentview: UIView! , subview: UIView!)
     parentview.addConstraint(NSLayoutConstraint(item: subview, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: parentview, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0.0))
     parentview.addConstraint(NSLayoutConstraint(item: subview, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: parentview, attribute: NSLayoutAttribute.trailing, multiplier: 1.0, constant: 0.0))
     parentview.layoutIfNeeded()
-    
 }
 
 func displaySubViewWithScaleOutAnim(_ view:UIView){

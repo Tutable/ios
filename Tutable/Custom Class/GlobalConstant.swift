@@ -47,7 +47,7 @@ struct DATE_FORMAT {
     static var SERVER_TIME_FORMAT = "HH:mm"
     static var SERVER_DATE_TIME_FORMAT = "dd/MM/yyyy HH:mm"
     static var DISPLAY_DATE_FORMAT = "dd/MM/yyyy"
-    static var DISPLAY_TIME_FORMAT = "HH:mm"
+    static var DISPLAY_TIME_FORMAT = "hh:mm a"
     static var DISPLAY_DATE_TIME_FORMAT = "dd/MM/yyyy HH:mm"
 }
 

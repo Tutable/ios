@@ -57,7 +57,7 @@ class ClassHourlyRateVC: UIViewController {
                 }
                 else
                 {
-                    self.navigationController?.popViewController(animated: true)
+                    self.navigationController?.popToRootViewController(animated: true)
                 }
             })
         }

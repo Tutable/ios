@@ -22,6 +22,8 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
 
         // Do any additional setup after loading the view.
         tblView.register(UINib(nibName: "CustomMyClassTVC", bundle: nil), forCellReuseIdentifier: "CustomMyClassTVC")
+        notiCountLbl.isHidden = true
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +44,7 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
     func getClassList()
     {
-        APIManager.sharedInstance.serviceCallToGetClassList { (dataArr) in
+        APIManager.sharedInstance.serviceCallToGetClassList("") { (dataArr) in
             
             self.myClassData = [ClassModel]()
             for temp in dataArr
@@ -73,6 +75,7 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     @IBAction func clickToAddClass(_ sender: Any) {
         self.view.endEditing(true)
         let vc : AddClassVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddClassVC") as! AddClassVC
+        vc.isFromDashboard = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -94,7 +97,9 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomMyClassTVC", for: indexPath) as! CustomMyClassTVC
         let dict : ClassModel = myClassData[indexPath.row]
         cell.className.text = dict.name
-        APIManager.sharedInstance.serviceCallToGetClassPhoto(dict.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.classImgBtn])
+        
+        APIManager.sharedInstance.serviceCallToGetPhoto(dict.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.classImgBtn])
+        
         cell.priceLbl.text = setFlotingPrice(dict.rate)
         cell.setCellDesign()
         cell.selectionStyle = UITableViewCellSelectionStyle.none

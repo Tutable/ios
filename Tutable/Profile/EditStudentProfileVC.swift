@@ -88,7 +88,29 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
         }
         else
         {
-            
+            var dict : [String : Any] = [String : Any]()
+            dict["name"] = nameTxt.text
+            dict["email"] = emailTxt.text
+            dict["address"] = addressTxt.text
+            if _imgCompress == nil
+            {
+                continueUpdating(dict, Data())
+            }
+            else if let imageData = UIImagePNGRepresentation(_imgCompress){
+                continueUpdating(dict, imageData)
+            }
+            else{
+                displayToast("Getting error in profile pic, please select another one.")
+                return
+            }
+        }
+    }
+    
+    func continueUpdating(_ dict : [String : Any], _ imageData : Data)
+    {
+        APIManager.sharedInstance.serviceCallToUpdateStudentDetail(dict, pictureData: imageData) {
+            displayToast("Profile update successfully.")
+            self.navigationController?.popViewController(animated: true)
         }
     }
     

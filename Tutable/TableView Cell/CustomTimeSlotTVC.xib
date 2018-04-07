@@ -27,7 +27,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8 AM to 9 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYo-wM-Cjg">
                         <rect key="frame" x="10" y="0.0" width="255" height="49.5"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
-                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ag2-5W-rp7">
@@ -38,9 +38,19 @@
                         <state key="normal" image="available_off"/>
                         <state key="selected" image="available_on"/>
                     </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCG-Tt-buX">
+                        <rect key="frame" x="230" y="9" width="80" height="30"/>
+                        <color key="backgroundColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="2WG-B5-okT"/>
+                            <constraint firstAttribute="width" constant="80" id="SRh-Eu-a6N"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                        <state key="normal" title="BOOK"/>
+                    </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="geh-t7-vHB">
                         <rect key="frame" x="10" y="48.5" width="300" height="1"/>
-                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="L5E-JI-P9I"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="hdD-dX-ZVS"/>
@@ -50,10 +60,12 @@
                 <constraints>
                     <constraint firstItem="QYo-wM-Cjg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="26I-2O-NmK"/>
                     <constraint firstAttribute="trailing" secondItem="Ag2-5W-rp7" secondAttribute="trailing" constant="10" id="8Oo-Dt-z7V"/>
+                    <constraint firstAttribute="trailing" secondItem="xCG-Tt-buX" secondAttribute="trailing" constant="10" id="MoH-Wh-osX"/>
                     <constraint firstAttribute="trailing" secondItem="geh-t7-vHB" secondAttribute="trailing" constant="10" id="N0s-L3-tOq"/>
                     <constraint firstItem="geh-t7-vHB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="SUd-l9-EyG"/>
                     <constraint firstAttribute="bottom" secondItem="Ag2-5W-rp7" secondAttribute="bottom" id="YTP-6S-PnN"/>
                     <constraint firstAttribute="bottom" secondItem="QYo-wM-Cjg" secondAttribute="bottom" id="Yq8-wT-Muy"/>
+                    <constraint firstItem="xCG-Tt-buX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ibf-2z-Yk2"/>
                     <constraint firstAttribute="bottom" secondItem="geh-t7-vHB" secondAttribute="bottom" id="n2q-fV-Mjs"/>
                     <constraint firstItem="QYo-wM-Cjg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="s6M-Mk-BpW"/>
                     <constraint firstItem="Ag2-5W-rp7" firstAttribute="leading" secondItem="QYo-wM-Cjg" secondAttribute="trailing" constant="10" id="thz-sY-DaH"/>
@@ -62,6 +74,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="bookBtn" destination="xCG-Tt-buX" id="u1x-OB-DRV"/>
                 <outlet property="selectionBtn" destination="Ag2-5W-rp7" id="ios-yI-b9V"/>
                 <outlet property="titleLbl" destination="QYo-wM-Cjg" id="C5M-jw-oZA"/>
             </connections>

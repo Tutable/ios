@@ -30,11 +30,21 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var categoryArr : [CategoryModel] = [CategoryModel]()
     var selectedCategory : CategoryModel = CategoryModel()
     var selectedLevel : Int = 0
+    var isFromDashboard : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        if isFromDashboard
+        {
+            titleLbl.text = "ADD CLASS"
+        }
+        else
+        {
+            titleLbl.text = "ADD YOUR FIRST CLASS"
+        }
         _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
@@ -143,7 +153,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         AppModel.shared.currentClass.name = classNameTxt.text
         AppModel.shared.currentClass.category = selectedCategory
         AppModel.shared.currentClass.level = selectedLevel
-        AppModel.shared.currentClass.bio = subjectLbl.text
+        AppModel.shared.currentClass.desc = subjectLbl.text
         AppModel.shared.currentClass.timeline = Double(getCurrentTimeStampValue())
         
         let vc : ClassHourlyRateVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "ClassHourlyRateVC") as! ClassHourlyRateVC

@@ -15,8 +15,14 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet weak var cancelPopupView: UIView!
     @IBOutlet weak var cancelNoBtn: UIButton!
     @IBOutlet weak var cancelYesBtn: UIButton!
+    @IBOutlet weak var noDataFound: UILabel!
     
-    var arrUpcomingBookingData : [[String : Any]] = [[String : Any]]()
+    var arrUpcomingBookingData : [BookingClassModel] = [BookingClassModel]()
+    var page : Int = 1
+    var limit : Int = 10
+    var isLoadNextData : Bool = true
+    var refreshControl : UIRefreshControl = UIRefreshControl()
+    var selectedBooking : BookingClassModel = BookingClassModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +30,27 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
         // Do any additional setup after loading the view.
         tblView.register(UINib.init(nibName: "CustomUpcomingBookingTVC", bundle: nil), forCellReuseIdentifier: "CustomUpcomingBookingTVC")
         tblView.backgroundColor = UIColor.clear
+        
+        refreshControl.tintColor = colorFromHex(hex: COLOR.APP_COLOR)
+        refreshControl.addTarget(self, action: #selector(refreshUpcomingBookingList), for: .valueChanged)
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        refreshUpcomingBookingList()
+    }
+    
+    @objc func refreshUpcomingBookingList()
+    {
+        page = 1
+        limit = 10
+        isLoadNextData = true
+        serviceCallForUpcomingBookingList()
+    }
+    
 
     // MARK: - Tableview Delegate method
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
         return arrUpcomingBookingData.count
     }
     
@@ -40,6 +62,47 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomUpcomingBookingTVC", for: indexPath) as! CustomUpcomingBookingTVC
         
+        let dict : BookingClassModel = arrUpcomingBookingData[indexPath.row]
+        cell.classNameLbl.text = dict.classDetails.name
+        cell.userNameLbl.text = "By " + dict.teacher.name
+        cell.dateTimeLbl.text = getDateStringFromDate(date: getDateFromTimeStamp(dict.timestamp), format: "MMM dd") + ", " + getTimeStringFromServerTimeStemp(dict.timestamp) + " to " + getTimeStringFromServerTimeStemp(dict.timestamp + 3600)
+        cell.priceLbl.text = setFlotingPrice(dict.classDetails.rate)
+        
+        if dict.slot.count != 0
+        {
+            var timestamp : Double = 0.0
+            var timeSlot : String = ""
+            for temp in dict.slot
+            {
+                timestamp = Double(temp.key)!
+                timeSlot = temp.value as! String
+            }
+            cell.dateTimeLbl.text = getDateStringFromDate(date: getDateFromTimeStamp(timestamp), format: "MMM dd") + ", "
+            let timeArr : [String] = timeSlot.components(separatedBy: "-")
+            let startTime : String = timeArr[0]
+            let endTime : String = timeArr[1]
+            
+            if Int(startTime)! > 12
+            {
+                cell.dateTimeLbl.text = cell.dateTimeLbl.text! + String(Int(startTime)! - 12) + " pm to "
+            }
+            else
+            {
+                cell.dateTimeLbl.text = cell.dateTimeLbl.text! + startTime + " am to "
+            }
+            
+            if Int(endTime)! > 12
+            {
+                cell.dateTimeLbl.text = cell.dateTimeLbl.text! + String(Int(endTime)! - 12) + " pm"
+            }
+            else
+            {
+                cell.dateTimeLbl.text = cell.dateTimeLbl.text! + endTime + " am"
+            }
+        }
+        
+        APIManager.sharedInstance.serviceCallToGetPhoto(dict.classDetails.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
+
         cell.cancelBtn.tag = indexPath.row
         cell.cancelBtn.addTarget(self, action: #selector(clickToCancelBtn(_:)), for: .touchUpInside)
         cell.chatBtn.tag = indexPath.row
@@ -55,14 +118,78 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
         return cell
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isLoadNextData && (arrUpcomingBookingData.count - 1) == indexPath.row
+        {
+            serviceCallForUpcomingBookingList()
+        }
+    }
+    
     @IBAction func clickToCancelBtn(_ sender: UIButton) {
+        selectedBooking = arrUpcomingBookingData[sender.tag]
         openCancelPopupView()
     }
 
     @IBAction func clickToChatBtn(_ sender: UIButton) {
-        
+//        let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
+//        vc.classData = arrUpcomingBookingData[sender.tag].classDetails
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
 
+    
+    func serviceCallForUpcomingBookingList()
+    {
+        var dict : [String : Any] = [String : Any]()
+        if isStudentLogin()
+        {
+            dict["studentId"] = AppModel.shared.currentUser.id
+        }
+        else
+        {
+            dict["teacherId"] = AppModel.shared.currentUser.id
+        }
+        dict["bookingType"] = 1
+        dict["page"] = page
+        dict["limit"] = limit
+        
+        APIManager.sharedInstance.serviceCallToGetBookingList(dict) { (dictArr) in
+            print(dictArr)
+            if self.page == 1
+            {
+                self.arrUpcomingBookingData = [BookingClassModel]()
+                for temp in dictArr
+                {
+                    self.arrUpcomingBookingData.append(BookingClassModel.init(dict: temp))
+                }
+            }
+            else
+            {
+                for temp in dictArr
+                {
+                    self.arrUpcomingBookingData.append(BookingClassModel.init(dict: temp))
+                }
+            }
+            self.tblView.reloadData()
+            if dictArr.count < 10
+            {
+                self.isLoadNextData = false
+            }
+            else
+            {
+                self.page = self.page + 1
+            }
+            if self.arrUpcomingBookingData.count == 0
+            {
+                self.noDataFound.isHidden = false
+            }
+            else
+            {
+                self.noDataFound.isHidden = true
+            }
+        }
+    }
+    
+    
     func openCancelPopupView()
     {
         cancelPopupView.addCornerRadiusOfView(10)
@@ -79,6 +206,20 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
     
     @IBAction func clickToYes(_ sender: Any) {
         cancelContainerView.removeFromSuperview()
+        var param : [String : Any] = [String : Any]()
+        param["bookingId"] = selectedBooking.id
+        param["confirmed"] = false
+        APIManager.sharedInstance.serviceCallToBookingAction(param) { (isSuccess) in
+            let index = self.arrUpcomingBookingData.index(where: { (temp) -> Bool in
+                temp == self.selectedBooking
+            })
+            if index != nil
+            {
+                self.selectedBooking.confirmed = 1
+                self.arrUpcomingBookingData[index!] = self.selectedBooking
+                self.tblView.reloadData()
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
