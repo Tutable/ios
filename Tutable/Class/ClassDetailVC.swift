@@ -19,6 +19,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var classImgBtn: UIButton!
     @IBOutlet weak var classNameLbl: UILabel!
     @IBOutlet weak var bookClassBtn: UIButton!
+    @IBOutlet weak var chatBtn: UIButton!
     @IBOutlet weak var userProfilePicBtn: UIButton!
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var userSubTitleLbl: UILabel!
@@ -52,10 +53,12 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         if isStudentLogin()
         {
             bookClassBtn.isHidden = false
+            chatBtn.isHidden = false
         }
         else
         {
             bookClassBtn.isHidden = true
+            chatBtn.isHidden = true
         }
         getClassDetail()
     }

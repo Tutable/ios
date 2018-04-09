@@ -28,8 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        UIApplication.shared.statusBarView?.backgroundColor = colorFromHex(hex: COLOR.APP_COLOR)
-        UIApplication.shared.statusBarStyle = .lightContent
+//        UIApplication.shared.statusBarView?.backgroundColor = colorFromHex(hex: COLOR.APP_COLOR)
+//        UIApplication.shared.statusBarStyle = .lightContent
+    
+        application.statusBarStyle = .lightContent
         
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
@@ -59,6 +61,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         return true
     }
 
+    var statusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     @objc func keyboardDidShow(_ notif:NSNotification){
         isKeyboardOpen = true
     }

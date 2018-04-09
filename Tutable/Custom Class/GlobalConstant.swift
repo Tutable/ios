@@ -23,6 +23,8 @@ let CLASS_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/develop
 let APP_VERSION = 1.0
 let BUILD_VERSION = 1
 
+let POLICE_CHECK_URL = "https://npcoapr.police.nsw.gov.au/aspx/dataentry/Introduction.aspx"
+
 let ITUNES_URL = "https://itunes.apple.com/us/app/lit-nite/id1360588270?ls=1&mt=8"
 
 let TERMS_CONDITIONS = "http://mylitnite.com/terms"

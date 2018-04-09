@@ -50,6 +50,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         self.addChildViewController(_PhotoSelectionVC)
         
         AppModel.shared.currentClass = ClassModel.init(dict: [String : Any]())
+        setUIDesigning()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -59,10 +60,6 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             self.edgesForExtendedLayout = UIRectEdge.bottom
             tabBar.setTabBarHidden(tabBarHidden: true)
         }
-    }
-    
-    override func viewWillLayoutSubviews() {
-        setUIDesigning()
     }
     
     func setUIDesigning()
@@ -89,6 +86,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func setCategoryData()
     {
+        categoryArr = [CategoryModel]()
         let tempData : [[String : Any]] = getCategoryList()
         for temp in tempData
         {

@@ -33,7 +33,6 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
         
         // Do any additional setup after loading the view.
         tblView.register(UINib(nibName: "CustomTimeSlotTVC", bundle: nil), forCellReuseIdentifier: "CustomTimeSlotTVC")
-        timeArr = Array(teacherData.availability.keys).sorted()
     }
     
     override func viewWillLayoutSubviews() {
@@ -62,7 +61,7 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
         button.setBackgroundImage(imageWithColor(color: colorFromHex(hex: COLOR.WHITE_COLOR)), for: .normal)
         button.setBackgroundImage(imageWithColor(color: colorFromHex(hex: COLOR.APP_COLOR)), for: .selected)
     }
-    
+    /*
     func setButtonLable()
     {
         for i in 1...7
@@ -103,7 +102,52 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     }
-    
+    */
+    func setButtonLable()
+    {
+        for i in 1...7
+        {
+            let date : Date = Calendar.current.date(byAdding: .day, value: i, to: Date())!
+            let timestamp : Int = Int(getOnlyDateTimestamp(date: date))
+            if (finalTimeDict[String(timestamp)] == nil)
+            {
+                finalTimeDict[String(timestamp)] = [String]()
+            }
+            
+            switch i {
+            case 1:
+                btn1.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn1.tag = Int(timestamp)
+                break
+            case 2:
+                btn2.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn2.tag = Int(timestamp)
+                break
+            case 3:
+                btn3.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn3.tag = Int(timestamp)
+                break
+            case 4:
+                btn4.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn4.tag = Int(timestamp)
+                break
+            case 5:
+                btn5.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn5.tag = Int(timestamp)
+                break
+            case 6:
+                btn6.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn6.tag = Int(timestamp)
+                break
+            case 7:
+                btn7.setTitle(getDateOnlyFromDate(date: date), for: .normal)
+                btn7.tag = Int(timestamp)
+                break
+            default:
+                break
+            }
+        }
+    }
     
     func resetButtonSelection()
     {
@@ -138,7 +182,11 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
         {
             return 0
         }
-        return teacherData.availability[String(selectedDateIndex)]!.count
+        else if let arrTemp : [String] = teacherData.availability[String(selectedDateIndex)]
+        {
+            return arrTemp.count
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -149,33 +197,40 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
         
         let cell : CustomTimeSlotTVC = tblView.dequeueReusableCell(withIdentifier: "CustomTimeSlotTVC", for: indexPath) as! CustomTimeSlotTVC
         
-        let tempTimeStr : String = (teacherData.availability[String(selectedDateIndex)]?[indexPath.row])!
+        cell.titleLbl.text = ""
+        cell.bookBtn.isHidden = true
         
-        let timeArr : [String] = tempTimeStr.components(separatedBy: "-")
-        let startTime : String = timeArr[0]
-        let endTime : String = timeArr[1]
+        if let arrTemp : [String] = teacherData.availability[String(selectedDateIndex)], arrTemp.count > 0
+        {
+            let tempTimeStr : String = arrTemp[indexPath.row]
+            
+            let timeArr : [String] = tempTimeStr.components(separatedBy: "-")
+            let startTime : String = timeArr[0]
+            let endTime : String = timeArr[1]
+            
+            if Int(startTime)! > 12
+            {
+                cell.titleLbl.text = String(Int(startTime)! - 12) + " PM to "
+            }
+            else
+            {
+                cell.titleLbl.text = startTime + " AM to "
+            }
+            
+            if Int(endTime)! > 12
+            {
+                cell.titleLbl.text = cell.titleLbl.text! + String(Int(endTime)! - 12) + " PM"
+            }
+            else
+            {
+                cell.titleLbl.text = cell.titleLbl.text! + endTime + " AM"
+            }
+            
+            cell.bookBtn.isHidden = false
+            cell.bookBtn.tag = indexPath.row
+            cell.bookBtn.addTarget(self, action: #selector(clickToBook(_:)), for: .touchUpInside)
+        }
         
-        if Int(startTime)! > 12
-        {
-            cell.titleLbl.text = String(Int(startTime)! - 12) + " PM to "
-        }
-        else
-        {
-            cell.titleLbl.text = startTime + " AM to "
-        }
-        
-        if Int(endTime)! > 12
-        {
-            cell.titleLbl.text = cell.titleLbl.text! + String(Int(endTime)! - 12) + " PM"
-        }
-        else
-        {
-            cell.titleLbl.text = cell.titleLbl.text! + endTime + " AM"
-        }
-        
-        cell.bookBtn.isHidden = false
-        cell.bookBtn.tag = indexPath.row
-        cell.bookBtn.addTarget(self, action: #selector(clickToBook(_:)), for: .touchUpInside)
         
         cell.selectionBtn.isHidden = true
         cell.selectionStyle = UITableViewCellSelectionStyle.none
@@ -183,7 +238,6 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func clickToBook(_ sender: UIButton) {
-        print(timeArr[sender.tag])
         var slotDict : [String : Any] = [String : Any]()
         slotDict[String(selectedDateIndex)] = (teacherData.availability[String(selectedDateIndex)]?[sender.tag])!
         APIManager.sharedInstance.serviceCallToBookClass(classData.id, slotDict: slotDict) { (isSuccess) in

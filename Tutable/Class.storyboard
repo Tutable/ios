@@ -48,7 +48,7 @@
                                                             </button>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dtd-rh-G1k">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.19987896129999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W8Y-RM-zSQ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -63,7 +63,7 @@
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLk-hi-wZT">
-                                                                <rect key="frame" x="15" y="125" width="290" height="0.0"/>
+                                                                <rect key="frame" x="15" y="124.5" width="290" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
@@ -374,6 +374,7 @@
                     <size key="freeformSize" width="320" height="604"/>
                     <connections>
                         <outlet property="bookClassBtn" destination="yjS-oS-foP" id="vXK-cx-OjK"/>
+                        <outlet property="chatBtn" destination="cYq-Eh-5JQ" id="Tuk-jh-EtV"/>
                         <outlet property="classFooterView" destination="3De-kH-Neh" id="4Wc-t9-SZG"/>
                         <outlet property="classHeaderView" destination="2Vw-ld-N8I" id="jBn-HN-FeN"/>
                         <outlet property="classImgBtn" destination="yOb-Pc-bEa" id="cOL-Dy-eo0"/>
@@ -625,10 +626,10 @@
                                                         <color key="textColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nr8-Zm-rN3">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nr8-Zm-rN3" customClass="ExpandableLabel" customModule="Tutable" customModuleProvider="target">
                                                         <rect key="frame" x="10" y="235" width="300" height="25"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="hAF-c2-HDW"/>
+                                                            <constraint firstAttribute="height" constant="25" id="8e6-2T-zcI"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -814,7 +815,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
-                        <outlet property="aboutUserLbl" destination="Nr8-Zm-rN3" id="4Is-LU-j8T"/>
+                        <outlet property="aboutUserLbl" destination="Nr8-Zm-rN3" id="Nug-nB-MnE"/>
                         <outlet property="bookClassBtn" destination="yjS-oS-foP" id="riZ-am-bgT"/>
                         <outlet property="categoryBtn" destination="bkQ-dN-c2x" id="opZ-US-cUV"/>
                         <outlet property="childrenCheckBtn" destination="Usc-90-Kdl" id="GGd-HJ-yoO"/>
@@ -822,7 +823,7 @@
                         <outlet property="classHeaderView" destination="HDY-Xo-5FV" id="So7-Ur-735"/>
                         <outlet property="classNameLbl" destination="WLk-hi-wZT" id="EOi-O1-g6T"/>
                         <outlet property="classPriceLbl" destination="gqL-ek-UPa" id="Rsh-II-jNv"/>
-                        <outlet property="constraintHeightAboutUserLbl" destination="hAF-c2-HDW" id="vdZ-hT-4jX"/>
+                        <outlet property="constraintHeightAboutUserLbl" destination="8e6-2T-zcI" id="Nec-oN-OK8"/>
                         <outlet property="constraintHeightHeaderView" destination="Q6X-yV-bkd" id="gU0-uv-pd9"/>
                         <outlet property="constraintHeightTblView" destination="Pi0-09-ZCB" id="rH7-0v-gKY"/>
                         <outlet property="exprienceBtn" destination="nsS-yP-x1a" id="jqZ-2E-OfG"/>
@@ -1289,7 +1290,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agO-Z1-lKA">
-                                <rect key="frame" x="81" y="195" width="42" height="60"/>
+                                <rect key="frame" x="58" y="195" width="42" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="42" id="Yf1-RM-pHD"/>
                                 </constraints>
@@ -1297,8 +1298,8 @@
                                 <color key="textColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="odo-8U-pFS">
-                                <rect key="frame" x="128" y="195" width="110" height="60"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="odo-8U-pFS">
+                                <rect key="frame" x="105" y="195" width="110" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Yef-Hj-mbx"/>
                                     <constraint firstAttribute="width" constant="110" id="iwG-MT-mK0"/>
@@ -1328,7 +1329,7 @@
                             <constraint firstItem="Y6m-IK-4AW" firstAttribute="leading" secondItem="gDq-Kz-Mgw" secondAttribute="leading" id="1wr-Qu-mNj"/>
                             <constraint firstItem="2Jp-lw-T87" firstAttribute="top" secondItem="odo-8U-pFS" secondAttribute="bottom" constant="70" id="8tj-Ie-dUz"/>
                             <constraint firstItem="odo-8U-pFS" firstAttribute="leading" secondItem="agO-Z1-lKA" secondAttribute="trailing" constant="5" id="Fqh-a0-CYK"/>
-                            <constraint firstItem="odo-8U-pFS" firstAttribute="centerX" secondItem="gDq-Kz-Mgw" secondAttribute="centerX" constant="23" id="JCW-ep-fdk"/>
+                            <constraint firstItem="odo-8U-pFS" firstAttribute="centerX" secondItem="gDq-Kz-Mgw" secondAttribute="centerX" id="JCW-ep-fdk"/>
                             <constraint firstItem="uCi-Um-Fxq" firstAttribute="top" secondItem="Y6m-IK-4AW" secondAttribute="bottom" constant="30" id="Mlo-WJ-MlL"/>
                             <constraint firstItem="odo-8U-pFS" firstAttribute="top" secondItem="agO-Z1-lKA" secondAttribute="top" id="Ndr-U8-sTm"/>
                             <constraint firstItem="2Jp-lw-T87" firstAttribute="centerX" secondItem="gDq-Kz-Mgw" secondAttribute="centerX" id="XdW-r1-DrB"/>
@@ -1528,7 +1529,7 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wnl-dJ-Spb">
+                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wnl-dJ-Spb">
                                                         <rect key="frame" x="10" y="149.5" width="40" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="MJu-M6-S7v"/>

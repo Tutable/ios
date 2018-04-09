@@ -79,7 +79,6 @@ public class APIManager {
                 })
                 upload.responseJSON { response in
                     removeLoader()
-                    print(response.result.value!)
                     if let result = response.result.value as? [String:Any]{
                         if let code = result["code"] as? Int{
                             if(code == 100){
@@ -150,7 +149,7 @@ public class APIManager {
                         {
                             if result["message"] as! String == "Requested user not found" || result["message"] as! String == "error"
                             {
-                                displayToast(result["message"] as! String)
+                                displayToast("Invalid username or password")
                                 return
                             }
                             else

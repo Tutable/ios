@@ -76,7 +76,7 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
     
     @IBAction func clickToPoliceCheckURL(_ sender: Any) {
         if #available(iOS 10.0, *) {
-            UIApplication.shared.open(URL(string : "https://npcoapr.police.nsw.gov.au/aspx/dataentry/Introduction.aspx")!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(URL(string : POLICE_CHECK_URL)!, options: [:], completionHandler: nil)
         } else {
             // Fallback on earlier versions
         }
