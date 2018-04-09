@@ -181,6 +181,75 @@ public class APIManager {
         }
     }
     
+    func serviceCallToSocialLogin(_ params : [String : Any], completion: @escaping (_ code:Int) -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeader()
+        
+        var strUrl : String = "teachers/login"
+        if isStudentLogin()
+        {
+            strUrl = "student/social"
+        }
+        
+        Alamofire.request(BASE_URL+strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            
+            removeLoader()
+            
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let code = result["code"] as? Int{
+                        if(code == 100){
+                            if let accessToken = result["accessToken"] as? String{
+                                AppModel.shared.token = accessToken
+                                self.serviceCallToGetUserDetail {
+                                    completion(code)
+                                }
+                                return
+                            }
+                            else{
+                                displayToast("Unauthorized user.")
+                            }
+                            return
+                        }
+                        else if code == 104
+                        {
+                            if result["message"] as! String == "Requested user not found" || result["message"] as! String == "error"
+                            {
+                                displayToast(result["message"] as! String)
+                                return
+                            }
+                            else
+                            {
+                                completion(code)
+                            }
+                        }
+                    }
+                    if let message = result["message"] as? String{
+                        if(message == "User is not verified. Verify verification code first."){
+                            completion((result["code"] as? Int)!)
+                        }
+                        displayToast(message)
+                        return
+                    }
+                }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                displayToast("Login error")
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
     //MARK:- User verification
     func serviceCallToVerifyCode(_ code:String, completion: @escaping () -> Void){
         showLoader()

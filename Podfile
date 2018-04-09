@@ -18,4 +18,6 @@ pod ‘IQKeyboardManagerSwift’
   pod 'DropDown'
   pod 'CarbonKit'
   pod 'SDWebImage'
+  pod 'Fabric'
+  pod 'Crashlytics'
 end

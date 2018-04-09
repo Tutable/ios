@@ -17,6 +17,8 @@
 		1815CB2A2071EC410081F852 /* MyClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815CB292071EC410081F852 /* MyClassVC.swift */; };
 		1815CB332071EFCC0081F852 /* CustomMyClassTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815CB312071EFCC0081F852 /* CustomMyClassTVC.swift */; };
 		1815CB342071EFCC0081F852 /* CustomMyClassTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */; };
+		184637EA207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184637E8207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift */; };
+		184637EB207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184637E9207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib */; };
 		18615BCF2068B8E5004A6876 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BCE2068B8E5004A6876 /* ProfileVC.swift */; };
 		18615BD12068B90D004A6876 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BD02068B90D004A6876 /* SettingsVC.swift */; };
 		18615BD32068B926004A6876 /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BD22068B926004A6876 /* MessageVC.swift */; };
@@ -99,6 +101,9 @@
 		1815CB292071EC410081F852 /* MyClassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClassVC.swift; sourceTree = "<group>"; };
 		1815CB312071EFCC0081F852 /* CustomMyClassTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMyClassTVC.swift; sourceTree = "<group>"; };
 		1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMyClassTVC.xib; sourceTree = "<group>"; };
+		184637E7207B388800F0B8A4 /* Tutable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tutable.entitlements; sourceTree = "<group>"; };
+		184637E8207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAcceptRejectNotiTVC.swift; sourceTree = "<group>"; };
+		184637E9207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomAcceptRejectNotiTVC.xib; sourceTree = "<group>"; };
 		18615BCE2068B8E5004A6876 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		18615BD02068B90D004A6876 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		18615BD22068B926004A6876 /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
@@ -274,6 +279,8 @@
 				18FE55672073A2E200FE4C36 /* CustomUpcomingBookingTVC.xib */,
 				181191932076391D00CC9D3D /* CustomNotificationTVC.swift */,
 				181191942076391D00CC9D3D /* CustomNotificationTVC.xib */,
+				184637E8207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift */,
+				184637E9207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib */,
 			);
 			path = "TableView Cell";
 			sourceTree = "<group>";
@@ -310,6 +317,7 @@
 		186A74EC2064BFCD0013D863 /* Tutable */ = {
 			isa = PBXGroup;
 			children = (
+				184637E7207B388800F0B8A4 /* Tutable.entitlements */,
 				186A74ED2064BFCD0013D863 /* AppDelegate.swift */,
 				186A74F12064BFCD0013D863 /* Main.storyboard */,
 				18750BAF2074957300ABF3B6 /* Class.storyboard */,
@@ -420,6 +428,7 @@
 				186A74E82064BFCD0013D863 /* Resources */,
 				0458895E4B51ADB625F07645 /* [CP] Embed Pods Frameworks */,
 				1B8776A1892CC5EFBBF27000 /* [CP] Copy Pods Resources */,
+				184637E6207B27E400F0B8A4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -444,6 +453,14 @@
 						CreatedOnToolsVersion = 9.1;
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -475,6 +492,7 @@
 				186A74F52064BFCD0013D863 /* Assets.xcassets in Resources */,
 				18B9918720692620009F8A13 /* CustomCategoryCVC.xib in Resources */,
 				18803986206A2A6700179778 /* CustomClassesTVC.xib in Resources */,
+				184637EB207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib in Resources */,
 				18750BB42074970700ABF3B6 /* Booking.storyboard in Resources */,
 				18FE555F207387E400FE4C36 /* CustomSettingTVC.xib in Resources */,
 				181191962076391D00CC9D3D /* CustomNotificationTVC.xib in Resources */,
@@ -537,6 +555,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tutable/Pods-Tutable-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		184637E6207B27E400F0B8A4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" ad9c07bbd1d0a9abf4b99795ae0484f5b711d517 d6d29bb02f9025a528bd8eaaf4463f069f76927ac6c2d9db6acefab038823ada";
 		};
 		1B8776A1892CC5EFBBF27000 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -609,6 +640,7 @@
 				18722850206CDF2200CD3076 /* TeacherQulificationVC.swift in Sources */,
 				18803982206A283C00179778 /* TeacherDetailVC.swift in Sources */,
 				186A7517206510340013D863 /* Preference.swift in Sources */,
+				184637EA207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift in Sources */,
 				18FE556A2073A2E300FE4C36 /* CustomUpcomingBookingTVC.swift in Sources */,
 				18615BDD2068D496004A6876 /* PhotoSelectionVC.swift in Sources */,
 				18B9919520693973009F8A13 /* ClassDetailVC.swift in Sources */,
@@ -779,6 +811,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Tutable/Tutable.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JNA229E63V;
@@ -800,6 +833,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Tutable/Tutable.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JNA229E63V;

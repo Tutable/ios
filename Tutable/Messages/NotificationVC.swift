@@ -17,6 +17,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Do any additional setup after loading the view.
         tblView.register(UINib(nibName: "CustomNotificationTVC", bundle: nil), forCellReuseIdentifier: "CustomNotificationTVC")
+        tblView.register(UINib(nibName: "CustomAcceptRejectNotiTVC", bundle: nil), forCellReuseIdentifier: "CustomAcceptRejectNotiTVC")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,19 +40,55 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 85
-        
+        if indexPath.row == 0
+        {
+            return 100
+        }
+        else
+        {
+            return 85
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tblView.dequeueReusableCell(withIdentifier: "CustomNotificationTVC", for: indexPath) as! CustomNotificationTVC
-        
-        
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
-        return cell
+        if indexPath.row == 0
+        {
+            let cell = tblView.dequeueReusableCell(withIdentifier: "CustomAcceptRejectNotiTVC", for: indexPath) as! CustomAcceptRejectNotiTVC
+            
+            let noramlText : String = "KEYUR requested for DANCE"
+
+            let attributedString = NSMutableAttributedString(string:noramlText)
+            let attrs : [NSAttributedStringKey : Any] = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 15), NSAttributedStringKey.foregroundColor : colorFromHex(hex: COLOR.DARK_TEXT)]
+            attributedString.addAttributes(attrs, range: (noramlText as NSString).range(of: "KEYUR"))
+            attributedString.addAttributes(attrs, range: (noramlText as NSString).range(of: "DANCE"))
+            cell.titleLbl.attributedText = attributedString
+            
+            cell.acceptBtn.tag = indexPath.row
+            cell.acceptBtn.addTarget(self, action: #selector(clickToAccept(_:)), for: .touchUpInside)
+            cell.rejectBtn.tag = indexPath.row
+            cell.rejectBtn.addTarget(self, action: #selector(clickToReject(_:)), for: .touchUpInside)
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            return cell
+        }
+        else
+        {
+            let cell = tblView.dequeueReusableCell(withIdentifier: "CustomNotificationTVC", for: indexPath) as! CustomNotificationTVC
+            
+            
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            return cell
+        }
     }
 
+    @IBAction func clickToAccept(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func clickToReject(_ sender: UIButton) {
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

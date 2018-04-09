@@ -13,6 +13,9 @@ import GoogleSignIn
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Social
+import Fabric
+import Crashlytics
+import UserNotifications  //iOS 10 for local and remote notifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
@@ -25,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        UIApplication.shared.statusBarView?.backgroundColor = colorFromHex(hex: COLOR.APP_COLOR)
+//        UIApplication.shared.statusBarView?.backgroundColor = colorFromHex(hex: COLOR.APP_COLOR)
         UIApplication.shared.statusBarStyle = .lightContent
         
         IQKeyboardManager.sharedManager().enable = true
@@ -36,6 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         
         GIDSignIn.sharedInstance().clientID = GOOGLE.CLIENT_ID
         GIDSignIn.sharedInstance().delegate = self
+        
+        // Fabric
+        Fabric.with([Crashlytics.self])
+        self.logUser()
+
+        // Push Notification
+        registerPushNotification(application)
         
         if isUserLogin()
         {
@@ -67,6 +77,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         return UIApplication.shared.delegate as! AppDelegate
     }
     
+    func logUser() {
+        // TODO: Use the current user's information
+        // You can call any combination of these three methods
+        Crashlytics.sharedInstance().setUserEmail("tutableapp@gmail.com")
+        if AppModel.shared.currentUser != nil
+        {
+            Crashlytics.sharedInstance().setUserIdentifier(AppModel.shared.currentUser.id)
+            Crashlytics.sharedInstance().setUserName(AppModel.shared.currentUser.name)
+        }
+        else
+        {
+            Crashlytics.sharedInstance().setUserIdentifier(UIDevice.current.identifierForVendor?.uuidString)
+            Crashlytics.sharedInstance().setUserName("Tutable iOS")
+        }
+        Crashlytics.setValue(APP_VERSION, forKey: "version")
+    }
+
     
     //MARK:- Facebook Login
     func loginWithFacebook()
@@ -110,7 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                     
                     if let fbId = dict["id"]
                     {
-                        userDict["_id"] = fbId as! String
+                        userDict["id"] = fbId as! String
                     }
                     
                     if let email = dict["email"]
@@ -131,20 +158,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                         userDict["lastName"] = last_name
                     }
                     
+                    userDict["accessToken"] = accessToken
+                    
+                    
+                    var finalDict : [String : Any] = [String : Any]()
+                    finalDict["name"] = userDict["firstName"]
                     if let picture = dict["picture"] as? [String : Any]
                     {
                         if let data = picture["data"] as? [String : Any]
                         {
                             if let url = data["url"]
                             {
-                                userDict["picture"] = url as! String
+                                finalDict["picture"] = url as! String
                             }
                         }
                     }
-                    
-                    AppModel.shared.currentUser = UserModel.init(dict: userDict)
-                    AppModel.shared.token = accessToken
-                    
+                    finalDict["facebook"] = userDict
+                    print(finalDict)
+                    APIManager.sharedInstance.serviceCallToSocialLogin(finalDict, completion: { (code) in
+                        if code == 100
+                        {
+                            if isStudentLogin()
+                            {
+                                self.navigateToDashboard()
+                            }
+                        }
+                    })
                 }
                 else
                 {
@@ -198,6 +237,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             print(user.profile.familyName)
             print(user.profile.email)
             print(user.profile.imageURL(withDimension: 500))
+            
+            
+            var userDict : [String : Any] = [String : Any]()
+            if let gId = user.userID {
+                userDict["id"] = gId
+            }
+            if let email = user.profile.email {
+                userDict["email"] = email
+            }            
+            if let first_name = user.profile.name {
+                userDict["firstName"] = first_name
+            }
+            if var last_name = user.profile.familyName {
+                let first_name : String = userDict["firstName"] as! String
+                last_name = last_name.replacingOccurrences(of: first_name, with: "")
+                userDict["lastName"] = last_name
+            }
+            userDict["accessToken"] = user.authentication.idToken
+            
+            var finalDict : [String : Any] = [String : Any]()
+            finalDict["name"] = userDict["firstName"]
+            if let picture = user.profile.imageURL(withDimension: 500)
+            {
+                finalDict["picture"] = picture.absoluteString
+            }
+            finalDict["google"] = userDict
+            print(finalDict)
+            APIManager.sharedInstance.serviceCallToSocialLogin(finalDict, completion: { (code) in
+                if code == 100
+                {
+                    if isStudentLogin()
+                    {
+                        self.navigateToDashboard()
+                    }
+                }
+            })
             
         }
     }
@@ -388,6 +463,95 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    //MARK:- Notification
+    func registerPushNotification(_ application: UIApplication)
+    {
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        application.registerForRemoteNotifications()
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Unable to register for remote notifications: \(error.localizedDescription)")
+    }
+    
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("APNs token retrieved: \(deviceToken)")
+        let tokenParts = deviceToken.map { data -> String in
+            return String(format: "%02.2hhx", data)
+        }
+        
+        let token = tokenParts.joined()
+        print("Device Token: \(token)")
+        if getDeviceToken() == ""
+        {
+            setDeviceToken(value: token)
+        }
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print(userInfo)
+        UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber + 1
+        // This notification is not auth related, developer should handle it.
+        
+        completionHandler(UIBackgroundFetchResult.newData)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+        UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber + 1
+        //application.applicationIconBadgeNumber = Int((userInfo["aps"] as! [String : Any])["badge"] as! String)!
+    }
+}
 
+@available(iOS 10, *)
+extension AppDelegate : UNUserNotificationCenterDelegate {
+    
+    // Receive displayed notifications for iOS 10 devices.
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        _ = notification.request.content.userInfo
+        completionHandler([.alert, .badge, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        if UIApplication.shared.applicationState == .inactive
+        {
+            _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(delayForNotification(tempTimer:)), userInfo: userInfo, repeats: false)
+        }
+        else
+        {
+            notificationHandler(userInfo as! [String : Any])
+        }
+        
+        completionHandler()
+    }
+    
+    @objc func delayForNotification(tempTimer:Timer)
+    {
+        notificationHandler(tempTimer.userInfo as! [String : Any])
+    }
+    
+    //Redirect to screen
+    func notificationHandler(_ dict : [String : Any])
+    {
+        print(dict)
+    }
 }
 

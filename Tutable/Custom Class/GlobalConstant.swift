@@ -19,6 +19,10 @@ let PHOTO_BASE_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/de
 let CERTIFICATE_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api/certificates/asset/"
 let CLASS_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api/class/assets/"
 
+
+let APP_VERSION = 1.0
+let BUILD_VERSION = 1
+
 let ITUNES_URL = "https://itunes.apple.com/us/app/lit-nite/id1360588270?ls=1&mt=8"
 
 let TERMS_CONDITIONS = "http://mylitnite.com/terms"
@@ -36,6 +40,7 @@ struct COLOR {
     static var APP_COLOR = "4BDAA7"
     static var BLACK_COLOR = "000000"
     static var WHITE_COLOR = "FFFFFF"
+    static var DARK_TEXT = "555555"
     static var LIGHT_GRAY = "AAAAAA"
     static var SHADOW_GRAY = "D3D3D3"
     static var ORANGE_COLOR = "F9A955"
@@ -70,9 +75,7 @@ struct STORYBOARD {
 
 struct GOOGLE
 {
-//    static var KEY = "AIzaSyCPCVymlzk8ZbtPfFOJuvqIpcUQiaXJ2IE" // tutableapp@gmail.com
-//    static var CLIENT_ID = "199536116736-rast6q71tq5093cuqlq03bu6u06ce4qe.apps.googleusercontent.com"
-    static var KEY = "AIzaSyCPCVymlzk8ZbtPfFOJuvqIpcUQiaXJ2IE" // tutableapp@gmail.com
+    static var KEY = "AIzaSyCPCVymlzk8ZbtPfFOJuvqIpcUQiaXJ2IE" // tutableapp@gmail.com // tutable@2018
     static var CLIENT_ID = "199536116736-5d2msb7pgaeh8g7l9emptcnbl96somc1.apps.googleusercontent.com"
 }
 

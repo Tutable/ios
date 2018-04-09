@@ -41,6 +41,20 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>ad9c07bbd1d0a9abf4b99795ae0484f5b711d517</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>FacebookAppID</key>
 	<string>593587777700511</string>
 	<key>FacebookDisplayName</key>
@@ -65,6 +79,10 @@
 	<string>Your photo library will be used to select photo for user profile picture.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Your photo library will be used to select photo for user profile picture.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
