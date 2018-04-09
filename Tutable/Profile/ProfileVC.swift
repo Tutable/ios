@@ -19,12 +19,12 @@ class ProfileVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        setUIDesigning()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
         tabBar.setTabBarHidden(tabBarHidden: false)
+        setUIDesigning()
     }
     
     func setUIDesigning()
@@ -34,19 +34,26 @@ class ProfileVC: UIViewController {
         userNameLbl.text = ""
         subTitleLbl.text = ""
         userNameLbl.text = AppModel.shared.currentUser.name.uppercased()
-        if AppModel.shared.currentUser.address.suburb != ""
+        if isStudentLogin()
         {
-            subTitleLbl.text = AppModel.shared.currentUser.address.suburb
+            subTitleLbl.text = AppModel.shared.currentUser.address.location
         }
-        if AppModel.shared.currentUser.address.state != ""
+        else
         {
-            if subTitleLbl.text == ""
+            if AppModel.shared.currentUser.address.suburb != ""
             {
-                subTitleLbl.text = AppModel.shared.currentUser.address.state
+                subTitleLbl.text = AppModel.shared.currentUser.address.suburb
             }
-            else
+            if AppModel.shared.currentUser.address.state != ""
             {
-                subTitleLbl.text = subTitleLbl.text! + ", " + AppModel.shared.currentUser.address.state
+                if subTitleLbl.text == ""
+                {
+                    subTitleLbl.text = AppModel.shared.currentUser.address.state
+                }
+                else
+                {
+                    subTitleLbl.text = subTitleLbl.text! + ", " + AppModel.shared.currentUser.address.state
+                }
             }
         }
         subTitleLbl.text = subTitleLbl.text?.uppercased()

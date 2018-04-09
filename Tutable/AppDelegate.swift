@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-//        UIApplication.shared.statusBarView?.backgroundColor = colorFromHex(hex: COLOR.APP_COLOR)
+        UIApplication.shared.statusBarView?.backgroundColor = colorFromHex(hex: COLOR.APP_COLOR)
         UIApplication.shared.statusBarStyle = .lightContent
         
         IQKeyboardManager.sharedManager().enable = true
@@ -178,6 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                     APIManager.sharedInstance.serviceCallToSocialLogin(finalDict, completion: { (code) in
                         if code == 100
                         {
+                            setSocialLoginUser()
                             if isStudentLogin()
                             {
                                 self.navigateToDashboard()
@@ -267,13 +268,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             APIManager.sharedInstance.serviceCallToSocialLogin(finalDict, completion: { (code) in
                 if code == 100
                 {
+                    setSocialLoginUser()
                     if isStudentLogin()
                     {
                         self.navigateToDashboard()
                     }
                 }
             })
-            
         }
     }
     
@@ -305,8 +306,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     //MARK:- Logout
     func logoutApp()
     {
+        let deviceToken : String = getDeviceToken()
         removeUserDefaultValues()
         navigateToLogin()
+        setDeviceToken(value: deviceToken)
     }
     
     func redirectAfterTeacherRegistration() -> Int
@@ -498,6 +501,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         if getDeviceToken() == ""
         {
             setDeviceToken(value: token)
+        }
+    }
+    
+    func updateDeviceToken()
+    {
+        if getDeviceToken() == ""
+        {
+            return
+        }
+        let dict : [String : Any] = ["deviceId":getDeviceToken()]
+        if isStudentLogin()
+        {
+            APIManager.sharedInstance.serviceCallToUpdateStudentDetail(dict, pictureData: Data(), completion: {
+                
+            })
+        }
+        else
+        {
+            APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: Data(), pictureData: Data(), completion: {
+                
+            })
         }
     }
     

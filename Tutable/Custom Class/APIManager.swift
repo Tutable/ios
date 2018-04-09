@@ -136,6 +136,7 @@ public class APIManager {
                             if let accessToken = result["accessToken"] as? String{
                                 AppModel.shared.token = accessToken
                                 self.serviceCallToGetUserDetail {
+                                    AppDelegate().sharedDelegate().updateDeviceToken()
                                     completion(code)
                                 }
                                 return
@@ -205,6 +206,7 @@ public class APIManager {
                             if let accessToken = result["accessToken"] as? String{
                                 AppModel.shared.token = accessToken
                                 self.serviceCallToGetUserDetail {
+                                    AppDelegate().sharedDelegate().updateDeviceToken()
                                     completion(code)
                                 }
                                 return
@@ -463,7 +465,7 @@ public class APIManager {
             
             switch response.result {
             case .success:
-                print(response.result.value!)
+                //print(response.result.value!)
                 if let result = response.result.value as? [String:Any]{
                     if let data : [[String : Any]] = result["data"] as? [[String : Any]]
                     {
@@ -477,7 +479,6 @@ public class APIManager {
                     displayToast(error.localizedDescription)
                     return
                 }
-                displayToast("Error in getting user detail.")
                 break
             case .failure(let error):
                 print(error)

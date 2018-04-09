@@ -64,6 +64,17 @@ func setLoginUserData(_ dictData: [String : Any])
     setIsUserLogin(isUserLogin: true)
 }
 
+func isSocailUserLogin() -> Bool
+{
+    let isSocialLogin = getDataFromPreference(key: "IS_SOCIAL_LOGIN")
+    return isSocialLogin == nil ? false:(isSocialLogin as! Bool)
+}
+
+func setSocialLoginUser()
+{
+    setDataToPreference(data: true as AnyObject, forKey: "IS_SOCIAL_LOGIN")
+}
+
 func getLoginUserData() -> [String : Any]?
 {
     if let data = getDataFromPreference(key: Preference.sharedInstance.USER_DATA_KEY)

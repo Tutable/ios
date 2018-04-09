@@ -182,6 +182,49 @@ class UserModel:AppModel{
         if let temp = dict["childrenCert"] as? String{
             childrenCert = temp
         }
+        if let temp = dict["facebook"] as? [String : Any]{
+            if let temp = temp["email"] as? String
+            {
+                email = temp
+            }
+            if let temp = temp["firstName"] as? String
+            {
+                name = temp
+            }
+            if let temp = temp["lastName"] as? String
+            {
+                if name != ""
+                {
+                    name = name + " " + temp
+                }
+                else
+                {
+                    name = temp
+                }
+            }
+        }
+        if let temp = dict["google"] as? [String : Any]{
+            if let temp = temp["email"] as? String
+            {
+                email = temp
+            }
+            if let temp = temp["firstName"] as? String
+            {
+                name = temp
+            }
+            if let temp = temp["lastName"] as? String
+            {
+                if name != ""
+                {
+                    name = name + " " + temp
+                }
+                else
+                {
+                    name = temp
+                }
+            }
+            
+        }
     }
     
     func dictionary() -> [String:Any]{

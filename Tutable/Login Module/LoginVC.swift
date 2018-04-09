@@ -32,7 +32,7 @@ class LoginVC: UIViewController {
                 passwordTxt.text = "aaaa"
             }
         }
-
+        
     }
 
     override func viewWillLayoutSubviews() {
