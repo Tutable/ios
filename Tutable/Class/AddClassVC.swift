@@ -31,7 +31,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var selectedCategory : CategoryModel = CategoryModel()
     var selectedLevel : Int = 0
     var isFromDashboard : Bool = false
-    
+    var classData : ClassModel = ClassModel.init(dict: [String : Any]())
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,7 +49,8 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
         
-        AppModel.shared.currentClass = ClassModel.init(dict: [String : Any]())
+        AppModel.shared.currentClass = classData
+        
         setUIDesigning()
     }
 

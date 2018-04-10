@@ -16,6 +16,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var constraintHeightClassHeaderView: NSLayoutConstraint!
     @IBOutlet weak var classFooterView: UIView!
     
+    @IBOutlet weak var editClassBtn: UIButton!
     @IBOutlet weak var classImgBtn: UIButton!
     @IBOutlet weak var classNameLbl: UILabel!
     @IBOutlet weak var bookClassBtn: UIButton!
@@ -54,11 +55,13 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         {
             bookClassBtn.isHidden = false
             chatBtn.isHidden = false
+            editClassBtn.isHidden = true
         }
         else
         {
             bookClassBtn.isHidden = true
             chatBtn.isHidden = true
+            editClassBtn.isHidden = false
         }
         getClassDetail()
     }
@@ -148,6 +151,12 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBAction func clickToBookClass(_ sender: Any) {
         let vc : ClassBookingRequestVC = self.storyboard?.instantiateViewController(withIdentifier: "ClassBookingRequestVC") as! ClassBookingRequestVC
         vc.teacherData = teacherData
+        vc.classData = classData
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func clickToEditClass(_ sender: Any) {
+        let vc : AddClassVC = self.storyboard?.instantiateViewController(withIdentifier: "AddClassVC") as! AddClassVC
         vc.classData = classData
         self.navigationController?.pushViewController(vc, animated: true)
     }

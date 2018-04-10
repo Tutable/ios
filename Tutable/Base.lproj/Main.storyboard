@@ -151,7 +151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="421.875" y="28.52112676056338"/>
+            <point key="canvasLocation" x="422" y="43"/>
         </scene>
         <!--Custom Tab Bar Controller-->
         <scene sceneID="UDn-kL-gdc">

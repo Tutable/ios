@@ -53,7 +53,7 @@ public class APIManager {
         
         let headerParams :[String : String] = getMultipartHeader()
         var params :[String : Any] = [String : Any] ()
-        params["data"] = AppModel.shared.currentUser.toJson(["name":AppModel.shared.currentUser.name,"email" : AppModel.shared.currentUser.email, "password" : AppModel.shared.currentUser.password, "address" : AppModel.shared.currentUser.address.dictionary()])
+        params["data"] = AppModel.shared.currentUser.toJson(["name":AppModel.shared.currentUser.name,"email" : AppModel.shared.currentUser.email, "password" : AppModel.shared.currentUser.password, "address" : AppModel.shared.currentUser.address.location])
         
         var strUrl : String = "teachers/register"
         if isStudentLogin()
@@ -74,9 +74,9 @@ public class APIManager {
             switch result{
             case .success(let upload, _, _):
                 
-                upload.uploadProgress(closure: { (Progress) in
-                    print("Upload Progress: \(Progress.fractionCompleted)")
-                })
+//                upload.uploadProgress(closure: { (Progress) in
+//                    print("Upload Progress: \(Progress.fractionCompleted)")
+//                })
                 upload.responseJSON { response in
                     removeLoader()
                     if let result = response.result.value as? [String:Any]{

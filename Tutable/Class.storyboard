@@ -62,6 +62,17 @@
                                                                     <action selector="clickToBack:" destination="p3w-JT-fSl" eventType="touchUpInside" id="n3w-Z5-Fl8"/>
                                                                 </connections>
                                                             </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCg-c0-w9l">
+                                                                <rect key="frame" x="270" y="0.0" width="50" height="50"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="3wD-ET-uHx"/>
+                                                                    <constraint firstAttribute="width" constant="50" id="nC8-NL-cyW"/>
+                                                                </constraints>
+                                                                <state key="normal" image="edit"/>
+                                                                <connections>
+                                                                    <action selector="clickToEditClass:" destination="p3w-JT-fSl" eventType="touchUpInside" id="88h-4r-bRF"/>
+                                                                </connections>
+                                                            </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLk-hi-wZT">
                                                                 <rect key="frame" x="15" y="124.5" width="290" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
@@ -95,6 +106,7 @@
                                                             <constraint firstAttribute="height" constant="250" id="3dh-cE-FtH"/>
                                                             <constraint firstItem="WLk-hi-wZT" firstAttribute="centerY" secondItem="yOb-Pc-bEa" secondAttribute="centerY" id="A9o-Ot-eoq"/>
                                                             <constraint firstAttribute="trailing" secondItem="dtd-rh-G1k" secondAttribute="trailing" id="DQN-rF-u4W"/>
+                                                            <constraint firstItem="PCg-c0-w9l" firstAttribute="top" secondItem="PoI-Qd-QZA" secondAttribute="top" id="Hm6-L7-iYb"/>
                                                             <constraint firstItem="WLk-hi-wZT" firstAttribute="leading" secondItem="PoI-Qd-QZA" secondAttribute="leading" constant="15" id="I4L-vo-0Ll"/>
                                                             <constraint firstItem="cYq-Eh-5JQ" firstAttribute="centerY" secondItem="yjS-oS-foP" secondAttribute="centerY" id="Km6-fB-yIn"/>
                                                             <constraint firstItem="dtd-rh-G1k" firstAttribute="leading" secondItem="PoI-Qd-QZA" secondAttribute="leading" id="Nak-Jm-R8x"/>
@@ -108,6 +120,7 @@
                                                             <constraint firstAttribute="trailing" secondItem="yOb-Pc-bEa" secondAttribute="trailing" id="mSg-kp-skp"/>
                                                             <constraint firstItem="W8Y-RM-zSQ" firstAttribute="leading" secondItem="PoI-Qd-QZA" secondAttribute="leading" id="snm-Ay-bci"/>
                                                             <constraint firstAttribute="trailing" secondItem="WLk-hi-wZT" secondAttribute="trailing" constant="15" id="xpf-I8-kyq"/>
+                                                            <constraint firstAttribute="trailing" secondItem="PCg-c0-w9l" secondAttribute="trailing" id="ySF-AE-1mj"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OWi-ua-YnU">
@@ -383,6 +396,7 @@
                         <outlet property="constraintHeightClassHeaderView" destination="KQ5-2X-u0m" id="yua-CZ-iAq"/>
                         <outlet property="constraintHeightSubjectLoveLbl" destination="48U-au-Xil" id="mZ8-zC-Mga"/>
                         <outlet property="constraintHeightTblView" destination="Urk-5U-fx1" id="gKH-4e-hm0"/>
+                        <outlet property="editClassBtn" destination="PCg-c0-w9l" id="IOk-Nt-BLD"/>
                         <outlet property="moreReviewBtn" destination="ZGH-TN-dLn" id="bFX-AO-4sM"/>
                         <outlet property="priceUnitLbl" destination="HEZ-go-5nq" id="f1z-AQ-qy0"/>
                         <outlet property="starBtn" destination="CcQ-EY-1yL" id="nmO-p3-PM2"/>
@@ -626,11 +640,8 @@
                                                         <color key="textColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nr8-Zm-rN3" customClass="ExpandableLabel" customModule="Tutable" customModuleProvider="target">
+                                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nr8-Zm-rN3" customClass="ExpandableLabel" customModule="Tutable" customModuleProvider="target">
                                                         <rect key="frame" x="10" y="235" width="300" height="25"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="8e6-2T-zcI"/>
-                                                        </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -823,7 +834,6 @@
                         <outlet property="classHeaderView" destination="HDY-Xo-5FV" id="So7-Ur-735"/>
                         <outlet property="classNameLbl" destination="WLk-hi-wZT" id="EOi-O1-g6T"/>
                         <outlet property="classPriceLbl" destination="gqL-ek-UPa" id="Rsh-II-jNv"/>
-                        <outlet property="constraintHeightAboutUserLbl" destination="8e6-2T-zcI" id="Nec-oN-OK8"/>
                         <outlet property="constraintHeightHeaderView" destination="Q6X-yV-bkd" id="gU0-uv-pd9"/>
                         <outlet property="constraintHeightTblView" destination="Pi0-09-ZCB" id="rH7-0v-gKY"/>
                         <outlet property="exprienceBtn" destination="nsS-yP-x1a" id="jqZ-2E-OfG"/>
@@ -2693,6 +2703,7 @@
         <image name="bottom_arrow" width="7" height="4"/>
         <image name="camera_icon" width="100" height="100"/>
         <image name="checked" width="16" height="16"/>
+        <image name="edit" width="19" height="19"/>
         <image name="msg_green" width="40" height="40"/>
         <image name="notification" width="22" height="25"/>
         <image name="star_off_big" width="42" height="40"/>

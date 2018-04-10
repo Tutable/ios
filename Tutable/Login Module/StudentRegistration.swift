@@ -81,8 +81,7 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, PhotoSelection
             AppModel.shared.currentUser.name = nameTxt.text
             AppModel.shared.currentUser.email = emailTxt.text
             AppModel.shared.currentUser.password = passwordTxt.text
-            let location : LocationModel = LocationModel.init()
-            location.location = addressTxt.text
+            AppModel.shared.currentUser.address.location = addressTxt.text
             if _imgCompress == nil
             {
                 continueRegistration(Data())
