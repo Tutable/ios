@@ -110,7 +110,7 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
     func continueUpdating(_ dict : [String : Any], _ imageData : Data)
     {
         APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: imageData, pictureData: Data(), completion: {
-            if self.tabBarItem == nil
+            if self.tabBarController?.tabBar == nil
             {
                 let vc : TeacherFinishVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
                 self.navigationController?.pushViewController(vc, animated: true)

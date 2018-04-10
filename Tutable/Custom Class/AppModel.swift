@@ -287,7 +287,7 @@ class ClassModel:AppModel{
     var name:String!
     var category : CategoryModel!
     var level : Int!
-    var desc : String!
+    var bio : String!
     var timeline : Double!
     var payload : String!
     var rate : Float!
@@ -301,7 +301,7 @@ class ClassModel:AppModel{
         name = ""
         category = CategoryModel.init()
         level = 0
-        desc = ""
+        bio = ""
         timeline = 0
         payload = ""
         rate = 0.0
@@ -316,7 +316,7 @@ class ClassModel:AppModel{
         name = ""
         category = CategoryModel.init()
         level = 0
-        desc = ""
+        bio = ""
         timeline = 0
         payload = ""
         rate = 0.0
@@ -337,8 +337,8 @@ class ClassModel:AppModel{
         if let temp = dict["level"] as? Int{
             level = temp
         }
-        if let temp = dict["description"] as? String{
-            desc = temp
+        if let temp = dict["bio"] as? String{
+            bio = temp
         }
         if let block = dict["timeline"] as? Double{
             timeline = block
@@ -367,7 +367,7 @@ class ClassModel:AppModel{
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"category" : category.dictionary(), "level" : level, "description":desc, "payload":payload, "timeline":timeline, "rate":rate, "cancelled" : cancelled, "created" : created, "teacher" : teacher.dictionary(), "reviews" : reviews]
+        return ["id":id,"name":name,"category" : category.dictionary(), "level" : level, "bio":bio, "payload":payload, "timeline":timeline, "rate":rate, "cancelled" : cancelled, "created" : created, "teacher" : teacher.dictionary(), "reviews" : reviews]
     }
     
     func toJson(_ dict:[String:Any]) -> String{

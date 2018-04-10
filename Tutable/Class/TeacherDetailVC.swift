@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate,ExpandableLabelDelegate {
+class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var constraintHeightTblView: NSLayoutConstraint!
@@ -19,9 +19,9 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var userBackgroundImgBtn: UIButton!
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var userSubTitleLbl: UILabel!
-    @IBOutlet weak var aboutUserLbl: ExpandableLabel!
+    @IBOutlet weak var aboutUserLbl: UILabel!
+    @IBOutlet weak var constraintHeightAboutUserLbl: NSLayoutConstraint!
     @IBOutlet weak var moreClassesBtn: UIButton!
-    
     @IBOutlet weak var categoryBtn: UIButton!
     @IBOutlet weak var exprienceBtn: UIButton!
     @IBOutlet weak var policeCheckBtn: UIButton!
@@ -87,22 +87,15 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 userSubTitleLbl.text = teacherData.address.state
             }
         }
-        aboutUserLbl.layoutIfNeeded()
-        aboutUserLbl.delegate = self
-        aboutUserLbl.collapsed = true
-        aboutUserLbl.setLessLinkWith(lessLink: "More", attributes: [.foregroundColor:UIColor.blue], position: NSTextAlignment.left)
-        aboutUserLbl.setLessLinkWith(lessLink: "Less", attributes: [.foregroundColor:UIColor.red], position: NSTextAlignment.left)
-        aboutUserLbl.numberOfLines = 3
-        aboutUserLbl.textReplacementType = .word
         aboutUserLbl.text = teacherData.bio
-        
+        constraintHeightAboutUserLbl.constant = aboutUserLbl.getLableHeight()
         updateHeaderViewHeight()
     }
 
     func updateHeaderViewHeight()
     {
         classHeaderView.layoutIfNeeded()
-        constraintHeightHeaderView.constant = 390 - 25 + aboutUserLbl.getLableHeight()
+        constraintHeightHeaderView.constant = 390 - 25 + constraintHeightAboutUserLbl.constant
         constraintHeightTblView.constant = 100 * 2
     }
     
@@ -138,24 +131,6 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomClassesTVC", for: indexPath) as! CustomClassesTVC
         
         return cell
-    }
-    
-    func willExpandLabel(_ label: ExpandableLabel) {
-        updateHeaderViewHeight()
-    }
-    
-    func didExpandLabel(_ label: ExpandableLabel) {
-        updateHeaderViewHeight()
-        aboutUserLbl.collapsed = false
-    }
-    
-    func willCollapseLabel(_ label: ExpandableLabel) {
-        updateHeaderViewHeight()
-    }
-    
-    func didCollapseLabel(_ label: ExpandableLabel) {
-        aboutUserLbl.collapsed = true
-        updateHeaderViewHeight()
     }
     
     override func didReceiveMemoryWarning() {

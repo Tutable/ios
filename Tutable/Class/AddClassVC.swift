@@ -32,6 +32,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var selectedLevel : Int = 0
     var isFromDashboard : Bool = false
     var classData : ClassModel = ClassModel.init(dict: [String : Any]())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,7 +50,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
         
-        AppModel.shared.currentClass = classData
+        AppModel.shared.currentClass = ClassModel.init(dict: classData.dictionary())
         
         setUIDesigning()
     }
@@ -83,6 +84,23 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         {
             setCategoryData()
         }
+        
+        setClassDetail()
+    }
+    
+    func setClassDetail()
+    {
+        if AppModel.shared.currentClass.id == ""
+        {
+           return
+        }
+        classNameTxt.text = AppModel.shared.currentClass.name
+        APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentClass.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [classImgBtn])
+        selectedCategory = AppModel.shared.currentClass.category
+        categoryBtn.setTitle(selectedCategory.title, for: .normal)
+        selectedLevel = AppModel.shared.currentClass.level
+        levelLbl.text = classLevelArr[selectedLevel - 1]
+        subjectLbl.text = AppModel.shared.currentClass.bio
     }
     
     func setCategoryData()
@@ -98,7 +116,14 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     // MARK: - Button click event
     @IBAction func clickToBack(_ sender: Any) {
         self.view.endEditing(true)
-        AppDelegate().sharedDelegate().navigateToDashboard()
+        if self.tabBarController?.tabBar == nil
+        {
+            AppDelegate().sharedDelegate().navigateToDashboard()
+        }
+        else
+        {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func clickToUploadClassImg(_ sender: Any) {
@@ -149,15 +174,22 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         {
             displayToast("Please select class level")
         }
-        AppModel.shared.currentClass.name = classNameTxt.text
-        AppModel.shared.currentClass.category = selectedCategory
-        AppModel.shared.currentClass.level = selectedLevel
-        AppModel.shared.currentClass.desc = subjectLbl.text
-        AppModel.shared.currentClass.timeline = Double(getCurrentTimeStampValue())
-        
-        let vc : ClassHourlyRateVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "ClassHourlyRateVC") as! ClassHourlyRateVC
-        vc.classImg = classImg
-        self.navigationController?.pushViewController(vc, animated: true)
+        else if classImg == nil && AppModel.shared.currentClass.payload == ""
+        {
+            displayToast("Please select class image")
+        }
+        else
+        {
+            AppModel.shared.currentClass.name = classNameTxt.text
+            AppModel.shared.currentClass.category = selectedCategory
+            AppModel.shared.currentClass.level = selectedLevel
+            AppModel.shared.currentClass.bio = subjectLbl.text
+            AppModel.shared.currentClass.timeline = Double(getCurrentTimeStampValue())
+            
+            let vc : ClassHourlyRateVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "ClassHourlyRateVC") as! ClassHourlyRateVC
+            vc.classImg = classImg
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     // MARK: - Tableview Delegate method

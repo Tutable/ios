@@ -307,6 +307,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             rootNavigatioVC.pushViewController(customTabbarVc, animated: false)
         }
         getCategory()
+        
+        print("==================\n\nDeviceID : " + getDeviceToken() + "\n\n==================")
     }
     
     //MARK:- Logout

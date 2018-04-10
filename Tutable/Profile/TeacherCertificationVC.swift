@@ -93,7 +93,7 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
     }
     
     @IBAction func clickToSubmit(_ sender: Any) {
-        if AppModel.shared.currentUser.policeCert == "" && policeCheckImg == nil
+        if getPoliceCertificate() == "" && policeCheckImg == nil
         {
             displayToast("Please select certificate for police check")
         }
@@ -106,7 +106,7 @@ class TeacherCertificationVC: UIViewController, PhotoSelectionDelegate {
             var policeData : Data = Data()
             var childrenData : Data = Data()
             
-            if let tempData = UIImagePNGRepresentation(policeCheckImg){
+            if policeCheckImg != nil, let tempData = UIImagePNGRepresentation(policeCheckImg){
                 policeData = tempData
             }
             if childrenCheckImg != nil, let tempData = UIImagePNGRepresentation(childrenCheckImg){

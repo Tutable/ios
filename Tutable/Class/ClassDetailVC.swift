@@ -17,7 +17,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var classFooterView: UIView!
     
     @IBOutlet weak var editClassBtn: UIButton!
-    @IBOutlet weak var classImgBtn: UIButton!
+    @IBOutlet weak var classImg: UIImageView!
     @IBOutlet weak var classNameLbl: UILabel!
     @IBOutlet weak var bookClassBtn: UIButton!
     @IBOutlet weak var chatBtn: UIButton!
@@ -92,7 +92,17 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func setClassDetail()
     {
-        APIManager.sharedInstance.serviceCallToGetPhoto(classData.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [classImgBtn])
+        let url : String = BASE_URL + classData.payload!
+        classImg.sd_setImage(with: URL(string : url)) { (image, error, caheType, url) in
+            if error == nil
+            {
+                self.classImg.image = image
+            }
+            else
+            {
+                self.classImg.image = UIImage.init(named: IMAGE.CAMERA_PLACEHOLDER)
+            }
+        }
         
         classNameLbl.text = classData.name
         APIManager.sharedInstance.serviceCallToGetPhoto(classData.teacher.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
@@ -114,7 +124,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
         classPriceLbl.text = setFlotingPrice(classData.rate)
         studentLevelLbl.text = classLevelArr[classData.level-1]
-        subjectLoveLbl.text = classData.desc
+        subjectLoveLbl.text = classData.bio
         constraintHeightSubjectLoveLbl.constant = subjectLoveLbl.getLableHeight()
         
         if let reviewDict : [String : Any] = classData.reviews, reviewDict.count != 0

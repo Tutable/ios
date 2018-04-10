@@ -858,7 +858,7 @@ public class APIManager {
         
         var params :[String : Any] = [String : Any] ()
         
-        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "description" : AppModel.shared.currentClass.desc, "timeline" : AppModel.shared.currentClass.timeline, "rate" : AppModel.shared.currentClass.rate])
+        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "description" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "rate" : AppModel.shared.currentClass.rate])
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
@@ -869,6 +869,61 @@ public class APIManager {
                 multipartFormData.append(classImgData, withName: "picture", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
             }
         }, usingThreshold: UInt64.init(), to: BASE_URL+"class/create", method: .post
+        , headers: headerParams) { (result) in
+            switch result{
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (Progress) in
+                    print("Upload Progress: \(Progress.fractionCompleted)")
+                })
+                upload.responseJSON { response in
+                    removeLoader()
+                    print(response.result.value!)
+                    if let result = response.result.value as? [String:Any]{
+                        if let code = result["code"] as? Int{
+                            if(code == 100){
+                                completion()
+                                return
+                            }
+                        }
+                        if let message = result["message"] as? String{
+                            displayToast(message)
+                            return
+                        }
+                    }
+                    
+                    if let error = response.error{
+                        displayToast(error.localizedDescription)
+                        return
+                    }
+                }
+            case .failure(let error):
+                removeLoader()
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    func serviceCallToUpdateClass(_ classImgData : Data, completion: @escaping () -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getMultipartHeaderWithToken()
+        
+        var params :[String : Any] = [String : Any] ()
+        
+        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "bio" : AppModel.shared.currentClass.bio, "rate" : AppModel.shared.currentClass.rate, "classId" : AppModel.shared.currentClass.id])
+        
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            for (key, value) in params {
+                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+            }
+            if classImgData.count != 0
+            {
+                multipartFormData.append(classImgData, withName: "payload", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
+            }
+        }, usingThreshold: UInt64.init(), to: BASE_URL+"class/update", method: .post
         , headers: headerParams) { (result) in
             switch result{
             case .success(let upload, _, _):

@@ -305,7 +305,7 @@
                                     <constraint firstItem="Rc4-Zu-cVN" firstAttribute="centerX" secondItem="hlU-9v-xpu" secondAttribute="centerX" id="fQe-UZ-IR7"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipS-b1-Hbf">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipS-b1-Hbf" customClass="IQPreviousNextView" customModule="IQKeyboardManagerSwift">
                                 <rect key="frame" x="0.0" y="130" width="320" height="438"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vQh-dt-oQg">
@@ -564,7 +564,7 @@
                                     <constraint firstItem="d78-AH-wiD" firstAttribute="top" secondItem="9kd-ie-9oz" secondAttribute="top" constant="20" id="wZq-Sh-Qvm"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AtV-YZ-edU">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AtV-YZ-edU" customClass="IQPreviousNextView" customModule="IQKeyboardManagerSwift">
                                 <rect key="frame" x="0.0" y="70" width="320" height="570"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QE0-wO-ohJ">
@@ -964,7 +964,7 @@
                                     <action selector="clickToBack:" destination="M45-Y8-fL2" eventType="touchUpInside" id="5Y6-dN-V5R"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uH4-Fj-c1x">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uH4-Fj-c1x" customClass="IQPreviousNextView" customModule="IQKeyboardManagerSwift">
                                 <rect key="frame" x="10" y="84" width="300" height="400"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9S-Yl-UYg">
@@ -1198,7 +1198,7 @@
                                     <action selector="clickToBack:" destination="ad0-7i-oOM" eventType="touchUpInside" id="gOg-SB-PXi"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-0E-5th">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-0E-5th" customClass="IQPreviousNextView" customModule="IQKeyboardManagerSwift">
                                 <rect key="frame" x="10" y="59" width="300" height="450"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrn-pf-bB2">
@@ -1432,7 +1432,7 @@
                                     <constraint firstAttribute="trailing" secondItem="GF7-za-nod" secondAttribute="trailing" id="xG0-ok-Udg"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6yf-bS-RkB">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6yf-bS-RkB" customClass="IQPreviousNextView" customModule="IQKeyboardManagerSwift">
                                 <rect key="frame" x="0.0" y="70" width="320" height="498"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rpr-Ke-QkM">
@@ -1912,7 +1912,7 @@
                                     <constraint firstItem="0Uk-UM-5Rg" firstAttribute="top" secondItem="BRf-wF-g0v" secondAttribute="top" id="yMV-er-3Rr"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7NL-1R-Efk">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7NL-1R-Efk" customClass="IQPreviousNextView" customModule="IQKeyboardManagerSwift">
                                 <rect key="frame" x="0.0" y="119" width="320" height="400"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2q2-rA-TQu">
@@ -2189,7 +2189,7 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vhv-ym-1hr">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="690"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t9g-60-nBr">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t9g-60-nBr" customClass="IQPreviousNextView" customModule="IQKeyboardManagerSwift">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="690"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4nV-to-Iof">
@@ -3395,7 +3395,7 @@
                                     <constraint firstAttribute="height" constant="70" id="yx2-Yu-kCF"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dMV-Wk-H38">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dMV-Wk-H38" customClass="IQPreviousNextView" customModule="IQKeyboardManagerSwift">
                                 <rect key="frame" x="0.0" y="70" width="320" height="498"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fra-na-vZM">
@@ -3652,7 +3652,7 @@
                                     <constraint firstAttribute="bottom" secondItem="QR1-56-mUL" secondAttribute="bottom" id="yAG-LE-yee"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ajg-dL-60q">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ajg-dL-60q" customClass="IQPreviousNextView" customModule="IQKeyboardManagerSwift">
                                 <rect key="frame" x="0.0" y="70" width="320" height="498"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvK-hy-xGK">
