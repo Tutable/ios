@@ -584,6 +584,14 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     func notificationHandler(_ dict : [String : Any])
     {
         print(dict)
+        if isUserLogin()
+        {
+            let vc : NotificationVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
+            if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
+            {
+                rootNavigatioVC.pushViewController(vc, animated: false)
+            }
+        }
     }
 }
 

@@ -1122,12 +1122,20 @@ public class APIManager {
             switch response.result {
             case .success:
                 print(response.result.value!)
-                if (response.result.value as? [String:Any]) != nil{
-                    completion(true)
-                    return
+                if let result = response.result.value as? [String:Any]{
+                    if let code = result["code"] as? Int{
+                        if(code == 100){
+                            completion(true)
+                            return
+                        }
+                    }
+                    if let message = result["message"] as? String{
+                        displayToast(message)
+                        return
+                    }
                 }
-                if let error = response.result.error
-                {
+                
+                if let error = response.error{
                     displayToast(error.localizedDescription)
                     return
                 }
@@ -1198,6 +1206,70 @@ public class APIManager {
             case .failure(let error):
                 print(error)
                 displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    //MARK: - Notification
+    func serviceCallToGetNotificationList(_ params : [String : Any], completion: @escaping (_ dictArr :[[String : Any]]) -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        print(params)
+        
+        Alamofire.request(BASE_URL+"notifications/details", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            removeLoader()
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let data : [[String : Any]] = result["data"] as? [[String : Any]]
+                    {
+                        completion(data)
+                        return
+                    }
+                }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    func serviceCallToclearNotificationCount(){
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        var strUrl : String = BASE_URL + "teachers/resetNotifications"
+        if isStudentLogin()
+        {
+            strUrl = BASE_URL + "student/resetNotifications"
+        }
+        
+        Alamofire.request(strUrl, method: .post, parameters: [String : Any](), encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            removeLoader()
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let data : [[String : Any]] = result["data"] as? [[String : Any]]
+                    {
+                        return
+                    }
+                }
+                if let error = response.result.error
+                {
+                    return
+                }
+                break
+            case .failure(let error):
+                print(error)
                 break
             }
         }

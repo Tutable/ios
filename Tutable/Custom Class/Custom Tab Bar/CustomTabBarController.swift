@@ -28,6 +28,15 @@ class CustomTabBarController: UITabBarController, CustomTabBarViewDelegate {
         
         setup()
         //tabBarView.isHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(self.redirectToNotification(noti:)), name: NSNotification.Name.init(rawValue: NOTIFICATION.REDIRECT_TO_NOTIFICATION), object: nil)
+    }
+    
+    @objc func redirectToNotification(noti : Notification)
+    {
+        tabBarView.resetAllButton()
+        tabBarView.btn4.isSelected = true;
+        tabBarView.lbl4.isHighlighted = true;
+        tabSelectedAtIndex(index: 3)
     }
     
     func setup()
