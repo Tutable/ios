@@ -99,31 +99,21 @@ struct COREDATA {
     struct MESSAGE
     {
         static var TABLE_NAME = "Message"
-        static var CHANNEL_ID = "channeld"
-        static var msgID = "msgID"
         static var key = "key"
-        static var SENDER = "sender"
-        static var USER_NAME = "userName"
-        static var RECEIVER = "receiver"
-        static var OWNER_NAME = "ownerName"
+        static var msgID = "msgID"
+        static var otherUserId = "otherUserId"
         static var date = "date"
         static var text = "text"
         static var status = "status"
-        static var type = "type"
-        static var local_picture = "local_picture"
-        static var remote_picture = "remote_picture"
     }
     struct USER
     {
         static var TABLE_NAME = "User"
-        static var uID = "uID"
+        static var id = "id"
         static var name = "name"
+        static var email = "email"
         static var picture = "picture"
         static var last_seen = "last_seen"
-    }
-    
-    struct FOLDER {
-        static var CHAT_IMAGE = "chat_image"
     }
 }
 

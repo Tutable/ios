@@ -111,13 +111,13 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             return
         }
         
-        if receiver.firstName == ""
+        if receiver.name == ""
         {
             userNameLbl.text = "Chat"
         }
         else
         {
-            userNameLbl.text = receiver.firstName
+            userNameLbl.text = receiver.name
         }
         
         if receiver.last_seen.count == 0 {
@@ -170,7 +170,8 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
                     for i in 0..<messagesArr.count
                     {
                         let msg : NSManagedObject = messagesArr[i]
-                        let dict : [String : Any] = ["msgId": msg.value(forKey: COREDATA.MESSAGE.msgID) as! String, "key" : msg.value(forKey: COREDATA.MESSAGE.key) as! String, "sender": msg.value(forKey: COREDATA.MESSAGE.SENDER) as! String, "userName": msg.value(forKey: COREDATA.MESSAGE.USER_NAME) as! String, "receiver": msg.value(forKey: COREDATA.MESSAGE.RECEIVER) as! String, "ownerName": msg.value(forKey: COREDATA.MESSAGE.OWNER_NAME) as! String, "date": msg.value(forKey: COREDATA.MESSAGE.date) as! String, "text": msg.value(forKey: COREDATA.MESSAGE.text) as! String, "type" : msg.value(forKey: COREDATA.MESSAGE.type) as! Int, "status":msg.value(forKey: COREDATA.MESSAGE.status) as! Int, "local_picture" : msg.value(forKey: COREDATA.MESSAGE.local_picture) as! String, "remote_picture" : msg.value(forKey: COREDATA.MESSAGE.remote_picture) as! String]
+                        
+                        let dict : [String : Any] = ["msgId": msg.value(forKey: COREDATA.MESSAGE.msgID) as! String, "key" : msg.value(forKey: COREDATA.MESSAGE.key) as! String, "otherUserId": msg.value(forKey: COREDATA.MESSAGE.otherUserId) as! String, "date": msg.value(forKey: COREDATA.MESSAGE.date) as! String, "text": msg.value(forKey: COREDATA.MESSAGE.text) as! String, "status":msg.value(forKey: COREDATA.MESSAGE.status) as! Int]
                         let tempMsg : MessageModel = MessageModel.init(dict: dict)
                         self.messages.append(tempMsg)
                         self.coreDataMsgDict[tempMsg.msgId] = true
@@ -215,10 +216,10 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
                     if let _ = self.coreDataMsgDict[message.msgId]{
                         //skip firebase message if its save in core data
                     }
-                    else if (message.status != 1 || message.sender != AppModel.shared.firebaseCurrentUser._id)
+                    else if (message.status != 1 || message.otherUserId != AppModel.shared.firebaseCurrentUser.id)
                     {
                         self.addMessage(message)
-                        if message.receiver == AppModel.shared.firebaseCurrentUser._id
+                        if message.otherUserId == AppModel.shared.firebaseCurrentUser.id
                         {
                             AppDelegate().sharedDelegate().onGetMessage(message: message, chanelId: self.channelId)
                         }
@@ -244,9 +245,9 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
                 }
                 else
                 {
-                    if (message.status != 1 || message.receiver != AppModel.shared.firebaseCurrentUser._id){
+                    if (message.status != 1 || message.otherUserId != AppModel.shared.firebaseCurrentUser.id){
                         self.addMessage(message)
-                        if message.receiver == AppModel.shared.firebaseCurrentUser._id
+                        if message.otherUserId == AppModel.shared.firebaseCurrentUser.id
                         {
                             AppDelegate().sharedDelegate().onGetMessage(message: message, chanelId: self.channelId)
                         }
@@ -279,19 +280,12 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         let message = NSManagedObject(entity: entity,
                                       insertInto: managedContext)
         
-        message.setValue(channelId, forKeyPath: COREDATA.MESSAGE.CHANNEL_ID)
         message.setValue(newMessage.msgId, forKey: COREDATA.MESSAGE.msgID)
-        message.setValue(newMessage.sender, forKey: COREDATA.MESSAGE.SENDER)
-        message.setValue(newMessage.userName, forKey: COREDATA.MESSAGE.USER_NAME)
-        message.setValue(newMessage.receiver, forKey: COREDATA.MESSAGE.RECEIVER)
-        message.setValue(newMessage.ownerName, forKey: COREDATA.MESSAGE.OWNER_NAME)
+        message.setValue(newMessage.otherUserId, forKey: COREDATA.MESSAGE.otherUserId)
         message.setValue(newMessage.date, forKey: COREDATA.MESSAGE.date)
         message.setValue(newMessage.key, forKey: COREDATA.MESSAGE.key)
         message.setValue(newMessage.status, forKey: COREDATA.MESSAGE.status)
         message.setValue(newMessage.text, forKey: COREDATA.MESSAGE.text)
-        message.setValue(newMessage.type, forKey: COREDATA.MESSAGE.type)
-        message.setValue(newMessage.local_picture, forKey: COREDATA.MESSAGE.local_picture)
-        message.setValue(newMessage.remote_picture, forKey: COREDATA.MESSAGE.remote_picture)
         
         do {
             try managedContext.save()
@@ -317,26 +311,20 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             let managedContext = appDelegate.persistentContainer.viewContext
             
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: COREDATA.MESSAGE.TABLE_NAME)
-            fetchRequest.predicate = NSPredicate(format: "%@ = %@ AND %@ = %@",COREDATA.MESSAGE.CHANNEL_ID,channelId,COREDATA.MESSAGE.msgID,message.msgId)
+            fetchRequest.predicate = NSPredicate(format: "%@ = %@ AND %@ = %@",COREDATA.MESSAGE.key,channelId,COREDATA.MESSAGE.msgID,message.msgId)
             do {
                 let messagesArr: [NSManagedObject] = try managedContext.fetch(fetchRequest)
                 
                 if(messagesArr.count == 1)
                 {
                     let msgUpdate = messagesArr[0]
-                    msgUpdate.setValue(channelId, forKeyPath: COREDATA.MESSAGE.CHANNEL_ID)
+                    msgUpdate.setValue(channelId, forKeyPath: COREDATA.MESSAGE.key)
                     msgUpdate.setValue(message.msgId, forKey: COREDATA.MESSAGE.msgID)
-                    msgUpdate.setValue(message.sender, forKey: COREDATA.MESSAGE.SENDER)
-                    msgUpdate.setValue(message.userName, forKey: COREDATA.MESSAGE.USER_NAME)
-                    msgUpdate.setValue(message.receiver, forKey: COREDATA.MESSAGE.RECEIVER)
-                    msgUpdate.setValue(message.ownerName, forKey: COREDATA.MESSAGE.OWNER_NAME)
+                    msgUpdate.setValue(message.otherUserId, forKey: COREDATA.MESSAGE.otherUserId)
                     msgUpdate.setValue(message.date, forKey: COREDATA.MESSAGE.date)
                     msgUpdate.setValue(message.key, forKey: COREDATA.MESSAGE.key)
                     msgUpdate.setValue(message.status, forKey: COREDATA.MESSAGE.status)
                     msgUpdate.setValue(message.text, forKey: COREDATA.MESSAGE.text)
-                    message.setValue(message.type, forKey: COREDATA.MESSAGE.type)
-                    message.setValue(message.local_picture, forKey: COREDATA.MESSAGE.local_picture)
-                    message.setValue(message.remote_picture, forKey: COREDATA.MESSAGE.remote_picture)
                     
                     do {
                         try managedContext.save()
@@ -376,7 +364,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         {
             let newMsgRef : DatabaseReference = messagesRef.childByAutoId()
             print(getCurrentTimeStampValue())
-            let dict : [String : Any] = ["msgId": getCurrentTimeStampValue(), "key" : newMsgRef.key, "sender": AppModel.shared.firebaseCurrentUser._id, "userName": AppModel.shared.firebaseCurrentUser.firstName, "receiver": receiver._id, "ownerName": receiver.firstName, "date": getCurrentTimeStampValue(), "text": msgTextView.text.encoded, "type" : 1, "status":2, "local_picture" : "", "remote_picture" : ""]
+            let dict : [String : Any] = ["msgId": getCurrentTimeStampValue(), "key" : newMsgRef.key, "otherUserId": receiver.id, "date": getCurrentTimeStampValue(), "text": msgTextView.text.encoded, "status":2]
             let msgModel: MessageModel = MessageModel.init(dict: dict)
             addMessage(msgModel)
             newSendMessagesArr[msgModel.msgId] = true
@@ -395,7 +383,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         let dict : MessageModel = messages[indexPath.row]
-        if dict.sender == AppModel.shared.firebaseCurrentUser._id
+        if dict.otherUserId == AppModel.shared.firebaseCurrentUser.id
         {
             var cell:SendChatMessageTVC!
             cell = offscreenCellSender["SendChatMessageTVC"] as? SendChatMessageTVC
@@ -449,7 +437,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         
         let dict : MessageModel = messages[indexPath.row]
         
-        if dict.sender == AppModel.shared.firebaseCurrentUser._id {
+        if dict.otherUserId == AppModel.shared.firebaseCurrentUser.id {
             //sender message
             cell = tblView.dequeueReusableCell(withIdentifier: "SendChatMessageTVC", for: indexPath) as! MessageCell
             setUserProfileImage(AppModel.shared.currentUser, button: cell.profilePicBtn)
@@ -481,7 +469,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             cell.constraintHeaderWidth.constant = 0
             cell.constraintHeightHeaderView.constant = 0
         }
-        if indexPath.row > 0  && dict.receiver == messages[indexPath.row-1].receiver
+        if indexPath.row > 0  && dict.otherUserId == messages[indexPath.row-1].otherUserId
         {
             cell.profilePicView.isHidden = true
         }

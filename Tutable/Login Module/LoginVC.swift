@@ -129,6 +129,11 @@ class LoginVC: UIViewController {
         AppDelegate().sharedDelegate().loginWithGoogle()
     }
     
+    @IBAction func clickToBack(_ sender: Any) {
+        self.view.endEditing(true)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func clickToCreateNewAccount(_ sender: Any) {
         self.view.endEditing(true)
         if isStudentLogin()

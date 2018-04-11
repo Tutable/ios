@@ -343,15 +343,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         getCategory()
         
         print("==================\n\nDeviceID : " + getDeviceToken() + "\n\n==================")
+        
+        setupFirebase()
     }
     
     //MARK:- Logout
     func logoutApp()
     {
         let deviceToken : String = getDeviceToken()
+        AppModel.shared.currentUser = nil
+        AppModel.shared.currentClass = nil
+        AppModel.shared.firebaseCurrentUser = nil
         removeUserDefaultValues()
+        
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut() // this is an instance function
+        
         navigateToLogin()
         setDeviceToken(value: deviceToken)
+        
     }
     
     func redirectAfterTeacherRegistration() -> Int
@@ -471,7 +488,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                 AppModel.shared.isFCMConnected = true
                 AppModel.shared.firebaseCurrentUser = FirebaseUserModel.init(dict: AppModel.shared.currentUser.dictionary())
                 AppModel.shared.firebaseCurrentUser.fcmToken = getDeviceToken()
-                self.appUsersRef.child(AppModel.shared.firebaseCurrentUser._id).setValue(AppModel.shared.firebaseCurrentUser.dictionary())
+                self.appUsersRef.child(AppModel.shared.firebaseCurrentUser.id).setValue(AppModel.shared.firebaseCurrentUser.dictionary())
                 self.callAllHandler()
             }
             else
@@ -532,7 +549,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                     if let userDict = user.value as? [String : AnyObject]{
                         if AppModel.shared.validateUser(dict: userDict){
                             let userModel = FirebaseUserModel.init(dict: userDict)
-                            if( AppModel.shared.firebaseCurrentUser != nil && AppModel.shared.firebaseCurrentUser._id == user.key)
+                            if( AppModel.shared.firebaseCurrentUser != nil && AppModel.shared.firebaseCurrentUser.id == user.key)
                             {
                                 AppModel.shared.firebaseCurrentUser = userModel
                                 isCurrUserExist = true
@@ -554,14 +571,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     
     func updateCurrentUserData()
     {
-        appUsersRef.child(AppModel.shared.firebaseCurrentUser._id).setValue(AppModel.shared.firebaseCurrentUser.dictionary())
+        appUsersRef.child(AppModel.shared.firebaseCurrentUser.id).setValue(AppModel.shared.firebaseCurrentUser.dictionary())
     }
     
     func updateLastSeen(isOnline : Bool)
     {
         if AppModel.shared.firebaseCurrentUser != nil
         {
-            if AppModel.shared.firebaseCurrentUser._id.count > 0
+            if AppModel.shared.firebaseCurrentUser.id.count > 0
             {
                 if getDataFromPreference(key: "isLastSeenUpdate") != nil && getDataFromPreference(key: "isLastSeenUpdate") as! Bool == true
                 {
@@ -605,13 +622,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     {
         if connectUserId != ""
         {
-            var strIDArray : [String] = [connectUserId, AppModel.shared.firebaseCurrentUser._id]
+            var strIDArray : [String] = [connectUserId, AppModel.shared.firebaseCurrentUser.id]
             //            strIDArray = strIDArray.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
             let tappedChannelId = strIDArray[0] + "-" + strIDArray[1]
             var isNewChannel : Bool = true
             
             let index = AppModel.shared.INBOXLIST.index { (channel) -> Bool in
-                channel.conversationKey == tappedChannelId
+                channel.id == tappedChannelId
             }
             
             if index != nil
@@ -621,7 +638,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             
             if isNewChannel
             {
-                let dict : [String : Any] = ["conversationKey": tappedChannelId, "owner": connectUserId, "user": AppModel.shared.firebaseCurrentUser._id, "date" : getCurrentTimeStampValue(), "lastMessage": MessageModel.init(dict: [String:Any]())]
+                let dict : [String : Any] = ["conversationKey": tappedChannelId, "owner": connectUserId, "user": AppModel.shared.firebaseCurrentUser.id, "date" : getCurrentTimeStampValue(), "lastMessage": MessageModel.init(dict: [String:Any]())]
                 let messgaeListModel : InboxListModel = InboxListModel.init(dict: dict)
                 inboxListRef.child(tappedChannelId).setValue(messgaeListModel.dictionary())
             }
@@ -634,7 +651,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     
     func onChannelTap(connectUser : FirebaseUserModel)
     {
-        let tappedChannelID = createChannel(connectUserId: connectUser._id)
+        let tappedChannelID = createChannel(connectUserId: connectUser.id)
         if tappedChannelID != ""
         {
             let rootNavigationVc : UINavigationController = self.window?.rootViewController as! UINavigationController
@@ -652,7 +669,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     func getCurrentUserBadgeKey(_ channelID : String) -> String
     {
         let arrTemp : [String] = channelID.components(separatedBy: "-")
-        if arrTemp[0] == AppModel.shared.firebaseCurrentUser._id {
+        if arrTemp[0] == AppModel.shared.firebaseCurrentUser.id {
             return "badge1"
         }
         return "badge2"
@@ -661,7 +678,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     func getOtherUserBadgeKey(channelID : String) -> String
     {
         let arrTemp : [String] = channelID.components(separatedBy: "-")
-        if arrTemp[0] == AppModel.shared.firebaseCurrentUser._id {
+        if arrTemp[0] == AppModel.shared.firebaseCurrentUser.id {
             return "badge2"
         }
         return "badge1"
@@ -670,7 +687,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     func getOtherUserID(channelID : String) -> String
     {
         let arrTemp : [String] = channelID.components(separatedBy: "-")
-        if arrTemp[0] == AppModel.shared.firebaseCurrentUser._id {
+        if arrTemp[0] == AppModel.shared.firebaseCurrentUser.id {
             return arrTemp[1]
         }
         return arrTemp[0]
@@ -679,7 +696,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     func isMyChanel(channelId : String) -> Bool
     {
         let arrtemp : [String] = channelId.components(separatedBy: "-")
-        if (arrtemp[0] == AppModel.shared.firebaseCurrentUser._id) || (arrtemp[1] == AppModel.shared.firebaseCurrentUser._id)
+        if (arrtemp[0] == AppModel.shared.firebaseCurrentUser.id) || (arrtemp[1] == AppModel.shared.firebaseCurrentUser.id)
         {
             return true
         }
@@ -859,7 +876,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                 {
                     managedContext.delete(msg)
                 }
-                else if msg.value(forKey: COREDATA.MESSAGE.CHANNEL_ID) as! String == channelId
+                else if msg.value(forKey: COREDATA.MESSAGE.key) as! String == channelId
                 {
                     managedContext.delete(msg)
                 }

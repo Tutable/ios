@@ -160,7 +160,7 @@ class TeacherAvailabilityVC: UIViewController, UITableViewDelegate, UITableViewD
             var dict : [String : Any] = [String : Any]()
             dict["availability"] = AppModel.shared.currentUser.availability
             APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: Data(), pictureData: Data(), completion: {
-                displayToast("Teacher availability update successfully")
+                displayToast("Availability updated")
                 self.navigationController?.popViewController(animated: true)
             })
         }

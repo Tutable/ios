@@ -527,18 +527,16 @@ class BookingClassModel:AppModel{
 
 
 class FirebaseUserModel:AppModel{
-    var _id:String!
-    var firstName:String!
-    var lastName : String!
+    var id:String!
+    var name:String!
     var email : String!
     var last_seen : String!
     var fcmToken : String!
     var picture : String!
     
     override init(){
-        _id = ""
-        firstName = ""
-        lastName = ""
+        id = ""
+        name = ""
         email = ""
         last_seen = ""
         fcmToken = ""
@@ -546,40 +544,36 @@ class FirebaseUserModel:AppModel{
     }
     init(dict : [String : Any])
     {
-        _id = ""
-        firstName = ""
-        lastName = ""
+        id = ""
+        name = ""
         email = ""
         last_seen = ""
         fcmToken = ""
         picture = ""
         
-        if let Id = dict["_id"] as? String{
-            _id = Id
+        if let temp = dict["id"] as? String{
+            id = temp
         }
-        if let FirstName = dict["firstName"] as? String{
-            firstName = FirstName
+        if let temp = dict["firstName"] as? String{
+            name = temp
         }
-        if let LastName = dict["lastName"] as? String{
-            lastName = LastName
+        if let temp = dict["email"] as? String{
+            email = temp
         }
-        if let Email = dict["email"] as? String{
-            email = Email
+        if let temp = dict["last_seen"] as? String{
+            last_seen = temp
         }
-        if let lastSeen = dict["last_seen"] as? String{
-            last_seen = lastSeen
+        if let temp = dict["fcmToken"] as? String{
+            fcmToken = temp
         }
-        if let fcm_token = dict["fcmToken"] as? String{
-            fcmToken = fcm_token
-        }
-        if let picture_url = dict["picture"] as? String{
-            picture = picture_url
+        if let temp = dict["picture"] as? String{
+            picture = temp
         }
         
     }
     
     func dictionary() -> [String:Any]{
-        return ["_id":_id,"firstName":firstName,"lastName":lastName,"email" : email, "last_seen" : last_seen, "fcmToken" : fcmToken, "picture" : picture]
+        return ["id":id,"name":name,"email" : email, "last_seen" : last_seen, "fcmToken" : fcmToken, "picture" : picture]
     }
     
     func toJson(_ dict:[String:Any]) -> String{
@@ -593,29 +587,17 @@ class MessageModel: AppModel
 {
     var msgId : String!
     var key : String!
-    var sender : String!
-    var userName : String!
-    var receiver : String!
-    var ownerName : String!
+    var otherUserId : String!
     var date : String!
-    var type : Int! //1.Text, 2.Image
     var text : String!
-    var local_picture : String!
-    var remote_picture : String!
     var status : Int! //1.Pending, 2.Send, 3.notify
     
     override init(){
         msgId = ""
         key = ""
-        sender = ""
-        userName = ""
-        receiver = ""
-        ownerName = ""
+        otherUserId = ""
         date = ""
-        type = 0
         text = ""
-        local_picture = ""
-        remote_picture = ""
         status = 0
     }
     
@@ -623,49 +605,25 @@ class MessageModel: AppModel
     {
         msgId = ""
         key = ""
-        sender = ""
-        userName = ""
-        receiver = ""
-        ownerName = ""
+        otherUserId = ""
         date = ""
-        type = 0
         text = ""
-        local_picture = ""
-        remote_picture = ""
         status = 0
         
-        if let MSG_ID = dict["msgId"] as? String{
-            self.msgId = MSG_ID
+        if let temp = dict["msgId"] as? String{
+            self.msgId = temp
         }
-        if let KEY = dict["key"] as? String{
-            self.key = KEY
+        if let temp = dict["key"] as? String{
+            self.key = temp
         }
-        if let SENDER_USER_ID = dict["sender"] as? String{
-            self.sender = SENDER_USER_ID
+        if let temp = dict["otherUserId"] as? String{
+            self.otherUserId = temp
         }
-        if let USER_NAME = dict["userName"] as? String{
-            self.userName = USER_NAME
+        if let temp = dict["date"] as? String{
+            self.date = temp
         }
-        if let RECEIVER_USER_ID = dict["receiver"] as? String{
-            self.receiver = RECEIVER_USER_ID
-        }
-        if let OWNER_NAME = dict["ownerName"] as? String{
-            self.ownerName = OWNER_NAME
-        }
-        if let DATE = dict["date"] as? String{
-            self.date = DATE
-        }
-        if let TYPE = dict["type"] as? Int{
-            self.type = TYPE
-        }
-        if let TEXT = dict["text"] as? String{
-            self.text = TEXT
-        }
-        if let LOCAL_PICTURE = dict["local_picture"] as? String{
-            self.local_picture = LOCAL_PICTURE
-        }
-        if let REMOTE_PICTURE = dict["remote_picture"] as? String{
-            self.remote_picture = REMOTE_PICTURE
+        if let temp = dict["text"] as? String{
+            self.text = temp
         }
         if let STATUS = dict["status"] as? Int{
             self.status = STATUS
@@ -673,51 +631,47 @@ class MessageModel: AppModel
     }
     
     func dictionary() -> [String:Any]{
-        return ["msgId":msgId,"key":key,"sender":sender,"userName":userName,"receiver":receiver,"ownerName":ownerName,"date" : date, "type" : type, "text":text, "local_picture":local_picture, "remote_picture":remote_picture, "status":status]
+        return ["msgId":msgId,"key":key,"otherUserId":otherUserId,"date" : date, "text":text, "status":status]
     }
     
 }
 
 class InboxListModel: AppModel
 {
-    var conversationKey : String!
-    var owner : String!
-    var user : String!
-    var date : String!
+    var id : String!
+    var badge1 : Int!
+    var badge2 : Int!
     var lastMessage : MessageModel!
     
     override init(){
-        conversationKey = ""
-        owner = ""
-        user = ""
-        date = ""
+        id = ""
+        badge1 = 0
+        badge2 = 0
         lastMessage = MessageModel.init()
     }
     
     init(dict : [String : Any])
     {
-        conversationKey = ""
-        owner = ""
-        user = ""
-        date = ""
+        id = ""
+        badge1 = 0
+        badge2 = 0
         lastMessage = MessageModel.init()
         
-        if let conversation_key = dict["conversationKey"] as? String{
-            self.conversationKey = conversation_key
+        if let temp = dict["id"] as? String{
+            self.id = temp
         }
-        if let owner_id = dict["owner"] as? String {
-            self.owner = owner_id
+        if let temp = dict["badge1"] as? Int {
+            self.badge1 = temp
         }
-        if let user_id = dict["user"] as? String {
-            self.user = user_id
+        if let temp = dict["badge2"] as? Int {
+            self.badge2 = temp
         }
-        if let date_value = dict["date"] as? String {
-            self.date = date_value
+        if let temp = dict["lastMessage"] as? [String : Any] {
+            self.lastMessage = MessageModel.init(dict: temp)
         }
-        self.lastMessage = MessageModel.init(dict: dict["lastMessage"] as? [String : Any] ?? [String : Any]())
     }
     
     func dictionary() -> [String:Any]{
-        return ["conversationKey":conversationKey, "owner":owner, "user":user, "date" : date, "lastMessage":lastMessage.dictionary()]
+        return ["id":id, "badge1":badge1, "badge2":badge2, "lastMessage":lastMessage.dictionary()]
     }
 }
