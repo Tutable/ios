@@ -44,7 +44,7 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
     func getClassList()
     {
-        APIManager.sharedInstance.serviceCallToGetClassList("") { (dataArr) in
+        APIManager.sharedInstance.serviceCallToGetClassList("", teacherId: AppModel.shared.currentUser.id) { (dataArr) in
             
             self.myClassData = [ClassModel]()
             for temp in dataArr

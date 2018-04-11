@@ -83,7 +83,7 @@ class LoginVC: UIViewController {
                             }
                             else if redirectionType == 1
                             {
-                                let vc : EditTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
+                                let vc : AddTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "AddTeacherProfileVC") as! AddTeacherProfileVC
                                 vc.isBackDisplay = false
                                 self.navigationController?.pushViewController(vc, animated: true)
                             }

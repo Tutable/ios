@@ -12,11 +12,28 @@ class ClassesListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     @IBOutlet weak var tblView: UITableView!
 
+    let teacherId : String = ""
+    var classData : [ClassModel] = [ClassModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         tblView.register(UINib(nibName: "CustomClassesTVC", bundle: nil), forCellReuseIdentifier: "CustomClassesTVC")
+        
+        getClassList()
+    }
+    
+    func getClassList()
+    {
+        APIManager.sharedInstance.serviceCallToGetClassList("", teacherId: teacherId) { (dataArr) in
+            self.classData = [ClassModel]()
+            for temp in dataArr
+            {
+                self.classData.append(ClassModel.init(dict: temp))
+            }
+            self.tblView.reloadData()
+        }
     }
     
     @IBAction func clickToBack(_ sender: Any) {
@@ -29,21 +46,40 @@ class ClassesListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return classData.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomClassesTVC", for: indexPath) as! CustomClassesTVC
         
+        let dict : ClassModel = classData[indexPath.row]
+        
+        APIManager.sharedInstance.serviceCallToGetPhoto(dict.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
+        cell.titleLbl.text = dict.name
+        cell.subTitleLbl.text = "by " + dict.teacher.name
+        
+        let startDate : Date = getDateFromTimeStamp(dict.timeline)
+        cell.subTitleLbl.text = getDateStringFromDate(date: startDate, format: "MMM dd, yyyy, hh:mm a")
+        
+        let endDate : Date = Calendar.current.date(byAdding: .hour, value: 1, to: getDateFromTimeStamp(dict.timeline))!
+        cell.subTitleLbl.text = cell.subTitleLbl.text! + " - " + getDateStringFromDate(date: endDate, format: "hh:mm a")
+        
+        cell.rateBtn.setTitle(String(dict.rate), for: .normal)
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc : ClassDetailVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "ClassDetailVC") as! ClassDetailVC
+        vc.classId = classData[indexPath.row].id
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

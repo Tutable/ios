@@ -17,6 +17,16 @@ import Fabric
 import Crashlytics
 import UserNotifications  //iOS 10 for local and remote notifications
 
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseMessaging
+
+import CoreData
+import Foundation
+import MessageUI
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
 
@@ -24,6 +34,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     var isKeyboardOpen:Bool = false
     var activityLoader : NVActivityIndicatorView!
     var customTabbarVc : CustomTabBarController!
+    
+    //Firebase chat start
+    var appUsersRef:DatabaseReference!
+    var appUsersRefHandler:UInt = 0;
+    
+    var inboxListRef : DatabaseReference!
+    var inboxListRefHandler:UInt = 0
+    var inboxNewMessageNoti : [String : Bool] = [String : Bool] ()
+    
+    var messageListRef : DatabaseReference!
+    var messageListRefHandler:UInt = 0
+    var userFcmToken : String = ""
+    //Firebase Chat end
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -48,6 +71,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
 
         // Push Notification
         registerPushNotification(application)
+        
+        //Firebase chat start
+        FirebaseApp.configure()
+        
+        //create Table
+        appUsersRef = Database.database().reference().child("USERS")
+        inboxListRef = Database.database().reference().child("INBOX")
+        messageListRef = Database.database().reference().child("MESSAGES")
+        
+        setDataToPreference(data: false as AnyObject, forKey: "isLastSeenUpdate")
+        //Firebase Chat end
         
         if isUserLogin()
         {
@@ -420,6 +454,278 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         }
     }
     
+    //MARK:- Firebase
+    func setupFirebase()
+    {
+        if let _ : [String : Any] = getLoginUserData()
+        {
+            loginWithFirebase()
+        }
+    }
+    
+    func registerWithFirebae()
+    {
+        Auth.auth().createUser(withEmail: AppModel.shared.currentUser.email, password: AppModel.shared.currentUser.email) { (user, error) in
+            if error == nil
+            {
+                AppModel.shared.isFCMConnected = true
+                AppModel.shared.firebaseCurrentUser = FirebaseUserModel.init(dict: AppModel.shared.currentUser.dictionary())
+                AppModel.shared.firebaseCurrentUser.fcmToken = getDeviceToken()
+                self.appUsersRef.child(AppModel.shared.firebaseCurrentUser._id).setValue(AppModel.shared.firebaseCurrentUser.dictionary())
+                self.callAllHandler()
+            }
+            else
+            {
+                print(error?.localizedDescription)
+            }
+        }
+    }
+    
+    func loginWithFirebase()
+    {
+        Auth.auth().signIn(withEmail: AppModel.shared.currentUser.email, password: AppModel.shared.currentUser.email) { (user, error) in
+            if error == nil
+            {
+                AppModel.shared.isFCMConnected = true
+                self.appUsersHandler()
+            }
+            else
+            {
+                print(error?.localizedDescription)
+                if user == nil
+                {
+                    self.registerWithFirebae()
+                }
+            }
+        }
+    }
+    
+    func getFcmToken() -> String
+    {
+        if userFcmToken == ""
+        {
+            userFcmToken = Messaging.messaging().fcmToken!
+        }
+        return userFcmToken
+    }
+    
+    func callAllHandler()
+    {
+        appUsersHandler()
+        inboxListHandler()
+        self.updateCurrentUserData()
+    }
+    
+    func appUsersHandler()
+    {
+        appUsersRef.removeObserver(withHandle: appUsersRefHandler)
+        
+        appUsersRefHandler = appUsersRef.observe(DataEventType.value) { (snapshot : DataSnapshot) in
+            
+            AppModel.shared.USERS = [FirebaseUserModel]()
+            var isCurrUserExist:Bool = false
+            if snapshot.exists()
+            {
+                for child in snapshot.children {
+                    
+                    let user:DataSnapshot = child as! DataSnapshot
+                    if let userDict = user.value as? [String : AnyObject]{
+                        if AppModel.shared.validateUser(dict: userDict){
+                            let userModel = FirebaseUserModel.init(dict: userDict)
+                            if( AppModel.shared.firebaseCurrentUser != nil && AppModel.shared.firebaseCurrentUser._id == user.key)
+                            {
+                                AppModel.shared.firebaseCurrentUser = userModel
+                                isCurrUserExist = true
+                            }
+                            else
+                            {
+                                AppModel.shared.USERS.append(userModel)
+                            }
+                        }
+                    }
+                }
+            }
+            if isCurrUserExist == true
+            {
+                self.updateCurrentUserData()
+            }
+        }
+    }
+    
+    func updateCurrentUserData()
+    {
+        appUsersRef.child(AppModel.shared.firebaseCurrentUser._id).setValue(AppModel.shared.firebaseCurrentUser.dictionary())
+    }
+    
+    func updateLastSeen(isOnline : Bool)
+    {
+        if AppModel.shared.firebaseCurrentUser != nil
+        {
+            if AppModel.shared.firebaseCurrentUser._id.count > 0
+            {
+                if getDataFromPreference(key: "isLastSeenUpdate") != nil && getDataFromPreference(key: "isLastSeenUpdate") as! Bool == true
+                {
+                    if isOnline
+                    {
+                        AppModel.shared.firebaseCurrentUser.last_seen = ""
+                        updateCurrentUserData()
+                    }
+                    else
+                    {
+                        AppModel.shared.firebaseCurrentUser.last_seen = getCurrentTimeStampValue()
+                        updateCurrentUserData()
+                    }
+                }
+            }
+        }
+    }
+    
+    func inboxListHandler()
+    {
+        inboxListRef.removeObserver(withHandle: inboxListRefHandler)
+        inboxListRefHandler = inboxListRef.observe(DataEventType.value) { (snapshot : DataSnapshot) in
+            AppModel.shared.INBOXLIST = [InboxListModel]()
+            if snapshot.exists()
+            {
+                for child in snapshot.children {
+                    let channel:DataSnapshot = child as! DataSnapshot
+                    if let channelDict = channel.value as? [String : AnyObject]{
+                        if AppModel.shared.validateInbox(dict: channelDict)
+                        {
+                            let msgList : InboxListModel = InboxListModel.init(dict: channelDict)
+                            AppModel.shared.INBOXLIST.append(msgList)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func createChannel(connectUserId : String) -> String
+    {
+        if connectUserId != ""
+        {
+            var strIDArray : [String] = [connectUserId, AppModel.shared.firebaseCurrentUser._id]
+            //            strIDArray = strIDArray.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
+            let tappedChannelId = strIDArray[0] + "-" + strIDArray[1]
+            var isNewChannel : Bool = true
+            
+            let index = AppModel.shared.INBOXLIST.index { (channel) -> Bool in
+                channel.conversationKey == tappedChannelId
+            }
+            
+            if index != nil
+            {
+                isNewChannel = false
+            }
+            
+            if isNewChannel
+            {
+                let dict : [String : Any] = ["conversationKey": tappedChannelId, "owner": connectUserId, "user": AppModel.shared.firebaseCurrentUser._id, "date" : getCurrentTimeStampValue(), "lastMessage": MessageModel.init(dict: [String:Any]())]
+                let messgaeListModel : InboxListModel = InboxListModel.init(dict: dict)
+                inboxListRef.child(tappedChannelId).setValue(messgaeListModel.dictionary())
+            }
+            
+            
+            return tappedChannelId
+        }
+        return ""
+    }
+    
+    func onChannelTap(connectUser : FirebaseUserModel)
+    {
+        let tappedChannelID = createChannel(connectUserId: connectUser._id)
+        if tappedChannelID != ""
+        {
+            let rootNavigationVc : UINavigationController = self.window?.rootViewController as! UINavigationController
+            if #available(iOS 10.0, *) {
+                let vc : ChatViewController = self.storyboard().instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+                vc.channelId = tappedChannelID
+                vc.receiver = connectUser
+                rootNavigationVc.pushViewController(vc, animated: true)
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+    }
+    
+    func getCurrentUserBadgeKey(_ channelID : String) -> String
+    {
+        let arrTemp : [String] = channelID.components(separatedBy: "-")
+        if arrTemp[0] == AppModel.shared.firebaseCurrentUser._id {
+            return "badge1"
+        }
+        return "badge2"
+    }
+    
+    func getOtherUserBadgeKey(channelID : String) -> String
+    {
+        let arrTemp : [String] = channelID.components(separatedBy: "-")
+        if arrTemp[0] == AppModel.shared.firebaseCurrentUser._id {
+            return "badge2"
+        }
+        return "badge1"
+    }
+    
+    func getOtherUserID(channelID : String) -> String
+    {
+        let arrTemp : [String] = channelID.components(separatedBy: "-")
+        if arrTemp[0] == AppModel.shared.firebaseCurrentUser._id {
+            return arrTemp[1]
+        }
+        return arrTemp[0]
+    }
+    
+    func isMyChanel(channelId : String) -> Bool
+    {
+        let arrtemp : [String] = channelId.components(separatedBy: "-")
+        if (arrtemp[0] == AppModel.shared.firebaseCurrentUser._id) || (arrtemp[1] == AppModel.shared.firebaseCurrentUser._id)
+        {
+            return true
+        }
+        return false
+    }
+    
+    func onSendMessage(message : MessageModel, chanelId : String)
+    {
+        message.status = 2
+        messageListRef.child(chanelId).child(message.key).child("status").setValue(message.status)
+        
+        updateLastMessageInInbox(message: message, chanelId: chanelId)
+    }
+    
+    func updateLastMessageInInbox(message : MessageModel, chanelId : String)
+    {
+        message.status = 3
+        inboxListRef.child(chanelId).child("date").setValue(message.date)
+        inboxListRef.child(chanelId).child("lastMessage").setValue(message.dictionary())
+    }
+    
+    func onGetMessage(message : MessageModel, chanelId : String)
+    {
+        /*
+         let myBadgeKey : String = getCurrentUserBadgeKey(chanelId)
+         let index = AppModel.shared.INBOXLIST.index { (inbox) -> Bool in
+         inbox.conversationKey == chanelId
+         }
+         
+         if index != nil
+         {
+         let inboxList : InboxListModel = AppModel.shared.INBOXLIST[index!]
+         if myBadgeKey == "badge1" {
+         inboxList.badge1 = 0
+         }
+         else
+         {
+         inboxList.badge2 = 0
+         }
+         //inboxList.lastMessage = message
+         inboxListRef.child(chanelId).child(myBadgeKey).setValue(0)
+         }
+         //inboxListRef.child(chanelId).child("lastMessage").child("badge1")
+         */
+    }
+    
     //MARK:- Other func.
     func showLoader()
     {
@@ -452,6 +758,117 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String!, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
     }
     
+    // MARK: - Core Data stack
+    @available(iOS 10.0, *)
+    lazy var persistentContainer: NSPersistentContainer = {
+        /*
+         The persistent container for the application. This implementation
+         creates and returns a container, having loaded the store for the
+         application to it. This property is optional since there are legitimate
+         error conditions that could cause the creation of the store to fail.
+         */
+        let container = NSPersistentContainer(name: "TutableModel")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                
+                /*
+                 Typical reasons for an error here include:
+                 * The parent directory does not exist, cannot be created, or disallows writing.
+                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                 * The device is out of space.
+                 * The store could not be migrated to the current model version.
+                 Check the error message to determine what the actual problem was.
+                 */
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    
+    @available(iOS 10.0, *)
+    func saveContext () {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+    
+    @available(iOS 10.0, *)
+    func sortAllCoreData()
+    {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        var messagesArr: [NSManagedObject] = [NSManagedObject] ()
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: COREDATA.MESSAGE.TABLE_NAME)
+        
+        do {
+            messagesArr = try managedContext.fetch(fetchRequest)
+            deleteAllMessageFromCoreData("")
+            
+            let entity = NSEntityDescription.entity(forEntityName: COREDATA.MESSAGE.TABLE_NAME,
+                                                    in: managedContext)!
+            
+            for tempMsg in messagesArr
+            {
+                var message = NSManagedObject(entity: entity, insertInto: managedContext)
+                message = tempMsg
+                do {
+                    try managedContext.save()
+                    
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+            }
+            
+            
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
+    @available(iOS 10.0, *)
+    func deleteAllMessageFromCoreData(_ channelId : String)
+    {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: COREDATA.MESSAGE.TABLE_NAME)
+        do {
+            let messagesArr: [NSManagedObject] = try managedContext.fetch(fetchRequest)
+            
+            for msg in messagesArr
+            {
+                if channelId == ""
+                {
+                    managedContext.delete(msg)
+                }
+                else if msg.value(forKey: COREDATA.MESSAGE.CHANNEL_ID) as! String == channelId
+                {
+                    managedContext.delete(msg)
+                }
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -460,6 +877,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        updateLastSeen(isOnline: false)
+        application.applicationIconBadgeNumber = 0
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -468,10 +887,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        updateLastSeen(isOnline: true)
+        application.applicationIconBadgeNumber = 0
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        updateLastSeen(isOnline: false)
     }
 
     //MARK:- Notification

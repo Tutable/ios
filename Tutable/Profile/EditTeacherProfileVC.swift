@@ -2,12 +2,19 @@
 //  EditTeacherProfileVC.swift
 //  Tutable
 //
-//  Created by Keyur on 27/03/18.
+//  Created by Keyur on 11/04/18.
 //  Copyright © 2018 Keyur. All rights reserved.
 //
 
 import UIKit
 import DropDown
+
+struct PHOTO {
+    static var USER_IMAGE = 1
+    static var POLICE_IMAGE = 2
+    static var CHILDREN_IMAGE = 3
+    static var DEGREE_IMAGE = 4
+}
 
 class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, PhotoSelectionDelegate {
 
@@ -22,18 +29,32 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     @IBOutlet weak var suburbTxt: UITextField!
     @IBOutlet weak var stateBtn: UIButton!
     @IBOutlet weak var stateLbl: UILabel!
+    
+    @IBOutlet weak var policeCheckBtn: UIButton!
+    @IBOutlet weak var childrenCheckBtn: UIButton!
+    
+    @IBOutlet weak var relevantSegment: UISegmentedControl!
+    @IBOutlet weak var qulificationTxt: UITextField!
+    @IBOutlet weak var schoolTxt: UITextField!
+    @IBOutlet weak var degreeImgBtn: UIButton!
+    
     @IBOutlet weak var continueBtn: UIButton!
     
     var selectedDob : Date!
     var _PhotoSelectionVC:PhotoSelectionVC!
-    var _imgCompress:UIImage!
+    var photoSelectionType : Int = 0
+    var imgCompress:UIImage!
+    var policeCheckImg:UIImage!
+    var childrenCheckImg:UIImage!
+    var degreeImg:UIImage!
+    
     var isBackDisplay : Bool = true
     
     var availabilityDict : [String : [String]] = [String : [String]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
@@ -55,7 +76,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
             tabBar.setTabBarHidden(tabBarHidden: true)
         }
     }
-
+    
     override func viewWillLayoutSubviews() {
         setUIDesigning()
     }
@@ -67,6 +88,9 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         continueBtn.addCornerRadiusOfView(continueBtn.frame.size.height/2)
         stateBtn.addCornerRadiusOfView(5.0)
         stateBtn.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.LIGHT_GRAY))
+        policeCheckBtn.addCornerRadiusOfView(5.0)
+        childrenCheckBtn.addCornerRadiusOfView(5.0)
+        degreeImgBtn.addCornerRadiusOfView(5.0)
     }
     
     func setUserDetail()
@@ -111,17 +135,40 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         let location : LocationModel = LocationModel.init(dict: AppModel.shared.currentUser.address.dictionary())
         suburbTxt.text = location.suburb
         stateLbl.text = location.state
+        
+        if getPoliceCertificate() != "" && getChildreanCertificate() != ""
+        {
+            setCertificateImage()
+        }
+        else
+        {
+            APIManager.sharedInstance.serviceCallToGetCertificate {
+                self.setCertificateImage()
+            }
+        }
+        qulificationTxt.text = AppModel.shared.currentUser.qualification
+        schoolTxt.text = AppModel.shared.currentUser.school
+        if AppModel.shared.currentUser.degreeAsset != ""
+        {
+            APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.degreeAsset, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [degreeImgBtn])
+        }
+    }
+    
+    func setCertificateImage()
+    {
+        if getPoliceCertificate() != ""
+        {
+            APIManager.sharedInstance.serviceCallToGetCertificate(getPoliceCertificate(), placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [policeCheckBtn])
+        }
+        if getChildreanCertificate() != ""
+        {
+            APIManager.sharedInstance.serviceCallToGetCertificate(getChildreanCertificate(), placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [childrenCheckBtn])
+        }
     }
     
     @IBAction func clickToBack(_ sender: Any) {
         self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func clickToUploadProfilePic(_ sender: Any) {
-        self.view.endEditing(true)
-        self.view.addSubview(_PhotoSelectionVC.view)
-        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
     }
     
     @IBAction func clickToDOB(_ sender: Any) {
@@ -147,7 +194,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         {
             vc.finalTimeDict = availabilityDict
         }
-        
+        vc.isEditProfile = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -162,9 +209,46 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         dropdown.show()
     }
     
+    @IBAction func clickToUploadProfilePic(_ sender: Any) {
+        self.view.endEditing(true)
+        photoSelectionType = PHOTO.USER_IMAGE
+        self.view.addSubview(_PhotoSelectionVC.view)
+        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
+    }
+    
+    @IBAction func clickToUploadPoliceCheck(_ sender: Any) {
+        self.view.endEditing(true)
+        photoSelectionType = PHOTO.POLICE_IMAGE
+        self.view.addSubview(_PhotoSelectionVC.view)
+        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
+    }
+    
+    @IBAction func clickToPoliceCheckURL(_ sender: Any) {
+        self.view.endEditing(true)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string : POLICE_CHECK_URL)!, options: [:], completionHandler: nil)
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
+    @IBAction func clickToChildrenCheck(_ sender: Any) {
+        self.view.endEditing(true)
+        photoSelectionType = PHOTO.CHILDREN_IMAGE
+        self.view.addSubview(_PhotoSelectionVC.view)
+        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
+    }
+    
+    @IBAction func clickToUploadDegreeImg(_ sender: Any) {
+        self.view.endEditing(true)
+        photoSelectionType = PHOTO.DEGREE_IMAGE
+        self.view.addSubview(_PhotoSelectionVC.view)
+        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
+    }
+    
     @IBAction func clickToContinue(_ sender: Any) {
         self.view.endEditing(true)
-        if AppModel.shared.currentUser.picture == "" && _imgCompress == nil
+        if AppModel.shared.currentUser.picture == "" && imgCompress == nil
         {
             displayToast("Please select your profile picture")
         }
@@ -180,10 +264,6 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         {
             displayToast("Please enter about you")
         }
-//        else if availabilityDict.count == 0
-//        {
-//            displayToast("Please add your availability")
-//        }
         else if suburbTxt.text == ""
         {
             displayToast("Please enter suburb")
@@ -191,6 +271,22 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         else if stateLbl.text == "" || stateLbl.text == "State"
         {
             displayToast("Please select state")
+        }
+        else if getPoliceCertificate() == "" && policeCheckImg == nil
+        {
+            displayToast("Please select certificate for police check")
+        }
+        else if relevantSegment.selectedSegmentIndex == 1 && qulificationTxt.text == ""
+        {
+            displayToast("Please enter your qulification")
+        }
+        else if relevantSegment.selectedSegmentIndex == 1 && schoolTxt.text == ""
+        {
+            displayToast("Please enter your school name")
+        }
+        else if relevantSegment.selectedSegmentIndex == 1 && AppModel.shared.currentUser.degreeAsset == "" && degreeImg == nil
+        {
+            displayToast("Please upload your degree")
         }
         else
         {
@@ -219,33 +315,55 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
             dict["gender"] = AppModel.shared.currentUser.gender
             dict["email"] = AppModel.shared.currentUser.email
             dict["bio"] = AppModel.shared.currentUser.bio
-            dict["availability"] = AppModel.shared.currentUser.availability
             
             let location : LocationModel = LocationModel.init()
             location.state = stateLbl.text
             location.suburb = suburbTxt.text
             dict["address"] = location.dictionary()
+            AppModel.shared.currentUser.address = location
             
-            if _imgCompress == nil
+            if relevantSegment.selectedSegmentIndex == 1
             {
-                continueUpdating(dict, Data())
+                AppModel.shared.currentUser.qualification = qulificationTxt.text
+                AppModel.shared.currentUser.school = schoolTxt.text
+                dict["qualification"] = AppModel.shared.currentUser.qualification
+                dict["school"] = AppModel.shared.currentUser.school
             }
-            else if let imageData = UIImagePNGRepresentation(_imgCompress){
-                continueUpdating(dict, imageData)
+            
+            var imageData : Data = Data()
+            var degreeData : Data = Data()
+            var policeData : Data = Data()
+            var childrenData : Data = Data()
+            
+            if imgCompress != nil
+            {
+                imageData = UIImagePNGRepresentation(imgCompress)!
             }
-            else{
-                displayToast("Getting error in profile pic, please select another one.")
-                return
+            if relevantSegment.selectedSegmentIndex == 1 && degreeImg != nil
+            {
+                degreeData = UIImagePNGRepresentation(degreeImg)!
             }
+            if policeCheckImg != nil
+            {
+                policeData = UIImagePNGRepresentation(policeCheckImg)!
+            }
+            if childrenCheckImg != nil
+            {
+                childrenData = UIImagePNGRepresentation(childrenCheckImg)!
+            }
+            APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: degreeData, pictureData: imageData, completion: {
+                if policeData.count != 0 || childrenData.count != 0
+                {
+                    APIManager.sharedInstance.serviceCallToUpdateCertificates(policeData, childrenData: childrenData, completion: {
+                        self.navigationController?.popViewController(animated: true)
+                    })
+                }
+                else
+                {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })
         }
-    }
-    
-    func continueUpdating(_ dict : [String : Any], _ imageData : Data)
-    {
-        APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: Data(), pictureData: imageData, completion: {
-            let vc : TeacherCertificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
-            self.navigationController?.pushViewController(vc, animated: true)
-        })
     }
     
     func selectedAvailability(dict: [String : [String]]) {
@@ -255,15 +373,51 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     
     //MARK:- PhotoSelectionDelegate
     func onRemovePic() {
-        _imgCompress = nil
-        userProfilePicBtn.setBackgroundImage(UIImage.init(named: IMAGE.USER_PLACEHOLDER), for: .normal)
+        if photoSelectionType == PHOTO.USER_IMAGE
+        {
+            imgCompress = nil
+            userProfilePicBtn.setBackgroundImage(UIImage.init(named: IMAGE.USER_PLACEHOLDER), for: .normal)
+        }
+        else if photoSelectionType == PHOTO.POLICE_IMAGE
+        {
+            policeCheckImg = nil
+            policeCheckBtn.setBackgroundImage(UIImage.init(named: IMAGE.USER_PLACEHOLDER), for: .normal)
+        }
+        else if photoSelectionType == PHOTO.CHILDREN_IMAGE
+        {
+            childrenCheckImg = nil
+            childrenCheckBtn.setBackgroundImage(UIImage.init(named: IMAGE.USER_PLACEHOLDER), for: .normal)
+        }
+        else if photoSelectionType == PHOTO.DEGREE_IMAGE
+        {
+            degreeImg = nil
+            degreeImgBtn.setBackgroundImage(UIImage.init(named: IMAGE.USER_PLACEHOLDER), for: .normal)
+        }
     }
     
     func onSelectPic(_ img: UIImage) {
-        _imgCompress = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
-        userProfilePicBtn.setBackgroundImage(_imgCompress.imageCropped(toFit: userProfilePicBtn.frame.size), for: .normal)
+        if photoSelectionType == PHOTO.USER_IMAGE
+        {
+            imgCompress = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
+            userProfilePicBtn.setBackgroundImage(imgCompress.imageCropped(toFit: userProfilePicBtn.frame.size), for: .normal)
+        }
+        else if photoSelectionType == PHOTO.POLICE_IMAGE
+        {
+            policeCheckImg = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
+            policeCheckBtn.setBackgroundImage(policeCheckImg.imageCropped(toFit: policeCheckBtn.frame.size), for: .normal)
+        }
+        else if photoSelectionType == PHOTO.CHILDREN_IMAGE
+        {
+            childrenCheckImg = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
+            childrenCheckBtn.setBackgroundImage(childrenCheckImg.imageCropped(toFit: childrenCheckBtn.frame.size), for: .normal)
+        }
+        else if photoSelectionType == PHOTO.DEGREE_IMAGE
+        {
+            degreeImg = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
+            degreeImgBtn.setBackgroundImage(degreeImg.imageCropped(toFit: degreeImgBtn.frame.size), for: .normal)
+        }
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

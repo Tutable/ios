@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		1810644D206A7DF500FE9452 /* CustomTimeSlotTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810644B206A7DF500FE9452 /* CustomTimeSlotTVC.swift */; };
 		1810644E206A7DF500FE9452 /* CustomTimeSlotTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1810644C206A7DF500FE9452 /* CustomTimeSlotTVC.xib */; };
-		18106450206A80F800FE9452 /* EditTeacherProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810644F206A80F800FE9452 /* EditTeacherProfileVC.swift */; };
-		18106452206A84BB00FE9452 /* TeacherAvailabilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18106451206A84BB00FE9452 /* TeacherAvailabilityVC.swift */; };
 		18119192207601C900CC9D3D /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18119191207601C900CC9D3D /* NotificationVC.swift */; };
 		181191952076391D00CC9D3D /* CustomNotificationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181191932076391D00CC9D3D /* CustomNotificationTVC.swift */; };
 		181191962076391D00CC9D3D /* CustomNotificationTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181191942076391D00CC9D3D /* CustomNotificationTVC.xib */; };
@@ -19,6 +17,17 @@
 		1815CB342071EFCC0081F852 /* CustomMyClassTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */; };
 		184637EA207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184637E8207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift */; };
 		184637EB207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184637E9207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib */; };
+		185CC568207DE36200B05B8A /* ReceiverChatMessageTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185CC563207DE36100B05B8A /* ReceiverChatMessageTVC.xib */; };
+		185CC569207DE36200B05B8A /* ReceiverChatMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC564207DE36100B05B8A /* ReceiverChatMessageTVC.swift */; };
+		185CC56A207DE36200B05B8A /* SendChatMessageTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185CC565207DE36100B05B8A /* SendChatMessageTVC.xib */; };
+		185CC56B207DE36200B05B8A /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC566207DE36100B05B8A /* MessageCell.swift */; };
+		185CC56C207DE36200B05B8A /* SendChatMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC567207DE36100B05B8A /* SendChatMessageTVC.swift */; };
+		185CC572207DEA6D00B05B8A /* TeacherFinishVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC56D207DEA6C00B05B8A /* TeacherFinishVC.swift */; };
+		185CC573207DEA6D00B05B8A /* AddTeacherProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC56E207DEA6C00B05B8A /* AddTeacherProfileVC.swift */; };
+		185CC574207DEA6D00B05B8A /* TeacherQulificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC56F207DEA6D00B05B8A /* TeacherQulificationVC.swift */; };
+		185CC575207DEA6D00B05B8A /* TeacherAvailabilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC570207DEA6D00B05B8A /* TeacherAvailabilityVC.swift */; };
+		185CC576207DEA6D00B05B8A /* TeacherCertificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC571207DEA6D00B05B8A /* TeacherCertificationVC.swift */; };
+		185CC578207DEAA400B05B8A /* EditTeacherProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC577207DEAA400B05B8A /* EditTeacherProfileVC.swift */; };
 		18615BCF2068B8E5004A6876 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BCE2068B8E5004A6876 /* ProfileVC.swift */; };
 		18615BD12068B90D004A6876 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BD02068B90D004A6876 /* SettingsVC.swift */; };
 		18615BD32068B926004A6876 /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BD22068B926004A6876 /* MessageVC.swift */; };
@@ -48,10 +57,8 @@
 		186A751F206510340013D863 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A7514206510340013D863 /* Toast.swift */; };
 		186A7521206514A60013D863 /* DateTimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A7520206514A60013D863 /* DateTimeUtility.swift */; };
 		186A7523206536FD0013D863 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A7522206536FD0013D863 /* ForgotPasswordVC.swift */; };
-		18722850206CDF2200CD3076 /* TeacherQulificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1872284F206CDF2200CD3076 /* TeacherQulificationVC.swift */; };
 		18722852206CE07D00CD3076 /* ClassHourlyRateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18722851206CE07D00CD3076 /* ClassHourlyRateVC.swift */; };
 		18722854206CE0B400CD3076 /* AccountDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18722853206CE0B400CD3076 /* AccountDetailVC.swift */; };
-		18722856206CE0C700CD3076 /* TeacherFinishVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18722855206CE0C700CD3076 /* TeacherFinishVC.swift */; };
 		18722858206CEF4A00CD3076 /* VerificationCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18722857206CEF4900CD3076 /* VerificationCodeVC.swift */; };
 		18750BB02074957300ABF3B6 /* Class.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18750BAF2074957300ABF3B6 /* Class.storyboard */; };
 		18750BB22074967E00ABF3B6 /* Message.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18750BB12074967E00ABF3B6 /* Message.storyboard */; };
@@ -62,8 +69,9 @@
 		18803982206A283C00179778 /* TeacherDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18803981206A283C00179778 /* TeacherDetailVC.swift */; };
 		18803985206A2A6700179778 /* CustomClassesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18803983206A2A6700179778 /* CustomClassesTVC.swift */; };
 		18803986206A2A6700179778 /* CustomClassesTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18803984206A2A6700179778 /* CustomClassesTVC.xib */; };
+		188FB352207E20AB00663CE7 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188FB351207E20AA00663CE7 /* ChatViewController.swift */; };
+		188FB357207E257C00663CE7 /* TutableModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 188FB356207E257B00663CE7 /* TutableModel.xcdatamodel */; };
 		18AE596D206B93F500B6D324 /* DatePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AE596C206B93F400B6D324 /* DatePickerManager.swift */; };
-		18AE596F206BAB4300B6D324 /* TeacherCertificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AE596E206BAB4300B6D324 /* TeacherCertificationVC.swift */; };
 		18AE5972206BCA8A00B6D324 /* AddClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AE5971206BCA8A00B6D324 /* AddClassVC.swift */; };
 		18AE5974206BD0C700B6D324 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18AE5973206BD0C600B6D324 /* GoogleService-Info.plist */; };
 		18B99182206923FD009F8A13 /* CustomMessagesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B99180206923FD009F8A13 /* CustomMessagesTVC.swift */; };
@@ -93,8 +101,6 @@
 /* Begin PBXFileReference section */
 		1810644B206A7DF500FE9452 /* CustomTimeSlotTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimeSlotTVC.swift; sourceTree = "<group>"; };
 		1810644C206A7DF500FE9452 /* CustomTimeSlotTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTimeSlotTVC.xib; sourceTree = "<group>"; };
-		1810644F206A80F800FE9452 /* EditTeacherProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTeacherProfileVC.swift; sourceTree = "<group>"; };
-		18106451206A84BB00FE9452 /* TeacherAvailabilityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherAvailabilityVC.swift; sourceTree = "<group>"; };
 		18119191207601C900CC9D3D /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		181191932076391D00CC9D3D /* CustomNotificationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNotificationTVC.swift; sourceTree = "<group>"; };
 		181191942076391D00CC9D3D /* CustomNotificationTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomNotificationTVC.xib; sourceTree = "<group>"; };
@@ -104,6 +110,17 @@
 		184637E7207B388800F0B8A4 /* Tutable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tutable.entitlements; sourceTree = "<group>"; };
 		184637E8207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAcceptRejectNotiTVC.swift; sourceTree = "<group>"; };
 		184637E9207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomAcceptRejectNotiTVC.xib; sourceTree = "<group>"; };
+		185CC563207DE36100B05B8A /* ReceiverChatMessageTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiverChatMessageTVC.xib; sourceTree = "<group>"; };
+		185CC564207DE36100B05B8A /* ReceiverChatMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiverChatMessageTVC.swift; sourceTree = "<group>"; };
+		185CC565207DE36100B05B8A /* SendChatMessageTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendChatMessageTVC.xib; sourceTree = "<group>"; };
+		185CC566207DE36100B05B8A /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		185CC567207DE36100B05B8A /* SendChatMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendChatMessageTVC.swift; sourceTree = "<group>"; };
+		185CC56D207DEA6C00B05B8A /* TeacherFinishVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherFinishVC.swift; sourceTree = "<group>"; };
+		185CC56E207DEA6C00B05B8A /* AddTeacherProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTeacherProfileVC.swift; sourceTree = "<group>"; };
+		185CC56F207DEA6D00B05B8A /* TeacherQulificationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherQulificationVC.swift; sourceTree = "<group>"; };
+		185CC570207DEA6D00B05B8A /* TeacherAvailabilityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherAvailabilityVC.swift; sourceTree = "<group>"; };
+		185CC571207DEA6D00B05B8A /* TeacherCertificationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherCertificationVC.swift; sourceTree = "<group>"; };
+		185CC577207DEAA400B05B8A /* EditTeacherProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTeacherProfileVC.swift; sourceTree = "<group>"; };
 		18615BCE2068B8E5004A6876 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		18615BD02068B90D004A6876 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		18615BD22068B926004A6876 /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
@@ -137,10 +154,8 @@
 		186A7514206510340013D863 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		186A7520206514A60013D863 /* DateTimeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeUtility.swift; sourceTree = "<group>"; };
 		186A7522206536FD0013D863 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
-		1872284F206CDF2200CD3076 /* TeacherQulificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherQulificationVC.swift; sourceTree = "<group>"; };
 		18722851206CE07D00CD3076 /* ClassHourlyRateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassHourlyRateVC.swift; sourceTree = "<group>"; };
 		18722853206CE0B400CD3076 /* AccountDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailVC.swift; sourceTree = "<group>"; };
-		18722855206CE0C700CD3076 /* TeacherFinishVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFinishVC.swift; sourceTree = "<group>"; };
 		18722857206CEF4900CD3076 /* VerificationCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeVC.swift; sourceTree = "<group>"; };
 		18750BAF2074957300ABF3B6 /* Class.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Class.storyboard; sourceTree = "<group>"; };
 		18750BB12074967E00ABF3B6 /* Message.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Message.storyboard; sourceTree = "<group>"; };
@@ -151,8 +166,9 @@
 		18803981206A283C00179778 /* TeacherDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailVC.swift; sourceTree = "<group>"; };
 		18803983206A2A6700179778 /* CustomClassesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomClassesTVC.swift; sourceTree = "<group>"; };
 		18803984206A2A6700179778 /* CustomClassesTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomClassesTVC.xib; sourceTree = "<group>"; };
+		188FB351207E20AA00663CE7 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		188FB356207E257B00663CE7 /* TutableModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TutableModel.xcdatamodel; sourceTree = "<group>"; };
 		18AE596C206B93F400B6D324 /* DatePickerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerManager.swift; sourceTree = "<group>"; };
-		18AE596E206BAB4300B6D324 /* TeacherCertificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherCertificationVC.swift; sourceTree = "<group>"; };
 		18AE5971206BCA8A00B6D324 /* AddClassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClassVC.swift; sourceTree = "<group>"; };
 		18AE5973206BD0C600B6D324 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18B99180206923FD009F8A13 /* CustomMessagesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMessagesTVC.swift; sourceTree = "<group>"; };
@@ -209,6 +225,18 @@
 			path = "My Class";
 			sourceTree = "<group>";
 		};
+		185CC562207DE36100B05B8A /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				185CC563207DE36100B05B8A /* ReceiverChatMessageTVC.xib */,
+				185CC564207DE36100B05B8A /* ReceiverChatMessageTVC.swift */,
+				185CC565207DE36100B05B8A /* SendChatMessageTVC.xib */,
+				185CC566207DE36100B05B8A /* MessageCell.swift */,
+				185CC567207DE36100B05B8A /* SendChatMessageTVC.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		18615BC92068B8C8004A6876 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				18615BD22068B926004A6876 /* MessageVC.swift */,
+				188FB351207E20AA00663CE7 /* ChatViewController.swift */,
 				18119191207601C900CC9D3D /* NotificationVC.swift */,
 			);
 			path = Messages;
@@ -250,11 +279,7 @@
 			children = (
 				18615BCE2068B8E5004A6876 /* ProfileVC.swift */,
 				18615BDA2068D1CE004A6876 /* EditStudentProfileVC.swift */,
-				1810644F206A80F800FE9452 /* EditTeacherProfileVC.swift */,
-				18106451206A84BB00FE9452 /* TeacherAvailabilityVC.swift */,
-				18AE596E206BAB4300B6D324 /* TeacherCertificationVC.swift */,
-				1872284F206CDF2200CD3076 /* TeacherQulificationVC.swift */,
-				18722855206CE0C700CD3076 /* TeacherFinishVC.swift */,
+				185CC577207DEAA400B05B8A /* EditTeacherProfileVC.swift */,
 				18722853206CE0B400CD3076 /* AccountDetailVC.swift */,
 			);
 			path = Profile;
@@ -281,6 +306,7 @@
 				181191942076391D00CC9D3D /* CustomNotificationTVC.xib */,
 				184637E8207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift */,
 				184637E9207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib */,
+				185CC562207DE36100B05B8A /* Chat */,
 			);
 			path = "TableView Cell";
 			sourceTree = "<group>";
@@ -318,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				184637E7207B388800F0B8A4 /* Tutable.entitlements */,
+				188FB356207E257B00663CE7 /* TutableModel.xcdatamodel */,
 				186A74ED2064BFCD0013D863 /* AppDelegate.swift */,
 				186A74F12064BFCD0013D863 /* Main.storyboard */,
 				18750BAF2074957300ABF3B6 /* Class.storyboard */,
@@ -353,6 +380,11 @@
 				186A7504206504CB0013D863 /* WelcomePageVC.swift */,
 				186A7522206536FD0013D863 /* ForgotPasswordVC.swift */,
 				18615BD82068CC42004A6876 /* ResetPasswordVC.swift */,
+				185CC56E207DEA6C00B05B8A /* AddTeacherProfileVC.swift */,
+				185CC570207DEA6D00B05B8A /* TeacherAvailabilityVC.swift */,
+				185CC571207DEA6D00B05B8A /* TeacherCertificationVC.swift */,
+				185CC56F207DEA6D00B05B8A /* TeacherQulificationVC.swift */,
+				185CC56D207DEA6C00B05B8A /* TeacherFinishVC.swift */,
 			);
 			path = "Login Module";
 			sourceTree = "<group>";
@@ -398,8 +430,8 @@
 				18B9919420693973009F8A13 /* ClassDetailVC.swift */,
 				D8D49B252077962F00CC4851 /* ClassBookingRequestVC.swift */,
 				D8D49B2B2077BBF400CC4851 /* CreditCardDetailVC.swift */,
-				18C441CC206A673D005C6251 /* ClassesListVC.swift */,
 				18803981206A283C00179778 /* TeacherDetailVC.swift */,
+				18C441CC206A673D005C6251 /* ClassesListVC.swift */,
 				18750BB52074F1DB00ABF3B6 /* AddRateReviewVC.swift */,
 				1880397D206A14CA00179778 /* ReviewListVC.swift */,
 			);
@@ -499,8 +531,10 @@
 				18FE55692073A2E300FE4C36 /* CustomUpcomingBookingTVC.xib in Resources */,
 				18B99183206923FD009F8A13 /* CustomMessagesTVC.xib in Resources */,
 				1815CB342071EFCC0081F852 /* CustomMyClassTVC.xib in Resources */,
+				185CC56A207DE36200B05B8A /* SendChatMessageTVC.xib in Resources */,
 				18B99190206938E8009F8A13 /* CustomReviewsTVC.xib in Resources */,
 				186A74F32064BFCD0013D863 /* Main.storyboard in Resources */,
+				185CC568207DE36200B05B8A /* ReceiverChatMessageTVC.xib in Resources */,
 				1810644E206A7DF500FE9452 /* CustomTimeSlotTVC.xib in Resources */,
 				18AE5974206BD0C700B6D324 /* GoogleService-Info.plist in Resources */,
 				186A751A206510340013D863 /* CustomTabBarView.xib in Resources */,
@@ -532,7 +566,10 @@
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/PEPhotoCropEditor/PEPhotoCropEditor.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -549,7 +586,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PEPhotoCropEditor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -620,11 +660,13 @@
 				18FE55642073950B00FE4C36 /* PastBookingVC.swift in Sources */,
 				18615BD12068B90D004A6876 /* SettingsVC.swift in Sources */,
 				18B9918D20692841009F8A13 /* CustomClassesCVC.swift in Sources */,
+				185CC578207DEAA400B05B8A /* EditTeacherProfileVC.swift in Sources */,
 				186A74F02064BFCD0013D863 /* ViewController.swift in Sources */,
-				18722856206CE0C700CD3076 /* TeacherFinishVC.swift in Sources */,
 				1880397E206A14CA00179778 /* ReviewListVC.swift in Sources */,
 				18AE5972206BCA8A00B6D324 /* AddClassVC.swift in Sources */,
 				186A7521206514A60013D863 /* DateTimeUtility.swift in Sources */,
+				185CC573207DEA6D00B05B8A /* AddTeacherProfileVC.swift in Sources */,
+				185CC574207DEA6D00B05B8A /* TeacherQulificationVC.swift in Sources */,
 				18B99182206923FD009F8A13 /* CustomMessagesTVC.swift in Sources */,
 				186A7515206510340013D863 /* AppModel.swift in Sources */,
 				186A751E206510340013D863 /* GlobalConstant.swift in Sources */,
@@ -635,9 +677,7 @@
 				186A7523206536FD0013D863 /* ForgotPasswordVC.swift in Sources */,
 				18722858206CEF4A00CD3076 /* VerificationCodeVC.swift in Sources */,
 				186A7518206510340013D863 /* Utility.swift in Sources */,
-				18106452206A84BB00FE9452 /* TeacherAvailabilityVC.swift in Sources */,
 				181191952076391D00CC9D3D /* CustomNotificationTVC.swift in Sources */,
-				18722850206CDF2200CD3076 /* TeacherQulificationVC.swift in Sources */,
 				18803982206A283C00179778 /* TeacherDetailVC.swift in Sources */,
 				186A7517206510340013D863 /* Preference.swift in Sources */,
 				184637EA207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift in Sources */,
@@ -654,25 +694,31 @@
 				1815CB2A2071EC410081F852 /* MyClassVC.swift in Sources */,
 				18B9918920692835009F8A13 /* EntertainmentVC.swift in Sources */,
 				D8D49B2C2077BBF400CC4851 /* CreditCardDetailVC.swift in Sources */,
+				185CC576207DEA6D00B05B8A /* TeacherCertificationVC.swift in Sources */,
 				186A751D206510340013D863 /* UIImage+ProportionalFill.m in Sources */,
 				18C441CB206A5ECC005C6251 /* RegistrationVC.swift in Sources */,
 				18FE5562207394F600FE4C36 /* UpcomingBookingVC.swift in Sources */,
-				18AE596F206BAB4300B6D324 /* TeacherCertificationVC.swift in Sources */,
+				188FB352207E20AB00663CE7 /* ChatViewController.swift in Sources */,
 				18803980206A18E200179778 /* FloatRatingView.swift in Sources */,
+				185CC56C207DE36200B05B8A /* SendChatMessageTVC.swift in Sources */,
+				185CC575207DEA6D00B05B8A /* TeacherAvailabilityVC.swift in Sources */,
 				18119192207601C900CC9D3D /* NotificationVC.swift in Sources */,
 				18C441CD206A673D005C6251 /* ClassesListVC.swift in Sources */,
+				185CC572207DEA6D00B05B8A /* TeacherFinishVC.swift in Sources */,
 				186A7516206510340013D863 /* DisablePasteForTextField.swift in Sources */,
 				18615BD52068B93A004A6876 /* BrowseVC.swift in Sources */,
 				18615BD32068B926004A6876 /* MessageVC.swift in Sources */,
 				186A7503206504B60013D863 /* StudentRegistration.swift in Sources */,
-				18106450206A80F800FE9452 /* EditTeacherProfileVC.swift in Sources */,
 				186A7501206504A30013D863 /* LoginVC.swift in Sources */,
 				18803985206A2A6700179778 /* CustomClassesTVC.swift in Sources */,
 				18B99191206938E8009F8A13 /* CustomReviewsTVC.swift in Sources */,
 				18B9919320693943009F8A13 /* ExpandableLabel.swift in Sources */,
+				185CC569207DE36200B05B8A /* ReceiverChatMessageTVC.swift in Sources */,
 				18615BDB2068D1CE004A6876 /* EditStudentProfileVC.swift in Sources */,
+				188FB357207E257C00663CE7 /* TutableModel.xcdatamodel in Sources */,
 				18722852206CE07D00CD3076 /* ClassHourlyRateVC.swift in Sources */,
 				186A751B206510340013D863 /* CustomTabBarView.swift in Sources */,
+				185CC56B207DE36200B05B8A /* MessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

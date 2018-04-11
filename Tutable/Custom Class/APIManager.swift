@@ -582,11 +582,11 @@ public class APIManager {
                 multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
             }
             
-            if degreeData.count != 0
+            if degreeData != nil && degreeData.count != 0
             {
                 multipartFormData.append(degreeData, withName: "degreeAsset", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
             }
-            if pictureData.count != 0
+            if pictureData != nil && pictureData.count != 0
             {
                 multipartFormData.append(pictureData, withName: "picture", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
             }
@@ -961,7 +961,7 @@ public class APIManager {
         }
     }
     
-    func serviceCallToGetClassList(_ categoryId : String, completion: @escaping (_ dataArr : [[String : Any]]) -> Void){
+    func serviceCallToGetClassList(_ categoryId : String, teacherId : String, completion: @escaping (_ dataArr : [[String : Any]]) -> Void){
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -973,7 +973,7 @@ public class APIManager {
         }
         else
         {
-            params["teacherId"] = AppModel.shared.currentUser.id
+            params["teacherId"] = teacherId
         }
         Alamofire.request(BASE_URL+"class/list", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
             

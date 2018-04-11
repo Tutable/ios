@@ -19,6 +19,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var isLoadNextData : Bool = true
     var refreshControl : UIRefreshControl = UIRefreshControl()
     
+    // MARK: - Viewcontroller method
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -145,6 +146,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    // MARK: - Button click event
     @IBAction func clickToAccept(_ sender: UIButton) {
         let dict : [String : Any] = arrNotiData[sender.tag]
         
@@ -179,6 +181,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    // MARK: - Service called
     func serviceCallForNotificationList()
     {
         var dict : [String : Any] = [String : Any]()

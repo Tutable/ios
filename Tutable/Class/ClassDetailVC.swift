@@ -37,6 +37,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     var classData : ClassModel = ClassModel()
     var reviewArr : [[String : Any]] = [[String : Any]]()
     var teacherData : UserModel = UserModel()
+    var reviewData : [[String : Any]] = [[String : Any]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +81,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             self.classData = ClassModel.init(dict: dictData)
             self.setClassDetail()
             self.getTeacherDetail()
+            self.getReviewsList()
         }
     }
     
@@ -92,6 +94,14 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func setClassDetail()
     {
+        if !isStudentLogin() && classData.teacher.id == AppModel.shared.currentUser.id
+        {
+            editClassBtn.isHidden = false
+        }
+        else
+        {
+            editClassBtn.isHidden = true
+        }
         let url : String = BASE_URL + classData.payload!
         classImg.sd_setImage(with: URL(string : url)) { (image, error, caheType, url) in
             if error == nil
@@ -207,6 +217,14 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
+    }
+    
+    func getReviewsList()
+    {
+        APIManager.sharedInstance.serviceCallToGetReviewList(classData.id) { (dictArr) in
+            self.reviewData = dictArr
+            self.tblView.reloadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {

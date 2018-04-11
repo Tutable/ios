@@ -45,7 +45,7 @@ class EntertainmentVC: UIViewController, UICollectionViewDataSource, UICollectio
     
     func getClassList()
     {
-        APIManager.sharedInstance.serviceCallToGetClassList(categoryData.id) { (dataArr) in
+        APIManager.sharedInstance.serviceCallToGetClassList(categoryData.id, teacherId: "") { (dataArr) in
             self.classData = [ClassModel]()
             for temp in dataArr
             {
