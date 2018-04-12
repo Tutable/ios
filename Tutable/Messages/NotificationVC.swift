@@ -42,6 +42,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             tabBar.setTabBarHidden(tabBarHidden: true)
         }
         refreshNotificationList()
+        AppModel.shared.currentUser.notifications = 0
     }
     
     @objc func refreshNotificationList()
@@ -81,8 +82,29 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         if isStudentLogin()
         {
             let cell = tblView.dequeueReusableCell(withIdentifier: "CustomNotificationTVC", for: indexPath) as! CustomNotificationTVC
-            
-            
+            let dict : [String : Any] = arrNotiData[indexPath.row]
+            var teacherName : String = ""
+            if let teacherData : [String : Any] = dict["teacher"] as? [String : Any]
+            {
+                if let temp : String = teacherData["name"] as? String
+                {
+                    teacherName = temp
+                }
+                if let temp : String = teacherData["picture"] as? String
+                {
+                    APIManager.sharedInstance.serviceCallToGetPhoto(temp, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [cell.profilePicBtn])
+                }
+            }
+            cell.titleName.text = teacherName.capitalized
+            cell.subTitleLbl.text = dict["title"] as? String
+            if let classData : [String : Any] = dict["class"] as? [String : Any]
+            {
+                if let temp : String = classData["name"] as? String
+                {
+                    cell.subTitleLbl.text = cell.subTitleLbl.text! + " for " + temp.capitalized + " class"
+                }
+            }
+            cell.dateTimeLbl.text = getDateStringFromDate(date: getDateFromTimeStamp(dict["timestamp"] as! Double), format: "dd MMM at hh:mm a")
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             return cell
         }
@@ -100,6 +122,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                     className = temp
                 }
             }
+            className = className.capitalized
             
             var studentName : String = ""
             if let studentData : [String : Any] = dict["student"] as? [String : Any]
@@ -108,8 +131,11 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 {
                     studentName = temp
                 }
+                if let temp : String = studentData["picture"] as? String
+                {
+                    APIManager.sharedInstance.serviceCallToGetPhoto(temp, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [cell.profilePicBtn])
+                }
             }
-            className = className.capitalized
             studentName = studentName.capitalized
             
             let noramlText : String = studentName + " requested for " + className
@@ -159,6 +185,9 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if isSuccess
                 {
                     displayToast("Booking request accepted")
+                    APIManager.sharedInstance.serviceCallToRemoveNotification(dict["id"] as! String)
+                    self.arrNotiData.remove(at: sender.tag)
+                    self.tblView.reloadData()
                 }
             }
         }
@@ -176,10 +205,14 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if isSuccess
                 {
                     displayToast("Booking request rejected")
+                    APIManager.sharedInstance.serviceCallToRemoveNotification(dict["id"] as! String)
+                    self.arrNotiData.remove(at: sender.tag)
+                    self.tblView.reloadData()
                 }
             }
         }
     }
+    
     
     // MARK: - Service called
     func serviceCallForNotificationList()

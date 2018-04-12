@@ -150,7 +150,7 @@ you want to cancel this class?</string>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="aD9-ks-DXk"/>
                                     </constraints>
-                                    <string key="text">You may loss a 20% deposit if cancelling
+                                    <string key="text">You may loss 20% deposit if cancelling
 within 24 hours of the start time.</string>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                     <color key="textColor" red="0.27450980390000002" green="0.27450980390000002" blue="0.27450980390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

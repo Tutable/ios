@@ -50,7 +50,7 @@ class AddRateReviewVC: UIViewController, UITextViewDelegate {
         reviewTxtView.addCornerRadiusOfView(5.0)
         reviewTxtView.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.LIGHT_GRAY))
         starView.type = .floatRatings
-        
+        starView.editable = true
         setClassDetail()
     }
     

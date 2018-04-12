@@ -87,7 +87,7 @@ public class APIManager {
                             }
                         }
                         if let message = result["message"] as? String{
-                            displayToast(message)
+                            //displayToast(message)
                             return
                         }
                     }
@@ -162,7 +162,7 @@ public class APIManager {
                         if(message == "User is not verified. Verify verification code first."){
                             completion((result["code"] as? Int)!)
                         }
-                        displayToast(message)
+                        //displayToast(message)
                         return
                     }
                 }
@@ -232,7 +232,7 @@ public class APIManager {
                         if(message == "User is not verified. Verify verification code first."){
                             completion((result["code"] as? Int)!)
                         }
-                        displayToast(message)
+                        //displayToast(message)
                         return
                     }
                 }
@@ -290,7 +290,7 @@ public class APIManager {
                         return
                     }
                     if let message = result["message"] as? String{
-                        displayToast(message)
+                        //displayToast(message)
                         return
                     }
                 }
@@ -338,7 +338,7 @@ public class APIManager {
                         }
                     }
                     if let message = result["message"] as? String{
-                        displayToast(message)
+                        //displayToast(message)
                         return
                     }
                 }
@@ -380,7 +380,7 @@ public class APIManager {
                         }
                     }
                     if let message = result["message"] as? String{
-                        displayToast(message)
+                        //displayToast(message)
                         return
                     }
                 }
@@ -431,7 +431,7 @@ public class APIManager {
                         }
                     }
                     if let message = result["message"] as? String{
-                        displayToast(message)
+                        //displayToast(message)
                         return
                     }
                 }
@@ -610,13 +610,13 @@ public class APIManager {
                             }
                         }
                         if let message = result["message"] as? String{
-                            displayToast(message)
+                            //displayToast(message)
                             return
                         }
                     }
                     
                     if let error = response.error{
-                        displayToast(error.localizedDescription)
+                        //displayToast(error.localizedDescription)
                         return
                     }
                 }
@@ -667,7 +667,7 @@ public class APIManager {
                             }
                         }
                         if let message = result["message"] as? String{
-                            displayToast(message)
+                            //displayToast(message)
                             return
                         }
                     }
@@ -724,7 +724,7 @@ public class APIManager {
                             }
                         }
                         if let message = result["message"] as? String{
-                            displayToast(message)
+                            //displayToast(message)
                             return
                         }
                     }
@@ -887,7 +887,7 @@ public class APIManager {
                             }
                         }
                         if let message = result["message"] as? String{
-                            displayToast(message)
+                            //displayToast(message)
                             return
                         }
                     }
@@ -942,7 +942,7 @@ public class APIManager {
                             }
                         }
                         if let message = result["message"] as? String{
-                            displayToast(message)
+                            //displayToast(message)
                             return
                         }
                     }
@@ -1062,7 +1062,7 @@ public class APIManager {
                         }
                     }
                     if let message = result["message"] as? String{
-                        displayToast(message)
+                        //displayToast(message)
                         return
                     }
                 }
@@ -1130,7 +1130,7 @@ public class APIManager {
                         }
                     }
                     if let message = result["message"] as? String{
-                        displayToast(message)
+                        //displayToast(message)
                         return
                     }
                 }
@@ -1267,6 +1267,24 @@ public class APIManager {
                 {
                     return
                 }
+                break
+            case .failure(let error):
+                print(error)
+                break
+            }
+        }
+    }
+    
+    func serviceCallToRemoveNotification(_ notiID : String){
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        
+        var params : [String : Any] = [String : Any]()
+        params["notificationId"] = notiID
+        
+        Alamofire.request(BASE_URL + "notifications/delete", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            switch response.result {
+            case .success:
+                print(response.result.value!)
                 break
             case .failure(let error):
                 print(error)

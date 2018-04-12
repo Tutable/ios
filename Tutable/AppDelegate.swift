@@ -345,6 +345,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         print("==================\n\nDeviceID : " + getDeviceToken() + "\n\n==================")
         
         setupFirebase()
+        setDataToPreference(data: true as AnyObject, forKey: "isLastSeenUpdate")
     }
     
     //MARK:- Logout
@@ -487,7 +488,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             {
                 AppModel.shared.isFCMConnected = true
                 AppModel.shared.firebaseCurrentUser = FirebaseUserModel.init(dict: AppModel.shared.currentUser.dictionary())
-                AppModel.shared.firebaseCurrentUser.fcmToken = getDeviceToken()
+                AppModel.shared.firebaseCurrentUser.fcmToken = self.getFcmToken()
                 self.updateCurrentUserData()
                 self.callAllHandler()
             }
@@ -505,9 +506,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             {
                 AppModel.shared.isFCMConnected = true
                 AppModel.shared.firebaseCurrentUser = FirebaseUserModel.init(dict: AppModel.shared.currentUser.dictionary())
-                AppModel.shared.firebaseCurrentUser.fcmToken = getDeviceToken()
+                AppModel.shared.firebaseCurrentUser.fcmToken = self.getFcmToken()
                 self.updateCurrentUserData()
-                self.appUsersHandler()
+                self.callAllHandler()
             }
             else
             {
@@ -657,7 +658,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         {
             let rootNavigationVc : UINavigationController = self.window?.rootViewController as! UINavigationController
             if #available(iOS 10.0, *) {
-                let vc : ChatViewController = self.storyboard().instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+                let vc : ChatViewController = STORYBOARD.MESSAGE.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
                 vc.channelId = tappedChannelID
                 vc.receiver = connectUser
                 rootNavigationVc.pushViewController(vc, animated: true)
@@ -985,6 +986,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber + 1
         //application.applicationIconBadgeNumber = Int((userInfo["aps"] as! [String : Any])["badge"] as! String)!
+    }
+}
+
+extension AppDelegate : MessagingDelegate {
+    func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
+        //print("Firebase registration token: \(fcmToken)")
+        userFcmToken = fcmToken
+    }
+    
+    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+        //print("Received data message: \(remoteMessage.appData)")
     }
 }
 

@@ -46,16 +46,26 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     var uploadImage : UIImage!
     
     var isAppear:Bool = false
-    
+    var otherUserStatus : UIColor = colorFromHex(hex: COLOR.APP_COLOR)
+    var loginUserStatus : UIColor = colorFromHex(hex: COLOR.APP_COLOR)
+        
     override func viewWillDisappear(_ animated: Bool) {
         isAppear = false
         DispatchQueue.main.async {
             removeLoader()
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
+        if self.tabBarController != nil
+        {
+            let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
+            self.edgesForExtendedLayout = UIRectEdge.bottom
+            tabBar.setTabBarHidden(tabBarHidden: true)
+        }
         isAppear = true
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.fetchFirebaseMessages()
         self.onUpdateFirebaseMessages()
@@ -85,7 +95,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
  
         continueFetchData()
         
-        _PhotoSelectionVC = self.storyboard?.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
+        _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
     }
@@ -126,12 +136,22 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             {
                 lastSeenTimer.invalidate()
             }
+            otherUserStatus = colorFromHex(hex: COLOR.APP_COLOR)
         }
         else
         {
             lastSeenLbl.text = getDifferenceFromCurrentTimeInHourInDays(Double(receiver.last_seen)!)
             lastSeenTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.updateUserLastSeen), userInfo: nil, repeats: false)
+            if getDifferenceFromCurrentTime(Double(receiver.last_seen)!) < 60
+            {
+                otherUserStatus = colorFromHex(hex: COLOR.ORANGE_COLOR)
+            }
+            else
+            {
+                otherUserStatus = colorFromHex(hex: COLOR.LIGHT_GRAY)
+            }
         }
+        tblView.reloadData()
     }
     
     @objc func onUpdateStories()
@@ -345,6 +365,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     
     @IBAction func clickToBack(_ sender: Any)
     {
+        self.view.endEditing(true)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATION.UPDATE_INBOX_LIST), object: nil)
         self.navigationController?.popViewController(animated: true)
     }
@@ -383,7 +404,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         let dict : MessageModel = messages[indexPath.row]
-        if dict.otherUserId == AppModel.shared.firebaseCurrentUser.id
+        if dict.otherUserId != AppModel.shared.firebaseCurrentUser.id
         {
             var cell:SendChatMessageTVC!
             cell = offscreenCellSender["SendChatMessageTVC"] as? SendChatMessageTVC
@@ -395,7 +416,11 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             
             let sizeThatFitsTextView:CGSize = cell.messageTxtView.sizeThatFits(CGSize(width: tblView.frame.size.width-110, height: CGFloat(MAXFLOAT)))
             cell.ConstraintWidthMessageView.constant = sizeThatFitsTextView.width + 5
-            cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height + 5
+            if cell.ConstraintWidthMessageView.constant < 170
+            {
+                cell.ConstraintWidthMessageView.constant = 170
+            }
+            cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height + 5 + 20
             
             var headerHeight : CGFloat = 0
             if indexPath.row == 0 || isSameDate(firstDate: dict.date, secondDate: messages[indexPath.row-1].date) == false
@@ -419,12 +444,14 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             
             let sizeThatFitsTextView:CGSize = cell.messageTxtView.sizeThatFits(CGSize(width: tblView.frame.size.width-110, height: CGFloat(MAXFLOAT)))
             cell.ConstraintWidthMessageView.constant = sizeThatFitsTextView.width + 5
-            cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height + 5
+            if cell.ConstraintWidthMessageView.constant < 170
+            {
+                cell.ConstraintWidthMessageView.constant = 170
+            }
+            cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height + 5 + 20
             var headerHeight : CGFloat = 0
             if indexPath.row == 0 || isSameDate(firstDate: dict.date, secondDate: messages[indexPath.row-1].date) == false
             {
-                cell.headerView.isHidden = false
-                cell.headerLbl.text = getdayDifferenceFromCurrentDay(Double(dict.date)!)
                 headerHeight = 30
             }
             return 70 - 35 + cell.ConstraintHeightMessageView.constant + headerHeight
@@ -437,15 +464,16 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         
         let dict : MessageModel = messages[indexPath.row]
         
-        if dict.otherUserId == AppModel.shared.firebaseCurrentUser.id {
+        if dict.otherUserId != AppModel.shared.firebaseCurrentUser.id {
             //sender message
             cell = tblView.dequeueReusableCell(withIdentifier: "SendChatMessageTVC", for: indexPath) as! MessageCell
             setUserProfileImage(AppModel.shared.currentUser, button: cell.profilePicBtn)
             cell.messageTxtView.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : UIColor.white]
+            cell.statusImgView.backgroundColor = loginUserStatus
         }
         else{
             cell = tblView.dequeueReusableCell(withIdentifier: "ReceiverChatMessageTVC", for: indexPath) as! MessageCell
-            if var picture = receiver.picture
+            if let picture = receiver.picture
             {
                 APIManager.sharedInstance.serviceCallToGetPhoto(picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [cell.profilePicBtn])
             }
@@ -454,6 +482,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
                 cell.profilePicBtn.setBackgroundImage(UIImage.init(named: IMAGE.USER_PLACEHOLDER), for: .normal)
             }
             cell.messageTxtView.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : colorFromHex(hex: "3C3739")]
+            cell.statusImgView.backgroundColor = otherUserStatus
         }
         
         if indexPath.row == 0 || isSameDate(firstDate: dict.date, secondDate: messages[indexPath.row-1].date) == false
@@ -472,10 +501,14 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         if indexPath.row > 0  && dict.otherUserId == messages[indexPath.row-1].otherUserId
         {
             cell.profilePicView.isHidden = true
+            cell.statusImgView.isHidden = true
+            cell.arrowBtn.isHidden = true
         }
         else
         {
             cell.profilePicView.isHidden = false
+            cell.statusImgView.isHidden = false
+            cell.arrowBtn.isHidden = false
         }
         
         cell.durationLbl.text = getDateTimeStringFromServerTimeStemp(Double(dict.date)!)
@@ -483,7 +516,11 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         cell.messageTxtView.text = dict.text.decoded
         let sizeThatFitsTextView:CGSize = cell.messageTxtView.sizeThatFits(CGSize(width: tblView.frame.size.width-110, height: CGFloat(MAXFLOAT)))
         cell.ConstraintWidthMessageView.constant = sizeThatFitsTextView.width + 5
-        cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height + 5
+        if cell.ConstraintWidthMessageView.constant < 170
+        {
+            cell.ConstraintWidthMessageView.constant = 170
+        }
+        cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height + 5 + 20
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }
@@ -557,6 +594,17 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     {
         constraintHeightTblView.constant = self.view.frame.size.height - (70 + constraintHeightMsgTextView.constant)
         scrollTableviewToBottom()
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        AppModel.shared.firebaseCurrentUser.isType = 1
+        AppDelegate().sharedDelegate().updateCurrentUserData()
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        AppModel.shared.firebaseCurrentUser.isType = 0
+        AppDelegate().sharedDelegate().updateCurrentUserData()
+        return true
     }
     
     //MARK: - Custom Popup

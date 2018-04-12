@@ -28,6 +28,7 @@ class CustomUpcomingBookingTVC: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
        starView.type = .floatRatings
+        starView.editable = false
     }
 
     func setCellDesign()

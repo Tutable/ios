@@ -16,7 +16,7 @@ class VerificationCodeVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var doneBtn: UIButton!
     
     var timer : Timer = Timer()
-    var timeValue : Int = 59
+    var timeValue : Int = 119
     var isFromLoginScreen : Bool = false
     var tokenType : Int = 1
     
@@ -44,13 +44,14 @@ class VerificationCodeVC: UIViewController, UITextFieldDelegate {
         else{
             startVerificationTimer()
         }
+        
     }
     
     func startVerificationTimer()
     {
-        resendBtn.setTitle("Please wait 1:00", for: .normal)
+        resendBtn.setTitle("Please wait 2:00", for: .normal)
         resendBtn.isUserInteractionEnabled = false
-        timeValue = 59
+        timeValue = 119
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateVerificationTime), userInfo: nil, repeats: true)
     }
     

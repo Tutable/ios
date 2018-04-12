@@ -24,7 +24,7 @@ class AppModel: NSObject {
     var UPLOADING_STORY_QUEUE : [String : String] = [String : String] () // id of story
     
     func validateUser(dict : [String : Any]) -> Bool{
-        if let uID = dict["_id"] as? String, let email = dict["email"] as? String
+        if let uID = dict["id"] as? String, let email = dict["email"] as? String
         {
             if(uID != "" && email != ""){
                 return true
@@ -34,7 +34,7 @@ class AppModel: NSObject {
     }
     
     func validateInbox(dict : [String : Any]) -> Bool{
-        if let id = dict["conversationKey"] as? String, let lastMessage = dict["lastMessage"] as? [String:Any]
+        if let id = dict["id"] as? String, let lastMessage = dict["lastMessage"] as? [String:Any]
         {
             if(id != "" && validateLastMessage(dict:lastMessage)){
                 return true
@@ -43,7 +43,7 @@ class AppModel: NSObject {
         return false
     }
     func validateLastMessage(dict : [String : Any]) -> Bool{
-        if let msgID = dict["msgId"] as? String, let key = dict["key"] as? String, let connectUserID = dict["receiver"] as? String
+        if let msgID = dict["msgId"] as? String, let key = dict["key"] as? String, let connectUserID = dict["otherUserId"] as? String
         {
             if(msgID != "" && key != "" && connectUserID != ""){
                 return true
@@ -86,6 +86,7 @@ class UserModel:AppModel{
     var deviceId : String!
     var policeCert : String!
     var childrenCert : String!
+    var notifications : Int!
     
     override init(){
         id = ""
@@ -110,6 +111,7 @@ class UserModel:AppModel{
         deviceId = ""
         policeCert = ""
         childrenCert = ""
+        notifications = 0
     }
     init(dict : [String : Any])
     {
@@ -135,6 +137,7 @@ class UserModel:AppModel{
         deviceId = ""
         policeCert = ""
         childrenCert = ""
+        notifications = 0
         
         if let Id = dict["id"] as? String{
             id = Id
@@ -246,12 +249,14 @@ class UserModel:AppModel{
                     name = temp
                 }
             }
-            
+        }
+        if let temp = dict["notifications"] as? Int{
+            notifications = temp
         }
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert]
+        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert, "notifications" : notifications]
     }
     
     func toJson(_ dict:[String:Any]) -> String{
@@ -533,6 +538,7 @@ class FirebaseUserModel:AppModel{
     var last_seen : String!
     var fcmToken : String!
     var picture : String!
+    var isType : Int!
     
     override init(){
         id = ""
@@ -541,6 +547,7 @@ class FirebaseUserModel:AppModel{
         last_seen = ""
         fcmToken = ""
         picture = ""
+        isType = 0
     }
     init(dict : [String : Any])
     {
@@ -550,11 +557,12 @@ class FirebaseUserModel:AppModel{
         last_seen = ""
         fcmToken = ""
         picture = ""
+        isType = 0
         
         if let temp = dict["id"] as? String{
             id = temp
         }
-        if let temp = dict["firstName"] as? String{
+        if let temp = dict["name"] as? String{
             name = temp
         }
         if let temp = dict["email"] as? String{
@@ -569,11 +577,13 @@ class FirebaseUserModel:AppModel{
         if let temp = dict["picture"] as? String{
             picture = temp
         }
-        
+        if let temp = dict["isType"] as? Int{
+            isType = temp
+        }
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"email" : email, "last_seen" : last_seen, "fcmToken" : fcmToken, "picture" : picture]
+        return ["id":id,"name":name,"email" : email, "last_seen" : last_seen, "fcmToken" : fcmToken, "picture" : picture, "isType" : isType]
     }
     
     func toJson(_ dict:[String:Any]) -> String{

@@ -1,5 +1,5 @@
 //
-//  EntertainmentVC.swift
+//  SubClassVC.swift
 //  VillageApp
 //
 //  Created by Amisha on 3/24/18.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-class EntertainmentVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+class SubClassVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
 
+    @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var classCollectionView: UICollectionView!
     @IBOutlet weak var notiCountLbl: UILabel!
     @IBOutlet weak var noDataFoundLbl: UILabel!
@@ -20,6 +21,7 @@ class EntertainmentVC: UIViewController, UICollectionViewDataSource, UICollectio
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        titleLbl.text = categoryData.title
         notiCountLbl.isHidden = true
         classCollectionView.register(UINib(nibName:"CustomClassesCVC", bundle: nil), forCellWithReuseIdentifier: "CustomClassesCVC")
         // Do any additional setup after loading the view.
@@ -30,6 +32,17 @@ class EntertainmentVC: UIViewController, UICollectionViewDataSource, UICollectio
         let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
         self.edgesForExtendedLayout = UIRectEdge.bottom
         tabBar.setTabBarHidden(tabBarHidden: true)
+        
+        if AppModel.shared.currentUser.notifications > 0
+        {
+            notiCountLbl.text = String(AppModel.shared.currentUser.notifications)
+            notiCountLbl.isHidden = false
+        }
+        else
+        {
+            notiCountLbl.text = ""
+            notiCountLbl.isHidden = true
+        }
         
         getClassList()
     }

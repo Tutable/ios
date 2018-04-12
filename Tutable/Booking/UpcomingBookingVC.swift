@@ -131,9 +131,7 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
     }
 
     @IBAction func clickToChatBtn(_ sender: UIButton) {
-//        let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
-//        vc.classData = arrUpcomingBookingData[sender.tag].classDetails
-//        self.navigationController?.pushViewController(vc, animated: true)
+
     }
 
     

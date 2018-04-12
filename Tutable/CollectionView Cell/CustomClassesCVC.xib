@@ -79,7 +79,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asU-z1-cCC" customClass="FloatRatingView" customModule="Tutable" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="190" width="80" height="19"/>
+                                <rect key="frame" x="0.0" y="188" width="80" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="s8W-gT-Gw4"/>
                                     <constraint firstAttribute="width" constant="80" id="vCY-0q-ybu"/>
@@ -102,7 +102,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="asU-z1-cCC" secondAttribute="bottom" constant="1" id="3SM-oJ-KCQ"/>
+                            <constraint firstAttribute="bottom" secondItem="asU-z1-cCC" secondAttribute="bottom" constant="3" id="3SM-oJ-KCQ"/>
                             <constraint firstItem="0n3-3b-t0s" firstAttribute="top" secondItem="EjF-KO-9FL" secondAttribute="bottom" constant="10" id="45U-7p-IeM"/>
                             <constraint firstItem="asU-z1-cCC" firstAttribute="leading" secondItem="Xoz-PB-zD0" secondAttribute="leading" id="AeI-4h-P4C"/>
                             <constraint firstItem="EjF-KO-9FL" firstAttribute="top" secondItem="nWx-Om-Xqt" secondAttribute="bottom" constant="8" id="B6P-Rm-o62"/>
@@ -113,7 +113,7 @@
                             <constraint firstAttribute="trailing" secondItem="EjF-KO-9FL" secondAttribute="trailing" id="dKz-2t-PDX"/>
                             <constraint firstItem="nWx-Om-Xqt" firstAttribute="top" secondItem="Xoz-PB-zD0" secondAttribute="top" id="khc-aM-37H"/>
                             <constraint firstAttribute="bottom" secondItem="0n3-3b-t0s" secondAttribute="bottom" constant="6" id="sxx-JY-7Sb"/>
-                            <constraint firstItem="asU-z1-cCC" firstAttribute="top" secondItem="EjF-KO-9FL" secondAttribute="bottom" constant="10" id="tQk-WJ-13n"/>
+                            <constraint firstItem="asU-z1-cCC" firstAttribute="top" secondItem="EjF-KO-9FL" secondAttribute="bottom" constant="8" id="tQk-WJ-13n"/>
                         </constraints>
                     </view>
                 </subviews>

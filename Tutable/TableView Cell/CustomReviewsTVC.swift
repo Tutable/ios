@@ -19,6 +19,7 @@ class CustomReviewsTVC: UITableViewCell {
         super.awakeFromNib()
         profileImgBtn.addCircularRadiusOfView()
         starView.type = .floatRatings
+        starView.editable = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

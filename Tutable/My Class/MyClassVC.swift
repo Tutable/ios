@@ -30,6 +30,17 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
         let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
         tabBar.setTabBarHidden(tabBarHidden: false)
         
+        if AppModel.shared.currentUser.notifications > 0
+        {
+            notiCountLbl.text = String(AppModel.shared.currentUser.notifications)
+            notiCountLbl.isHidden = false
+        }
+        else
+        {
+            notiCountLbl.text = ""
+            notiCountLbl.isHidden = true
+        }
+        
         getClassList()
     }
     

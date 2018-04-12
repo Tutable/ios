@@ -18,8 +18,8 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if Platform.isSimulator
-        {
+//        if Platform.isSimulator
+//        {
             if isStudentLogin()
             {
                 usernameTxt.text = "testyear17@gmail.com"
@@ -29,10 +29,9 @@ class LoginVC: UIViewController {
             {
                 usernameTxt.text = "keyurdakbari@gmail.com"
 //                usernameTxt.text = "testyear16@gmail.com"
-                passwordTxt.text = "aaaa"
+                passwordTxt.text = "qqqq"
             }
-        }
-        
+//        }
     }
 
     override func viewWillLayoutSubviews() {

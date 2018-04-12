@@ -21,7 +21,7 @@ class CustomClassesCVC: UICollectionViewCell {
         super.awakeFromNib()
        
         imgBtn.addCornerRadiusOfView(10.0)
-        
+        starView.editable = false
     }
 
 }

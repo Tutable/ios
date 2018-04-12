@@ -26,6 +26,8 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
         _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
+        
+        setUIDesigning()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -34,15 +36,13 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
         tabBar.setTabBarHidden(tabBarHidden: true)
     }
     
-    override func viewWillLayoutSubviews() {
-        setUIDesigning()
-    }
     
     func setUIDesigning()
     {
         profilePicBtn.addCircularRadiusOfView()
         saveBtn.addCornerRadiusOfView(saveBtn.frame.size.height/2)
         
+        APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [profilePicBtn])
         nameTxt.text = AppModel.shared.currentUser.name
         if AppModel.shared.currentUser.email != ""
         {
@@ -136,6 +136,7 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
         _imgCompress = nil
         profilePicBtn.setBackgroundImage(UIImage.init(named: IMAGE.USER_PLACEHOLDER), for: .normal)
     }
+    
     func onSelectPic(_ img: UIImage) {
         _imgCompress = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
         profilePicBtn.setBackgroundImage(_imgCompress.imageCropped(toFit: profilePicBtn.frame.size), for: .normal)

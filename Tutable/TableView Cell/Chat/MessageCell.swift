@@ -22,12 +22,8 @@ class MessageCell: UITableViewCell {
     @IBOutlet weak var headerLbl: UILabel!
     @IBOutlet weak var constraintHeaderWidth: NSLayoutConstraint!
     @IBOutlet weak var constraintHeightHeaderView: NSLayoutConstraint!
-    
-   
-    @IBOutlet weak var messageImgBtn: UIButton!
-    @IBOutlet weak var ConstraintHeightMsgTxt: NSLayoutConstraint!
-    @IBOutlet weak var loader: UIActivityIndicatorView!
-    @IBOutlet weak var errorBtn: UIButton!
+    @IBOutlet weak var statusImgView: UIImageView!
+    @IBOutlet weak var arrowBtn: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,6 +33,8 @@ class MessageCell: UITableViewCell {
         messageTxtView.isEditable = false
         messageTxtView.isSelectable = true
         messageTxtView.dataDetectorTypes = UIDataDetectorTypes.all
+        
+        statusImgView.addCircularRadiusOfView()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

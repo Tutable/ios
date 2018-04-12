@@ -15,6 +15,7 @@
 		1815CB2A2071EC410081F852 /* MyClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815CB292071EC410081F852 /* MyClassVC.swift */; };
 		1815CB332071EFCC0081F852 /* CustomMyClassTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815CB312071EFCC0081F852 /* CustomMyClassTVC.swift */; };
 		1815CB342071EFCC0081F852 /* CustomMyClassTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */; };
+		1841CADB207F29B000885B2D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1841CADA207F29B000885B2D /* GoogleService-Info.plist */; };
 		184637EA207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184637E8207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift */; };
 		184637EB207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184637E9207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib */; };
 		185CC568207DE36200B05B8A /* ReceiverChatMessageTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185CC563207DE36100B05B8A /* ReceiverChatMessageTVC.xib */; };
@@ -73,12 +74,11 @@
 		188FB357207E257C00663CE7 /* TutableModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 188FB356207E257B00663CE7 /* TutableModel.xcdatamodel */; };
 		18AE596D206B93F500B6D324 /* DatePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AE596C206B93F400B6D324 /* DatePickerManager.swift */; };
 		18AE5972206BCA8A00B6D324 /* AddClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AE5971206BCA8A00B6D324 /* AddClassVC.swift */; };
-		18AE5974206BD0C700B6D324 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18AE5973206BD0C600B6D324 /* GoogleService-Info.plist */; };
 		18B99182206923FD009F8A13 /* CustomMessagesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B99180206923FD009F8A13 /* CustomMessagesTVC.swift */; };
 		18B99183206923FD009F8A13 /* CustomMessagesTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B99181206923FD009F8A13 /* CustomMessagesTVC.xib */; };
 		18B9918620692620009F8A13 /* CustomCategoryCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B9918420692620009F8A13 /* CustomCategoryCVC.swift */; };
 		18B9918720692620009F8A13 /* CustomCategoryCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B9918520692620009F8A13 /* CustomCategoryCVC.xib */; };
-		18B9918920692835009F8A13 /* EntertainmentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B9918820692835009F8A13 /* EntertainmentVC.swift */; };
+		18B9918920692835009F8A13 /* SubClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B9918820692835009F8A13 /* SubClassVC.swift */; };
 		18B9918C20692841009F8A13 /* CustomClassesCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B9918A20692841009F8A13 /* CustomClassesCVC.xib */; };
 		18B9918D20692841009F8A13 /* CustomClassesCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B9918B20692841009F8A13 /* CustomClassesCVC.swift */; };
 		18B99190206938E8009F8A13 /* CustomReviewsTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B9918E206938E7009F8A13 /* CustomReviewsTVC.xib */; };
@@ -107,6 +107,7 @@
 		1815CB292071EC410081F852 /* MyClassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClassVC.swift; sourceTree = "<group>"; };
 		1815CB312071EFCC0081F852 /* CustomMyClassTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMyClassTVC.swift; sourceTree = "<group>"; };
 		1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMyClassTVC.xib; sourceTree = "<group>"; };
+		1841CADA207F29B000885B2D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		184637E7207B388800F0B8A4 /* Tutable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tutable.entitlements; sourceTree = "<group>"; };
 		184637E8207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAcceptRejectNotiTVC.swift; sourceTree = "<group>"; };
 		184637E9207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomAcceptRejectNotiTVC.xib; sourceTree = "<group>"; };
@@ -170,12 +171,11 @@
 		188FB356207E257B00663CE7 /* TutableModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TutableModel.xcdatamodel; sourceTree = "<group>"; };
 		18AE596C206B93F400B6D324 /* DatePickerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerManager.swift; sourceTree = "<group>"; };
 		18AE5971206BCA8A00B6D324 /* AddClassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClassVC.swift; sourceTree = "<group>"; };
-		18AE5973206BD0C600B6D324 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18B99180206923FD009F8A13 /* CustomMessagesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMessagesTVC.swift; sourceTree = "<group>"; };
 		18B99181206923FD009F8A13 /* CustomMessagesTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomMessagesTVC.xib; sourceTree = "<group>"; };
 		18B9918420692620009F8A13 /* CustomCategoryCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCategoryCVC.swift; sourceTree = "<group>"; };
 		18B9918520692620009F8A13 /* CustomCategoryCVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCategoryCVC.xib; sourceTree = "<group>"; };
-		18B9918820692835009F8A13 /* EntertainmentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntertainmentVC.swift; sourceTree = "<group>"; };
+		18B9918820692835009F8A13 /* SubClassVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubClassVC.swift; sourceTree = "<group>"; };
 		18B9918A20692841009F8A13 /* CustomClassesCVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomClassesCVC.xib; sourceTree = "<group>"; };
 		18B9918B20692841009F8A13 /* CustomClassesCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomClassesCVC.swift; sourceTree = "<group>"; };
 		18B9918E206938E7009F8A13 /* CustomReviewsTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomReviewsTVC.xib; sourceTree = "<group>"; };
@@ -228,10 +228,10 @@
 		185CC562207DE36100B05B8A /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				185CC566207DE36100B05B8A /* MessageCell.swift */,
 				185CC563207DE36100B05B8A /* ReceiverChatMessageTVC.xib */,
 				185CC564207DE36100B05B8A /* ReceiverChatMessageTVC.swift */,
 				185CC565207DE36100B05B8A /* SendChatMessageTVC.xib */,
-				185CC566207DE36100B05B8A /* MessageCell.swift */,
 				185CC567207DE36100B05B8A /* SendChatMessageTVC.swift */,
 			);
 			path = Chat;
@@ -259,7 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				18615BD42068B93A004A6876 /* BrowseVC.swift */,
-				18B9918820692835009F8A13 /* EntertainmentVC.swift */,
+				18B9918820692835009F8A13 /* SubClassVC.swift */,
 			);
 			path = Browse;
 			sourceTree = "<group>";
@@ -364,7 +364,7 @@
 				186A74F42064BFCD0013D863 /* Assets.xcassets */,
 				186A74F62064BFCD0013D863 /* LaunchScreen.storyboard */,
 				186A74F92064BFCD0013D863 /* Info.plist */,
-				18AE5973206BD0C600B6D324 /* GoogleService-Info.plist */,
+				1841CADA207F29B000885B2D /* GoogleService-Info.plist */,
 			);
 			path = Tutable;
 			sourceTree = "<group>";
@@ -536,10 +536,10 @@
 				186A74F32064BFCD0013D863 /* Main.storyboard in Resources */,
 				185CC568207DE36200B05B8A /* ReceiverChatMessageTVC.xib in Resources */,
 				1810644E206A7DF500FE9452 /* CustomTimeSlotTVC.xib in Resources */,
-				18AE5974206BD0C700B6D324 /* GoogleService-Info.plist in Resources */,
 				186A751A206510340013D863 /* CustomTabBarView.xib in Resources */,
 				18750BB22074967E00ABF3B6 /* Message.storyboard in Resources */,
 				18B9918C20692841009F8A13 /* CustomClassesCVC.xib in Resources */,
+				1841CADB207F29B000885B2D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,7 +692,7 @@
 				18615BCF2068B8E5004A6876 /* ProfileVC.swift in Sources */,
 				18AE596D206B93F500B6D324 /* DatePickerManager.swift in Sources */,
 				1815CB2A2071EC410081F852 /* MyClassVC.swift in Sources */,
-				18B9918920692835009F8A13 /* EntertainmentVC.swift in Sources */,
+				18B9918920692835009F8A13 /* SubClassVC.swift in Sources */,
 				D8D49B2C2077BBF400CC4851 /* CreditCardDetailVC.swift in Sources */,
 				185CC576207DEA6D00B05B8A /* TeacherCertificationVC.swift in Sources */,
 				186A751D206510340013D863 /* UIImage+ProportionalFill.m in Sources */,

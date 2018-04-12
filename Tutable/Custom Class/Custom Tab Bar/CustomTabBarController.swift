@@ -85,6 +85,10 @@ class CustomTabBarController: UITabBarController, CustomTabBarViewDelegate {
             (self.selectedViewController as! UINavigationController).popToRootViewController(animated: true)
         }
         super.selectedViewController = selectedViewController
+        if tabIndex == 3
+        {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATION.UPDATE_INBOX_LIST), object: nil)
+        }
     }
     
     func addTabBarView()

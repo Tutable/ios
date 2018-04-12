@@ -40,6 +40,17 @@ class BrowseVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     override func viewWillAppear(_ animated: Bool) {
         let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
         tabBar.setTabBarHidden(tabBarHidden: false)
+        
+        if AppModel.shared.currentUser.notifications > 0
+        {
+            notiCountLbl.text = String(AppModel.shared.currentUser.notifications)
+            notiCountLbl.isHidden = false
+        }
+        else
+        {
+            notiCountLbl.text = ""
+            notiCountLbl.isHidden = true
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -87,7 +98,7 @@ class BrowseVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc : EntertainmentVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "EntertainmentVC") as! EntertainmentVC
+        let vc : SubClassVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "SubClassVC") as! SubClassVC
         vc.categoryData = AppModel.shared.categoryData[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }

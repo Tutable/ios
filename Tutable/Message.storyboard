@@ -14,6 +14,7 @@
             <string>Futura-Medium</string>
         </array>
         <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
             <string>HelveticaNeue-Medium</string>
         </array>
         <array key="Roboto-Regular.ttf">
@@ -62,14 +63,23 @@
                                     <outlet property="delegate" destination="5Qy-nF-u2S" id="dHA-ti-Uvg"/>
                                 </connections>
                             </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no any conversation." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wjc-R7-we4">
+                                <rect key="frame" x="20" y="309.5" width="280" height="19"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="e7H-fF-H6g" firstAttribute="leading" secondItem="2jo-de-BxY" secondAttribute="leading" id="1cO-Ta-lz2"/>
+                            <constraint firstItem="2jo-de-BxY" firstAttribute="trailing" secondItem="Wjc-R7-we4" secondAttribute="trailing" constant="20" id="8nU-P8-lkM"/>
+                            <constraint firstItem="Wjc-R7-we4" firstAttribute="centerY" secondItem="e7H-fF-H6g" secondAttribute="centerY" id="Fn4-vL-RdS"/>
                             <constraint firstItem="2jo-de-BxY" firstAttribute="bottom" secondItem="e7H-fF-H6g" secondAttribute="bottom" id="Izr-e4-kir"/>
                             <constraint firstItem="f5r-Am-EnS" firstAttribute="top" secondItem="fUL-gA-O5y" secondAttribute="top" id="RgZ-X4-DFn"/>
                             <constraint firstAttribute="trailing" secondItem="f5r-Am-EnS" secondAttribute="trailing" id="dOx-Ao-2gA"/>
                             <constraint firstItem="2jo-de-BxY" firstAttribute="trailing" secondItem="e7H-fF-H6g" secondAttribute="trailing" id="doi-ej-7oG"/>
+                            <constraint firstItem="Wjc-R7-we4" firstAttribute="leading" secondItem="2jo-de-BxY" secondAttribute="leading" constant="20" id="frw-IC-vYF"/>
                             <constraint firstItem="f5r-Am-EnS" firstAttribute="leading" secondItem="2jo-de-BxY" secondAttribute="leading" id="s2N-hj-Zuq"/>
                             <constraint firstItem="e7H-fF-H6g" firstAttribute="top" secondItem="f5r-Am-EnS" secondAttribute="bottom" id="wua-6O-0yH"/>
                         </constraints>
@@ -78,6 +88,7 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="zN7-K4-79j"/>
                     <connections>
+                        <outlet property="noDataFoundLbl" destination="Wjc-R7-we4" id="USJ-YN-AzG"/>
                         <outlet property="tblView" destination="e7H-fF-H6g" id="cwM-n9-eqf"/>
                     </connections>
                 </viewController>
