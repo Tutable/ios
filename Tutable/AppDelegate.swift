@@ -488,12 +488,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                 AppModel.shared.isFCMConnected = true
                 AppModel.shared.firebaseCurrentUser = FirebaseUserModel.init(dict: AppModel.shared.currentUser.dictionary())
                 AppModel.shared.firebaseCurrentUser.fcmToken = getDeviceToken()
-                self.appUsersRef.child(AppModel.shared.firebaseCurrentUser.id).setValue(AppModel.shared.firebaseCurrentUser.dictionary())
+                self.updateCurrentUserData()
                 self.callAllHandler()
             }
             else
             {
-                print(error?.localizedDescription)
+//                print(error?.localizedDescription)
             }
         }
     }
@@ -504,11 +504,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             if error == nil
             {
                 AppModel.shared.isFCMConnected = true
+                AppModel.shared.firebaseCurrentUser = FirebaseUserModel.init(dict: AppModel.shared.currentUser.dictionary())
+                AppModel.shared.firebaseCurrentUser.fcmToken = getDeviceToken()
+                self.updateCurrentUserData()
                 self.appUsersHandler()
             }
             else
             {
-                print(error?.localizedDescription)
+//                print(error?.localizedDescription)
                 if user == nil
                 {
                     self.registerWithFirebae()
@@ -623,7 +626,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         if connectUserId != ""
         {
             var strIDArray : [String] = [connectUserId, AppModel.shared.firebaseCurrentUser.id]
-            //            strIDArray = strIDArray.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
+            strIDArray = strIDArray.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
             let tappedChannelId = strIDArray[0] + "-" + strIDArray[1]
             var isNewChannel : Bool = true
             
@@ -638,12 +641,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             
             if isNewChannel
             {
-                let dict : [String : Any] = ["conversationKey": tappedChannelId, "owner": connectUserId, "user": AppModel.shared.firebaseCurrentUser.id, "date" : getCurrentTimeStampValue(), "lastMessage": MessageModel.init(dict: [String:Any]())]
+                let dict : [String : Any] = ["id": tappedChannelId, "badge1": 0, "badge2": 0, "lastMessage": MessageModel.init(dict: [String:Any]())]
                 let messgaeListModel : InboxListModel = InboxListModel.init(dict: dict)
                 inboxListRef.child(tappedChannelId).setValue(messgaeListModel.dictionary())
             }
-            
-            
             return tappedChannelId
         }
         return ""

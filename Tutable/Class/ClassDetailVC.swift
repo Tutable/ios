@@ -182,7 +182,8 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     @IBAction func clickToMessage(_ sender: Any) {
-        
+        let receiver : FirebaseUserModel = FirebaseUserModel.init(dict: classData.teacher.dictionary())
+        AppDelegate().sharedDelegate().onChannelTap(connectUser: receiver)
     }
     
     @IBAction func clickToUserProfilePicture(_ sender: Any) {

@@ -583,8 +583,7 @@ class FirebaseUserModel:AppModel{
     }
 }
 
-class MessageModel: AppModel
-{
+class MessageModel: AppModel {
     var msgId : String!
     var key : String!
     var otherUserId : String!
