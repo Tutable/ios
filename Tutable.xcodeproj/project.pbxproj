@@ -29,7 +29,7 @@
 		185CC575207DEA6D00B05B8A /* TeacherAvailabilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC570207DEA6D00B05B8A /* TeacherAvailabilityVC.swift */; };
 		185CC576207DEA6D00B05B8A /* TeacherCertificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC571207DEA6D00B05B8A /* TeacherCertificationVC.swift */; };
 		185CC578207DEAA400B05B8A /* EditTeacherProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC577207DEAA400B05B8A /* EditTeacherProfileVC.swift */; };
-		18615BCF2068B8E5004A6876 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BCE2068B8E5004A6876 /* ProfileVC.swift */; };
+		18615BCF2068B8E5004A6876 /* StudentProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BCE2068B8E5004A6876 /* StudentProfileVC.swift */; };
 		18615BD12068B90D004A6876 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BD02068B90D004A6876 /* SettingsVC.swift */; };
 		18615BD32068B926004A6876 /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BD22068B926004A6876 /* MessageVC.swift */; };
 		18615BD52068B93A004A6876 /* BrowseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BD42068B93A004A6876 /* BrowseVC.swift */; };
@@ -70,6 +70,7 @@
 		18803982206A283C00179778 /* TeacherDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18803981206A283C00179778 /* TeacherDetailVC.swift */; };
 		18803985206A2A6700179778 /* CustomClassesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18803983206A2A6700179778 /* CustomClassesTVC.swift */; };
 		18803986206A2A6700179778 /* CustomClassesTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18803984206A2A6700179778 /* CustomClassesTVC.xib */; };
+		18846B61207F903200C422CE /* TeacherProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18846B60207F903200C422CE /* TeacherProfileVC.swift */; };
 		188FB352207E20AB00663CE7 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188FB351207E20AA00663CE7 /* ChatViewController.swift */; };
 		188FB357207E257C00663CE7 /* TutableModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 188FB356207E257B00663CE7 /* TutableModel.xcdatamodel */; };
 		18AE596D206B93F500B6D324 /* DatePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AE596C206B93F400B6D324 /* DatePickerManager.swift */; };
@@ -122,7 +123,7 @@
 		185CC570207DEA6D00B05B8A /* TeacherAvailabilityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherAvailabilityVC.swift; sourceTree = "<group>"; };
 		185CC571207DEA6D00B05B8A /* TeacherCertificationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherCertificationVC.swift; sourceTree = "<group>"; };
 		185CC577207DEAA400B05B8A /* EditTeacherProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTeacherProfileVC.swift; sourceTree = "<group>"; };
-		18615BCE2068B8E5004A6876 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		18615BCE2068B8E5004A6876 /* StudentProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentProfileVC.swift; sourceTree = "<group>"; };
 		18615BD02068B90D004A6876 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		18615BD22068B926004A6876 /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
 		18615BD42068B93A004A6876 /* BrowseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseVC.swift; sourceTree = "<group>"; };
@@ -167,6 +168,7 @@
 		18803981206A283C00179778 /* TeacherDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDetailVC.swift; sourceTree = "<group>"; };
 		18803983206A2A6700179778 /* CustomClassesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomClassesTVC.swift; sourceTree = "<group>"; };
 		18803984206A2A6700179778 /* CustomClassesTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomClassesTVC.xib; sourceTree = "<group>"; };
+		18846B60207F903200C422CE /* TeacherProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherProfileVC.swift; sourceTree = "<group>"; };
 		188FB351207E20AA00663CE7 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		188FB356207E257B00663CE7 /* TutableModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TutableModel.xcdatamodel; sourceTree = "<group>"; };
 		18AE596C206B93F400B6D324 /* DatePickerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerManager.swift; sourceTree = "<group>"; };
@@ -277,8 +279,9 @@
 		18615BCD2068B8C9004A6876 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				18615BCE2068B8E5004A6876 /* ProfileVC.swift */,
+				18615BCE2068B8E5004A6876 /* StudentProfileVC.swift */,
 				18615BDA2068D1CE004A6876 /* EditStudentProfileVC.swift */,
+				18846B60207F903200C422CE /* TeacherProfileVC.swift */,
 				185CC577207DEAA400B05B8A /* EditTeacherProfileVC.swift */,
 				18722853206CE0B400CD3076 /* AccountDetailVC.swift */,
 			);
@@ -689,7 +692,7 @@
 				186A74EE2064BFCD0013D863 /* AppDelegate.swift in Sources */,
 				1810644D206A7DF500FE9452 /* CustomTimeSlotTVC.swift in Sources */,
 				18722854206CE0B400CD3076 /* AccountDetailVC.swift in Sources */,
-				18615BCF2068B8E5004A6876 /* ProfileVC.swift in Sources */,
+				18615BCF2068B8E5004A6876 /* StudentProfileVC.swift in Sources */,
 				18AE596D206B93F500B6D324 /* DatePickerManager.swift in Sources */,
 				1815CB2A2071EC410081F852 /* MyClassVC.swift in Sources */,
 				18B9918920692835009F8A13 /* SubClassVC.swift in Sources */,
@@ -715,6 +718,7 @@
 				18B9919320693943009F8A13 /* ExpandableLabel.swift in Sources */,
 				185CC569207DE36200B05B8A /* ReceiverChatMessageTVC.swift in Sources */,
 				18615BDB2068D1CE004A6876 /* EditStudentProfileVC.swift in Sources */,
+				18846B61207F903200C422CE /* TeacherProfileVC.swift in Sources */,
 				188FB357207E257C00663CE7 /* TutableModel.xcdatamodel in Sources */,
 				18722852206CE07D00CD3076 /* ClassHourlyRateVC.swift in Sources */,
 				186A751B206510340013D863 /* CustomTabBarView.swift in Sources */,

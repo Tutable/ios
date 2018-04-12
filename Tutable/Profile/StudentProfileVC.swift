@@ -1,5 +1,5 @@
 //
-//  ProfileVC.swift
+//  StudentProfileVC.swift
 //  Tutable
 //
 //  Created by Keyur on 26/03/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileVC: UIViewController {
+class StudentProfileVC: UIViewController {
 
     @IBOutlet weak var userProfilePicBtn: UIButton!
     @IBOutlet weak var userNameLbl: UILabel!
@@ -61,16 +61,8 @@ class ProfileVC: UIViewController {
     
     
     @IBAction func clickToEdit(_ sender: Any) {
-        if isStudentLogin()
-        {
             let vc : EditStudentProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditStudentProfileVC") as! EditStudentProfileVC
             self.navigationController?.pushViewController(vc, animated: true)
-        }
-        else
-        {
-            let vc : EditTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditTeacherProfileVC") as! EditTeacherProfileVC
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
     }
     
     override func didReceiveMemoryWarning() {

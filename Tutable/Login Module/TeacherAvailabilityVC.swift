@@ -16,6 +16,7 @@ class TeacherAvailabilityVC: UIViewController, UITableViewDelegate, UITableViewD
 
     var delegate : TeacherAvailabilityDelegate?
     
+    @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var constraintHeightDateView: NSLayoutConstraint!
     

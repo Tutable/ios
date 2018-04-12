@@ -22,7 +22,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var aboutUserLbl: UILabel!
     @IBOutlet weak var constraintHeightAboutUserLbl: NSLayoutConstraint!
     @IBOutlet weak var moreClassesBtn: UIButton!
-    @IBOutlet weak var categoryBtn: UIButton!
+    @IBOutlet weak var qulificationBtn: UIButton!
     @IBOutlet weak var exprienceBtn: UIButton!
     @IBOutlet weak var policeCheckBtn: UIButton!
     @IBOutlet weak var childrenCheckBtn: UIButton!
@@ -86,6 +86,9 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 userSubTitleLbl.text = teacherData.address.state
             }
         }
+        
+        qulificationBtn.setTitle(teacherData.qualification, for: .normal)
+        
         aboutUserLbl.text = teacherData.bio
         constraintHeightAboutUserLbl.constant = aboutUserLbl.getLableHeight()
         updateHeaderViewHeight()

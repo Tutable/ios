@@ -57,14 +57,54 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         cell.userNameLbl.text = "By " + dict.teacher.name
         cell.dateTimeLbl.text = getDateStringFromDate(date: getDateFromTimeStamp(dict.timestamp), format: "MMM dd") + ", " + getTimeStringFromServerTimeStemp(dict.timestamp) + " to " + getTimeStringFromServerTimeStemp(dict.timestamp + 3600)
         cell.priceLbl.text = setFlotingPrice(dict.classDetails.rate)
+        if dict.slot.count != 0
+        {
+            var timestamp : Double = 0.0
+            var timeSlot : String = ""
+            for temp in dict.slot
+            {
+                timestamp = Double(temp.key)!
+                timeSlot = temp.value as! String
+            }
+            cell.dateTimeLbl.text = getDateStringFromDate(date: getDateFromTimeStamp(timestamp), format: "MMM dd") + ", "
+            let timeArr : [String] = timeSlot.components(separatedBy: "-")
+            let startTime : String = timeArr[0]
+            let endTime : String = timeArr[1]
+            
+            if Int(startTime)! > 12
+            {
+                cell.dateTimeLbl.text = cell.dateTimeLbl.text! + String(Int(startTime)! - 12) + " pm to "
+            }
+            else
+            {
+                cell.dateTimeLbl.text = cell.dateTimeLbl.text! + startTime + " am to "
+            }
+            
+            if Int(endTime)! > 12
+            {
+                cell.dateTimeLbl.text = cell.dateTimeLbl.text! + String(Int(endTime)! - 12) + " pm"
+            }
+            else
+            {
+                cell.dateTimeLbl.text = cell.dateTimeLbl.text! + endTime + " am"
+            }
+        }
+        APIManager.sharedInstance.serviceCallToGetPhoto(dict.classDetails.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
+        if isStudentLogin()
+        {
+            cell.starBtn.tag = indexPath.row
+            cell.starBtn.addTarget(self, action: #selector(clickToReviewBtn(_:)), for: .touchUpInside)
+            
+            cell.starBtn.isHidden = false
+            cell.starView.isHidden = false
+            cell.constraintWidthStarView.constant = 130
+        }
+        else
+        {
+            cell.starBtn.isHidden = true
+            cell.starView.isHidden = true
+        }
         
-        
-        cell.starBtn.tag = indexPath.row
-        cell.starBtn.addTarget(self, action: #selector(clickToReviewBtn(_:)), for: .touchUpInside)
-        
-        cell.starBtn.isHidden = false
-        cell.starView.isHidden = false
-        cell.constraintWidthStarView.constant = 130
         cell.chatBtn.isHidden = true
         cell.cancelBtn.isHidden = true
         cell.setCellDesign()

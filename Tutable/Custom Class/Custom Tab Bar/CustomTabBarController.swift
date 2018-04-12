@@ -42,8 +42,16 @@ class CustomTabBarController: UITabBarController, CustomTabBarViewDelegate {
     func setup()
     {
         var viewControllers = [UINavigationController]()
-        let navController1 : UINavigationController = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "ProfileVCNavigation") as! UINavigationController
-        viewControllers.append(navController1)
+        if isStudentLogin()
+        {
+            let navController1 : UINavigationController = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "StudentProfileVCNavigation") as! UINavigationController
+            viewControllers.append(navController1)
+        }
+        else
+        {
+            let navController1 : UINavigationController = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherProfileVCNavigation") as! UINavigationController
+            viewControllers.append(navController1)
+        }
         
         let navController2 : UINavigationController = STORYBOARD.BOOKING.instantiateViewController(withIdentifier: "BookingVCNavigation") as! UINavigationController
         viewControllers.append(navController2)

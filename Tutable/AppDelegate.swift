@@ -215,16 +215,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                     }
                     finalDict["facebook"] = userDict
                     print(finalDict)
-                    APIManager.sharedInstance.serviceCallToSocialLogin(finalDict, completion: { (code) in
-                        if code == 100
-                        {
-                            setSocialLoginUser()
-                            if isStudentLogin()
+                    if isStudentLogin()
+                    {
+                        APIManager.sharedInstance.serviceCallToStudentSocialLogin(finalDict, completion: { (code) in
+                            if code == 100
                             {
-                                self.navigateToDashboard()
+                                setSocialLoginUser()
+                                if isStudentLogin()
+                                {
+                                    self.navigateToDashboard()
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
+                    else
+                    {
+//                        APIManager.sharedInstance.serviceCallToTeacherSocialLogin(finalDict, completion: { (code) in
+//                            if code == 100
+//                            {
+//                                setSocialLoginUser()
+//                                let vc : AddTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "AddTeacherProfileVC") as! AddTeacherProfileVC
+//                                vc.isBackDisplay = false
+//                                if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
+//                                {
+//                                    rootNavigatioVC.pushViewController(vc, animated: false)
+//                                }
+//                            }
+//                        })
+                    }
+                    
                 }
                 else
                 {
@@ -305,7 +324,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             }
             finalDict["google"] = userDict
             print(finalDict)
-            APIManager.sharedInstance.serviceCallToSocialLogin(finalDict, completion: { (code) in
+            APIManager.sharedInstance.serviceCallToStudentSocialLogin(finalDict, completion: { (code) in
                 if code == 100
                 {
                     setSocialLoginUser()

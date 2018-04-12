@@ -145,19 +145,19 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fY-TL-BF8">
                                                                 <rect key="frame" x="85" y="32.5" width="133" height="20.5"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="20.5" id="qcH-0q-4Op"/>
+                                                                    <constraint firstAttribute="height" constant="20" id="qcH-0q-4Op"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                                 <color key="textColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQU-ZN-ecq">
-                                                                <rect key="frame" x="85" y="58" width="225" height="19"/>
+                                                                <rect key="frame" x="85" y="63" width="225" height="16.5"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="19" id="9HH-86-lhU"/>
+                                                                    <constraint firstAttribute="height" constant="16.5" id="KsX-4F-LdL"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                                <color key="textColor" red="0.40784313725490196" green="0.40781933069229126" blue="0.40781933069229126" alpha="0.70279489436619713" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqL-ek-UPa">
@@ -190,7 +190,7 @@
                                                         <constraints>
                                                             <constraint firstItem="PyR-8K-vPy" firstAttribute="leading" secondItem="OWi-ua-YnU" secondAttribute="leading" id="43s-y7-scg"/>
                                                             <constraint firstItem="u5r-7g-N1o" firstAttribute="leading" secondItem="OWi-ua-YnU" secondAttribute="leading" constant="10" id="4Jl-gW-jL5"/>
-                                                            <constraint firstItem="GQU-ZN-ecq" firstAttribute="top" secondItem="8fY-TL-BF8" secondAttribute="bottom" constant="5" id="7CL-xG-HPn"/>
+                                                            <constraint firstItem="GQU-ZN-ecq" firstAttribute="top" secondItem="8fY-TL-BF8" secondAttribute="bottom" constant="10" id="7CL-xG-HPn"/>
                                                             <constraint firstItem="HEZ-go-5nq" firstAttribute="centerY" secondItem="gqL-ek-UPa" secondAttribute="centerY" id="9TN-PX-fIo"/>
                                                             <constraint firstItem="GQU-ZN-ecq" firstAttribute="leading" secondItem="u5r-7g-N1o" secondAttribute="trailing" constant="10" id="9cS-nd-NLb"/>
                                                             <constraint firstItem="u5r-7g-N1o" firstAttribute="top" secondItem="OWi-ua-YnU" secondAttribute="top" constant="10" id="BCy-ej-Q91"/>
@@ -564,8 +564,9 @@
                                                         <subviews>
                                                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ych-C4-NlB">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                                                <state key="normal" backgroundImage="cup"/>
                                                             </button>
-                                                            <visualEffectView opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7OF-Wi-5mn">
+                                                            <visualEffectView opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7OF-Wi-5mn">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="m9Y-He-bCx">
                                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
@@ -584,7 +585,7 @@
                                                                         </visualEffectView>
                                                                     </subviews>
                                                                 </view>
-                                                                <blurEffect style="light"/>
+                                                                <blurEffect style="dark"/>
                                                             </visualEffectView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52b-3n-imo">
                                                                 <rect key="frame" x="0.0" y="10" width="50" height="50"/>
@@ -682,7 +683,7 @@
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="Bachelor of Music" image="account">
+                                                                <state key="normal" title="Bachelor of Music" image="qualification_icon">
                                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                             </button>
@@ -694,7 +695,7 @@
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="Police check" image="account">
+                                                                <state key="normal" title="Police check" image="accept">
                                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                             </button>
@@ -706,7 +707,7 @@
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="4 year exprience" image="account">
+                                                                <state key="normal" title="4 year exprience" image="experience_icon">
                                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                             </button>
@@ -718,7 +719,7 @@
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                <state key="normal" title="Works with children" image="account">
+                                                                <state key="normal" title="Works with children" image="accept">
                                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                             </button>
@@ -848,7 +849,6 @@
                     <connections>
                         <outlet property="aboutUserLbl" destination="Nr8-Zm-rN3" id="2jm-6s-Vys"/>
                         <outlet property="bookClassBtn" destination="yjS-oS-foP" id="riZ-am-bgT"/>
-                        <outlet property="categoryBtn" destination="bkQ-dN-c2x" id="opZ-US-cUV"/>
                         <outlet property="childrenCheckBtn" destination="Usc-90-Kdl" id="GGd-HJ-yoO"/>
                         <outlet property="classFooterView" destination="GO8-A3-AJR" id="d0I-Jq-lf4"/>
                         <outlet property="classHeaderView" destination="HDY-Xo-5FV" id="So7-Ur-735"/>
@@ -862,6 +862,7 @@
                         <outlet property="moreReviewBtn" destination="ZGH-TN-dLn" id="lwP-N4-GeZ"/>
                         <outlet property="policeCheckBtn" destination="QM3-CR-zLK" id="MgR-BV-AXa"/>
                         <outlet property="priceUnitLbl" destination="HEZ-go-5nq" id="Ow1-DT-JP6"/>
+                        <outlet property="qulificationBtn" destination="bkQ-dN-c2x" id="cAX-PV-5N3"/>
                         <outlet property="studentLevelLbl" destination="wxd-fg-xsF" id="sAh-XP-cuo"/>
                         <outlet property="tblView" destination="beP-zh-Gda" id="XRv-0z-wwR"/>
                         <outlet property="totalReviewLbl" destination="jaM-t0-sIO" id="Znm-gD-zJg"/>
@@ -2728,16 +2729,19 @@
         </scene>
     </scenes>
     <resources>
-        <image name="account" width="22" height="27"/>
+        <image name="accept" width="15" height="15"/>
         <image name="add" width="17" height="17"/>
         <image name="back" width="12" height="19"/>
         <image name="bg_header" width="375" height="71"/>
         <image name="bottom_arrow" width="7" height="4"/>
         <image name="camera_icon" width="100" height="100"/>
         <image name="checked" width="16" height="16"/>
+        <image name="cup" width="1920" height="1279"/>
         <image name="edit" width="19" height="19"/>
+        <image name="experience_icon" width="13" height="12"/>
         <image name="msg_green" width="40" height="40"/>
         <image name="notification" width="22" height="25"/>
+        <image name="qualification_icon" width="13" height="13"/>
         <image name="star_off_big" width="42" height="40"/>
         <image name="star_on_big" width="42" height="40"/>
         <image name="star_on_medium" width="25" height="24"/>

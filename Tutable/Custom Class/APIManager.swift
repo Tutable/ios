@@ -96,7 +96,7 @@ public class APIManager {
                         displayToast(error.localizedDescription)
                         return
                     }
-                    displayToast("Registeration error")
+                    //displayToast("Registeration error")
                 }
             case .failure(let error):
                 removeLoader()
@@ -168,10 +168,10 @@ public class APIManager {
                 }
                 if let error = response.result.error
                 {
-                    displayToast(error.localizedDescription)
+                    //displayToast(error.localizedDescription)
                     return
                 }
-                displayToast("Login error")
+                //displayToast("Login error")
                 break
             case .failure(let error):
                 print(error)
@@ -181,18 +181,12 @@ public class APIManager {
         }
     }
     
-    func serviceCallToSocialLogin(_ params : [String : Any], completion: @escaping (_ code:Int) -> Void){
+    func serviceCallToStudentSocialLogin(_ params : [String : Any], completion: @escaping (_ code:Int) -> Void){
         showLoader()
         
         let headerParams :[String : String] = getJsonHeader()
         
-        var strUrl : String = "teachers/login"
-        if isStudentLogin()
-        {
-            strUrl = "student/social"
-        }
-        
-        Alamofire.request(BASE_URL+strUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+        Alamofire.request(BASE_URL+"student/social", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
             
             removeLoader()
             
@@ -244,6 +238,54 @@ public class APIManager {
                 displayToast("Login error")
                 break
             case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    func serviceCallToTeacherSocialLogin(_ finalDict : [String : Any], completion: @escaping (_ code:Int) -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getMultipartHeader()
+        
+        var params :[String : Any] = [String : Any] ()
+        params["data"] = AppModel.shared.currentUser.toJson(finalDict)
+        
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            for (key, value) in params {
+                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+            }
+        }, usingThreshold: UInt64.init(), to: BASE_URL+"teachers/register", method: .post
+        , headers: headerParams) { (result) in
+            switch result{
+            case .success(let upload, _, _):
+                
+                //                upload.uploadProgress(closure: { (Progress) in
+                //                    print("Upload Progress: \(Progress.fractionCompleted)")
+                //                })
+                upload.responseJSON { response in
+                    removeLoader()
+                    if let result = response.result.value as? [String:Any]{
+                        if let code = result["code"] as? Int{
+                            if(code == 100){
+                                completion(code)
+                                return
+                            }
+                        }
+                        if let message = result["message"] as? String{
+                            return
+                        }
+                    }
+                    
+                    if let error = response.error{
+                        return
+                    }
+                    displayToast("Registeration error")
+                }
+            case .failure(let error):
+                removeLoader()
                 print(error)
                 displayToast(error.localizedDescription)
                 break
@@ -616,7 +658,7 @@ public class APIManager {
                     }
                     
                     if let error = response.error{
-                        //displayToast(error.localizedDescription)
+                        displayToast(error.localizedDescription)
                         return
                     }
                 }
