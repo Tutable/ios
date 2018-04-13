@@ -245,47 +245,63 @@ public class APIManager {
         }
     }
     
-    func serviceCallToTeacherSocialLogin(_ finalDict : [String : Any], completion: @escaping (_ code:Int) -> Void){
+    func serviceCallToTeacherSocialLogin(_ params : [String : Any], completion: @escaping (_ code:Int) -> Void){
         showLoader()
         
-        let headerParams :[String : String] = getMultipartHeader()
+        let headerParams :[String : String] = getJsonHeader()
         
-        var params :[String : Any] = [String : Any] ()
-        params["data"] = AppModel.shared.currentUser.toJson(finalDict)
-        
-        Alamofire.upload(multipartFormData: { (multipartFormData) in
-            for (key, value) in params {
-                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
-            }
-        }, usingThreshold: UInt64.init(), to: BASE_URL+"teachers/register", method: .post
-        , headers: headerParams) { (result) in
-            switch result{
-            case .success(let upload, _, _):
-                
-                //                upload.uploadProgress(closure: { (Progress) in
-                //                    print("Upload Progress: \(Progress.fractionCompleted)")
-                //                })
-                upload.responseJSON { response in
-                    removeLoader()
-                    if let result = response.result.value as? [String:Any]{
-                        if let code = result["code"] as? Int{
-                            if(code == 100){
-                                completion(code)
+        Alamofire.request(BASE_URL+"teachers/social", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            
+            removeLoader()
+            
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let code = result["code"] as? Int{
+                        if(code == 100){
+                            if let accessToken = result["accessToken"] as? String{
+                                AppModel.shared.token = accessToken
+                                self.serviceCallToGetUserDetail {
+                                    AppDelegate().sharedDelegate().updateDeviceToken()
+                                    completion(code)
+                                }
                                 return
                             }
-                        }
-                        if let message = result["message"] as? String{
+                            else{
+                                displayToast("Unauthorized user.")
+                            }
                             return
                         }
+                        else if code == 104
+                        {
+                            if result["message"] as! String == "Requested user not found" || result["message"] as! String == "error"
+                            {
+                                displayToast(result["message"] as! String)
+                                return
+                            }
+                            else
+                            {
+                                completion(code)
+                            }
+                        }
                     }
-                    
-                    if let error = response.error{
+                    if let message = result["message"] as? String{
+                        if(message == "User is not verified. Verify verification code first."){
+                            completion((result["code"] as? Int)!)
+                        }
+                        //displayToast(message)
                         return
                     }
-                    displayToast("Registeration error")
                 }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                displayToast("Login error")
+                break
             case .failure(let error):
-                removeLoader()
                 print(error)
                 displayToast(error.localizedDescription)
                 break
@@ -765,7 +781,7 @@ public class APIManager {
                                 return
                             }
                         }
-                        if let message = result["message"] as? String{
+                        if (result["message"] as? String) != nil{
                             //displayToast(message)
                             return
                         }
@@ -900,7 +916,7 @@ public class APIManager {
         
         var params :[String : Any] = [String : Any] ()
         
-        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "description" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "rate" : AppModel.shared.currentClass.rate])
+        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "bio" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "rate" : AppModel.shared.currentClass.rate])
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {

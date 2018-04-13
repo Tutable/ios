@@ -50,9 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-//        UIApplication.shared.statusBarView?.backgroundColor = colorFromHex(hex: COLOR.APP_COLOR)
-//        UIApplication.shared.statusBarStyle = .lightContent
     
         application.statusBarStyle = .lightContent
         
@@ -89,6 +86,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             AppModel.shared.token = AppModel.shared.currentUser.accessToken
             APIManager.sharedInstance.serviceCallToGetUserDetail {
                 
+            }
+            if !isStudentLogin()
+            {
+                APIManager.sharedInstance.serviceCallToGetCertificate {}
             }
             navigateToDashboard()
         }
@@ -215,35 +216,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                     }
                     finalDict["facebook"] = userDict
                     print(finalDict)
-                    if isStudentLogin()
-                    {
-                        APIManager.sharedInstance.serviceCallToStudentSocialLogin(finalDict, completion: { (code) in
-                            if code == 100
-                            {
-                                setSocialLoginUser()
-                                if isStudentLogin()
-                                {
-                                    self.navigateToDashboard()
-                                }
-                            }
-                        })
-                    }
-                    else
-                    {
-//                        APIManager.sharedInstance.serviceCallToTeacherSocialLogin(finalDict, completion: { (code) in
-//                            if code == 100
-//                            {
-//                                setSocialLoginUser()
-//                                let vc : AddTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "AddTeacherProfileVC") as! AddTeacherProfileVC
-//                                vc.isBackDisplay = false
-//                                if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
-//                                {
-//                                    rootNavigatioVC.pushViewController(vc, animated: false)
-//                                }
-//                            }
-//                        })
-                    }
-                    
+                    self.socialLoginResponse(finalDict)
                 }
                 else
                 {
@@ -251,10 +224,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                 }
             })
             connection.start()
-            
-            
         }
-        
     }
     
     
@@ -324,6 +294,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             }
             finalDict["google"] = userDict
             print(finalDict)
+            socialLoginResponse(finalDict)
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
+              withError error: Error!) {
+        print(error.localizedDescription)
+    }
+    
+    func socialLoginResponse(_ finalDict :[String : Any])
+    {
+        if isStudentLogin()
+        {
             APIManager.sharedInstance.serviceCallToStudentSocialLogin(finalDict, completion: { (code) in
                 if code == 100
                 {
@@ -335,12 +318,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                 }
             })
         }
+        else
+        {
+            APIManager.sharedInstance.serviceCallToTeacherSocialLogin(finalDict, completion: { (code) in
+                if code == 100
+                {
+                    setSocialLoginUser()
+                    if AppModel.shared.currentUser.firstLogin == 1
+                    {
+                        let vc : AddTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "AddTeacherProfileVC") as! AddTeacherProfileVC
+                        vc.isBackDisplay = false
+                        if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
+                        {
+                            rootNavigatioVC.pushViewController(vc, animated: false)
+                        }
+                    }
+                    else
+                    {
+                        self.navigateToDashboard()
+                    }
+                }
+            })
+        }
     }
     
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
-              withError error: Error!) {
-        print(error.localizedDescription)
-    }
     
     //MARK:- Navigate To Login
     func navigateToLogin()

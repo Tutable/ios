@@ -10,59 +10,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tutable/Custom Class/APIManager.swift"
-            timestampString = "545232815.961349"
+            timestampString = "545296944.998394"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
-            landmarkName = "serviceCallToTeacherSocialLogin(_:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tutable/Custom Class/APIManager.swift"
-            timestampString = "545232815.961431"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
-            landmarkName = "serviceCallToTeacherSocialLogin(_:completion:)"
+            startingLineNumber = "976"
+            endingLineNumber = "976"
+            landmarkName = "serviceCallToUpdateClass(_:completion:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Alamofire.SessionManager.MultipartFormDataEncodingResult) -&gt; () in Tutable.APIManager.serviceCallToTeacherSocialLogin(Swift.Dictionary&lt;Swift.String, Any&gt;, completion: (Swift.Int) -&gt; ()) -&gt; ()"
+                  symbolName = "Tutable.APIManager.serviceCallToUpdateClass(Foundation.Data, completion: () -&gt; ()) -&gt; ()"
                   moduleName = "Tutable"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Amisha/Upwork/Sumit%20Bedi/Tutable%20App/Progress/Tutable/Tutable/Custom%20Class/APIManager.swift"
-                  timestampString = "545232816.137198"
+                  timestampString = "545296945.284591"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "263"
-                  endingLineNumber = "263"
-                  offsetFromSymbolStart = "60">
+                  startingLineNumber = "976"
+                  endingLineNumber = "976"
+                  offsetFromSymbolStart = "3248">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Alamofire.SessionManager.MultipartFormDataEncodingResult) -&gt; () in Tutable.APIManager.serviceCallToTeacherSocialLogin(Swift.Dictionary&lt;Swift.String, Any&gt;, completion: (Swift.Int) -&gt; ()) -&gt; ()"
+                  symbolName = "function signature specialization &lt;Arg[1] = Value Promoted from Box&gt; of closure #1 (Alamofire.MultipartFormData) -&gt; () in Tutable.APIManager.serviceCallToUpdateClass(Foundation.Data, completion: () -&gt; ()) -&gt; ()"
                   moduleName = "Tutable"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Amisha/Upwork/Sumit%20Bedi/Tutable%20App/Progress/Tutable/Tutable/Custom%20Class/APIManager.swift"
-                  timestampString = "545232816.138713"
+                  timestampString = "545296945.287599"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "263"
-                  endingLineNumber = "263"
-                  offsetFromSymbolStart = "92">
+                  startingLineNumber = "977"
+                  endingLineNumber = "977"
+                  offsetFromSymbolStart = "36">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -74,28 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tutable/Custom Class/APIManager.swift"
-            timestampString = "545232815.961549"
+            timestampString = "545296944.99853"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
-            landmarkName = "serviceCallToTeacherSocialLogin(_:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tutable/Messages/NotificationVC.swift"
-            timestampString = "545232819.822909"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            startingLineNumber = "994"
+            endingLineNumber = "994"
+            landmarkName = "serviceCallToUpdateClass(_:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

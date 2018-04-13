@@ -1365,11 +1365,12 @@
                     <navigationItem key="navigationItem" id="Mbh-Ye-qu7"/>
                     <connections>
                         <outlet property="aboutUserLbl" destination="wp7-8z-a4x" id="0WX-O5-cpZ"/>
-                        <outlet property="childrenCheckBtn" destination="hvQ-lg-sW6" id="Cr1-Ke-DWX"/>
                         <outlet property="constraintHeightAboutUserLbl" destination="rGf-gs-pKq" id="Jes-5s-AXg"/>
-                        <outlet property="exprienceBtn" destination="lrz-TW-4Qp" id="WWT-j9-nmI"/>
-                        <outlet property="policeCheckBtn" destination="vh0-GQ-QIO" id="Tfg-Cn-anz"/>
-                        <outlet property="qulificationBtn" destination="2Ag-pJ-Etk" id="3Ek-a9-xbP"/>
+                        <outlet property="constraintHeightQualityView" destination="hYL-W7-mEV" id="FF0-G0-9vS"/>
+                        <outlet property="quality1Btn" destination="2Ag-pJ-Etk" id="EiI-A8-c2M"/>
+                        <outlet property="quality2Btn" destination="lrz-TW-4Qp" id="Fvg-yG-bMT"/>
+                        <outlet property="quality3Btn" destination="vh0-GQ-QIO" id="aTZ-aS-jnw"/>
+                        <outlet property="quality4Btn" destination="hvQ-lg-sW6" id="mVy-EY-bLh"/>
                         <outlet property="userBackgroundImgBtn" destination="CM3-b0-hId" id="gtI-vf-SwR"/>
                         <outlet property="userNameLbl" destination="blU-mh-l9H" id="v3M-xY-BEW"/>
                         <outlet property="userProfilePicBtn" destination="SMz-9t-rej" id="MGM-jv-Gw2"/>
