@@ -30,10 +30,10 @@
                         <subviews>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfs-b4-S0W">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="140"/>
-                                <color key="backgroundColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="140" id="RKS-VK-Z5y"/>
                                 </constraints>
+                                <state key="normal" backgroundImage="camera_icon"/>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gy5-Jw-jfG">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="140"/>
@@ -164,6 +164,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="camera_icon" width="100" height="100"/>
         <image name="msg_small" width="30" height="30"/>
         <image name="round_delete" width="30" height="30"/>
         <image name="star_off_medium" width="25" height="24"/>

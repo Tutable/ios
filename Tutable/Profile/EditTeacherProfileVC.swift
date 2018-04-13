@@ -99,15 +99,22 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         {
             return
         }
+        APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
+        if getPoliceCertificate() != "" && getChildreanCertificate() != ""
+        {
+            setCertificateImage()
+        }
+        else
+        {
+            APIManager.sharedInstance.serviceCallToGetCertificate {
+                self.setCertificateImage()
+            }
+        }
         nameTxt.text = AppModel.shared.currentUser.name
         emailTxt.text = AppModel.shared.currentUser.email
         if emailTxt.text != ""
         {
             emailTxt.isUserInteractionEnabled = false
-        }
-        if AppModel.shared.currentUser.picture != ""
-        {
-            APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
         }
         if AppModel.shared.currentUser.dob != 0.0
         {
@@ -136,16 +143,6 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         suburbTxt.text = location.suburb
         stateLbl.text = location.state
         
-        if getPoliceCertificate() != "" && getChildreanCertificate() != ""
-        {
-            setCertificateImage()
-        }
-        else
-        {
-            APIManager.sharedInstance.serviceCallToGetCertificate {
-                self.setCertificateImage()
-            }
-        }
         qulificationTxt.text = AppModel.shared.currentUser.qualification
         schoolTxt.text = AppModel.shared.currentUser.school
         if AppModel.shared.currentUser.degreeAsset != ""
