@@ -55,10 +55,12 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         let dict : BookingClassModel = arrPastBookingData[indexPath.row]
         cell.classNameLbl.text = dict.classDetails.name
         cell.userNameLbl.text = "By " + dict.teacher.name
-        cell.dateTimeLbl.text = getDateStringFromDate(date: getDateFromTimeStamp(dict.timestamp), format: "MMM dd") + ", " + getTimeStringFromServerTimeStemp(dict.timestamp) + " to " + getTimeStringFromServerTimeStemp(dict.timestamp + 3600)
         cell.priceLbl.text = setFlotingPrice(dict.classDetails.rate)
+        
         if dict.slot.count != 0
         {
+            cell.dateTimeLbl.text = AppDelegate().sharedDelegate().getDateTimeValueFromSlot(dict.slot)
+            /*
             var timestamp : Double = 0.0
             var timeSlot : String = ""
             for temp in dict.slot
@@ -88,6 +90,7 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             {
                 cell.dateTimeLbl.text = cell.dateTimeLbl.text! + endTime + " am"
             }
+            */
         }
         APIManager.sharedInstance.serviceCallToGetPhoto(dict.classDetails.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
         if isStudentLogin()

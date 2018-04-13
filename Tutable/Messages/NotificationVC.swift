@@ -156,6 +156,10 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.subTitleLbl.text = cell.subTitleLbl.text! + " - " + getDateStringFromDate(date: endDate, format: "hh:mm a")
             }
             
+            if let slot : [String : Any] = dict["slot"] as? [String : Any]
+            {
+                cell.subTitleLbl.text = AppDelegate().sharedDelegate().getDateTimeValueFromSlot(slot)
+            }
             cell.acceptBtn.tag = indexPath.row
             cell.acceptBtn.addTarget(self, action: #selector(clickToAccept(_:)), for: .touchUpInside)
             cell.rejectBtn.tag = indexPath.row

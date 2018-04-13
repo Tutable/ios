@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import CoreData
+import IQKeyboardManagerSwift
 
 @available(iOS 10.0, *)
 class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDelegate, UITableViewDelegate, UITableViewDataSource {
@@ -17,9 +18,11 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var lastSeenLbl: UILabel!
     @IBOutlet weak var tblView: UITableView!
+    @IBOutlet weak var msgView: UIView!
     @IBOutlet weak var msgTextView: UITextView!
-    @IBOutlet weak var constraintHeightTblView: NSLayoutConstraint!
+//    @IBOutlet weak var constraintHeightTblView: NSLayoutConstraint!
     @IBOutlet weak var constraintHeightMsgTextView: NSLayoutConstraint!
+    @IBOutlet weak var constraintBottomMsgTextView: NSLayoutConstraint!
     
     @IBOutlet var sendImageContainerVIew: UIView!
     @IBOutlet weak var receiverImgBtn: UIButton!
@@ -48,8 +51,13 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     var isAppear:Bool = false
     var otherUserStatus : UIColor = colorFromHex(hex: COLOR.APP_COLOR)
     var loginUserStatus : UIColor = colorFromHex(hex: COLOR.APP_COLOR)
-        
+    
+    var typeTimer : Timer = Timer()
+    var strPalceholder : String = "iMessage"
+    
     override func viewWillDisappear(_ animated: Bool) {
+//        IQKeyboardManager.sharedManager().enableAutoToolbar = true
+//        IQKeyboardManager.sharedManager().enable = true
         isAppear = false
         DispatchQueue.main.async {
             removeLoader()
@@ -67,6 +75,8 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     }
     
     override func viewDidAppear(_ animated: Bool) {
+//        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+//        IQKeyboardManager.sharedManager().enable = false
         self.fetchFirebaseMessages()
         self.onUpdateFirebaseMessages()
     }
@@ -75,8 +85,12 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    
         NotificationCenter.default.addObserver(self, selector: #selector(updateUserLastSeen), name: NSNotification.Name(rawValue: NOTIFICATION.ON_UPDATE_ALL_USER), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onUpdateStories), name: NSNotification.Name(rawValue: NOTIFICATION.ON_UPDATE_STORIES), object: nil)
+        self.view.layoutIfNeeded()
+//        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
         
         tblView.register(UINib.init(nibName: "SendChatMessageTVC", bundle: nil), forCellReuseIdentifier: "SendChatMessageTVC")
         tblView.register(UINib.init(nibName: "ReceiverChatMessageTVC", bundle: nil), forCellReuseIdentifier: "ReceiverChatMessageTVC")
@@ -87,10 +101,12 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         tblView.separatorStyle = UITableViewCellSeparatorStyle.none
         tblView.tableFooterView = UIView(frame: CGRect.zero)
         
-        msgTextView.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.APP_COLOR))
-        msgTextView.addCornerRadiusOfView(0)
+        msgView.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.LIGHT_GRAY))
+        msgView.addCornerRadiusOfView(msgView.frame.size.height/2)
         msgTextView.delegate = self
-        
+        msgTextView.text = strPalceholder
+        msgTextView.textColor = colorFromHex(hex: COLOR.LIGHT_GRAY)
+        msgTextView.textContainerInset = UIEdgeInsetsMake(2, 5, 0, 5)
         messagesRef = Database.database().reference().child("MESSAGES").child(channelId)
  
         continueFetchData()
@@ -98,7 +114,12 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
+        
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.dismissKeyboard))
+//        self.view.addGestureRecognizer(tap)
     }
+    
+    
     
     func continueFetchData()
     {
@@ -107,6 +128,26 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         updateUserLastSeen()
     }
     
+    //MARK: NotificationCenter handlers
+    @objc func showKeyboard(notification: Notification) {
+        if let frame = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let height = frame.cgRectValue.height
+            self.constraintBottomMsgTextView.constant = height
+            self.tblView.contentInset.bottom = height
+            scrollTableviewToBottom()
+        }
+    }
+    
+    @objc func hideKeyboard(notification: Notification) {
+        dismissKeyboard()
+    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        self.view.endEditing(true)
+        self.constraintBottomMsgTextView.constant = 0
+        scrollTableviewToBottom()
+    }
     
     //MARK:- Update func
     
@@ -121,16 +162,29 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             return
         }
         
+        let index = AppModel.shared.USERS.index { (temp) -> Bool in
+            temp.id == receiver.id
+        }
+        if index != nil
+        {
+            receiver = AppModel.shared.USERS[index!]
+        }
+        
         if receiver.name == ""
         {
-            userNameLbl.text = "Chat"
+            userNameLbl.text = "CHAT"
         }
         else
         {
-            userNameLbl.text = receiver.name
+            userNameLbl.text = "TALKING TO " + receiver.name
         }
+        userNameLbl.text = userNameLbl.text?.uppercased()
         
-        if receiver.last_seen.count == 0 {
+        if receiver.isType == 1
+        {
+            lastSeenLbl.text = "typing..."
+        }
+        else if receiver.last_seen.count == 0 {
             lastSeenLbl.text = "Online"
             if lastSeenTimer != nil && lastSeenTimer.isValid
             {
@@ -151,7 +205,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
                 otherUserStatus = colorFromHex(hex: COLOR.LIGHT_GRAY)
             }
         }
-        tblView.reloadData()
+//        tblView.reloadData()
     }
     
     @objc func onUpdateStories()
@@ -201,7 +255,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
                         }
                     }
                     self.tblView.reloadData()
-                    self.setTblViewHeight()
+                    self.scrollTableviewToBottom()
                 }
             }
         }
@@ -286,7 +340,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         self.tblView.beginUpdates()
         self.tblView.insertRows(at: [IndexPath(row: self.messages.count-1, section: 0)], with: .automatic)
         self.tblView.endUpdates()
-        self.setTblViewHeight()
+        self.scrollTableviewToBottom()
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -378,7 +432,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     
     @IBAction func clickToSend(_ sender: Any)
     {
-        self.view.endEditing(true)
+//        self.view.endEditing(true)
         msgTextView.text = msgTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if msgTextView.text != ""
@@ -391,6 +445,8 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             newSendMessagesArr[msgModel.msgId] = true
             newMsgRef.setValue(msgModel.dictionary())
             msgTextView.text = ""
+            constraintHeightMsgTextView.constant = 50
+            scrollTableviewToBottom()
             AppDelegate().sharedDelegate().onSendMessage(message: msgModel, chanelId: channelId)
         }
     }
@@ -570,14 +626,21 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     {
         if textView == msgTextView
         {
+            startTyping()
             if msgTextView.contentSize.height > 70 {
-                constraintHeightMsgTextView.constant = 70 + 25
+                constraintHeightMsgTextView.constant = 70 + 20
             }
             else
             {
-                constraintHeightMsgTextView.constant = msgTextView.contentSize.height + 25
+                constraintHeightMsgTextView.constant = msgTextView.contentSize.height + 20
+                if constraintHeightMsgTextView.constant < 50
+                {
+                    constraintHeightMsgTextView.constant = 50
+                }
             }
-            setTblViewHeight()
+            //setTblViewHeight()
+            typeTimer.invalidate()
+            typeTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(stopTyping), userInfo: nil, repeats: false)
         }
     }
     
@@ -585,26 +648,45 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     {
         if self.tblView != nil &&  self.messages.count > 0
         {
-            self.tblView.scrollToRow(at: IndexPath(item: self.tblView.numberOfRows(inSection: 0) - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: true)
+            self.tblView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: .bottom, animated: true)
         }
     }
     
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        stopTyping()
+        return true
+    }
     
-    func setTblViewHeight()
+    func startTyping()
     {
-        constraintHeightTblView.constant = self.view.frame.size.height - (70 + constraintHeightMsgTextView.constant)
-        scrollTableviewToBottom()
+        if AppModel.shared.firebaseCurrentUser.isType == 0
+        {
+            AppModel.shared.firebaseCurrentUser.isType = 1
+            AppDelegate().sharedDelegate().updateCurrentUserData()
+        }
+    }
+    
+    @objc func stopTyping()
+    {
+        if AppModel.shared.firebaseCurrentUser.isType == 1
+        {
+            AppModel.shared.firebaseCurrentUser.isType = 0
+            AppDelegate().sharedDelegate().updateCurrentUserData()
+        }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        AppModel.shared.firebaseCurrentUser.isType = 1
-        AppDelegate().sharedDelegate().updateCurrentUserData()
+        if textView.textColor == colorFromHex(hex: COLOR.LIGHT_GRAY) {
+            textView.text = nil
+            textView.textColor = colorFromHex(hex: COLOR.DARK_TEXT)
+        }
     }
     
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        AppModel.shared.firebaseCurrentUser.isType = 0
-        AppDelegate().sharedDelegate().updateCurrentUserData()
-        return true
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = strPalceholder
+            textView.textColor = colorFromHex(hex: COLOR.LIGHT_GRAY)
+        }
     }
     
     //MARK: - Custom Popup

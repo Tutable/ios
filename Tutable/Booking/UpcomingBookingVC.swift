@@ -69,6 +69,8 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
         
         if dict.slot.count != 0
         {
+            cell.dateTimeLbl.text = AppDelegate().sharedDelegate().getDateTimeValueFromSlot(dict.slot)
+            /*
             var timestamp : Double = 0.0
             var timeSlot : String = ""
             for temp in dict.slot
@@ -98,7 +100,10 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
             {
                 cell.dateTimeLbl.text = cell.dateTimeLbl.text! + endTime + " am"
             }
+            */
         }
+        
+        
         
         APIManager.sharedInstance.serviceCallToGetPhoto(dict.classDetails.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
 

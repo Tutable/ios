@@ -53,6 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     
         application.statusBarStyle = .lightContent
         
+        //print(UIDevice.current.identifierForVendor?.uuidString)
+        
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         
@@ -589,6 +591,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             if isCurrUserExist == true
             {
                 self.updateCurrentUserData()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATION.ON_UPDATE_ALL_USER), object: nil)
             }
         }
     }
@@ -787,6 +790,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         activityLoader.stopAnimating()
         activityLoader.removeFromSuperview()
         activityLoader = nil
+    }
+    
+    func getDateTimeValueFromSlot(_ slot : [String : Any]) -> String
+    {
+        var timestamp : Double = 0.0
+        var timeSlot : String = ""
+        for temp in slot
+        {
+            timestamp = Double(temp.key)!
+            timeSlot = temp.value as! String
+        }
+        var strDateTime : String = getDateStringFromDate(date: getDateFromTimeStamp(timestamp), format: "MMM dd") + ", "
+        let timeArr : [String] = timeSlot.components(separatedBy: "-")
+        let startTime : String = timeArr[0]
+        let endTime : String = timeArr[1]
+        
+        if Int(startTime)! > 12
+        {
+            strDateTime = strDateTime + String(Int(startTime)! - 12) + " pm to "
+        }
+        else
+        {
+            strDateTime = strDateTime + startTime + " am to "
+        }
+        
+        if Int(endTime)! > 12
+        {
+            strDateTime = strDateTime + String(Int(endTime)! - 12) + " pm"
+        }
+        else
+        {
+            strDateTime = strDateTime + endTime + " am"
+        }
+        return strDateTime
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {

@@ -110,7 +110,7 @@ class MessageVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        cell.messageLbl.text = dictMsg.text
+        cell.messageLbl.text = dictMsg.text.decoded
         cell.dataLbl.text = getDateStringFromDate(date: getDateFromTimeStamp(Double(dictMsg.date)!), format: "dd MMM yyyy")
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
