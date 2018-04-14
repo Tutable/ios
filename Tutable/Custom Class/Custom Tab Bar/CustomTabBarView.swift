@@ -19,13 +19,15 @@ class CustomTabBarView: UIView {
     @IBOutlet var btn2: UIButton!
     @IBOutlet var btn3: UIButton!
     @IBOutlet var btn4: UIButton!
-    @IBOutlet weak var btn5: UIButton!
+    @IBOutlet var btn5: UIButton!
     
     @IBOutlet weak var lbl1: UILabel!
     @IBOutlet weak var lbl2: UILabel!
     @IBOutlet weak var lbl3: UILabel!
     @IBOutlet weak var lbl4: UILabel!
     @IBOutlet weak var lbl5: UILabel!
+    
+    @IBOutlet weak var messageBadgeLbl: UILabel!
     
     var delegate:CustomTabBarViewDelegate?
     var lastIndex : NSInteger!

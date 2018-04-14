@@ -67,7 +67,7 @@
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YvG-eP-87L">
-                        <rect key="frame" x="38" y="63" width="10" height="10"/>
+                        <rect key="frame" x="39" y="71" width="10" height="10"/>
                         <color key="backgroundColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="Oec-VZ-D24"/>
@@ -86,7 +86,7 @@
                         <rect key="frame" x="65" y="35" width="245" height="60"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="message display here test" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8w-IK-hD2">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="35"/>
+                                <rect key="frame" x="5" y="0.0" width="235" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.23529411759999999" green="0.2156862745" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
@@ -94,9 +94,8 @@
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just Now" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yzE-Ez-h4c">
-                                <rect key="frame" x="5" y="38" width="170" height="20"/>
+                                <rect key="frame" x="10" y="38" width="225" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="170" id="S4L-jC-jHd"/>
                                     <constraint firstAttribute="height" constant="20" id="V4S-Xa-TcM"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
@@ -106,18 +105,19 @@
                         </subviews>
                         <color key="backgroundColor" red="0.84142285585403442" green="0.84206491708755493" blue="0.84152227640151978" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="v8w-IK-hD2" firstAttribute="leading" secondItem="sKy-G2-STP" secondAttribute="leading" id="4dc-G8-7eb"/>
+                            <constraint firstItem="v8w-IK-hD2" firstAttribute="leading" secondItem="sKy-G2-STP" secondAttribute="leading" constant="5" id="4dc-G8-7eb"/>
                             <constraint firstAttribute="trailing" secondItem="v8w-IK-hD2" secondAttribute="trailing" constant="5" id="8cO-AY-Tfu"/>
                             <constraint firstItem="yzE-Ez-h4c" firstAttribute="top" secondItem="v8w-IK-hD2" secondAttribute="bottom" constant="3" id="No6-au-8UQ"/>
                             <constraint firstAttribute="bottom" secondItem="yzE-Ez-h4c" secondAttribute="bottom" constant="2" id="X2C-8Z-cvt"/>
-                            <constraint firstItem="yzE-Ez-h4c" firstAttribute="leading" secondItem="sKy-G2-STP" secondAttribute="leading" constant="5" id="w2H-7A-Hgv"/>
+                            <constraint firstItem="yzE-Ez-h4c" firstAttribute="leading" secondItem="sKy-G2-STP" secondAttribute="leading" constant="10" id="w2H-7A-Hgv"/>
                             <constraint firstItem="v8w-IK-hD2" firstAttribute="top" secondItem="sKy-G2-STP" secondAttribute="top" id="wRH-v7-PBh"/>
                             <constraint firstAttribute="height" constant="60" id="xQw-0U-CWY"/>
+                            <constraint firstAttribute="trailing" secondItem="yzE-Ez-h4c" secondAttribute="trailing" constant="10" id="zce-sX-VaF"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="YvG-eP-87L" firstAttribute="bottom" secondItem="0aj-3w-mkZ" secondAttribute="bottom" constant="-9" id="24f-d6-HYa"/>
+                    <constraint firstItem="YvG-eP-87L" firstAttribute="bottom" secondItem="0aj-3w-mkZ" secondAttribute="bottom" constant="-1" id="24f-d6-HYa"/>
                     <constraint firstItem="V5w-fC-e7V" firstAttribute="leading" secondItem="sKy-G2-STP" secondAttribute="leading" constant="-10" id="7UJ-HP-fZf"/>
                     <constraint firstItem="0aj-3w-mkZ" firstAttribute="top" secondItem="aqT-Oh-cUj" secondAttribute="bottom" constant="12" id="ERd-98-RyB"/>
                     <constraint firstItem="sKy-G2-STP" firstAttribute="top" secondItem="aqT-Oh-cUj" secondAttribute="bottom" constant="5" id="JRi-83-Mbp"/>
@@ -126,7 +126,7 @@
                     <constraint firstItem="0aj-3w-mkZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="aWT-lt-4MR"/>
                     <constraint firstItem="aqT-Oh-cUj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="aeF-jV-Fxo"/>
                     <constraint firstItem="V5w-fC-e7V" firstAttribute="top" secondItem="sKy-G2-STP" secondAttribute="top" constant="16" id="jgi-W9-f3w"/>
-                    <constraint firstItem="YvG-eP-87L" firstAttribute="trailing" secondItem="0aj-3w-mkZ" secondAttribute="trailing" constant="-2" id="rPz-Qu-6gX"/>
+                    <constraint firstItem="YvG-eP-87L" firstAttribute="trailing" secondItem="0aj-3w-mkZ" secondAttribute="trailing" constant="-1" id="rPz-Qu-6gX"/>
                     <constraint firstAttribute="trailing" secondItem="sKy-G2-STP" secondAttribute="trailing" constant="10" id="rZp-nB-TM8"/>
                     <constraint firstAttribute="trailing" secondItem="aqT-Oh-cUj" secondAttribute="trailing" id="uxW-p7-BkT"/>
                 </constraints>

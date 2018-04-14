@@ -28,7 +28,7 @@ import MessageUI
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSignInUIDelegate, URLSessionDelegate {
 
     var window: UIWindow?
     var isKeyboardOpen:Bool = false
@@ -634,7 +634,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                 for child in snapshot.children {
                     let channel:DataSnapshot = child as! DataSnapshot
                     if let channelDict = channel.value as? [String : AnyObject]{
-                        if AppModel.shared.validateInbox(dict: channelDict)
+                        if (self.isMyChanel(channelId: channelDict["id"] as! String)) && AppModel.shared.validateInbox(dict: channelDict)
                         {
                             let msgList : InboxListModel = InboxListModel.init(dict: channelDict)
                             AppModel.shared.INBOXLIST.append(msgList)
@@ -642,6 +642,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                     }
                 }
             }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATION.UPDATE_INBOX_LIST), object: nil)
+            self.updateInboxMessageBadge()
         }
     }
     
@@ -733,7 +735,92 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         message.status = 2
         messageListRef.child(chanelId).child(message.key).child("status").setValue(message.status)
         
-        updateLastMessageInInbox(message: message, chanelId: chanelId)
+//        updateLastMessageInInbox(message: message, chanelId: chanelId)
+        
+        let otherUserBadgeKey : String = getOtherUserBadgeKey(channelID: chanelId)
+        var otherUserBadge : Int = 1
+        let index = AppModel.shared.INBOXLIST.index { (inbox) -> Bool in
+            inbox.id == chanelId
+        }
+        
+        if index != nil
+        {
+            let inboxList : InboxListModel = AppModel.shared.INBOXLIST[index!]
+            if otherUserBadgeKey == "badge1" {
+                inboxList.badge1 = inboxList.badge1 + 1
+                otherUserBadge = inboxList.badge1
+            }
+            else
+            {
+                inboxList.badge2 = inboxList.badge2 + 1
+                otherUserBadge = inboxList.badge2
+            }
+            inboxList.lastMessage = message
+        }
+        inboxListRef.child(chanelId).child(otherUserBadgeKey).setValue(otherUserBadge)
+        
+        let index1 = AppModel.shared.USERS.index { (user) -> Bool in
+            user.id == message.otherUserId
+        }
+        if index1 != nil
+        {
+            if AppModel.shared.USERS[index1!].last_seen != ""
+            {
+                sendPush(title: "Tutable", body: ("You have new Message from " + AppModel.shared.firebaseCurrentUser.name), user: AppModel.shared.USERS[index1!], type: "1")
+                
+                message.status = 3
+            }
+        }
+        inboxListRef.child(chanelId).child("lastMessage").setValue(message.dictionary())
+        
+    }
+    
+    func sendPush(title:String, body:String, user:FirebaseUserModel, type : String)
+    {
+        let url  = NSURL(string: "https://fcm.googleapis.com/fcm/send")
+        
+        let request = NSMutableURLRequest(url: url! as URL)
+        
+        request.setValue("application/json", forHTTPHeaderField:"Content-Type")
+        request.setValue("key=AAAALnVHhAA:APA91bEBmP8SvYENsJx7V60NDO4PUPp6tkyend81vgvhse94PFV8xBQe3DQ3C7copj64q2GDPcwLAS4fecFK-5iwtYAwW-nG9G_hBqXjEoXflhjP8f9VVvgJf9Ni5c-vcciiLq0T4eAV", forHTTPHeaderField: "Authorization")
+        
+        request.httpMethod = "POST"
+        
+        //badge
+        let userBadge : Int = user.badge + 1
+        self.appUsersRef.child(user.id).child("badge").setValue(userBadge)
+        
+        let sessionConfig = URLSessionConfiguration.default
+        
+        let token = user.fcmToken
+        let json = ["to":token!,
+                    "priority":"high",
+                    "content_available":true,
+                    "notification":["sound" : "default", "badge" : String(userBadge), "body":body,"title":title]] as [String : Any]
+        
+        do {
+            
+            let jsonData = try JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions.prettyPrinted)
+            request.httpBody = jsonData
+            
+            let urlSession = URLSession(configuration: sessionConfig, delegate: self, delegateQueue: OperationQueue.main)
+            let datatask = urlSession.dataTask(with: request as URLRequest) { (data, response, error) in
+                if data != nil
+                {
+                    let strData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                    print("Body: \(String(describing: strData))")
+                    print(response ?? "",data ?? "")
+                    print(error ?? "")
+                    
+                }
+                
+            }
+            
+            datatask.resume()
+            
+        } catch let error as NSError {
+            print(error)
+        }
     }
     
     func updateLastMessageInInbox(message : MessageModel, chanelId : String)
@@ -745,27 +832,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     
     func onGetMessage(message : MessageModel, chanelId : String)
     {
-        /*
-         let myBadgeKey : String = getCurrentUserBadgeKey(chanelId)
-         let index = AppModel.shared.INBOXLIST.index { (inbox) -> Bool in
-         inbox.conversationKey == chanelId
-         }
-         
-         if index != nil
-         {
-         let inboxList : InboxListModel = AppModel.shared.INBOXLIST[index!]
-         if myBadgeKey == "badge1" {
-         inboxList.badge1 = 0
-         }
-         else
-         {
-         inboxList.badge2 = 0
-         }
-         //inboxList.lastMessage = message
-         inboxListRef.child(chanelId).child(myBadgeKey).setValue(0)
-         }
-         //inboxListRef.child(chanelId).child("lastMessage").child("badge1")
-         */
+        let myBadgeKey : String = getCurrentUserBadgeKey(chanelId)
+        let index = AppModel.shared.INBOXLIST.index { (inbox) -> Bool in
+            inbox.id == chanelId
+        }
+        if index != nil
+        {
+            let inboxList : InboxListModel = AppModel.shared.INBOXLIST[index!]
+            if myBadgeKey == "badge1" {
+                inboxList.badge1 = 0
+            }else{
+                inboxList.badge2 = 0
+            }
+            inboxListRef.child(chanelId).child(myBadgeKey).setValue(0)
+        }
+    }
+    
+    func updateInboxMessageBadge()
+    {
+        var unreadBadge : Int = 0
+        
+        for temp in AppModel.shared.INBOXLIST
+        {
+            if (isMyChanel(channelId: temp.id))
+            {
+                if getCurrentUserBadgeKey(temp.id) == "badge1"
+                {
+                    unreadBadge = unreadBadge + temp.badge1
+                }
+                else
+                {
+                    unreadBadge = unreadBadge + temp.badge2
+                }
+            }
+        }
+        AppModel.shared.firebaseCurrentUser.badge = unreadBadge
+        NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: NOTIFICATION.UPDATE_MESSAGE_BADGE), object: nil)
     }
     
     //MARK:- Other func.
@@ -1095,10 +1197,17 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         print(dict)
         if isUserLogin()
         {
-            let vc : NotificationVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
-            if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
+            if dict["gcm.message_id"] != nil
             {
-                rootNavigatioVC.pushViewController(vc, animated: false)
+                NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: NOTIFICATION.REDIRECT_TO_MESSAGE), object: nil)
+            }
+            else
+            {
+                let vc : NotificationVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
+                if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
+                {
+                    rootNavigatioVC.pushViewController(vc, animated: false)
+                }
             }
         }
     }

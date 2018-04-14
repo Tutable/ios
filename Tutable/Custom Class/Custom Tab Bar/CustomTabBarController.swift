@@ -25,10 +25,13 @@ class CustomTabBarController: UITabBarController, CustomTabBarViewDelegate {
         tabBarView.delegate = self
         
         addTabBarView()
+        tabBarView.messageBadgeLbl.addCircularRadiusOfView()
+        updateMessageBadge()
         
         setup()
         //tabBarView.isHidden = true
-        NotificationCenter.default.addObserver(self, selector: #selector(self.redirectToNotification(noti:)), name: NSNotification.Name.init(rawValue: NOTIFICATION.REDIRECT_TO_NOTIFICATION), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.redirectToNotification(noti:)), name: NSNotification.Name.init(rawValue: NOTIFICATION.REDIRECT_TO_MESSAGE), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateMessageBadge), name: NSNotification.Name.init(rawValue: NOTIFICATION.UPDATE_MESSAGE_BADGE), object: nil)
     }
     
     @objc func redirectToNotification(noti : Notification)
@@ -37,6 +40,24 @@ class CustomTabBarController: UITabBarController, CustomTabBarViewDelegate {
         tabBarView.btn4.isSelected = true;
         tabBarView.lbl4.isHighlighted = true;
         tabSelectedAtIndex(index: 3)
+    }
+    
+    @objc func updateMessageBadge()
+    {
+        if AppModel.shared.firebaseCurrentUser == nil
+        {
+            return
+        }
+        if AppModel.shared.firebaseCurrentUser.badge == 0
+        {
+            tabBarView.messageBadgeLbl.text = ""
+            tabBarView.messageBadgeLbl .isHidden = true
+        }
+        else
+        {
+            tabBarView.messageBadgeLbl.text = String(AppModel.shared.firebaseCurrentUser.badge)
+            tabBarView.messageBadgeLbl .isHidden = false
+        }
     }
     
     func setup()

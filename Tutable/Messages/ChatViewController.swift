@@ -470,8 +470,10 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             }
             cell.messageTxtView.text = dict.text.decoded
             
-            let sizeThatFitsTextView:CGSize = cell.messageTxtView.sizeThatFits(CGSize(width: tblView.frame.size.width-110, height: CGFloat(MAXFLOAT)))
-            cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height
+            cell.ConstraintHeightMessageView.constant = cell.messageTxtView.getHeight() + 20
+            
+//            let sizeThatFitsTextView:CGSize = cell.messageTxtView.sizeThatFits(CGSize(width: tblView.frame.size.width-110, height: CGFloat(MAXFLOAT)))
+//            cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height
             
             var headerHeight : CGFloat = 0
             if indexPath.row == 0 || isSameDate(firstDate: dict.date, secondDate: messages[indexPath.row-1].date) == false
@@ -491,9 +493,9 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             
             
             cell.messageTxtView.text = dict.text.decoded
-            
-            let sizeThatFitsTextView:CGSize = cell.messageTxtView.sizeThatFits(CGSize(width: tblView.frame.size.width-110, height: CGFloat(MAXFLOAT)))
-            cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height
+            cell.ConstraintHeightMessageView.constant = cell.messageTxtView.getHeight() + 20
+//            let sizeThatFitsTextView:CGSize = cell.messageTxtView.sizeThatFits(CGSize(width: tblView.frame.size.width-110, height: CGFloat(MAXFLOAT)))
+//            cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height
             var headerHeight : CGFloat = 0
             if indexPath.row == 0 || isSameDate(firstDate: dict.date, secondDate: messages[indexPath.row-1].date) == false
             {
@@ -552,8 +554,9 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         }
         
         cell.messageTxtView.text = dict.text.decoded
-        let sizeThatFitsTextView:CGSize = cell.messageTxtView.sizeThatFits(CGSize(width: tblView.frame.size.width-110, height: CGFloat(MAXFLOAT)))
-        cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height + 20
+        cell.ConstraintHeightMessageView.constant = cell.messageTxtView.getHeight() + 20
+//        let sizeThatFitsTextView:CGSize = cell.messageTxtView.sizeThatFits(CGSize(width: tblView.frame.size.width-110, height: CGFloat(MAXFLOAT)))
+//        cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height + 20
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }

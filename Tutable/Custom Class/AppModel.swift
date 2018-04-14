@@ -539,6 +539,7 @@ class FirebaseUserModel:AppModel{
     var fcmToken : String!
     var picture : String!
     var isType : Int!
+    var badge : Int!
     
     override init(){
         id = ""
@@ -548,6 +549,7 @@ class FirebaseUserModel:AppModel{
         fcmToken = ""
         picture = ""
         isType = 0
+        badge = 0
     }
     init(dict : [String : Any])
     {
@@ -558,6 +560,7 @@ class FirebaseUserModel:AppModel{
         fcmToken = ""
         picture = ""
         isType = 0
+        badge = 0
         
         if let temp = dict["id"] as? String{
             id = temp
@@ -580,10 +583,13 @@ class FirebaseUserModel:AppModel{
         if let temp = dict["isType"] as? Int{
             isType = temp
         }
+        if let temp = dict["badge"] as? Int{
+            badge = temp
+        }
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"email" : email, "last_seen" : last_seen, "fcmToken" : fcmToken, "picture" : picture, "isType" : isType]
+        return ["id":id,"name":name,"email" : email, "last_seen" : last_seen, "fcmToken" : fcmToken, "picture" : picture, "isType" : isType, "badge" : badge]
     }
     
     func toJson(_ dict:[String:Any]) -> String{

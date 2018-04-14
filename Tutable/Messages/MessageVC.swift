@@ -32,8 +32,11 @@ class MessageVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
-        tabBar.setTabBarHidden(tabBarHidden: false)
+        if tabBarController != nil
+        {
+            let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
+            tabBar.setTabBarHidden(tabBarHidden: false)
+        }
         if AppModel.shared.INBOXLIST.count == 0
         {
             AppDelegate().sharedDelegate().inboxListHandler()
@@ -115,7 +118,7 @@ class MessageVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.messageLbl.text = dictMsg.text.decoded
-        cell.dataLbl.text = getDateStringFromDate(date: getDateFromTimeStamp(Double(dictMsg.date)!), format: "dd MMM yyyy")
+        cell.dataLbl.text = getDateTimeStringForChat(Double(dictMsg.date)!)
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell

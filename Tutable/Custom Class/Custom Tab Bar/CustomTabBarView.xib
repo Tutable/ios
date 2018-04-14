@@ -9,6 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
         <array key="Roboto-Regular.ttf">
             <string>Roboto-Regular</string>
         </array>
@@ -147,16 +150,29 @@
                                 <action selector="tabBtnClicked:" destination="Q15-5M-XPA" eventType="touchUpInside" id="hIf-E4-8fQ"/>
                             </connections>
                         </button>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="QFI-hU-Y0g">
+                            <rect key="frame" x="36" y="16" width="10" height="10"/>
+                            <color key="backgroundColor" red="1" green="0.1243427688" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="10" id="4Bg-o9-2NJ"/>
+                                <constraint firstAttribute="width" constant="10" id="FNR-Po-5ZI"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="7"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="wa4-AL-ltC" secondAttribute="trailing" constant="2" id="EsX-ja-aKO"/>
+                        <constraint firstItem="QFI-hU-Y0g" firstAttribute="centerX" secondItem="u3u-Ak-9wn" secondAttribute="centerX" constant="9" id="LpV-eS-Li7"/>
                         <constraint firstItem="UxO-yD-d0h" firstAttribute="top" secondItem="u3u-Ak-9wn" secondAttribute="top" id="UTh-YC-w3u"/>
                         <constraint firstAttribute="bottom" secondItem="wa4-AL-ltC" secondAttribute="bottom" constant="2" id="aOw-hp-DeK"/>
                         <constraint firstAttribute="bottom" secondItem="UxO-yD-d0h" secondAttribute="bottom" id="db7-MF-bre"/>
                         <constraint firstAttribute="trailing" secondItem="UxO-yD-d0h" secondAttribute="trailing" id="dhl-0v-gFR"/>
                         <constraint firstItem="UxO-yD-d0h" firstAttribute="leading" secondItem="u3u-Ak-9wn" secondAttribute="leading" id="eZr-Zt-mtZ"/>
                         <constraint firstItem="wa4-AL-ltC" firstAttribute="leading" secondItem="u3u-Ak-9wn" secondAttribute="leading" constant="2" id="ehw-gG-hjc"/>
+                        <constraint firstItem="QFI-hU-Y0g" firstAttribute="centerY" secondItem="u3u-Ak-9wn" secondAttribute="centerY" constant="-4" id="mXX-ic-n5e"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRy-fN-jbC">
@@ -233,6 +249,7 @@
                 <outlet property="lbl3" destination="BMd-rz-kaH" id="Wdw-65-jY6"/>
                 <outlet property="lbl4" destination="wa4-AL-ltC" id="m2L-85-Pbw"/>
                 <outlet property="lbl5" destination="2m5-LC-8R5" id="1i2-SS-6PR"/>
+                <outlet property="messageBadgeLbl" destination="QFI-hU-Y0g" id="8Qf-jM-6RW"/>
             </connections>
             <point key="canvasLocation" x="-126" y="-473"/>
         </view>

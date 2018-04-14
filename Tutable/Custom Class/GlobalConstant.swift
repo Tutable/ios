@@ -89,10 +89,11 @@ struct FACEBOOK {
 struct NOTIFICATION {
     static var UPDATE_CURRENT_USER_DATA     =   "UPDATE_CURRENT_USER_DATA"
     static var UPDATE_TAB_SELECTION         =   "UPDATE_TAB_SELECTION"
-    static var REDIRECT_TO_NOTIFICATION     =   "REDIRECT_TO_NOTIFICATION"
+    static var REDIRECT_TO_MESSAGE          =   "REDIRECT_TO_MESSAGE"
     static var ON_UPDATE_ALL_USER           =   "ON_UPDATE_ALL_USER"
     static var ON_UPDATE_STORIES            =   "ON_UPDATE_STORIES"
     static var UPDATE_INBOX_LIST            =   "UPDATE_INBOX_LIST"
+    static var UPDATE_MESSAGE_BADGE         =   "UPDATE_MESSAGE_BADGE"
 }
 
 struct COREDATA {
