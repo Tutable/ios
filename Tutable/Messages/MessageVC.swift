@@ -34,6 +34,10 @@ class MessageVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
         tabBar.setTabBarHidden(tabBarHidden: false)
+        if AppModel.shared.INBOXLIST.count == 0
+        {
+            AppDelegate().sharedDelegate().inboxListHandler()
+        }
     }
     
     @objc func updateInboxList()

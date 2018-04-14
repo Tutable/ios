@@ -349,6 +349,9 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
                 childrenData = UIImagePNGRepresentation(childrenCheckImg)!
             }
             APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: degreeData, pictureData: imageData, completion: {
+                AppModel.shared.firebaseCurrentUser.name =  AppModel.shared.currentUser.name
+                AppModel.shared.firebaseCurrentUser.picture =  AppModel.shared.currentUser.picture
+                AppDelegate().sharedDelegate().updateCurrentUserData()
                 if policeData.count != 0 || childrenData.count != 0
                 {
                     APIManager.sharedInstance.serviceCallToUpdateCertificates(policeData, childrenData: childrenData, completion: {

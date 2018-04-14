@@ -110,6 +110,9 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
     {
         APIManager.sharedInstance.serviceCallToUpdateStudentDetail(dict, pictureData: imageData) {
             displayToast("Profile update successfully.")
+            AppModel.shared.firebaseCurrentUser.name =  AppModel.shared.currentUser.name
+            AppModel.shared.firebaseCurrentUser.picture =  AppModel.shared.currentUser.picture
+            AppDelegate().sharedDelegate().updateCurrentUserData()
             self.navigationController?.popViewController(animated: true)
         }
     }

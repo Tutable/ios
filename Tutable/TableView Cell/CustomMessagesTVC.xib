@@ -53,7 +53,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sdfgsfgsfsdfdsfdsfsfdsfdsfdsfdsfdsfdsfdsfdsfdsfdsfd" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfX-xx-mtu">
-                                <rect key="frame" x="87" y="39" width="166" height="37"/>
+                                <rect key="frame" x="87" y="39" width="249" height="30.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -79,6 +79,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="nkv-Cf-bm0" secondAttribute="trailing" id="0S7-sW-cfa"/>
+                            <constraint firstItem="dK7-B8-LWW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BfX-xx-mtu" secondAttribute="bottom" id="2e5-Nb-zvb"/>
                             <constraint firstItem="LWr-p0-NE6" firstAttribute="top" secondItem="ENB-Fe-snR" secondAttribute="top" constant="12" id="5ak-4H-O8o"/>
                             <constraint firstAttribute="bottom" secondItem="LWr-p0-NE6" secondAttribute="bottom" constant="17.5" id="Bei-wu-H8b"/>
                             <constraint firstItem="nkv-Cf-bm0" firstAttribute="top" secondItem="ENB-Fe-snR" secondAttribute="top" constant="17" id="DGh-pO-wJ3"/>
@@ -91,10 +92,9 @@
                             <constraint firstItem="bSy-a3-N74" firstAttribute="leading" secondItem="ENB-Fe-snR" secondAttribute="leading" constant="10" id="Xpq-cN-9au"/>
                             <constraint firstAttribute="trailing" secondItem="bSy-a3-N74" secondAttribute="trailing" constant="10" id="cGt-EY-OGy"/>
                             <constraint firstItem="nkv-Cf-bm0" firstAttribute="leading" secondItem="LWr-p0-NE6" secondAttribute="trailing" constant="10" id="hmr-cn-ErI"/>
-                            <constraint firstAttribute="bottom" secondItem="BfX-xx-mtu" secondAttribute="bottom" constant="23.5" id="jPp-Ky-Cee"/>
                             <constraint firstItem="BfX-xx-mtu" firstAttribute="top" secondItem="nkv-Cf-bm0" secondAttribute="bottom" constant="3" id="o0l-4B-fOp"/>
                             <constraint firstAttribute="bottom" secondItem="dK7-B8-LWW" secondAttribute="bottom" constant="8.5" id="zOt-O7-B0F"/>
-                            <constraint firstAttribute="trailing" secondItem="BfX-xx-mtu" secondAttribute="trailing" constant="98" id="zSL-lK-rYK"/>
+                            <constraint firstAttribute="trailing" secondItem="BfX-xx-mtu" secondAttribute="trailing" constant="15" id="zSL-lK-rYK"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -15,7 +15,6 @@ class MessageCell: UITableViewCell {
     @IBOutlet weak var messageView: UIView!
     @IBOutlet weak var messageTxtView: UITextView!
     @IBOutlet weak var ConstraintHeightMessageView: NSLayoutConstraint!
-    @IBOutlet weak var ConstraintWidthMessageView: NSLayoutConstraint!
     @IBOutlet weak var durationLbl: UILabel!
     
     @IBOutlet weak var headerView: UIView!
