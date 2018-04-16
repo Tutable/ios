@@ -60,7 +60,7 @@ class AddRateReviewVC: UIViewController, UITextViewDelegate {
         
         classNameLbl.text = classData.name
         APIManager.sharedInstance.serviceCallToGetPhoto(classData.teacher.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userPicBtn])
-        userNameLbl.text = "By " + classData.teacher.name
+        userNameLbl.text = classData.teacher.name
         
         priceLbl.text = setFlotingPrice(classData.rate)
         

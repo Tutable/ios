@@ -314,8 +314,8 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
             dict["bio"] = AppModel.shared.currentUser.bio
             
             let location : LocationModel = LocationModel.init()
-            location.state = stateLbl.text
-            location.suburb = suburbTxt.text
+            location.state = stateLbl.text?.uppercased()
+            location.suburb = suburbTxt.text?.capitalized
             dict["address"] = location.dictionary()
             AppModel.shared.currentUser.address = location
             
@@ -355,11 +355,13 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
                 if policeData.count != 0 || childrenData.count != 0
                 {
                     APIManager.sharedInstance.serviceCallToUpdateCertificates(policeData, childrenData: childrenData, completion: {
+                        displayToast("Profile updated successfully")
                         self.navigationController?.popViewController(animated: true)
                     })
                 }
                 else
                 {
+                    displayToast("Profile updated successfully")
                     self.navigationController?.popViewController(animated: true)
                 }
             })

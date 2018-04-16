@@ -64,7 +64,7 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let dict : BookingClassModel = arrUpcomingBookingData[indexPath.row]
         cell.classNameLbl.text = dict.classDetails.name
-        cell.userNameLbl.text = "By " + dict.teacher.name
+        cell.userNameLbl.text = dict.teacher.name
         cell.priceLbl.text = setFlotingPrice(dict.classDetails.rate)
         
         if dict.slot.count != 0

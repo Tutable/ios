@@ -39,7 +39,7 @@ class ResetPasswordVC: UIViewController {
         self.view.endEditing(true)
         if tokenTxt.text?.trimmed == ""
         {
-            displayToast("Please enter token")
+            displayToast("Please enter code")
         }
         else if newPasswordTxt.text?.trimmed == ""
         {
@@ -54,7 +54,7 @@ class ResetPasswordVC: UIViewController {
             AppModel.shared.currentUser.password = newPasswordTxt.text
             AppModel.shared.currentUser.verificationCode = tokenTxt.text
             APIManager.sharedInstance.serviceCallToChangePassword({
-                AppDelegate().sharedDelegate().navigateToDashboard()
+                AppDelegate().sharedDelegate().navigateToLogin()
             })
         }
     }

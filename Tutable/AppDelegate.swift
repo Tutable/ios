@@ -188,17 +188,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                         userDict["email"] = email as! String
                     }
                     
-                    if let first_name = dict["first_name"]
+                    if let name = dict["name"]
                     {
-                        userDict["firstName"] = first_name as! String
-                    }
-                    
-                    if let lastName = dict["name"]
-                    {
-                        var last_name : String = lastName as! String
-                        let first_name : String = userDict["firstName"] as! String
-                        last_name = last_name.replacingOccurrences(of: first_name, with: "")
-                        userDict["lastName"] = last_name
+                        userDict["firstName"] = name
                     }
                     
                     userDict["accessToken"] = accessToken
@@ -326,18 +318,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                 if code == 100
                 {
                     setSocialLoginUser()
-                    if AppModel.shared.currentUser.firstLogin == 1
-                    {
-                        let vc : AddTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "AddTeacherProfileVC") as! AddTeacherProfileVC
-                        vc.isBackDisplay = false
-                        if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
+                    APIManager.sharedInstance.serviceCallToGetCertificate {
+                        let redirectionType : Int = AppDelegate().sharedDelegate().redirectAfterTeacherRegistration()
+                        if redirectionType == 0
                         {
-                            rootNavigatioVC.pushViewController(vc, animated: false)
+                            AppDelegate().sharedDelegate().navigateToDashboard()
                         }
-                    }
-                    else
-                    {
-                        self.navigateToDashboard()
+                        else if redirectionType == 1
+                        {
+                            let vc : AddTeacherProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "AddTeacherProfileVC") as! AddTeacherProfileVC
+                            vc.isBackDisplay = false
+                            if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
+                            {
+                                rootNavigatioVC.pushViewController(vc, animated: false)
+                            }
+                        }
+                        else if redirectionType == 2
+                        {
+                            let vc : TeacherCertificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
+                            vc.isBackDisplay = false
+                            if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
+                            {
+                                rootNavigatioVC.pushViewController(vc, animated: false)
+                            }
+                        }
+                        else if redirectionType == 3
+                        {
+                            let vc : TeacherQulificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
+                            vc.isBackDisplay = false
+                            if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
+                            {
+                                rootNavigatioVC.pushViewController(vc, animated: false)
+                            }
+                        }
                     }
                 }
             })
@@ -547,7 +560,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     {
         if userFcmToken == ""
         {
-            userFcmToken = Messaging.messaging().fcmToken!
+            if let token = Messaging.messaging().fcmToken as? String
+            {
+                userFcmToken = token as! String
+            }
         }
         return userFcmToken
     }
@@ -631,6 +647,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             AppModel.shared.INBOXLIST = [InboxListModel]()
             if snapshot.exists()
             {
+                var arrNewMsg : [String] = [String] ()
                 for child in snapshot.children {
                     let channel:DataSnapshot = child as! DataSnapshot
                     if let channelDict = channel.value as? [String : AnyObject]{
@@ -638,8 +655,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                         {
                             let msgList : InboxListModel = InboxListModel.init(dict: channelDict)
                             AppModel.shared.INBOXLIST.append(msgList)
+                            if msgList.lastMessage.status == 2 && self.inboxNewMessageNoti[msgList.lastMessage.msgId] == nil && msgList.lastMessage.otherUserId == AppModel.shared.firebaseCurrentUser.id
+                            {
+                                if let otherUser : FirebaseUserModel = self.getConnectUserDetail(channelId: msgList.id)
+                                {
+                                    msgList.lastMessage.status = 3
+                                    self.inboxNewMessageNoti[msgList.lastMessage.msgId] = true
+                                    arrNewMsg.append(msgList.id)
+                                    
+                                    let vc : UIViewController = UIApplication.topViewController()!
+                                    if (vc is ChatViewController) && (vc as! ChatViewController).channelId == msgList.id {
+                                    }
+                                    else
+                                    {
+                                        if #available(iOS 10.0, *) {
+                                            self.showLocalPush(title: "New Message", subTitle: otherUser.name + ((msgList.lastMessage.text.decoded != "") ? (" : " + msgList.lastMessage.text.decoded) : " has sent story."), user: otherUser)
+                                        } else {
+                                            // Fallback on earlier versions
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
+                }
+                for i in 0..<arrNewMsg.count
+                {
+                    self.inboxListRef.child(arrNewMsg[i]).child("lastMessage").child("status").setValue(3)
                 }
             }
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATION.UPDATE_INBOX_LIST), object: nil)
@@ -693,6 +735,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         }
     }
     
+    func getConnectUserDetail(channelId : String) -> FirebaseUserModel?
+    {
+        var otherUser : FirebaseUserModel?
+        let arrtemp : [String] = channelId.components(separatedBy: "-")
+        if(AppModel.shared.firebaseCurrentUser != nil && arrtemp[0] == AppModel.shared.firebaseCurrentUser.id){
+            otherUser = getUserById(uID: arrtemp[1])
+        }
+        else{
+            otherUser = getUserById(uID: arrtemp[0])
+        }
+        return otherUser
+    }
+    func getUserById(uID : String) -> FirebaseUserModel?
+    {
+        if AppModel.shared.firebaseCurrentUser != nil && uID == AppModel.shared.firebaseCurrentUser.id
+        {
+            return AppModel.shared.firebaseCurrentUser
+        }
+        let index = AppModel.shared.USERS.index { (user) -> Bool in
+            user.id == uID
+        }
+        
+        if index == nil
+        {
+            return nil
+        }
+        else
+        {
+            return AppModel.shared.USERS[index!]
+        }
+    }
     func getCurrentUserBadgeKey(_ channelID : String) -> String
     {
         let arrTemp : [String] = channelID.components(separatedBy: "-")
@@ -821,6 +894,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         } catch let error as NSError {
             print(error)
         }
+    }
+    
+    @available(iOS 10.0, *)
+    func showLocalPush(title : String, subTitle : String, user : FirebaseUserModel)
+    {
+        
+        let index = AppModel.shared.USERS.index(where: { (tempUser) -> Bool in
+            tempUser.id == user.id
+        })
+        
+        if index != nil
+        {
+            
+            let uploadContent = UNMutableNotificationContent()
+            uploadContent.title = title
+            uploadContent.body = subTitle
+            uploadContent.userInfo = ["user" : user.dictionary()]
+            uploadContent.categoryIdentifier = "CHAT"
+            
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+            
+            let uploadRequestIdentifier = "myChatIdentifier"
+            let uploadRequest = UNNotificationRequest(identifier: uploadRequestIdentifier, content: uploadContent, trigger: trigger)
+            UNUserNotificationCenter.current().add(uploadRequest, withCompletionHandler: nil)
+        }
+        
     }
     
     func updateLastMessageInInbox(message : MessageModel, chanelId : String)
@@ -1174,7 +1273,15 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        if UIApplication.shared.applicationState == .inactive
+        if response.notification.request.content.categoryIdentifier == "CHAT"
+        {
+            if let dict : [String : Any] = userInfo["user"] as? [String : Any]
+            {
+                let user : FirebaseUserModel = FirebaseUserModel.init(dict: dict)
+                onChannelTap(connectUser: user)
+            }
+        }
+        else if UIApplication.shared.applicationState == .inactive
         {
             _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(delayForNotification(tempTimer:)), userInfo: userInfo, repeats: false)
         }
@@ -1213,3 +1320,19 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     }
 }
 
+extension UIApplication {
+    class func topViewController(base: UIViewController? = (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return topViewController(base: nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController {
+            if let selected = tab.selectedViewController {
+                return topViewController(base: selected)
+            }
+        }
+        if let presented = base?.presentedViewController {
+            return topViewController(base: presented)
+        }
+        return base
+    }
+}

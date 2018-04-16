@@ -109,7 +109,7 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
     func continueUpdating(_ dict : [String : Any], _ imageData : Data)
     {
         APIManager.sharedInstance.serviceCallToUpdateStudentDetail(dict, pictureData: imageData) {
-            displayToast("Profile update successfully.")
+            displayToast("Profile updated successfully")
             AppModel.shared.firebaseCurrentUser.name =  AppModel.shared.currentUser.name
             AppModel.shared.firebaseCurrentUser.picture =  AppModel.shared.currentUser.picture
             AppDelegate().sharedDelegate().updateCurrentUserData()

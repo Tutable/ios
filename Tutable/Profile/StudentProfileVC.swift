@@ -42,17 +42,17 @@ class StudentProfileVC: UIViewController {
         {
             if AppModel.shared.currentUser.address.suburb != ""
             {
-                subTitleLbl.text = AppModel.shared.currentUser.address.suburb
+                subTitleLbl.text = AppModel.shared.currentUser.address.suburb.capitalized
             }
             if AppModel.shared.currentUser.address.state != ""
             {
                 if subTitleLbl.text == ""
                 {
-                    subTitleLbl.text = AppModel.shared.currentUser.address.state
+                    subTitleLbl.text = AppModel.shared.currentUser.address.state.uppercased()
                 }
                 else
                 {
-                    subTitleLbl.text = subTitleLbl.text! + ", " + AppModel.shared.currentUser.address.state
+                    subTitleLbl.text = subTitleLbl.text! + ", " + AppModel.shared.currentUser.address.state.uppercased()
                 }
             }
         }

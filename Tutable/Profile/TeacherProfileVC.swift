@@ -51,20 +51,20 @@ class TeacherProfileVC: UIViewController {
         
         APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn, userBackgroundImgBtn])
         
-        userNameLbl.text = "By " + AppModel.shared.currentUser.name
+        userNameLbl.text = AppModel.shared.currentUser.name
         if AppModel.shared.currentUser.address.suburb != ""
         {
-            userSubTitleLbl.text = AppModel.shared.currentUser.address.suburb
+            userSubTitleLbl.text = AppModel.shared.currentUser.address.suburb.capitalized
         }
         if AppModel.shared.currentUser.address.state != ""
         {
             if userSubTitleLbl.text != ""
             {
-                userSubTitleLbl.text = userSubTitleLbl.text! + " " + AppModel.shared.currentUser.address.state
+                userSubTitleLbl.text = userSubTitleLbl.text! + " " + AppModel.shared.currentUser.address.state.uppercased()
             }
             else
             {
-                userSubTitleLbl.text = AppModel.shared.currentUser.address.state
+                userSubTitleLbl.text = AppModel.shared.currentUser.address.state.uppercased()
             }
         }
         

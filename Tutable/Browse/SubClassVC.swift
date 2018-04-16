@@ -101,20 +101,20 @@ class SubClassVC: UIViewController, UICollectionViewDataSource, UICollectionView
         cell.imgBtn.setBackgroundImage(nil, for: .normal)
         let dict : ClassModel = classData[indexPath.row]
         cell.mainLbl.text = dict.name
-        cell.autherLbl.text = "by " + dict.teacher.name
+        cell.autherLbl.text = dict.teacher.name
         if dict.teacher.address.suburb != ""
         {
-            cell.addressLbl.text = dict.teacher.address.suburb
+            cell.addressLbl.text = dict.teacher.address.suburb.capitalized
         }
         if dict.teacher.address.state != ""
         {
             if cell.addressLbl.text != ""
             {
-                cell.addressLbl.text = cell.addressLbl.text! + " " + dict.teacher.address.state
+                cell.addressLbl.text = cell.addressLbl.text! + " " + dict.teacher.address.state.uppercased()
             }
             else
             {
-                cell.addressLbl.text = dict.teacher.address.state
+                cell.addressLbl.text = dict.teacher.address.state.uppercased()
             }
         }
         APIManager.sharedInstance.serviceCallToGetPhoto(dict.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])

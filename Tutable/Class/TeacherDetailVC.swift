@@ -71,20 +71,20 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     {
         APIManager.sharedInstance.serviceCallToGetPhoto(teacherData.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn, userBackgroundImgBtn])
 
-        userNameLbl.text = "By " + teacherData.name
+        userNameLbl.text = teacherData.name
         if teacherData.address.suburb != ""
         {
-            userSubTitleLbl.text = teacherData.address.suburb
+            userSubTitleLbl.text = teacherData.address.suburb.capitalized
         }
         if teacherData.address.state != ""
         {
             if userSubTitleLbl.text != ""
             {
-                userSubTitleLbl.text = userSubTitleLbl.text! + " " + teacherData.address.state
+                userSubTitleLbl.text = userSubTitleLbl.text! + " " + teacherData.address.state.uppercased()
             }
             else
             {
-                userSubTitleLbl.text = teacherData.address.state
+                userSubTitleLbl.text = teacherData.address.state.uppercased()
             }
         }
         
@@ -195,7 +195,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         APIManager.sharedInstance.serviceCallToGetPhoto(dict.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
         cell.titleLbl.text = dict.name
-        cell.subTitleLbl.text = "by " + dict.teacher.name
+        cell.subTitleLbl.text = dict.teacher.name
         
         let startDate : Date = getDateFromTimeStamp(dict.timeline)
         cell.subTitleLbl.text = getDateStringFromDate(date: startDate, format: "MMM dd, yyyy, hh:mm a")

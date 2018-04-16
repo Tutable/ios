@@ -10,9 +10,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-            <string>HelveticaNeue-Medium</string>
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -34,39 +36,39 @@
                         <state key="normal" backgroundImage="user_avatar"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b54-hA-ol1">
-                        <rect key="frame" x="90" y="20" width="220" height="17.5"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                        <rect key="frame" x="90" y="17" width="220" height="17.5"/>
+                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification message display herer" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eg-HD-KiN">
-                        <rect key="frame" x="90" y="42.5" width="220" height="16.5"/>
+                        <rect key="frame" x="90" y="39.5" width="220" height="16.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16.5" id="SgC-Ou-5Ni"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B9G-fc-ff0">
-                        <rect key="frame" x="90" y="65" width="90" height="20"/>
+                        <rect key="frame" x="90" y="62" width="90" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="90" id="Vr9-2W-cXD"/>
                             <constraint firstAttribute="height" constant="20" id="lXf-QQ-7FB"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="15"/>
                         <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="REJECT" image="reject">
                             <color key="titleColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gRK-4H-LRs">
-                        <rect key="frame" x="220" y="65" width="90" height="20"/>
+                        <rect key="frame" x="220" y="62" width="90" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="KGJ-Og-izg"/>
                             <constraint firstAttribute="width" constant="90" id="Vj4-pa-BWC"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="15"/>
                         <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="ACCEPT" image="accept">
                             <color key="titleColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -82,7 +84,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="9Dk-ub-RMM" secondAttribute="bottom" id="11s-SF-BMi"/>
-                    <constraint firstItem="b54-hA-ol1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="5w4-6r-icP"/>
+                    <constraint firstItem="b54-hA-ol1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="5w4-6r-icP"/>
                     <constraint firstAttribute="trailing" secondItem="9Dk-ub-RMM" secondAttribute="trailing" constant="10" id="6TW-BS-S4t"/>
                     <constraint firstItem="gRK-4H-LRs" firstAttribute="leading" secondItem="B9G-fc-ff0" secondAttribute="trailing" constant="40" id="ElZ-HT-OjT"/>
                     <constraint firstItem="gRK-4H-LRs" firstAttribute="top" secondItem="9eg-HD-KiN" secondAttribute="bottom" constant="6.5" id="FmF-yF-Asl"/>

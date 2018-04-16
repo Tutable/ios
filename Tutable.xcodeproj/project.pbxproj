@@ -29,6 +29,11 @@
 		185CC575207DEA6D00B05B8A /* TeacherAvailabilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC570207DEA6D00B05B8A /* TeacherAvailabilityVC.swift */; };
 		185CC576207DEA6D00B05B8A /* TeacherCertificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC571207DEA6D00B05B8A /* TeacherCertificationVC.swift */; };
 		185CC578207DEAA400B05B8A /* EditTeacherProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC577207DEAA400B05B8A /* EditTeacherProfileVC.swift */; };
+		18611AB0208465B700C45FA5 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18611AAB208465B200C45FA5 /* Roboto-Medium.ttf */; };
+		18611AB1208465B700C45FA5 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18611AAC208465B200C45FA5 /* Roboto-Light.ttf */; };
+		18611AB2208465B700C45FA5 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18611AAD208465B200C45FA5 /* Roboto-Regular.ttf */; };
+		18611AB3208465B700C45FA5 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18611AAE208465B200C45FA5 /* Roboto-Italic.ttf */; };
+		18611AB4208465B700C45FA5 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18611AAF208465B200C45FA5 /* Roboto-Bold.ttf */; };
 		18615BCF2068B8E5004A6876 /* StudentProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BCE2068B8E5004A6876 /* StudentProfileVC.swift */; };
 		18615BD12068B90D004A6876 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BD02068B90D004A6876 /* SettingsVC.swift */; };
 		18615BD32068B926004A6876 /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18615BD22068B926004A6876 /* MessageVC.swift */; };
@@ -123,6 +128,11 @@
 		185CC570207DEA6D00B05B8A /* TeacherAvailabilityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherAvailabilityVC.swift; sourceTree = "<group>"; };
 		185CC571207DEA6D00B05B8A /* TeacherCertificationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherCertificationVC.swift; sourceTree = "<group>"; };
 		185CC577207DEAA400B05B8A /* EditTeacherProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTeacherProfileVC.swift; sourceTree = "<group>"; };
+		18611AAB208465B200C45FA5 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		18611AAC208465B200C45FA5 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		18611AAD208465B200C45FA5 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		18611AAE208465B200C45FA5 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Italic.ttf"; sourceTree = "<group>"; };
+		18611AAF208465B200C45FA5 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		18615BCE2068B8E5004A6876 /* StudentProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentProfileVC.swift; sourceTree = "<group>"; };
 		18615BD02068B90D004A6876 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		18615BD22068B926004A6876 /* MessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
@@ -237,6 +247,18 @@
 				185CC567207DE36100B05B8A /* SendChatMessageTVC.swift */,
 			);
 			path = Chat;
+			sourceTree = "<group>";
+		};
+		18611AAA208465B200C45FA5 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				18611AAD208465B200C45FA5 /* Roboto-Regular.ttf */,
+				18611AAB208465B200C45FA5 /* Roboto-Medium.ttf */,
+				18611AAC208465B200C45FA5 /* Roboto-Light.ttf */,
+				18611AAE208465B200C45FA5 /* Roboto-Italic.ttf */,
+				18611AAF208465B200C45FA5 /* Roboto-Bold.ttf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		18615BC92068B8C8004A6876 /* Settings */ = {
@@ -364,6 +386,7 @@
 				186A7506206510040013D863 /* Custom Class */,
 				18615BE02068FEF1004A6876 /* TableView Cell */,
 				18615BE12068FEF1004A6876 /* CollectionView Cell */,
+				18611AAA208465B200C45FA5 /* Font */,
 				186A74F42064BFCD0013D863 /* Assets.xcassets */,
 				186A74F62064BFCD0013D863 /* LaunchScreen.storyboard */,
 				186A74F92064BFCD0013D863 /* Info.plist */,
@@ -525,19 +548,24 @@
 				186A74F82064BFCD0013D863 /* LaunchScreen.storyboard in Resources */,
 				18750BB02074957300ABF3B6 /* Class.storyboard in Resources */,
 				186A74F52064BFCD0013D863 /* Assets.xcassets in Resources */,
+				18611AB1208465B700C45FA5 /* Roboto-Light.ttf in Resources */,
 				18B9918720692620009F8A13 /* CustomCategoryCVC.xib in Resources */,
 				18803986206A2A6700179778 /* CustomClassesTVC.xib in Resources */,
 				184637EB207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib in Resources */,
 				18750BB42074970700ABF3B6 /* Booking.storyboard in Resources */,
 				18FE555F207387E400FE4C36 /* CustomSettingTVC.xib in Resources */,
+				18611AB0208465B700C45FA5 /* Roboto-Medium.ttf in Resources */,
 				181191962076391D00CC9D3D /* CustomNotificationTVC.xib in Resources */,
 				18FE55692073A2E300FE4C36 /* CustomUpcomingBookingTVC.xib in Resources */,
+				18611AB3208465B700C45FA5 /* Roboto-Italic.ttf in Resources */,
 				18B99183206923FD009F8A13 /* CustomMessagesTVC.xib in Resources */,
+				18611AB4208465B700C45FA5 /* Roboto-Bold.ttf in Resources */,
 				1815CB342071EFCC0081F852 /* CustomMyClassTVC.xib in Resources */,
 				185CC56A207DE36200B05B8A /* SendChatMessageTVC.xib in Resources */,
 				18B99190206938E8009F8A13 /* CustomReviewsTVC.xib in Resources */,
 				186A74F32064BFCD0013D863 /* Main.storyboard in Resources */,
 				185CC568207DE36200B05B8A /* ReceiverChatMessageTVC.xib in Resources */,
+				18611AB2208465B700C45FA5 /* Roboto-Regular.ttf in Resources */,
 				1810644E206A7DF500FE9452 /* CustomTimeSlotTVC.xib in Resources */,
 				186A751A206510340013D863 /* CustomTabBarView.xib in Resources */,
 				18750BB22074967E00ABF3B6 /* Message.storyboard in Resources */,

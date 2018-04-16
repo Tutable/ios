@@ -91,7 +91,7 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 //        alert.view.tintColor = colorFromHex(hex: COLOR.APP_COLOR)
 //        self.present(alert, animated: true, completion: nil)
         
-        showAlertWithOption("Tutable", message: "Are you sure you want to Logout?", completionConfirm: {
+        showAlertWithOption("Tutable", message: "Are you sure you want to Logout?", btns: ["Log out", "No"], completionConfirm: {
             AppDelegate().sharedDelegate().logoutApp()
         }) {
             

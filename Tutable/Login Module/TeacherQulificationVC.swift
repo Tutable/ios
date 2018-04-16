@@ -31,7 +31,7 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
         self.addChildViewController(_PhotoSelectionVC)
         
         backBtn.isHidden = !isBackDisplay
-        
+        relevantSegment.selectedSegmentIndex = 0
         setUserDetail()
     }
     
@@ -103,6 +103,18 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
                     displayToast("Getting error in profile pic, please select another one.")
                     return
                 }
+            }
+        }
+        else
+        {
+            if self.tabBarController?.tabBar == nil
+            {
+                let vc : TeacherFinishVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else
+            {
+                self.navigationController?.popToRootViewController(animated: true)
             }
         }
     }

@@ -15,6 +15,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var classHeaderView: UIView!
     @IBOutlet weak var constraintHeightClassHeaderView: NSLayoutConstraint!
     @IBOutlet weak var classFooterView: UIView!
+    @IBOutlet weak var constraintHeightFooterView: NSLayoutConstraint!
     
     @IBOutlet weak var editClassBtn: UIButton!
     @IBOutlet weak var classImg: UIImageView!
@@ -44,7 +45,8 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
 
         // Do any additional setup after loading the view.
         tblView.register(UINib(nibName: "CustomReviewsTVC", bundle: nil), forCellReuseIdentifier: "CustomReviewsTVC")
-        
+        self.constraintHeightFooterView.constant = 0
+        self.classFooterView.isHidden = true
         setUIDesigning()
     }
 
@@ -116,20 +118,20 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         classNameLbl.text = classData.name
         APIManager.sharedInstance.serviceCallToGetPhoto(classData.teacher.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
-        userNameLbl.text = "By " + classData.teacher.name
+        userNameLbl.text = classData.teacher.name
         if classData.teacher.address.suburb != ""
         {
-            userSubTitleLbl.text = classData.teacher.address.suburb
+            userSubTitleLbl.text = classData.teacher.address.suburb.capitalized
         }
         if classData.teacher.address.state != ""
         {
             if userSubTitleLbl.text != ""
             {
-                userSubTitleLbl.text = userSubTitleLbl.text! + " " + classData.teacher.address.state
+                userSubTitleLbl.text = userSubTitleLbl.text! + " " + classData.teacher.address.state.uppercased()
             }
             else
             {
-                userSubTitleLbl.text = classData.teacher.address.state
+                userSubTitleLbl.text = classData.teacher.address.state.uppercased()
             }
         }
         classPriceLbl.text = setFlotingPrice(classData.rate)
@@ -145,7 +147,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             }
             if let count : Int = reviewDict["count"] as? Int
             {
-                totalReviewLbl.text = String(count) + ((count > 1) ? " reviews" : " review")
+                totalReviewLbl.text = String(count) + ((count == 1) ? " review" : " reviews")
             }
         }
         
@@ -225,6 +227,17 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         APIManager.sharedInstance.serviceCallToGetReviewList(classData.id) { (dictArr) in
             self.reviewData = dictArr
             self.tblView.reloadData()
+            if self.reviewData.count > 0
+            {
+                self.constraintHeightFooterView.constant = 55
+                self.classFooterView.isHidden = false
+            }
+            else
+            {
+                self.constraintHeightFooterView.constant = 0
+                self.classFooterView.isHidden = true
+            }
+            
         }
     }
     

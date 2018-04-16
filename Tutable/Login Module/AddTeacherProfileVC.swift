@@ -109,8 +109,8 @@ class AddTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, PhotoS
         availabilityDict = AppModel.shared.currentUser.availability
         
         let location : LocationModel = LocationModel.init(dict: AppModel.shared.currentUser.address.dictionary())
-        suburbTxt.text = location.suburb
-        stateLbl.text = location.state
+        suburbTxt.text = location.suburb.capitalized
+        stateLbl.text = location.state.uppercased()
     }
     
     @IBAction func clickToBack(_ sender: Any) {
@@ -222,8 +222,8 @@ class AddTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, PhotoS
             dict["availability"] = AppModel.shared.currentUser.availability
             
             let location : LocationModel = LocationModel.init()
-            location.state = stateLbl.text
-            location.suburb = suburbTxt.text
+            location.state = stateLbl.text?.uppercased()
+            location.suburb = suburbTxt.text?.capitalized
             dict["address"] = location.dictionary()
             
             if _imgCompress == nil

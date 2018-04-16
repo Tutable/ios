@@ -61,7 +61,7 @@ class ClassesListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         APIManager.sharedInstance.serviceCallToGetPhoto(dict.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
         cell.titleLbl.text = dict.name
-        cell.subTitleLbl.text = "by " + dict.teacher.name
+        cell.subTitleLbl.text = dict.teacher.name
         
         let startDate : Date = getDateFromTimeStamp(dict.timeline)
         cell.subTitleLbl.text = getDateStringFromDate(date: startDate, format: "MMM dd, yyyy, hh:mm a")

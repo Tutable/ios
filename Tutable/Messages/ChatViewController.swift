@@ -53,7 +53,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     var loginUserStatus : UIColor = colorFromHex(hex: COLOR.APP_COLOR)
     
     var typeTimer : Timer = Timer()
-    var strPalceholder : String = "iMessage"
+    var strPalceholder : String = "Please type your message.."
     
     override func viewWillDisappear(_ animated: Bool) {
 //        IQKeyboardManager.sharedManager().enableAutoToolbar = true
@@ -176,7 +176,13 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         }
         else
         {
-            userNameLbl.text = "TALKING TO " + receiver.name
+            var fname : String = receiver.name
+            if fname.contains(" ")
+            {
+                let tempArr : [String] = fname.components(separatedBy: " ")
+                fname = tempArr[0]
+            }
+            userNameLbl.text = "TALKING TO " + fname
         }
         userNameLbl.text = userNameLbl.text?.uppercased()
         
@@ -517,20 +523,20 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.firebaseCurrentUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [cell.profilePicBtn])
             cell.messageTxtView.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : UIColor.white]
             cell.statusImgView.backgroundColor = loginUserStatus
-            cell.durationLbl.text = AppModel.shared.firebaseCurrentUser.name + " " + getDateTimeStringForChat(Double(dict.date)!)
+            cell.durationLbl.text = getDifferenceFromCurrentTimeInHourInDays(Double(dict.date)!)
         }
         else{
             cell = tblView.dequeueReusableCell(withIdentifier: "ReceiverChatMessageTVC", for: indexPath) as! MessageCell
             APIManager.sharedInstance.serviceCallToGetPhoto(receiver.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [cell.profilePicBtn])
             cell.messageTxtView.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : colorFromHex(hex: "3C3739")]
             cell.statusImgView.backgroundColor = otherUserStatus
-            cell.durationLbl.text = receiver.name + " " + getDateTimeStringForChat(Double(dict.date)!)
+            cell.durationLbl.text = getDifferenceFromCurrentTimeInHourInDays(Double(dict.date)!)
         }
         
         if indexPath.row == 0 || isSameDate(firstDate: dict.date, secondDate: messages[indexPath.row-1].date) == false
         {
             cell.headerView.isHidden = false
-            cell.headerLbl.text = "  " + getdayDifferenceFromCurrentDay(Double(dict.date)!) + " " + getTimeStringFromServerTimeStemp(Double(dict.date)!) + "  "
+            cell.headerLbl.text = getdayDifferenceFromCurrentDay(Double(dict.date)!)
             cell.constraintHeaderWidth.constant = (cell.headerLbl.intrinsicContentSize.width)
             cell.constraintHeightHeaderView.constant = 30
         }

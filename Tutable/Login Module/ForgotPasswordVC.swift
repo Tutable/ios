@@ -46,7 +46,7 @@ class ForgotPasswordVC: UIViewController {
             if isStudentLogin()
             {
                 APIManager.sharedInstance.serviceCallToResendVerifyCode(2, completion: {
-                    showAlert("Tutable", message: "An email is sent to your email with a token to rest your password.", completion: {
+                    showAlert("Tutable", message: "Check your email for a code to reset your password.", completion: {
                         let vc : ResetPasswordVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "ResetPasswordVC") as! ResetPasswordVC
                         self.navigationController?.pushViewController(vc, animated: true)
                     })
@@ -55,7 +55,7 @@ class ForgotPasswordVC: UIViewController {
             else
             {
                 APIManager.sharedInstance.serviceCallToGetPasswordToken({
-                    showAlert("Tutable", message: "An email is sent to your email with a token to rest your password.", completion: {
+                    showAlert("Tutable", message: "Check your email for a code to reset your password.", completion: {
                         let vc : ResetPasswordVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "ResetPasswordVC") as! ResetPasswordVC
                         self.navigationController?.pushViewController(vc, animated: true)
                     })

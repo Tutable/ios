@@ -30,12 +30,12 @@ class VerificationCodeVC: UIViewController, UITextFieldDelegate {
     
     func setUIDesigning()
     {
-        doneBtn.addCornerRadiusOfView(5.0)
+        doneBtn.addCornerRadiusOfView(doneBtn.frame.size.height/2)
         
         verificationCodeTxt.attributedPlaceholder = NSAttributedString(string: verificationCodeTxt.placeholder!,
                                                             attributes: [NSAttributedStringKey.foregroundColor: colorFromHex(hex: COLOR.APP_COLOR)])
         
-        verificationLbl.text = "A text message with a verification code\nwas just sent to your " + AppModel.shared.currentUser.email
+        verificationLbl.text = "An email was just sent to\n" + AppModel.shared.currentUser.email
         
         if isFromLoginScreen
         {
@@ -135,6 +135,7 @@ class VerificationCodeVC: UIViewController, UITextFieldDelegate {
     {
         APIManager.sharedInstance.serviceCallToResendVerifyCode(tokenType, completion: {
             displayToast("Code is sent to your email address, please verify now.")
+            self.verificationLbl.text = "We've re-sent the code, try checking now!"
         })
     }
     
