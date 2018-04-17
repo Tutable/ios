@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
+class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
 
     @IBOutlet weak var relevantSegment: UISegmentedControl!
     @IBOutlet weak var qulificationTxt: UITextField!
@@ -17,7 +17,6 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
 
-    var _PhotoSelectionVC:PhotoSelectionVC!
     var degreeImg:UIImage!
     
     var isBackDisplay : Bool = true
@@ -26,9 +25,6 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
-        _PhotoSelectionVC.delegate = self
-        self.addChildViewController(_PhotoSelectionVC)
         
         backBtn.isHidden = !isBackDisplay
         relevantSegment.selectedSegmentIndex = 0
@@ -66,8 +62,7 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
     
     @IBAction func clickToUploadDegreeImg(_ sender: Any) {
         self.view.endEditing(true)
-        self.view.addSubview(_PhotoSelectionVC.view)
-        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
+        uploadImage()
     }
     
     @IBAction func clickToNext(_ sender: Any) {
@@ -134,17 +129,72 @@ class TeacherQulificationVC: UIViewController, PhotoSelectionDelegate {
         })
     }
     
-    //MARK:- PhotoSelectionDelegate
-    func onRemovePic() {
-        degreeImg = nil
-        degreeImgBtn.setBackgroundImage(UIImage.init(named: IMAGE.USER_PLACEHOLDER), for: .normal)
+    
+    // MARK: - Upload Image
+    func uploadImage()
+    {
+        let actionSheet: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            print("Cancel")
+        }
+        actionSheet.addAction(cancelButton)
+        
+        let cameraButton = UIAlertAction(title: "Take Photo", style: .default)
+        { _ in
+            print("Camera")
+            self.onCaptureImageThroughCamera()
+        }
+        actionSheet.addAction(cameraButton)
+        
+        let galleryButton = UIAlertAction(title: "Choose Existing Photo", style: .default)
+        { _ in
+            print("Gallery")
+            self.onCaptureImageThroughGallery()
+        }
+        actionSheet.addAction(galleryButton)
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
-    func onSelectPic(_ img: UIImage) {
-        degreeImg = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
+    @objc open func onCaptureImageThroughCamera()
+    {
+        if !UIImagePickerController.isSourceTypeAvailable(.camera) {
+            displayToast("Your device has no camera")
+            
+        }
+        else {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = .camera
+            UIViewController.top?.present(imgPicker, animated: true, completion: {() -> Void in
+            })
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc open func onCaptureImageThroughGallery()
+    {
+        self.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = .photoLibrary
+            self.present(imgPicker, animated: true, completion: {() -> Void in
+            })
+        }
+    }
+    
+    func imagePickerController(_ imgPicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        imgPicker.dismiss(animated: true, completion: {() -> Void in
+        })
+        
+        let selectedImage: UIImage? = (info["UIImagePickerControllerOriginalImage"] as? UIImage)
+        if selectedImage == nil {
+            return
+        }
+        degreeImg = compressImage(selectedImage!, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
         degreeImgBtn.setBackgroundImage(degreeImg.imageCropped(toFit: degreeImgBtn.frame.size), for: .normal)
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

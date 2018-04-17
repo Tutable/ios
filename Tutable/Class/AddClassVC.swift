@@ -10,7 +10,7 @@ import UIKit
 import DropDown
 import StepSlider
 
-class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PhotoSelectionDelegate {
+class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var classNameTxt: UITextField!
@@ -25,7 +25,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var constraintHeightCategoryPopup: NSLayoutConstraint!
     @IBOutlet weak var levelSlider: StepSlider!
     
-    var _PhotoSelectionVC:PhotoSelectionVC!
+    
     var classImg:UIImage!
     var categoryArr : [CategoryModel] = [CategoryModel]()
     var selectedCategory : CategoryModel = CategoryModel()
@@ -46,9 +46,6 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         {
             titleLbl.text = "ADD YOUR FIRST CLASS"
         }
-        _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
-        _PhotoSelectionVC.delegate = self
-        self.addChildViewController(_PhotoSelectionVC)
         
         AppModel.shared.currentClass = ClassModel.init(dict: classData.dictionary())
         
@@ -132,8 +129,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     @IBAction func clickToUploadClassImg(_ sender: Any) {
         self.view.endEditing(true)
-        self.view.addSubview(_PhotoSelectionVC.view)
-        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
+        uploadImage()
     }
     
     @IBAction func clickToSelectCategory(_ sender: Any) {
@@ -232,6 +228,72 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func onSelectPic(_ img: UIImage) {
         classImg = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
+        classImgBtn.setBackgroundImage(classImg.imageCropped(toFit: classImgBtn.frame.size), for: .normal)
+    }
+    
+    // MARK: - Upload Image
+    func uploadImage()
+    {
+        let actionSheet: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            print("Cancel")
+        }
+        actionSheet.addAction(cancelButton)
+        
+        let cameraButton = UIAlertAction(title: "Take Photo", style: .default)
+        { _ in
+            print("Camera")
+            self.onCaptureImageThroughCamera()
+        }
+        actionSheet.addAction(cameraButton)
+        
+        let galleryButton = UIAlertAction(title: "Choose Existing Photo", style: .default)
+        { _ in
+            print("Gallery")
+            self.onCaptureImageThroughGallery()
+        }
+        actionSheet.addAction(galleryButton)
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    @objc open func onCaptureImageThroughCamera()
+    {
+        if !UIImagePickerController.isSourceTypeAvailable(.camera) {
+            displayToast("Your device has no camera")
+            
+        }
+        else {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = .camera
+            UIViewController.top?.present(imgPicker, animated: true, completion: {() -> Void in
+            })
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc open func onCaptureImageThroughGallery()
+    {
+        self.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = .photoLibrary
+            self.present(imgPicker, animated: true, completion: {() -> Void in
+            })
+        }
+    }
+    
+    func imagePickerController(_ imgPicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        imgPicker.dismiss(animated: true, completion: {() -> Void in
+        })
+        
+        let selectedImage: UIImage? = (info["UIImagePickerControllerOriginalImage"] as? UIImage)
+        if selectedImage == nil {
+            return
+        }
+        classImg = compressImage(selectedImage!, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
         classImgBtn.setBackgroundImage(classImg.imageCropped(toFit: classImgBtn.frame.size), for: .normal)
     }
     

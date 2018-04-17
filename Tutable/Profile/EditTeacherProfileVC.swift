@@ -16,7 +16,7 @@ struct PHOTO {
     static var DEGREE_IMAGE = 4
 }
 
-class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, PhotoSelectionDelegate {
+class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
 
     @IBOutlet weak var userProfilePicBtn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
@@ -41,7 +41,6 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     @IBOutlet weak var continueBtn: UIButton!
     
     var selectedDob : Date!
-    var _PhotoSelectionVC:PhotoSelectionVC!
     var photoSelectionType : Int = 0
     var imgCompress:UIImage!
     var policeCheckImg:UIImage!
@@ -57,14 +56,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
         
         // Do any additional setup after loading the view.
         
-        _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
-        _PhotoSelectionVC.delegate = self
-        self.addChildViewController(_PhotoSelectionVC)
-        
-        
         backBtn.isHidden = !isBackDisplay
-        
-        
         setUserDetail()
     }
     
@@ -209,15 +201,13 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     @IBAction func clickToUploadProfilePic(_ sender: Any) {
         self.view.endEditing(true)
         photoSelectionType = PHOTO.USER_IMAGE
-        self.view.addSubview(_PhotoSelectionVC.view)
-        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
+        uploadImage()
     }
     
     @IBAction func clickToUploadPoliceCheck(_ sender: Any) {
         self.view.endEditing(true)
         photoSelectionType = PHOTO.POLICE_IMAGE
-        self.view.addSubview(_PhotoSelectionVC.view)
-        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
+        uploadImage()
     }
     
     @IBAction func clickToPoliceCheckURL(_ sender: Any) {
@@ -232,15 +222,13 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     @IBAction func clickToChildrenCheck(_ sender: Any) {
         self.view.endEditing(true)
         photoSelectionType = PHOTO.CHILDREN_IMAGE
-        self.view.addSubview(_PhotoSelectionVC.view)
-        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
+        uploadImage()
     }
     
     @IBAction func clickToUploadDegreeImg(_ sender: Any) {
         self.view.endEditing(true)
         photoSelectionType = PHOTO.DEGREE_IMAGE
-        self.view.addSubview(_PhotoSelectionVC.view)
-        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
+        uploadImage()
     }
     
     @IBAction func clickToContinue(_ sender: Any) {
@@ -398,28 +386,93 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, Photo
     }
     
     func onSelectPic(_ img: UIImage) {
+        
+    }
+
+    // MARK: - Upload Image
+    func uploadImage()
+    {
+        let actionSheet: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            print("Cancel")
+        }
+        actionSheet.addAction(cancelButton)
+        
+        let cameraButton = UIAlertAction(title: "Take Photo", style: .default)
+        { _ in
+            print("Camera")
+            self.onCaptureImageThroughCamera()
+        }
+        actionSheet.addAction(cameraButton)
+        
+        let galleryButton = UIAlertAction(title: "Choose Existing Photo", style: .default)
+        { _ in
+            print("Gallery")
+            self.onCaptureImageThroughGallery()
+        }
+        actionSheet.addAction(galleryButton)
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    @objc open func onCaptureImageThroughCamera()
+    {
+        if !UIImagePickerController.isSourceTypeAvailable(.camera) {
+            displayToast("Your device has no camera")
+            
+        }
+        else {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = .camera
+            UIViewController.top?.present(imgPicker, animated: true, completion: {() -> Void in
+            })
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc open func onCaptureImageThroughGallery()
+    {
+        self.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = .photoLibrary
+            self.present(imgPicker, animated: true, completion: {() -> Void in
+            })
+        }
+    }
+    
+    func imagePickerController(_ imgPicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        imgPicker.dismiss(animated: true, completion: {() -> Void in
+        })
+        
+        let selectedImage: UIImage? = (info["UIImagePickerControllerOriginalImage"] as? UIImage)
+        if selectedImage == nil {
+            return
+        }
         if photoSelectionType == PHOTO.USER_IMAGE
         {
-            imgCompress = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
+            imgCompress = compressImage(selectedImage!, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
             userProfilePicBtn.setBackgroundImage(imgCompress.imageCropped(toFit: userProfilePicBtn.frame.size), for: .normal)
         }
         else if photoSelectionType == PHOTO.POLICE_IMAGE
         {
-            policeCheckImg = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
+            policeCheckImg = compressImage(selectedImage!, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
             policeCheckBtn.setBackgroundImage(policeCheckImg.imageCropped(toFit: policeCheckBtn.frame.size), for: .normal)
         }
         else if photoSelectionType == PHOTO.CHILDREN_IMAGE
         {
-            childrenCheckImg = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
+            childrenCheckImg = compressImage(selectedImage!, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
             childrenCheckBtn.setBackgroundImage(childrenCheckImg.imageCropped(toFit: childrenCheckBtn.frame.size), for: .normal)
         }
         else if photoSelectionType == PHOTO.DEGREE_IMAGE
         {
-            degreeImg = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
+            degreeImg = compressImage(selectedImage!, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
             degreeImgBtn.setBackgroundImage(degreeImg.imageCropped(toFit: degreeImgBtn.frame.size), for: .normal)
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

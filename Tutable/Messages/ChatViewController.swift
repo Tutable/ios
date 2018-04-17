@@ -13,7 +13,7 @@ import CoreData
 import IQKeyboardManagerSwift
 
 @available(iOS 10.0, *)
-class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDelegate, UITableViewDelegate, UITableViewDataSource {
+class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var lastSeenLbl: UILabel!
@@ -45,7 +45,6 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     var offscreenCellReceiverImg : [String : Any] = [String : Any] ()
     var lastSeenTimer : Timer!
     
-    var _PhotoSelectionVC:PhotoSelectionVC!
     var uploadImage : UIImage!
     
     var isAppear:Bool = false
@@ -110,10 +109,6 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         messagesRef = Database.database().reference().child("MESSAGES").child(channelId)
  
         continueFetchData()
-        
-        _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
-        _PhotoSelectionVC.delegate = self
-        self.addChildViewController(_PhotoSelectionVC)
     }
     
     
@@ -428,12 +423,6 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func clickToSelectPicture(_ sender: Any)
-    {
-        self.view.endEditing(true)
-        openCustomPopup()
-    }
-    
     @IBAction func clickToSend(_ sender: Any)
     {
 //        self.view.endEditing(true)
@@ -643,42 +632,6 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             textView.text = strPalceholder
             textView.textColor = colorFromHex(hex: COLOR.LIGHT_GRAY)
         }
-    }
-    
-    //MARK: - Custom Popup
-    func openCustomPopup()
-    {
-        self.view.addSubview(_PhotoSelectionVC.view)
-        displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
-    }
-    
-    //MARK:- PhotoSelectionDelegate
-    func onRemovePic() {
-        uploadImage = nil
-    }
-    func onSelectPic(_ img: UIImage) {
-        uploadImage = compressImage(img, to: CGSize(width: CGFloat(CONSTANT.DP_IMAGE_WIDTH), height: CGFloat(CONSTANT.DP_IMAGE_HEIGHT)))
-        openSendImageContainerView()
-    }
-    
-    func openSendImageContainerView()
-    {
-        receiverImgBtn.addCircularRadiusOfView()
-        let newUser : UserModel = UserModel.init(dict:receiver.dictionary())
-        setUserProfileImage(newUser, button: receiverImgBtn)
-        sendImgView.image = uploadImage
-        displaySubViewtoParentView(self.view, subview: sendImageContainerVIew)
-    }
-    
-    @IBAction func clickToCloseImageContainerView(_ sender: Any)
-    {
-        sendImageContainerVIew.removeFromSuperview()
-    }
-    
-    
-    @IBAction func clickToSendImage(_ sender: Any)
-    {
-        self.view.endEditing(true)
     }
     
     override func didReceiveMemoryWarning() {

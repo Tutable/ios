@@ -18,6 +18,7 @@
 		1841CADB207F29B000885B2D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1841CADA207F29B000885B2D /* GoogleService-Info.plist */; };
 		184637EA207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184637E8207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift */; };
 		184637EB207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184637E9207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib */; };
+		185202AA208607A400778791 /* PhotoSelectionActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185202A9208607A400778791 /* PhotoSelectionActionSheet.swift */; };
 		185CC568207DE36200B05B8A /* ReceiverChatMessageTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185CC563207DE36100B05B8A /* ReceiverChatMessageTVC.xib */; };
 		185CC569207DE36200B05B8A /* ReceiverChatMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CC564207DE36100B05B8A /* ReceiverChatMessageTVC.swift */; };
 		185CC56A207DE36200B05B8A /* SendChatMessageTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185CC565207DE36100B05B8A /* SendChatMessageTVC.xib */; };
@@ -117,6 +118,7 @@
 		184637E7207B388800F0B8A4 /* Tutable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tutable.entitlements; sourceTree = "<group>"; };
 		184637E8207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAcceptRejectNotiTVC.swift; sourceTree = "<group>"; };
 		184637E9207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomAcceptRejectNotiTVC.xib; sourceTree = "<group>"; };
+		185202A9208607A400778791 /* PhotoSelectionActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectionActionSheet.swift; sourceTree = "<group>"; };
 		185CC563207DE36100B05B8A /* ReceiverChatMessageTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiverChatMessageTVC.xib; sourceTree = "<group>"; };
 		185CC564207DE36100B05B8A /* ReceiverChatMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiverChatMessageTVC.swift; sourceTree = "<group>"; };
 		185CC565207DE36100B05B8A /* SendChatMessageTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendChatMessageTVC.xib; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 				186A750B206510340013D863 /* Preference.swift */,
 				18615BDC2068D496004A6876 /* PhotoSelectionVC.swift */,
 				18AE596C206B93F400B6D324 /* DatePickerManager.swift */,
+				185202A9208607A400778791 /* PhotoSelectionActionSheet.swift */,
 				186A7520206514A60013D863 /* DateTimeUtility.swift */,
 				186A7514206510340013D863 /* Toast.swift */,
 				186A750C206510340013D863 /* Utility.swift */,
@@ -706,6 +709,7 @@
 				186A751C206510340013D863 /* CustomTabBarController.swift in Sources */,
 				18FE555E207387E400FE4C36 /* CustomSettingTVC.swift in Sources */,
 				D8D49B262077962F00CC4851 /* ClassBookingRequestVC.swift in Sources */,
+				185202AA208607A400778791 /* PhotoSelectionActionSheet.swift in Sources */,
 				186A7519206510340013D863 /* APIManager.swift in Sources */,
 				186A7523206536FD0013D863 /* ForgotPasswordVC.swift in Sources */,
 				18722858206CEF4A00CD3076 /* VerificationCodeVC.swift in Sources */,
