@@ -20,6 +20,7 @@ pod ‘IQKeyboardManagerSwift’
   pod 'SDWebImage'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'StepSlider'
   
   pod 'Firebase/Core'
   pod 'Firebase/Auth'

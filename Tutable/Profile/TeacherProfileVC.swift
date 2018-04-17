@@ -95,7 +95,7 @@ class TeacherProfileVC: UIViewController {
                 quality1Btn.setImage(UIImage.init(named: arrTemp[i]["image"]!), for: .normal)
                 quality1Btn.setTitle(arrTemp[i]["name"], for: .normal)
                 quality1Btn.isHidden = false
-                constraintHeightQualityView.constant = 80
+                constraintHeightQualityView.constant = 40
             }
             else if i == 1
             {
@@ -108,6 +108,7 @@ class TeacherProfileVC: UIViewController {
                 quality3Btn.setImage(UIImage.init(named: arrTemp[i]["image"]!), for: .normal)
                 quality3Btn.setTitle(arrTemp[i]["name"], for: .normal)
                 quality3Btn.isHidden = false
+                constraintHeightQualityView.constant = 80
             }
         }
         

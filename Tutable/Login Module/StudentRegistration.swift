@@ -17,9 +17,11 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, PhotoSelection
     @IBOutlet weak var confirmPasswordTxt: UITextField!
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var addressTxt: UITextField!
+    @IBOutlet weak var dobTxt: UITextField!
     
     var _PhotoSelectionVC:PhotoSelectionVC!
     var _imgCompress:UIImage!
+    var selectedDob : Date!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +48,21 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, PhotoSelection
         self.view.endEditing(true)
         self.view.addSubview(_PhotoSelectionVC.view)
         displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
+    }
+    
+    @IBAction func clickToSelectDob(_ sender: Any) {
+        self.view.endEditing(true)
+        if selectedDob == nil
+        {
+            selectedDob = Date()
+        }
+        let maxDate : Date = Date()
+        DatePickerManager.shared.showPicker(title: "Select Date of Birth", selected: selectedDob, min: nil, max: maxDate) { (date, cancel) in
+            if !cancel && date != nil {
+                self.selectedDob = date!
+                self.dobTxt.text = getDateStringFromDate(date: self.selectedDob)
+            }
+        }
     }
     
     @IBAction func clickToBack(_ sender: Any) {
@@ -75,6 +92,10 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, PhotoSelection
         {
             displayToast("Password not same")
         }
+        else if selectedDob == nil
+        {
+            displayToast("Please select date of birth")
+        }
         else
         {
             AppModel.shared.currentUser = UserModel.init(dict: [String : Any]())
@@ -82,6 +103,7 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, PhotoSelection
             AppModel.shared.currentUser.email = emailTxt.text
             AppModel.shared.currentUser.password = passwordTxt.text
             AppModel.shared.currentUser.address.location = addressTxt.text
+            AppModel.shared.currentUser.dob = getTimestampFromDate(date: selectedDob)
             if _imgCompress == nil
             {
                 continueRegistration(Data())

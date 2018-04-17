@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StepSlider
 
 class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -27,7 +28,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var userSubTitleLbl: UILabel!
     @IBOutlet weak var classPriceLbl: UILabel!
     @IBOutlet weak var priceUnitLbl: UILabel!
-    @IBOutlet weak var studentLevelLbl: UILabel!
+    @IBOutlet weak var levelSlider: StepSlider!
     @IBOutlet weak var subjectLoveLbl: UILabel!
     @IBOutlet weak var constraintHeightSubjectLoveLbl: NSLayoutConstraint!
     @IBOutlet weak var starBtn: UIButton!
@@ -75,6 +76,12 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         userProfilePicBtn.addCornerRadiusOfView(userProfilePicBtn.frame.size.height/2)
         moreReviewBtn.addCornerRadiusOfView(moreReviewBtn.frame.size.height/2)
         moreReviewBtn.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.APP_COLOR))
+        
+        levelSlider.tintColor = UIColor.init(patternImage: UIImage.init(named: "bg_header")!)
+        levelSlider.sliderCircleColor = colorFromHex(hex: COLOR.APP_COLOR)
+        levelSlider.sliderCircleRadius = 5.0
+        levelSlider.trackCircleRadius = 0.0
+        levelSlider.addCornerRadiusOfView(2.0)
     }
     
     func getClassDetail()
@@ -135,7 +142,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             }
         }
         classPriceLbl.text = setFlotingPrice(classData.rate)
-        studentLevelLbl.text = classLevelArr[classData.level-1]
+        levelSlider.setIndex(UInt(classData.level-1), animated: true)
         subjectLoveLbl.text = classData.bio
         constraintHeightSubjectLoveLbl.constant = subjectLoveLbl.getLableHeight()
         

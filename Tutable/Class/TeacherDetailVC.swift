@@ -15,6 +15,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var constraintHeightHeaderView: NSLayoutConstraint!
     @IBOutlet weak var classHeaderView: UIView!
     @IBOutlet weak var classFooterView: UIView!
+    @IBOutlet weak var constraintHeightFooterView: NSLayoutConstraint!
     @IBOutlet weak var userProfilePicBtn: UIButton!
     @IBOutlet weak var userBackgroundImgBtn: UIButton!
     @IBOutlet weak var userNameLbl: UILabel!
@@ -39,6 +40,13 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         tblView.register(UINib(nibName: "CustomClassesTVC", bundle: nil), forCellReuseIdentifier: "CustomClassesTVC")
         self.constraintHeightTblView.constant = self.tblView.contentSize.height
         
+        quality1Btn.isHidden = true
+        quality2Btn.isHidden = true
+        quality3Btn.isHidden = true
+        quality4Btn.isHidden = true
+        constraintHeightQualityView.constant = 0
+        moreClassesBtn.isHidden = true
+        constraintHeightFooterView.constant = 0
         getTeacherDetail()
     }
     
@@ -115,7 +123,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 quality1Btn.setImage(UIImage.init(named: arrTemp[i]["image"]!), for: .normal)
                 quality1Btn.setTitle(arrTemp[i]["name"], for: .normal)
                 quality1Btn.isHidden = false
-                constraintHeightQualityView.constant = 80
+                constraintHeightQualityView.constant = 40
             }
             else if i == 1
             {
@@ -128,6 +136,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 quality3Btn.setImage(UIImage.init(named: arrTemp[i]["image"]!), for: .normal)
                 quality3Btn.setTitle(arrTemp[i]["name"], for: .normal)
                 quality3Btn.isHidden = false
+                constraintHeightQualityView.constant = 80
             }
         }
         
@@ -156,9 +165,17 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     break
                 }
             }
-            
-            self.tblView.reloadData()
-            self.constraintHeightTblView.constant = CGFloat(self.classData.count * 100)
+            if self.classData.count > 0
+            {
+                self.moreClassesBtn.isHidden = false
+                self.tblView.reloadData()
+                self.constraintHeightTblView.constant = CGFloat(self.classData.count * 100)
+            }
+            else
+            {
+                self.moreClassesBtn.isHidden = true
+                self.constraintHeightTblView.constant = 0
+            }
         }
     }
     

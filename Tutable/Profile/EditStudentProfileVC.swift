@@ -15,9 +15,11 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
     @IBOutlet weak var emailTxt: UITextField!
     @IBOutlet weak var addressTxt: UITextField!
     @IBOutlet weak var saveBtn: UIButton!
+    @IBOutlet weak var dobTxt: UITextField!
     
     var _PhotoSelectionVC:PhotoSelectionVC!
     var _imgCompress:UIImage!
+    var selectedDob : Date!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +55,11 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
         {
             addressTxt.text = AppModel.shared.currentUser.address.location
         }
-        
+        if AppModel.shared.currentUser.dob != 0.0
+        {
+            dobTxt.text = getDateStringFromServerTimeStemp(AppModel.shared.currentUser.dob)
+            selectedDob = getDateFromTimeStamp(AppModel.shared.currentUser.dob)
+        }
     }
     
     // MARK: - Button click event
@@ -61,6 +67,21 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
         self.view.endEditing(true)
         self.view.addSubview(_PhotoSelectionVC.view)
         displaySubViewWithScaleOutAnim(_PhotoSelectionVC.view)
+    }
+    
+    @IBAction func clickToDob(_ sender: Any) {
+        self.view.endEditing(true)
+        if selectedDob == nil
+        {
+            selectedDob = Date()
+        }
+        let maxDate : Date = Date()
+        DatePickerManager.shared.showPicker(title: "Select Date of Birth", selected: selectedDob, min: nil, max: maxDate) { (date, cancel) in
+            if !cancel && date != nil {
+                self.selectedDob = date!
+                self.dobTxt.text = getDateStringFromDate(date: self.selectedDob)
+            }
+        }
     }
     
     @IBAction func clickToBack(_ sender: Any) {
@@ -86,12 +107,17 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, PhotoSelectio
         {
             displayToast("Please enter your address.")
         }
+        else if selectedDob == nil
+        {
+            displayToast("Please select date of birth")
+        }
         else
         {
             var dict : [String : Any] = [String : Any]()
             dict["name"] = nameTxt.text
             dict["email"] = emailTxt.text
             dict["address"] = addressTxt.text
+            dict["dob"] = getTimestampFromDate(date: selectedDob)
             if _imgCompress == nil
             {
                 continueUpdating(dict, Data())

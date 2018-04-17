@@ -56,8 +56,8 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     var strPalceholder : String = "Please type your message.."
     
     override func viewWillDisappear(_ animated: Bool) {
-//        IQKeyboardManager.sharedManager().enableAutoToolbar = true
-//        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().enableAutoToolbar = true
+        IQKeyboardManager.sharedManager().enable = true
         isAppear = false
         DispatchQueue.main.async {
             removeLoader()
@@ -75,8 +75,8 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        IQKeyboardManager.sharedManager().enableAutoToolbar = false
-//        IQKeyboardManager.sharedManager().enable = false
+        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+        IQKeyboardManager.sharedManager().enable = false
         self.fetchFirebaseMessages()
         self.onUpdateFirebaseMessages()
     }
@@ -89,8 +89,8 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         NotificationCenter.default.addObserver(self, selector: #selector(updateUserLastSeen), name: NSNotification.Name(rawValue: NOTIFICATION.ON_UPDATE_ALL_USER), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onUpdateStories), name: NSNotification.Name(rawValue: NOTIFICATION.ON_UPDATE_STORIES), object: nil)
         self.view.layoutIfNeeded()
-//        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
         
         tblView.register(UINib.init(nibName: "SendChatMessageTVC", bundle: nil), forCellReuseIdentifier: "SendChatMessageTVC")
         tblView.register(UINib.init(nibName: "ReceiverChatMessageTVC", bundle: nil), forCellReuseIdentifier: "ReceiverChatMessageTVC")
@@ -114,9 +114,6 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         _PhotoSelectionVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "PhotoSelectionVC") as! PhotoSelectionVC
         _PhotoSelectionVC.delegate = self
         self.addChildViewController(_PhotoSelectionVC)
-        
-//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.dismissKeyboard))
-//        self.view.addGestureRecognizer(tap)
     }
     
     
@@ -132,21 +129,18 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     @objc func showKeyboard(notification: Notification) {
         if let frame = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let height = frame.cgRectValue.height
-            self.constraintBottomMsgTextView.constant = height
-            self.tblView.contentInset.bottom = height
-            scrollTableviewToBottom()
+            
+            DispatchQueue.main.async {
+                self.constraintBottomMsgTextView.constant = height
+                _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.scrollTableviewToBottom), userInfo: nil, repeats: false)
+                //self.scrollTableviewToBottom()
+            }
         }
     }
     
     @objc func hideKeyboard(notification: Notification) {
-        dismissKeyboard()
-    }
-    
-    @objc func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        self.view.endEditing(true)
         self.constraintBottomMsgTextView.constant = 0
-        scrollTableviewToBottom()
+        _ = Timer.scheduledTimer(timeInterval: 0.0, target: self, selector: #selector(self.scrollTableviewToBottom), userInfo: nil, repeats: false)
     }
     
     //MARK:- Update func
@@ -343,10 +337,14 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         
         messages.append(newMessage)
         coreDataMsgDict[newMessage.msgId] = true
-        self.tblView.beginUpdates()
-        self.tblView.insertRows(at: [IndexPath(row: self.messages.count-1, section: 0)], with: .automatic)
-        self.tblView.endUpdates()
-        self.scrollTableviewToBottom()
+        
+        DispatchQueue.main.async {
+            self.tblView.reloadData()
+//            self.tblView.beginUpdates()
+//            self.tblView.insertRows(at: [IndexPath(row: self.messages.count-1, section: 0)], with: .automatic)
+//            self.tblView.endUpdates()
+            _ = Timer.scheduledTimer(timeInterval: 0.0, target: self, selector: #selector(self.scrollTableviewToBottom), userInfo: nil, repeats: false)
+        }
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -444,7 +442,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         if msgTextView.text != ""
         {
             let newMsgRef : DatabaseReference = messagesRef.childByAutoId()
-            print(getCurrentTimeStampValue())
+            //print(getCurrentTimeStampValue())
             let dict : [String : Any] = ["msgId": getCurrentTimeStampValue(), "key" : newMsgRef.key, "otherUserId": receiver.id, "date": getCurrentTimeStampValue(), "text": msgTextView.text.encoded, "status":2]
             let msgModel: MessageModel = MessageModel.init(dict: dict)
             addMessage(msgModel)
@@ -452,7 +450,6 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
             newMsgRef.setValue(msgModel.dictionary())
             msgTextView.text = ""
             constraintHeightMsgTextView.constant = 50
-            scrollTableviewToBottom()
             AppDelegate().sharedDelegate().onSendMessage(message: msgModel, chanelId: channelId)
         }
     }
@@ -568,43 +565,8 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
-    }
-    
-    @IBAction func retryToUploadMedia(_ sender: UIButton)
-    {
-        /*
-        if sender.isSelected == true
-        {
-            let msgModel : MessageModel = messages[sender.tag]
-            //uploadChatingMedia(msgModel: msgModel, msgIndex: sender.tag)
-            
-            
-            if let tempStory = AppModel.shared.STORY[msgModel.storyID]
-            {
-                AppDelegate().sharedDelegate().uploadStory(story: tempStory, msg: msgModel)
-                
-                self.tblView.beginUpdates()
-                self.tblView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: UITableViewRowAnimation.automatic)
-                self.tblView.endUpdates()
-            }
-        }
-        */
-    }
-    
-    //MARK: - Story Image Video Display
-    @IBAction func showStory(_ sender: UIButton)
-    {
-        let dict : MessageModel = messages[sender.tag]
-        
-    }
-    
-    @IBAction func closeVideoView(_ sender: Any)
-    {
-        DispatchQueue.main.async {
-            removeLoader()
-        }
+        msgTextView.resignFirstResponder()
+        constraintBottomMsgTextView.constant = 0
     }
     
     // MARK: - TextView delegate
@@ -630,7 +592,15 @@ class ChatViewController: UIViewController, UITextViewDelegate, PhotoSelectionDe
         }
     }
     
-    func scrollTableviewToBottom()
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            clickToSend(self)
+            return false
+        }
+        return true
+    }
+    
+    @objc func scrollTableviewToBottom()
     {
         if self.tblView != nil &&  self.messages.count > 0
         {

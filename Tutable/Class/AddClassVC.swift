@@ -8,6 +8,7 @@
 
 import UIKit
 import DropDown
+import StepSlider
 
 class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PhotoSelectionDelegate {
 
@@ -15,8 +16,6 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var classNameTxt: UITextField!
     @IBOutlet weak var classImgBtn: UIButton!
     @IBOutlet weak var categoryBtn: UIButton!
-    @IBOutlet weak var levelBtn: UIButton!
-    @IBOutlet weak var levelLbl: UILabel!
     @IBOutlet weak var subjectLbl: UITextField!
     @IBOutlet weak var nextBtn: UIButton!
     
@@ -24,12 +23,13 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var categoryPopupView: UIView!
     @IBOutlet weak var categoryTblView: UITableView!
     @IBOutlet weak var constraintHeightCategoryPopup: NSLayoutConstraint!
+    @IBOutlet weak var levelSlider: StepSlider!
     
     var _PhotoSelectionVC:PhotoSelectionVC!
     var classImg:UIImage!
     var categoryArr : [CategoryModel] = [CategoryModel]()
     var selectedCategory : CategoryModel = CategoryModel()
-    var selectedLevel : Int = 0
+    var selectedLevel : Int = 2
     var isFromDashboard : Bool = false
     var classData : ClassModel = ClassModel.init(dict: [String : Any]())
     
@@ -67,8 +67,6 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     func setUIDesigning()
     {
         classImgBtn.addCornerRadiusOfView(5.0)
-        levelBtn.addCornerRadiusOfView(5.0)
-        levelBtn.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.LIGHT_GRAY))
         nextBtn.addCornerRadiusOfView(nextBtn.frame.size.height/2)
         categoryPopupView.addCornerRadiusOfView(10.0)
         
@@ -85,6 +83,12 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             setCategoryData()
         }
         
+        levelSlider.tintColor = UIColor.init(patternImage: UIImage.init(named: "bg_header")!)
+        levelSlider.sliderCircleColor = colorFromHex(hex: COLOR.APP_COLOR)
+        levelSlider.sliderCircleRadius = 5.0
+        levelSlider.trackCircleRadius = 0.0
+        levelSlider.addCornerRadiusOfView(2.0)
+        levelSlider.setIndex(1, animated: true)
         setClassDetail()
     }
     
@@ -99,7 +103,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         selectedCategory = AppModel.shared.currentClass.category
         categoryBtn.setTitle(selectedCategory.title, for: .normal)
         selectedLevel = AppModel.shared.currentClass.level
-        levelLbl.text = classLevelArr[selectedLevel - 1]
+        levelSlider.setIndex(UInt(selectedLevel-1), animated: false)
         subjectLbl.text = AppModel.shared.currentClass.bio
     }
     
@@ -145,18 +149,6 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     @IBAction func clickToCloseCategory(_ sender: Any) {
         categoryContainerView.removeFromSuperview()
-    }
-    
-    @IBAction func clickToSelectLevel(_ sender: Any) {
-        self.view.endEditing(true)
-        let dropdown : DropDown = DropDown()
-        dropdown.anchorView = levelBtn
-        dropdown.dataSource = classLevelArr
-        dropdown.selectionAction = { [weak self] (index, item) in
-            self?.levelLbl.text = classLevelArr[index]
-            self?.selectedLevel = index + 1
-        }
-        dropdown.show()
     }
     
     @IBAction func clickToNext(_ sender: Any) {

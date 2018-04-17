@@ -53,12 +53,15 @@ public class APIManager {
         
         let headerParams :[String : String] = getMultipartHeader()
         var params :[String : Any] = [String : Any] ()
-        params["data"] = AppModel.shared.currentUser.toJson(["name":AppModel.shared.currentUser.name,"email" : AppModel.shared.currentUser.email, "password" : AppModel.shared.currentUser.password, "address" : AppModel.shared.currentUser.address.location])
         
         var strUrl : String = "teachers/register"
+        params["data"] = AppModel.shared.currentUser.toJson(["name":AppModel.shared.currentUser.name,"email" : AppModel.shared.currentUser.email, "password" : AppModel.shared.currentUser.password, "address" : AppModel.shared.currentUser.address.location])
+        
         if isStudentLogin()
         {
             strUrl = "student/register"
+            params["data"] = AppModel.shared.currentUser.toJson(["name":AppModel.shared.currentUser.name,"email" : AppModel.shared.currentUser.email, "password" : AppModel.shared.currentUser.password, "address" : AppModel.shared.currentUser.address.location, "dob" : AppModel.shared.currentUser.dob])
+            
         }
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
