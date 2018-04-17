@@ -25,7 +25,7 @@ import FirebaseMessaging
 import CoreData
 import Foundation
 import MessageUI
-
+import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSignInUIDelegate, URLSessionDelegate {
@@ -82,6 +82,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         setDataToPreference(data: false as AnyObject, forKey: "isLastSeenUpdate")
         //Firebase Chat end
         
+        //Stripe
+        STPPaymentConfiguration.shared().publishableKey = STRIPE.STRIPE_PUB_KEY
+        
+        //User Login
         if isUserLogin()
         {
             AppModel.shared.currentUser = UserModel.init(dict: getLoginUserData()!)

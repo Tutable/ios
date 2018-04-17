@@ -2479,11 +2479,41 @@
                         <outlet property="btn5" destination="ohJ-a8-QK3" id="5Z2-kT-W9o"/>
                         <outlet property="btn6" destination="uEf-pV-Q3b" id="WZm-JI-zrf"/>
                         <outlet property="btn7" destination="Ms4-g3-1zY" id="Vwf-ai-wVz"/>
+                        <outlet property="cardView" destination="KsE-a3-adM" id="tOY-0m-Epn"/>
                         <outlet property="constraintHeightDateView" destination="A26-kB-Jcj" id="l2l-eo-Xmp"/>
+                        <outlet property="creditCardView" destination="ACY-kh-FxH" id="VEE-UA-FI2"/>
                         <outlet property="tblView" destination="hNW-jJ-Kyw" id="tuc-7D-cZd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jA5-KK-sYE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="ACY-kh-FxH">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o3A-5r-bAl">
+                            <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </imageView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KsE-a3-adM" customClass="MFCardView" customModule="MFCard">
+                            <rect key="frame" x="10" y="159" width="300" height="250"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="300" id="7DP-fa-24x"/>
+                                <constraint firstAttribute="height" constant="250" id="RgH-98-4We"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="o3A-5r-bAl" firstAttribute="leading" secondItem="9xn-uG-vEK" secondAttribute="leading" id="GRS-Yq-EGY"/>
+                        <constraint firstItem="KsE-a3-adM" firstAttribute="centerX" secondItem="ACY-kh-FxH" secondAttribute="centerX" id="Twa-CJ-GIL"/>
+                        <constraint firstItem="KsE-a3-adM" firstAttribute="centerY" secondItem="ACY-kh-FxH" secondAttribute="centerY" id="bUK-1g-xnb"/>
+                        <constraint firstItem="9xn-uG-vEK" firstAttribute="trailing" secondItem="o3A-5r-bAl" secondAttribute="trailing" id="fPi-Hs-ujG"/>
+                        <constraint firstItem="9xn-uG-vEK" firstAttribute="bottom" secondItem="o3A-5r-bAl" secondAttribute="bottom" id="nTO-Ir-25v"/>
+                        <constraint firstItem="o3A-5r-bAl" firstAttribute="top" secondItem="9xn-uG-vEK" secondAttribute="top" id="nVQ-gE-iJ7"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="9xn-uG-vEK"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="4403" y="2793"/>
         </scene>

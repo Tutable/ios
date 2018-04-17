@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import MFCard
+import Stripe
 
-class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MFCardDelegate {
     
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var constraintHeightDateView: NSLayoutConstraint!
@@ -21,12 +23,16 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var btn6: UIButton!
     @IBOutlet weak var btn7: UIButton!
     
+    @IBOutlet var creditCardView: UIView!
+    @IBOutlet var cardView: MFCardView!
+    
     var timeArr : [String] = [String]()
     
     var finalTimeDict : [String : [String]] = [String : [String]]()
     var selectedDateIndex : Int = 0
     var teacherData : UserModel = UserModel.init()
     var classData : ClassModel = ClassModel.init()
+    var selectedSlotDict : [String : Any] = [String : Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +56,10 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
         setButtonDesign(button: btn7)
         
         constraintHeightDateView.constant = ((UIScreen.main.bounds.size.width - 110)/7) + 27
+        
+        cardView.delegate = self
+        cardView.autoDismiss = false
+        cardView.toast = true
         
         setButtonLable()
         clickToSelectDate(btn1)
@@ -238,19 +248,95 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func clickToBook(_ sender: UIButton) {
-        var slotDict : [String : Any] = [String : Any]()
-        slotDict[String(selectedDateIndex)] = (teacherData.availability[String(selectedDateIndex)]?[sender.tag])!
-        APIManager.sharedInstance.serviceCallToBookClass(classData.id, slotDict: slotDict) { (isSuccess) in
-            if isSuccess
+        
+        selectedSlotDict = [String : Any]()
+        selectedSlotDict[String(selectedDateIndex)] = (teacherData.availability[String(selectedDateIndex)]?[sender.tag])!
+        requestForBooking()
+    }
+    
+    func requestForBooking()
+    {
+        APIManager.sharedInstance.serviceCallToBookClass(classData.id, slotDict: selectedSlotDict) { (dict) in
+            if let code : Int = dict["code"] as? Int
             {
-                showAlert("Thanks!", message: "Your booking request has been submitted.\nWe will inform you once the teacher confirms the class.") {
-//                    let vc : CreditCardDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "CreditCardDetailVC") as! CreditCardDetailVC
-//                    self.navigationController?.pushViewController(vc, animated: true)
-                    self.clickToBack(self)
+                if code == 100
+                {
+                    showAlert("Thanks!", message: "Your booking request has been submitted.\nWe will inform you once the teacher confirms the class.") {
+                        self.clickToBack(self)
+                    }
+                }
+                else if code == 104
+                {
+                    showAlert("Tutable", message: dict["message"] as! String, completion: {
+                        displaySubViewtoParentView(self.view, subview: self.creditCardView)
+                    })
+                }
+                else
+                {
+                    print(dict["message"]!)
                 }
             }
         }
     }
+    
+    //******************* Stripe Payment Start ************************//
+    
+    func cardDoneButtonClicked(_ card: Card?, error: String?) {
+        
+        if card != nil
+        {
+            showLoader()
+            let cardParams = STPCardParams()
+            cardParams.name = card?.name
+            cardParams.number = card?.number
+            cardParams.expMonth = UInt((card?.month?.rawValue)!)!
+            cardParams.expYear = UInt((card?.year!)!)!
+            cardParams.cvc = card?.cvc
+            
+//            let stripeClient : STPAPIClient = STPAPIClient.shared()
+//            var redirectContext : STPRedirectContext?
+//            let sourceParams = STPSourceParams.cardParams(withCard: cardParams)
+//
+//            stripeClient.createSource(with: sourceParams, completion: { (source, error) in
+//                if error == nil
+//                {
+//                    print(source?.stripeID)
+//                }
+//            })
+            
+            STPAPIClient.shared().createToken(withCard: cardParams) { (token, error) in
+                removeLoader()
+                if error == nil
+                {
+                    self.creditCardView.removeFromSuperview()
+                    
+                    let param : [String  :Any] = ["card" : token!.tokenId]
+                    APIManager.sharedInstance.serviceCallToAddStripeToken(param, completion: { (isSuccess) in
+                        if isSuccess
+                        {
+                            self.requestForBooking()
+                        }
+                    })
+                }
+                else
+                {
+                    showAlert("Error", message: (error?.localizedDescription)!, completion: {
+                        
+                    })
+                }
+            }
+        }
+        else
+        {
+            displayToast("Invalid card details.")
+        }
+    }
+    
+    func cardTypeDidIdentify(_ cardType: String) {
+        print(cardType)
+    }
+    
+    //******************* Stripe Payment End ************************//
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

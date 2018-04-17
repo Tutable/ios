@@ -27,4 +27,7 @@ pod ‘IQKeyboardManagerSwift’
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'Firebase/Messaging'
+  
+  pod 'Stripe'
+  pod 'MFCard'
 end

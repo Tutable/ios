@@ -86,6 +86,11 @@ struct FACEBOOK {
     static var FB_SECRET = "68bd3f6e838f9ed1e68220e204c09406"
 }
 
+struct STRIPE {
+    static var STRIPE_PUB_KEY = "pk_test_u3xxbQe9ozU9Ql5bwQMFyPzh"
+    static var STRIPE_SECRET_KEY = "sk_test_SRQOZSEF09YCrg9bCCDeF4Qa"
+}
+
 struct NOTIFICATION {
     static var UPDATE_CURRENT_USER_DATA     =   "UPDATE_CURRENT_USER_DATA"
     static var UPDATE_TAB_SELECTION         =   "UPDATE_TAB_SELECTION"
