@@ -86,7 +86,7 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, UIImagePickerC
         {
             displayToast("Password not same")
         }
-        else if selectedDob == nil
+        else if selectedDob == nil || dobTxt.text == ""
         {
             displayToast("Please select date of birth")
         }
@@ -181,7 +181,6 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, UIImagePickerC
             imgPicker.sourceType = .camera
             UIViewController.top?.present(imgPicker, animated: true, completion: {() -> Void in
             })
-            self.dismiss(animated: true, completion: nil)
         }
     }
     

@@ -643,11 +643,11 @@ public class APIManager {
                 multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
             }
             
-            if degreeData != nil && degreeData.count != 0
+            if degreeData.count != 0
             {
                 multipartFormData.append(degreeData, withName: "degreeAsset", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
             }
-            if pictureData != nil && pictureData.count != 0
+            if pictureData.count != 0
             {
                 multipartFormData.append(pictureData, withName: "picture", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
             }
@@ -670,7 +670,7 @@ public class APIManager {
                                 return
                             }
                         }
-                        if let message = result["message"] as? String{
+                        if (result["message"] as? String) != nil{
                             //displayToast(message)
                             return
                         }
@@ -720,7 +720,7 @@ public class APIManager {
                     print(response.result.value!)
                     if let result = response.result.value as? [String:Any]{
                         if let code = result["code"] as? Int{
-                            if(code == 100){
+                            if(code == 100 || code == 104){
                                 self.serviceCallToGetUserDetail({
                                     completion()
                                     return
@@ -1245,6 +1245,60 @@ public class APIManager {
         }
     }
     
+    func serviceCallToCreateStripeBankAccount(_ dict : [String : Any], imgData : Data, completion: @escaping () -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getMultipartHeaderWithToken()
+        
+        var params :[String : Any] = [String : Any] ()
+        params["data"] = toJson(["account":dict["account"]!, "personalDetails":dict["personalDetails"]!])
+        print(params)
+        
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            for (key, value) in params {
+                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+            }
+            if imgData.count != 0
+            {
+                multipartFormData.append(imgData, withName: "verificationDocumentData", fileName: getCurrentTimeStampValue() + ".png", mimeType: "image/png")
+            }
+        }, usingThreshold: UInt64.init(), to: BASE_URL+"payments/createBankAccount", method: .post
+        , headers: headerParams) { (result) in
+            switch result{
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (Progress) in
+                    print("Upload Progress: \(Progress.fractionCompleted)")
+                })
+                upload.responseJSON { response in
+                    removeLoader()
+                    print(response.result.value!)
+                    if let result = response.result.value as? [String:Any]{
+                        if let code = result["code"] as? Int{
+                            if(code == 100){
+                                completion()
+                                return
+                            }
+                        }
+                        if (result["message"] as? String) != nil{
+                            return
+                        }
+                    }
+                    
+                    if let error = response.error{
+                        displayToast(error.localizedDescription)
+                        return
+                    }
+                }
+            case .failure(let error):
+                removeLoader()
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
     //MARK: - Review
     func serviceCallToAddReview(_ params : [String : Any], completion: @escaping (_ isSuccess :Bool) -> Void){
         showLoader()
@@ -1408,5 +1462,11 @@ public class APIManager {
             })
         }
         
+    }
+    
+    func toJson(_ dict:[String:Any]) -> String{
+        let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: [])
+        let jsonString = String(data: jsonData!, encoding: .utf8)
+        return jsonString!
     }
 }

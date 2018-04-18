@@ -54,7 +54,13 @@ class ResetPasswordVC: UIViewController {
             AppModel.shared.currentUser.password = newPasswordTxt.text
             AppModel.shared.currentUser.verificationCode = tokenTxt.text
             APIManager.sharedInstance.serviceCallToChangePassword({
-                AppDelegate().sharedDelegate().navigateToLogin()
+                displayToast("Password has been changed. You can login to your account.")
+                for controller in self.navigationController!.viewControllers as Array {
+                    if controller.isKind(of: LoginVC.self) {
+                        self.navigationController!.popToViewController(controller, animated: true)
+                        break
+                    }
+                }
             })
         }
     }

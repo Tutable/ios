@@ -87,6 +87,7 @@ class UserModel:AppModel{
     var policeCert : String!
     var childrenCert : String!
     var notifications : Int!
+    var payment : Int!
     
     override init(){
         id = ""
@@ -112,6 +113,7 @@ class UserModel:AppModel{
         policeCert = ""
         childrenCert = ""
         notifications = 0
+        payment = 0
     }
     init(dict : [String : Any])
     {
@@ -138,6 +140,7 @@ class UserModel:AppModel{
         policeCert = ""
         childrenCert = ""
         notifications = 0
+        payment = 0
         
         if let Id = dict["id"] as? String{
             id = Id
@@ -253,10 +256,13 @@ class UserModel:AppModel{
         if let temp = dict["notifications"] as? Int{
             notifications = temp
         }
+        if let temp = dict["payment"] as? Int{
+            payment = temp
+        }
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert, "notifications" : notifications]
+        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert, "notifications" : notifications, "payment" : payment]
     }
     
     func toJson(_ dict:[String:Any]) -> String{

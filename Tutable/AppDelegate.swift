@@ -309,7 +309,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                 if code == 100
                 {
                     setSocialLoginUser()
-                    if isStudentLogin()
+                    if AppModel.shared.currentUser.dob == 0.0
+                    {
+                        let vc : EditStudentProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditStudentProfileVC") as! EditStudentProfileVC
+                        if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
+                        {
+                            rootNavigatioVC.pushViewController(vc, animated: false)
+                        }
+                    }
+                    else
                     {
                         self.navigateToDashboard()
                     }
@@ -363,7 +371,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     
     
     //MARK:- Navigate To Login
-    func navigateToLogin()
+    func navigateToRoot()
     {
         let navigationVC = self.storyboard().instantiateViewController(withIdentifier: "ViewControllerNavigation") as! UINavigationController
         UIApplication.shared.keyWindow?.rootViewController = navigationVC
@@ -379,10 +387,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         {
             rootNavigatioVC.pushViewController(customTabbarVc, animated: false)
         }
+        calledForLoginUser()
+    }
+    
+    func navigateToProfile()
+    {
+        setLoginUserData(AppModel.shared.currentUser.dictionary())
+        customTabbarVc = self.storyboard().instantiateViewController(withIdentifier: "CustomTabBarController") as! CustomTabBarController
+        if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
+        {
+            rootNavigatioVC.pushViewController(customTabbarVc, animated: false)
+        }
+        calledForLoginUser()
+    }
+    
+    func calledForLoginUser()
+    {
         getCategory()
-        
-        print("==================\n\nDeviceID : " + getDeviceToken() + "\n\n==================")
-        
         setupFirebase()
         setDataToPreference(data: true as AnyObject, forKey: "isLastSeenUpdate")
     }
@@ -406,7 +427,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         let loginManager = FBSDKLoginManager()
         loginManager.logOut() // this is an instance function
         
-        navigateToLogin()
+        navigateToRoot()
         setDeviceToken(value: deviceToken)
         
     }

@@ -134,12 +134,19 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
         let location : LocationModel = LocationModel.init(dict: AppModel.shared.currentUser.address.dictionary())
         suburbTxt.text = location.suburb
         stateLbl.text = location.state
-        
-        qulificationTxt.text = AppModel.shared.currentUser.qualification
-        schoolTxt.text = AppModel.shared.currentUser.school
-        if AppModel.shared.currentUser.degreeAsset != ""
+        if AppModel.shared.currentUser.qualification == "" && qulificationTxt.text == "" && AppModel.shared.currentUser.degreeAsset == ""
         {
-            APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.degreeAsset, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [degreeImgBtn])
+            relevantSegment.selectedSegmentIndex = 1
+        }
+        else
+        {
+            relevantSegment.selectedSegmentIndex = 0
+            qulificationTxt.text = AppModel.shared.currentUser.qualification
+            schoolTxt.text = AppModel.shared.currentUser.school
+            if AppModel.shared.currentUser.degreeAsset != ""
+            {
+                APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.degreeAsset, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [degreeImgBtn])
+            }
         }
     }
     
@@ -241,7 +248,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
         {
             displayToast("Please enter name")
         }
-        else if selectedDob == nil
+        else if selectedDob == nil || dobTxt.text == ""
         {
             displayToast("Please select date of birth")
         }
@@ -427,7 +434,6 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             imgPicker.sourceType = .camera
             UIViewController.top?.present(imgPicker, animated: true, completion: {() -> Void in
             })
-            self.dismiss(animated: true, completion: nil)
         }
     }
     

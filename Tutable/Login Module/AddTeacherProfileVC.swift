@@ -165,7 +165,7 @@ class AddTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIImag
         {
             displayToast("Please enter name")
         }
-        else if selectedDob == nil
+        else if selectedDob == nil || dobTxt.text == ""
         {
             displayToast("Please select date of birth")
         }
@@ -284,7 +284,6 @@ class AddTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIImag
             imgPicker.sourceType = .camera
             UIViewController.top?.present(imgPicker, animated: true, completion: {() -> Void in
             })
-            self.dismiss(animated: true, completion: nil)
         }
     }
     

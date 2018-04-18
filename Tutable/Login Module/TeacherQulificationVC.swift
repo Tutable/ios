@@ -168,7 +168,6 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
             imgPicker.sourceType = .camera
             UIViewController.top?.present(imgPicker, animated: true, completion: {() -> Void in
             })
-            self.dismiss(animated: true, completion: nil)
         }
     }
     

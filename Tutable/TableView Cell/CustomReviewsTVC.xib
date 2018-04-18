@@ -45,11 +45,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1u-CL-1gc" customClass="FloatRatingView" customModule="Tutable" customModuleProvider="target">
-                                <rect key="frame" x="50" y="26" width="87" height="16"/>
+                                <rect key="frame" x="50" y="26" width="120" height="16"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="Kxy-ox-Fv8"/>
-                                    <constraint firstAttribute="width" constant="87" id="Xhd-6Z-Fpl"/>
+                                    <constraint firstAttribute="width" constant="120" id="Xhd-6Z-Fpl"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="star_off_small"/>

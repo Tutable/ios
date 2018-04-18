@@ -178,22 +178,31 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // MARK: - Button click event
     @IBAction func clickToAccept(_ sender: UIButton) {
-        let dict : [String : Any] = arrNotiData[sender.tag]
         
-        if let bookingRef : String = dict["bookingRef"] as? String
+        if AppModel.shared.currentUser.payment == 1
         {
-            var param : [String : Any] = [String : Any]()
-            param["bookingId"] = bookingRef
-            param["confirmed"] = true
-            APIManager.sharedInstance.serviceCallToBookingAction(param) { (isSuccess) in
-                if isSuccess
-                {
-                    displayToast("Booking request accepted")
-                    APIManager.sharedInstance.serviceCallToRemoveNotification(dict["id"] as! String)
-                    self.arrNotiData.remove(at: sender.tag)
-                    self.tblView.reloadData()
+            let dict : [String : Any] = arrNotiData[sender.tag]
+            
+            if let bookingRef : String = dict["bookingRef"] as? String
+            {
+                var param : [String : Any] = [String : Any]()
+                param["bookingId"] = bookingRef
+                param["confirmed"] = true
+                APIManager.sharedInstance.serviceCallToBookingAction(param) { (isSuccess) in
+                    if isSuccess
+                    {
+                        displayToast("Booking request accepted")
+                        APIManager.sharedInstance.serviceCallToRemoveNotification(dict["id"] as! String)
+                        self.arrNotiData.remove(at: sender.tag)
+                        self.tblView.reloadData()
+                    }
                 }
             }
+        }
+        else
+        {
+            let vc : AccountDetailVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "AccountDetailVC") as! AccountDetailVC
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

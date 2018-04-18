@@ -32,6 +32,27 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        accountNameTxt.text = AppModel.shared.currentUser.name
+        if AppModel.shared.currentUser.name.contains(" ")
+        {
+            let nameArr : [String] = AppModel.shared.currentUser.name.components(separatedBy: "")
+            fnameTxt.text = nameArr[0]
+            if nameArr.count > 1
+            {
+                lnameTxt.text = nameArr[1]
+            }
+            
+        }
+        stateTxt.text = AppModel.shared.currentUser.address.state
+        cityTxt.text = AppModel.shared.currentUser.address.suburb
+        addressTxt.text = AppModel.shared.currentUser.address.location
+        if AppModel.shared.currentUser.dob != 0.0
+        {
+            dobTxt.text = getDateStringFromServerTimeStemp(AppModel.shared.currentUser.dob)
+            selectedDob = getDateFromTimeStamp(AppModel.shared.currentUser.dob)
+        }
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -121,7 +142,7 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
         {
             displayToast("Please enter postal code")
         }
-        else if selectedDob == nil
+        else if selectedDob == nil || dobTxt.text == ""
         {
             displayToast("Please select date of birth")
         }
@@ -156,8 +177,27 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
             dobDict["month"] = getDateStringFromDate(date: selectedDob, format: "MM")
             dobDict["year"] = getDateStringFromDate(date: selectedDob, format: "YYYY")
             personalDict["dob"] = dobDict
+            personalDict["firstName"] = fnameTxt.text?.trimmed
+            personalDict["lastName"] = lnameTxt.text?.trimmed
+            personalDict["type"] = "individual"
+            if let ipAddress : String = getIPAddress()
+            {
+                personalDict["ip"] = ipAddress
+            }
+            finalDict["personalDetails"] = personalDict
             
-            
+            print(finalDict)
+            if let imageData = UIImagePNGRepresentation(_imgCompress){
+                APIManager.sharedInstance.serviceCallToCreateStripeBankAccount(finalDict, imgData: imageData, completion: {
+                    AppModel.shared.currentUser.payment = 1
+                    displayToast("Account Create Succefully.")
+                    self.navigationController?.popViewController(animated: true)
+                })
+            }
+            else{
+                displayToast("Getting error in profile pic, please select another one.")
+                return
+            }
         }
     }
     
@@ -200,7 +240,6 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
             imgPicker.sourceType = .camera
             UIViewController.top?.present(imgPicker, animated: true, completion: {() -> Void in
             })
-            self.dismiss(animated: true, completion: nil)
         }
     }
     

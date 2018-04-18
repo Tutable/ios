@@ -35,7 +35,7 @@ class VerificationCodeVC: UIViewController, UITextFieldDelegate {
         verificationCodeTxt.attributedPlaceholder = NSAttributedString(string: verificationCodeTxt.placeholder!,
                                                             attributes: [NSAttributedStringKey.foregroundColor: colorFromHex(hex: COLOR.APP_COLOR)])
         
-        verificationLbl.text = "An email was just sent to\n" + AppModel.shared.currentUser.email
+        verificationLbl.text = "An email was sent to\n" + AppModel.shared.currentUser.email
         
         if isFromLoginScreen
         {
@@ -59,7 +59,7 @@ class VerificationCodeVC: UIViewController, UITextFieldDelegate {
     {
         let minute : Int = (timeValue%3600)/60
         let second : Int = (timeValue%3600)%60
-        resendBtn.setTitle(String(format: "Please wait %d:%d", minute,second), for: .normal)
+        resendBtn.setTitle(String(format: "Please wait %d:%2d", minute,second), for: .normal)
         timeValue -= 1
         if timeValue < 0
         {

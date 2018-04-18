@@ -30,9 +30,12 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePicker
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
-        self.edgesForExtendedLayout = UIRectEdge.bottom
-        tabBar.setTabBarHidden(tabBarHidden: true)
+        if self.tabBarController != nil
+        {
+            let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
+            self.edgesForExtendedLayout = UIRectEdge.bottom
+            tabBar.setTabBarHidden(tabBarHidden: true)
+        }
     }
     
     
@@ -82,7 +85,14 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePicker
     
     @IBAction func clickToBack(_ sender: Any) {
         self.view.endEditing(true)
-        self.navigationController?.popViewController(animated: true)
+        if self.tabBarController != nil
+        {
+            self.navigationController?.popViewController(animated: true)
+        }
+        else
+        {
+            AppDelegate().sharedDelegate().navigateToDashboard()
+        }
     }
     
     @IBAction func clickToSave(_ sender: Any) {
@@ -103,7 +113,7 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePicker
         {
             displayToast("Please enter your address.")
         }
-        else if selectedDob == nil
+        else if selectedDob == nil || dobTxt.text == ""
         {
             displayToast("Please select date of birth")
         }
@@ -132,10 +142,13 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePicker
     {
         APIManager.sharedInstance.serviceCallToUpdateStudentDetail(dict, pictureData: imageData) {
             displayToast("Profile updated successfully")
-            AppModel.shared.firebaseCurrentUser.name =  AppModel.shared.currentUser.name
-            AppModel.shared.firebaseCurrentUser.picture =  AppModel.shared.currentUser.picture
-            AppDelegate().sharedDelegate().updateCurrentUserData()
-            self.navigationController?.popViewController(animated: true)
+            if AppModel.shared.firebaseCurrentUser != nil
+            {
+                AppModel.shared.firebaseCurrentUser.name =  AppModel.shared.currentUser.name
+                AppModel.shared.firebaseCurrentUser.picture =  AppModel.shared.currentUser.picture
+                AppDelegate().sharedDelegate().updateCurrentUserData()
+            }
+            self.clickToBack(self)
         }
     }
     
@@ -194,7 +207,6 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePicker
             imgPicker.sourceType = .camera
             UIViewController.top?.present(imgPicker, animated: true, completion: {() -> Void in
             })
-            self.dismiss(animated: true, completion: nil)
         }
     }
     
