@@ -134,7 +134,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         {
             if userSubTitleLbl.text != ""
             {
-                userSubTitleLbl.text = userSubTitleLbl.text! + " " + classData.teacher.address.state.uppercased()
+                userSubTitleLbl.text = userSubTitleLbl.text! + ", " + classData.teacher.address.state.uppercased()
             }
             else
             {

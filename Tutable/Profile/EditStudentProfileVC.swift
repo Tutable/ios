@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var profilePicBtn: UIButton!
     @IBOutlet weak var nameTxt: UITextField!

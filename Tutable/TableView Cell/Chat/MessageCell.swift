@@ -24,6 +24,8 @@ class MessageCell: UITableViewCell {
     @IBOutlet weak var statusImgView: UIImageView!
     @IBOutlet weak var arrowBtn: UIButton!
     
+    @IBOutlet weak var constraintHeightExtraSpace: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -110,7 +110,7 @@ class SubClassVC: UIViewController, UICollectionViewDataSource, UICollectionView
         {
             if cell.addressLbl.text != ""
             {
-                cell.addressLbl.text = cell.addressLbl.text! + " " + dict.teacher.address.state.uppercased()
+                cell.addressLbl.text = cell.addressLbl.text! + ", " + dict.teacher.address.state.uppercased()
             }
             else
             {

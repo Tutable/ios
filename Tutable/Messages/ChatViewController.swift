@@ -127,8 +127,12 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
             
             DispatchQueue.main.async {
                 self.constraintBottomMsgTextView.constant = height
-                _ = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.scrollTableviewToBottom), userInfo: nil, repeats: false)
-                //self.scrollTableviewToBottom()
+                delay(0.01, closure: {
+                    if self.tblView != nil &&  self.messages.count > 0
+                    {
+                        self.tblView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: .bottom, animated: false)
+                    }
+                })
             }
         }
     }
@@ -332,14 +336,11 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
         
         messages.append(newMessage)
         coreDataMsgDict[newMessage.msgId] = true
-        
-        DispatchQueue.main.async {
-            self.tblView.reloadData()
-//            self.tblView.beginUpdates()
-//            self.tblView.insertRows(at: [IndexPath(row: self.messages.count-1, section: 0)], with: .automatic)
-//            self.tblView.endUpdates()
-            _ = Timer.scheduledTimer(timeInterval: 0.0, target: self, selector: #selector(self.scrollTableviewToBottom), userInfo: nil, repeats: false)
-        }
+//        self.tblView.reloadData()
+        self.tblView.beginUpdates()
+        self.tblView.insertRows(at: [IndexPath(row: self.messages.count-1, section: 0)], with: .automatic)
+        self.tblView.endUpdates()
+        _ = Timer.scheduledTimer(timeInterval: 0.0, target: self, selector: #selector(self.scrollTableviewToBottom), userInfo: nil, repeats: false)
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -431,7 +432,6 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
         if msgTextView.text != ""
         {
             let newMsgRef : DatabaseReference = messagesRef.childByAutoId()
-            //print(getCurrentTimeStampValue())
             let dict : [String : Any] = ["msgId": getCurrentTimeStampValue(), "key" : newMsgRef.key, "otherUserId": receiver.id, "date": getCurrentTimeStampValue(), "text": msgTextView.text.encoded, "status":2]
             let msgModel: MessageModel = MessageModel.init(dict: dict)
             addMessage(msgModel)
@@ -452,6 +452,13 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         let dict : MessageModel = messages[indexPath.row]
+        
+        var extraSpace : CGFloat = 2
+        if indexPath.row != 0 && dict.otherUserId != messages[indexPath.row-1].otherUserId
+        {
+            extraSpace = 5
+        }
+        
         if dict.otherUserId != AppModel.shared.firebaseCurrentUser.id
         {
             var cell:SendChatMessageTVC!
@@ -462,17 +469,17 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
             }
             cell.messageTxtView.text = dict.text.decoded
             
+            cell.layoutSubviews()
+            cell.layoutIfNeeded()
             cell.ConstraintHeightMessageView.constant = cell.messageTxtView.getHeight() + 20
-            
-//            let sizeThatFitsTextView:CGSize = cell.messageTxtView.sizeThatFits(CGSize(width: tblView.frame.size.width-110, height: CGFloat(MAXFLOAT)))
-//            cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height
             
             var headerHeight : CGFloat = 0
             if indexPath.row == 0 || isSameDate(firstDate: dict.date, secondDate: messages[indexPath.row-1].date) == false
             {
                 headerHeight = 30
             }
-            return 70 - 35 + cell.ConstraintHeightMessageView.constant + headerHeight
+            cell.constraintHeightExtraSpace.constant = extraSpace
+            return cell.ConstraintHeightMessageView.constant + headerHeight + extraSpace
         }
         else
         {
@@ -485,15 +492,16 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
             
             
             cell.messageTxtView.text = dict.text.decoded
+            cell.layoutSubviews()
+            cell.layoutIfNeeded()
             cell.ConstraintHeightMessageView.constant = cell.messageTxtView.getHeight() + 20
-//            let sizeThatFitsTextView:CGSize = cell.messageTxtView.sizeThatFits(CGSize(width: tblView.frame.size.width-110, height: CGFloat(MAXFLOAT)))
-//            cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height
             var headerHeight : CGFloat = 0
             if indexPath.row == 0 || isSameDate(firstDate: dict.date, secondDate: messages[indexPath.row-1].date) == false
             {
                 headerHeight = 30
             }
-            return 70 - 35 + cell.ConstraintHeightMessageView.constant + headerHeight
+            cell.constraintHeightExtraSpace.constant = extraSpace
+            return cell.ConstraintHeightMessageView.constant + headerHeight + extraSpace
         }
     }
     
@@ -545,10 +553,17 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
             cell.arrowBtn.isHidden = false
         }
         
+        var extraSpace : CGFloat = 2
+        if indexPath.row != 0 && dict.otherUserId != messages[indexPath.row-1].otherUserId
+        {
+            extraSpace = 5
+        }
+        cell.constraintHeightExtraSpace.constant = extraSpace
+        
         cell.messageTxtView.text = dict.text.decoded
+        cell.layoutSubviews()
+        cell.layoutIfNeeded()
         cell.ConstraintHeightMessageView.constant = cell.messageTxtView.getHeight() + 20
-//        let sizeThatFitsTextView:CGSize = cell.messageTxtView.sizeThatFits(CGSize(width: tblView.frame.size.width-110, height: CGFloat(MAXFLOAT)))
-//        cell.ConstraintHeightMessageView.constant = sizeThatFitsTextView.height + 20
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }

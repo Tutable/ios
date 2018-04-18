@@ -60,7 +60,7 @@ class TeacherProfileVC: UIViewController {
         {
             if userSubTitleLbl.text != ""
             {
-                userSubTitleLbl.text = userSubTitleLbl.text! + " " + AppModel.shared.currentUser.address.state.uppercased()
+                userSubTitleLbl.text = userSubTitleLbl.text! + ", " + AppModel.shared.currentUser.address.state.uppercased()
             }
             else
             {

@@ -88,7 +88,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         {
             if userSubTitleLbl.text != ""
             {
-                userSubTitleLbl.text = userSubTitleLbl.text! + " " + teacherData.address.state.uppercased()
+                userSubTitleLbl.text = userSubTitleLbl.text! + ", " + teacherData.address.state.uppercased()
             }
             else
             {
@@ -167,14 +167,17 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             }
             if self.classData.count > 0
             {
-                self.moreClassesBtn.isHidden = false
                 self.tblView.reloadData()
                 self.constraintHeightTblView.constant = CGFloat(self.classData.count * 100)
+                self.moreClassesBtn.isHidden = false
+                self.constraintHeightFooterView.constant = 55
             }
             else
             {
                 self.moreClassesBtn.isHidden = true
                 self.constraintHeightTblView.constant = 0
+                self.moreClassesBtn.isHidden = true
+                self.constraintHeightFooterView.constant = 0
             }
         }
     }

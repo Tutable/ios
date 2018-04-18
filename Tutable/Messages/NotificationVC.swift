@@ -234,6 +234,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             {
                 self.arrNotiData.append(contentsOf: dictArr)
             }
+            
             self.tblView.reloadData()
             if dictArr.count < 10
             {
