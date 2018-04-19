@@ -76,6 +76,16 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 self.logoutUser()
             }
             break
+        case 4:
+            DispatchQueue.main.async {
+                showAlertWithOption("Tutable", message: "Are you sure you want to delete your account?", btns: ["Yes, Delete", "No"], completionConfirm: {
+                    displayToast("Account Detele Successfully")
+                    APIManager.sharedInstance.serviceCallToDeleteUser()
+                }) {
+                    
+                }
+            }
+            break
         default:
             break
         }
@@ -83,14 +93,6 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func logoutUser()
     {
-//        let alert = UIAlertController(title: "Tutable", message: "Are you sure you want to Logout?", preferredStyle: UIAlertControllerStyle.alert)
-//        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
-//        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
-//            AppDelegate().sharedDelegate().logoutApp()
-//        }))
-//        alert.view.tintColor = colorFromHex(hex: COLOR.APP_COLOR)
-//        self.present(alert, animated: true, completion: nil)
-        
         showAlertWithOption("Tutable", message: "Are you sure you want to Logout?", btns: ["Log out", "No"], completionConfirm: {
             AppDelegate().sharedDelegate().logoutApp()
         }) {

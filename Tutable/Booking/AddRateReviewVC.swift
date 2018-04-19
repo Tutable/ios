@@ -22,7 +22,8 @@ class AddRateReviewVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var reviewTxtView: UITextView!
     @IBOutlet weak var submitBtn: UIButton!
     
-    var classData : ClassModel!
+    var bookClassData : BookingClassModel!
+    
     var placeHolder : String = "Tell us more(Optional)"
     
     override func viewDidLoad() {
@@ -49,20 +50,21 @@ class AddRateReviewVC: UIViewController, UITextViewDelegate {
         reviewTxtView.textColor = UIColor.lightGray
         reviewTxtView.addCornerRadiusOfView(5.0)
         reviewTxtView.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.LIGHT_GRAY))
-        starView.type = .floatRatings
+        starView.type = .wholeRatings
         starView.editable = true
         setClassDetail()
     }
     
     func setClassDetail()
     {
-        APIManager.sharedInstance.serviceCallToGetPhoto(classData.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [classImgBtn])
         
-        classNameLbl.text = classData.name
-        APIManager.sharedInstance.serviceCallToGetPhoto(classData.teacher.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userPicBtn])
-        userNameLbl.text = classData.teacher.name
+        APIManager.sharedInstance.serviceCallToGetPhoto(bookClassData.classDetails.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [classImgBtn])
         
-        priceLbl.text = setFlotingPrice(classData.rate)
+        classNameLbl.text = bookClassData.classDetails.name
+        APIManager.sharedInstance.serviceCallToGetPhoto(bookClassData.teacher.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userPicBtn])
+        userNameLbl.text = bookClassData.teacher.name
+        dateTimeLbl.text = AppDelegate().sharedDelegate().getDateTimeValueFromSlot(bookClassData.slot)
+        priceLbl.text = setFlotingPriceWithCurrency(bookClassData.classDetails.rate)
         
     }
     
@@ -75,7 +77,8 @@ class AddRateReviewVC: UIViewController, UITextViewDelegate {
         else
         {
             var params : [String : Any] = [String : Any]()
-            params["ref"] = classData.id
+            params["ref"] = bookClassData.classDetails.id
+            params["bookingReference"] = bookClassData.id
             params["stars"] = starView.rating
             params["review"] = reviewTxtView.text
             

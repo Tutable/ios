@@ -10,9 +10,11 @@ import UIKit
 
 class ClassesListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var noDataFoundLbl: UILabel!
     @IBOutlet weak var tblView: UITableView!
 
-    let teacherId : String = ""
+    var teacherData : UserModel!
     var classData : [ClassModel] = [ClassModel]()
     
     override func viewDidLoad() {
@@ -20,19 +22,27 @@ class ClassesListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
         // Do any additional setup after loading the view.
         tblView.register(UINib(nibName: "CustomClassesTVC", bundle: nil), forCellReuseIdentifier: "CustomClassesTVC")
-        
+        titleLbl.text = "All Classes"
         getClassList()
     }
     
     func getClassList()
     {
-        APIManager.sharedInstance.serviceCallToGetClassList("", teacherId: teacherId) { (dataArr) in
+        APIManager.sharedInstance.serviceCallToGetClassList("", teacherId: teacherData.id) { (dataArr) in
             self.classData = [ClassModel]()
             for temp in dataArr
             {
                 self.classData.append(ClassModel.init(dict: temp))
             }
             self.tblView.reloadData()
+            if self.classData.count == 0
+            {
+                self.noDataFoundLbl.isHidden = false
+            }
+            else
+            {
+                self.noDataFoundLbl.isHidden = true
+            }
         }
     }
     
@@ -61,15 +71,10 @@ class ClassesListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         APIManager.sharedInstance.serviceCallToGetPhoto(dict.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
         cell.titleLbl.text = dict.name
-        cell.subTitleLbl.text = dict.teacher.name
-        
-        let startDate : Date = getDateFromTimeStamp(dict.timeline)
-        cell.subTitleLbl.text = getDateStringFromDate(date: startDate, format: "MMM dd, yyyy, hh:mm a")
-        
-        let endDate : Date = Calendar.current.date(byAdding: .hour, value: 1, to: getDateFromTimeStamp(dict.timeline))!
-        cell.subTitleLbl.text = cell.subTitleLbl.text! + " - " + getDateStringFromDate(date: endDate, format: "hh:mm a")
-        
-        cell.rateBtn.setTitle(String(dict.rate), for: .normal)
+        if let avgStars = dict.reviews["avgStars"] as? Double
+        {
+            cell.starBtn.setTitle(String(avgStars), for: .normal)
+        }
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }

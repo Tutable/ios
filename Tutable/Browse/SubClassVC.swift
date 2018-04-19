@@ -119,6 +119,11 @@ class SubClassVC: UIViewController, UICollectionViewDataSource, UICollectionView
         }
         APIManager.sharedInstance.serviceCallToGetPhoto(dict.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
         
+        if let avgStars : Double = dict.reviews["avgStars"] as? Double
+        {
+            cell.starView.rating = avgStars
+        }
+        
         return cell
     }
     

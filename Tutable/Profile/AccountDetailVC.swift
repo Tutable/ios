@@ -36,7 +36,7 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
         accountNameTxt.text = AppModel.shared.currentUser.name
         if AppModel.shared.currentUser.name.contains(" ")
         {
-            let nameArr : [String] = AppModel.shared.currentUser.name.components(separatedBy: "")
+            let nameArr : [String] = AppModel.shared.currentUser.name.components(separatedBy: " ")
             fnameTxt.text = nameArr[0]
             if nameArr.count > 1
             {

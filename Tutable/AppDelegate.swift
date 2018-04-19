@@ -411,6 +411,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     //MARK:- Logout
     func logoutApp()
     {
+        AppModel.shared.firebaseCurrentUser.fcmToken = ""
+        updateLastSeen(isOnline: false)
+        updateCurrentUserData()
         let deviceToken : String = getDeviceToken()
         AppModel.shared.currentUser = nil
         AppModel.shared.currentClass = nil

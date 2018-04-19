@@ -210,7 +210,7 @@ class AddTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIImag
             dict["name"] = AppModel.shared.currentUser.name
             dict["dob"] = AppModel.shared.currentUser.dob
             dict["gender"] = AppModel.shared.currentUser.gender
-            dict["email"] = AppModel.shared.currentUser.email
+            //dict["email"] = AppModel.shared.currentUser.email
             dict["bio"] = AppModel.shared.currentUser.bio
             dict["availability"] = AppModel.shared.currentUser.availability
             

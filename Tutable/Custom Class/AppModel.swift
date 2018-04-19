@@ -88,6 +88,7 @@ class UserModel:AppModel{
     var childrenCert : String!
     var notifications : Int!
     var payment : Int!
+    var certs : [String : Any]!
     
     override init(){
         id = ""
@@ -114,6 +115,7 @@ class UserModel:AppModel{
         childrenCert = ""
         notifications = 0
         payment = 0
+        certs = [String : Any]()
     }
     init(dict : [String : Any])
     {
@@ -141,6 +143,7 @@ class UserModel:AppModel{
         childrenCert = ""
         notifications = 0
         payment = 0
+        certs = [String : Any]()
         
         if let Id = dict["id"] as? String{
             id = Id
@@ -259,10 +262,13 @@ class UserModel:AppModel{
         if let temp = dict["payment"] as? Int{
             payment = temp
         }
+        if let temp = dict["certs"] as? [String : Any]{
+            certs = temp
+        }
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert, "notifications" : notifications, "payment" : payment]
+        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert, "notifications" : notifications, "payment" : payment, "certs" : certs]
     }
     
     func toJson(_ dict:[String:Any]) -> String{
@@ -694,5 +700,66 @@ class InboxListModel: AppModel
     
     func dictionary() -> [String:Any]{
         return ["id":id, "badge1":badge1, "badge2":badge2, "lastMessage":lastMessage.dictionary()]
+    }
+}
+
+class ReviewModel: AppModel
+{
+    var id : String!
+    var blocked : Int!
+    var student : UserModel!
+    var deleted : Int!
+    var posted : String!
+    var ref : String!
+    var review : String!
+    var stars : Double!
+    
+    override init(){
+        id = ""
+        blocked = 0
+        student = UserModel.init()
+        deleted = 0
+        posted = ""
+        ref = ""
+        review = ""
+        stars = 0
+    }
+    
+    init(dict : [String : Any])
+    {
+        id = ""
+        blocked = 0
+        student = UserModel.init()
+        deleted = 0
+        posted = ""
+        ref = ""
+        review = ""
+        stars = 0
+        
+        if let temp = dict["_id"] as? String{
+            self.id = temp
+        }
+        if let temp = dict["blocked"] as? Int {
+            self.blocked = temp
+        }
+        if let temp = dict["student"] as? [String : Any] {
+            self.student = UserModel.init(dict: temp)
+        }
+        if let temp = dict["deleted"] as? Int {
+            self.deleted = temp
+        }
+        if let temp = dict["posted"] as? String{
+            self.posted = temp
+        }
+        if let temp = dict["review"] as? String{
+            self.review = temp
+        }
+        if let temp = dict["stars"] as? Double{
+            self.stars = temp
+        }
+    }
+    
+    func dictionary() -> [String:Any]{
+        return ["_id":id, "blocked":blocked, "student":student.dictionary(), "deleted":deleted, "posted":posted, "deleted":deleted, "posted":posted, "review":review, "stars":stars]
     }
 }

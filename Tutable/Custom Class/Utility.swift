@@ -209,9 +209,27 @@ func delay(_ delay:Double, closure:@escaping ()->()) {
         deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
 
+func setFlotingPriceWithCurrency(_ price : Float) -> String
+{
+    return "$ " + setFlotingPrice(price)
+}
+
 func setFlotingPrice(_ price : Float) -> String
 {
-    return "$ " + String(format: price == floor(price) ? "%.0f" : "%.1f", price)
+    var strPrice : String = String(format: "%0.2f", price)
+    if strPrice.contains(".00")
+    {
+        strPrice = strPrice.replacingOccurrences(of: ".00", with: "")
+    }
+    if strPrice.contains(".")
+    {
+        strPrice = String(format: "%0.2f", Float(strPrice)!)
+        if (((strPrice as NSString).substring(from: strPrice.count - 1)) == "0")
+        {
+            strPrice = String(format: "%0.1f", Float(strPrice)!)
+        }
+    }
+    return strPrice
 }
 
 func getIPAddress() -> String? {
@@ -380,9 +398,29 @@ extension UIView
 
 extension UILabel
 {
-    func getLableHeight() -> CGFloat{
+//    func getLableHeight() -> CGFloat{
+//        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
+//        label.numberOfLines = 0
+//        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+//        label.font = self.font
+//        label.text = self.text
+//        label.sizeToFit()
+//        return label.frame.height
+//    }
+    
+    func getLableHeight(extraWidth : CGFloat) -> CGFloat
+    {
+        let fixedWidth = UIScreen.main.bounds.size.width - extraWidth
+        let constraint : CGSize = CGSize(width: fixedWidth, height: CGFloat(FLT_MAX))
+        let context : NSStringDrawingContext = NSStringDrawingContext()
+        let boundingBox: CGSize = self.text!.boundingRect(with: constraint, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: self.font], context: context).size
+        let size : CGSize = CGSize(width: boundingBox.width, height: boundingBox.height)
+        return size.height
+    }
+    
+    func getLableHeight(numberOfLines : Int) -> CGFloat{
         let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
-        label.numberOfLines = 0
+        label.numberOfLines = numberOfLines
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = self.font
         label.text = self.text

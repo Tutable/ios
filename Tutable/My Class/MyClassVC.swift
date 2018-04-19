@@ -111,7 +111,7 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
         
         APIManager.sharedInstance.serviceCallToGetPhoto(dict.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.classImgBtn])
         
-        cell.priceLbl.text = setFlotingPrice(dict.rate)
+        cell.priceLbl.text = setFlotingPriceWithCurrency(dict.rate)
         cell.setCellDesign()
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell

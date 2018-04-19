@@ -98,7 +98,9 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
         
         tblView.backgroundColor = UIColor.clear
         tblView.separatorStyle = UITableViewCellSeparatorStyle.none
-        tblView.tableFooterView = UIView(frame: CGRect.zero)
+        tblView.tableFooterView = UIView()
+        tblView.rowHeight = UITableViewAutomaticDimension
+        tblView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
         
         msgView.applyBorderOfView(width: 1, borderColor: colorFromHex(hex: COLOR.LIGHT_GRAY))
         msgView.addCornerRadiusOfView(msgView.frame.size.height/2)
@@ -449,60 +451,8 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
         return messages.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
-        let dict : MessageModel = messages[indexPath.row]
-        
-        var extraSpace : CGFloat = 2
-        if indexPath.row != 0 && dict.otherUserId != messages[indexPath.row-1].otherUserId
-        {
-            extraSpace = 5
-        }
-        
-        if dict.otherUserId != AppModel.shared.firebaseCurrentUser.id
-        {
-            var cell:SendChatMessageTVC!
-            cell = offscreenCellSender["SendChatMessageTVC"] as? SendChatMessageTVC
-            if cell == nil {
-                cell = tblView.dequeueReusableCell(withIdentifier: "SendChatMessageTVC") as! SendChatMessageTVC
-                offscreenCellSender["SendChatMessageTVC"] = cell
-            }
-            cell.messageTxtView.text = dict.text.decoded
-            
-            cell.layoutSubviews()
-            cell.layoutIfNeeded()
-            cell.ConstraintHeightMessageView.constant = cell.messageTxtView.getHeight() + 20
-            
-            var headerHeight : CGFloat = 0
-            if indexPath.row == 0 || isSameDate(firstDate: dict.date, secondDate: messages[indexPath.row-1].date) == false
-            {
-                headerHeight = 30
-            }
-            cell.constraintHeightExtraSpace.constant = extraSpace
-            return cell.ConstraintHeightMessageView.constant + headerHeight + extraSpace
-        }
-        else
-        {
-            var cell:ReceiverChatMessageTVC!
-            cell = offscreenCellReceiver["ReceiverChatMessageTVC"] as? ReceiverChatMessageTVC
-            if cell == nil {
-                cell = tblView.dequeueReusableCell(withIdentifier: "ReceiverChatMessageTVC") as! ReceiverChatMessageTVC
-                offscreenCellReceiver["ReceiverChatMessageTVC"] = cell
-            }
-            
-            
-            cell.messageTxtView.text = dict.text.decoded
-            cell.layoutSubviews()
-            cell.layoutIfNeeded()
-            cell.ConstraintHeightMessageView.constant = cell.messageTxtView.getHeight() + 20
-            var headerHeight : CGFloat = 0
-            if indexPath.row == 0 || isSameDate(firstDate: dict.date, secondDate: messages[indexPath.row-1].date) == false
-            {
-                headerHeight = 30
-            }
-            cell.constraintHeightExtraSpace.constant = extraSpace
-            return cell.ConstraintHeightMessageView.constant + headerHeight + extraSpace
-        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -515,30 +465,23 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
             //sender message
             cell = tblView.dequeueReusableCell(withIdentifier: "SendChatMessageTVC", for: indexPath) as! MessageCell
             APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.firebaseCurrentUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [cell.profilePicBtn])
-            cell.messageTxtView.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : UIColor.white]
             cell.statusImgView.backgroundColor = loginUserStatus
             cell.durationLbl.text = getDifferenceFromCurrentTimeInHourInDays(Double(dict.date)!)
         }
         else{
             cell = tblView.dequeueReusableCell(withIdentifier: "ReceiverChatMessageTVC", for: indexPath) as! MessageCell
             APIManager.sharedInstance.serviceCallToGetPhoto(receiver.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [cell.profilePicBtn])
-            cell.messageTxtView.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : colorFromHex(hex: "3C3739")]
             cell.statusImgView.backgroundColor = otherUserStatus
             cell.durationLbl.text = getDifferenceFromCurrentTimeInHourInDays(Double(dict.date)!)
         }
         
         if indexPath.row == 0 || isSameDate(firstDate: dict.date, secondDate: messages[indexPath.row-1].date) == false
         {
-            cell.headerView.isHidden = false
             cell.headerLbl.text = getdayDifferenceFromCurrentDay(Double(dict.date)!)
-            cell.constraintHeaderWidth.constant = (cell.headerLbl.intrinsicContentSize.width)
-            cell.constraintHeightHeaderView.constant = 30
         }
         else
         {
-            cell.headerView.isHidden = true
-            cell.constraintHeaderWidth.constant = 0
-            cell.constraintHeightHeaderView.constant = 0
+            cell.headerLbl.text = ""
         }
         if indexPath.row > 0  && dict.otherUserId == messages[indexPath.row-1].otherUserId
         {
@@ -558,12 +501,10 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
         {
             extraSpace = 5
         }
-        cell.constraintHeightExtraSpace.constant = extraSpace
-        
+        cell.constraintTopSpace.constant = extraSpace
         cell.messageTxtView.text = dict.text.decoded
-        cell.layoutSubviews()
-        cell.layoutIfNeeded()
-        cell.ConstraintHeightMessageView.constant = cell.messageTxtView.getHeight() + 20
+        cell.messageTxtView.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : UIColor.blue, NSAttributedStringKey.underlineStyle.rawValue : 1]
+        
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }

@@ -25,7 +25,7 @@ class ClassHourlyRateVC: UIViewController {
         
         if AppModel.shared.currentClass.rate != 0
         {
-            priceTxt.text = String(AppModel.shared.currentClass.rate)
+            priceTxt.text = setFlotingPrice(AppModel.shared.currentClass.rate)
         }
     }
 

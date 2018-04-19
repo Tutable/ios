@@ -55,42 +55,11 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         let dict : BookingClassModel = arrPastBookingData[indexPath.row]
         cell.classNameLbl.text = dict.classDetails.name
         cell.userNameLbl.text = dict.teacher.name
-        cell.priceLbl.text = setFlotingPrice(dict.classDetails.rate)
+        cell.priceLbl.text = setFlotingPriceWithCurrency(dict.classDetails.rate)
         
         if dict.slot.count != 0
         {
             cell.dateTimeLbl.text = AppDelegate().sharedDelegate().getDateTimeValueFromSlot(dict.slot)
-            /*
-            var timestamp : Double = 0.0
-            var timeSlot : String = ""
-            for temp in dict.slot
-            {
-                timestamp = Double(temp.key)!
-                timeSlot = temp.value as! String
-            }
-            cell.dateTimeLbl.text = getDateStringFromDate(date: getDateFromTimeStamp(timestamp), format: "MMM dd") + ", "
-            let timeArr : [String] = timeSlot.components(separatedBy: "-")
-            let startTime : String = timeArr[0]
-            let endTime : String = timeArr[1]
-            
-            if Int(startTime)! > 12
-            {
-                cell.dateTimeLbl.text = cell.dateTimeLbl.text! + String(Int(startTime)! - 12) + " pm to "
-            }
-            else
-            {
-                cell.dateTimeLbl.text = cell.dateTimeLbl.text! + startTime + " am to "
-            }
-            
-            if Int(endTime)! > 12
-            {
-                cell.dateTimeLbl.text = cell.dateTimeLbl.text! + String(Int(endTime)! - 12) + " pm"
-            }
-            else
-            {
-                cell.dateTimeLbl.text = cell.dateTimeLbl.text! + endTime + " am"
-            }
-            */
         }
         APIManager.sharedInstance.serviceCallToGetPhoto(dict.classDetails.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
         if isStudentLogin()
@@ -126,7 +95,7 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         if isStudentLogin()
         {
             let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
-            vc.classData = arrPastBookingData[sender.tag].classDetails
+            vc.bookClassData = arrPastBookingData[sender.tag]
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

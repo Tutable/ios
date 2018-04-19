@@ -1317,6 +1317,20 @@ VE8gVEVBA0NIA
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ise-Ok-WxI">
+                                                <rect key="frame" x="233" y="240" width="77" height="20"/>
+                                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="xRC-n3-3JF"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="15"/>
+                                                <state key="normal" title="...See More">
+                                                    <color key="titleColor" red="0.19039157030000001" green="0.82786267999999996" blue="0.64720171689999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="clickToCollapsExpandAboutUserLabel:" destination="BSu-9e-3Kl" eventType="touchUpInside" id="YOR-ty-Wfm"/>
+                                                </connections>
+                                            </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S1r-lP-WPc">
                                                 <rect key="frame" x="0.0" y="269" width="320" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
@@ -1402,6 +1416,7 @@ VE8gVEVBA0NIA
                                         <constraints>
                                             <constraint firstItem="s7x-k6-w9P" firstAttribute="top" secondItem="S1r-lP-WPc" secondAttribute="bottom" id="1jC-An-XEN"/>
                                             <constraint firstItem="ToY-y9-KEF" firstAttribute="top" secondItem="NLe-hl-JOl" secondAttribute="top" id="2iF-xE-pTf"/>
+                                            <constraint firstItem="ise-Ok-WxI" firstAttribute="bottom" secondItem="wp7-8z-a4x" secondAttribute="bottom" id="74p-XT-ToS"/>
                                             <constraint firstItem="s7x-k6-w9P" firstAttribute="centerX" secondItem="NLe-hl-JOl" secondAttribute="centerX" id="8cX-9p-nRG"/>
                                             <constraint firstItem="S1r-lP-WPc" firstAttribute="top" secondItem="wp7-8z-a4x" secondAttribute="bottom" constant="9" id="9Kw-9U-K9V"/>
                                             <constraint firstAttribute="trailing" secondItem="hfU-Vd-fDH" secondAttribute="trailing" constant="10" id="9vg-Vd-qjG"/>
@@ -1413,6 +1428,7 @@ VE8gVEVBA0NIA
                                             <constraint firstItem="ToY-y9-KEF" firstAttribute="leading" secondItem="NLe-hl-JOl" secondAttribute="leading" id="g0T-Nj-eI4"/>
                                             <constraint firstItem="wp7-8z-a4x" firstAttribute="leading" secondItem="NLe-hl-JOl" secondAttribute="leading" constant="10" id="ghH-sj-kva"/>
                                             <constraint firstAttribute="trailing" secondItem="wp7-8z-a4x" secondAttribute="trailing" constant="10" id="hVt-El-Ct8"/>
+                                            <constraint firstItem="ise-Ok-WxI" firstAttribute="trailing" secondItem="wp7-8z-a4x" secondAttribute="trailing" id="jVP-Zu-W5o"/>
                                             <constraint firstItem="bp2-Hv-epg" firstAttribute="leading" secondItem="NLe-hl-JOl" secondAttribute="leading" id="kmO-qr-fi7"/>
                                             <constraint firstItem="bp2-Hv-epg" firstAttribute="top" secondItem="s7x-k6-w9P" secondAttribute="bottom" id="nmV-6e-WCP"/>
                                             <constraint firstItem="hfU-Vd-fDH" firstAttribute="leading" secondItem="NLe-hl-JOl" secondAttribute="leading" constant="10" id="ukX-Mo-3fr"/>
@@ -1451,6 +1467,7 @@ VE8gVEVBA0NIA
                         <outlet property="quality2Btn" destination="lrz-TW-4Qp" id="Fvg-yG-bMT"/>
                         <outlet property="quality3Btn" destination="vh0-GQ-QIO" id="aTZ-aS-jnw"/>
                         <outlet property="quality4Btn" destination="hvQ-lg-sW6" id="mVy-EY-bLh"/>
+                        <outlet property="seeMoreLessBtn" destination="ise-Ok-WxI" id="VHB-V0-vkn"/>
                         <outlet property="userBackgroundImgBtn" destination="CM3-b0-hId" id="gtI-vf-SwR"/>
                         <outlet property="userNameLbl" destination="blU-mh-l9H" id="v3M-xY-BEW"/>
                         <outlet property="userProfilePicBtn" destination="SMz-9t-rej" id="MGM-jv-Gw2"/>

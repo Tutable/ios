@@ -22,6 +22,7 @@ class TeacherProfileVC: UIViewController {
     @IBOutlet weak var quality3Btn: UIButton!
     @IBOutlet weak var quality4Btn: UIButton!
     @IBOutlet weak var constraintHeightQualityView: NSLayoutConstraint!
+    @IBOutlet weak var seeMoreLessBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +75,7 @@ class TeacherProfileVC: UIViewController {
         {
             arrTemp.append(["name" : AppModel.shared.currentUser.qualification, "image" : "qualification_icon"])
         }
+        
         if getPoliceCertificate() != ""
         {
             arrTemp.append(["name" : "Police check", "image" : "accept"])
@@ -103,7 +105,7 @@ class TeacherProfileVC: UIViewController {
                 quality2Btn.setTitle(arrTemp[i]["name"], for: .normal)
                 quality2Btn.isHidden = false
             }
-            else if i == 3
+            else if i == 2
             {
                 quality3Btn.setImage(UIImage.init(named: arrTemp[i]["image"]!), for: .normal)
                 quality3Btn.setTitle(arrTemp[i]["name"], for: .normal)
@@ -111,9 +113,31 @@ class TeacherProfileVC: UIViewController {
                 constraintHeightQualityView.constant = 80
             }
         }
-        
+        aboutUserLbl.numberOfLines = 3
         aboutUserLbl.text = AppModel.shared.currentUser.bio
-        constraintHeightAboutUserLbl.constant = aboutUserLbl.getLableHeight()
+        constraintHeightAboutUserLbl.constant = aboutUserLbl.getLableHeight(numberOfLines: 3)
+        if constraintHeightAboutUserLbl.constant < 60
+        {
+            seeMoreLessBtn.isHidden = true
+        }
+        else
+        {
+            seeMoreLessBtn.isHidden = false
+        }
+    }
+    
+    @IBAction func clickToCollapsExpandAboutUserLabel(_ sender: Any) {
+        if aboutUserLbl.numberOfLines == 3
+        {
+            aboutUserLbl.numberOfLines = 0
+            seeMoreLessBtn.setTitle("See Less", for: .normal)
+        }
+        else
+        {
+            aboutUserLbl.numberOfLines = 3
+            seeMoreLessBtn.setTitle("...See More", for: .normal)
+        }
+        constraintHeightAboutUserLbl.constant = aboutUserLbl.getLableHeight(numberOfLines: aboutUserLbl.numberOfLines)
     }
     
     @IBAction func clickToEditBtn(_ sender: Any) {

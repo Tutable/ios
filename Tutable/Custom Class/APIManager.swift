@@ -665,7 +665,7 @@ public class APIManager {
                     print(response.result.value!)
                     if let result = response.result.value as? [String:Any]{
                         if let code = result["code"] as? Int{
-                            if(code == 100){
+                            if(code == 100 || code == 104){
                                 completion()
                                 return
                             }
@@ -1049,6 +1049,11 @@ public class APIManager {
                         completion(data)
                         return
                     }
+                    else
+                    {
+                        completion([[String : Any]]())
+                        return
+                    }
                 }
                 if let error = response.result.error
                 {
@@ -1310,9 +1315,22 @@ public class APIManager {
             switch response.result {
             case .success:
                 print(response.result.value!)
-                if (response.result.value as? [String:Any]) != nil{
-                    completion(true)
-                    return
+                if let result = response.result.value as? [String:Any]{
+                    if let code = result["code"] as? Int
+                    {
+                        if code == 100
+                        {
+                            completion(true)
+                            return
+                        }
+                        else
+                        {
+                            displayToast((result["message"] as? String)!)
+                            completion(false)
+                            return
+                        }
+                    }
+                    
                 }
                 if let error = response.result.error
                 {
@@ -1380,6 +1398,10 @@ public class APIManager {
                         completion(data)
                         return
                     }
+                    else
+                    {
+                        completion([[String : Any]]())
+                    }
                 }
                 if let error = response.result.error
                 {
@@ -1436,6 +1458,24 @@ public class APIManager {
             switch response.result {
             case .success:
                 print(response.result.value!)
+                break
+            case .failure(let error):
+                print(error)
+                break
+            }
+        }
+    }
+    
+    //MARK: - Delete User
+    func serviceCallToDeleteUser(){
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        
+        let params : [String : Any] = [String : Any]()
+        
+        Alamofire.request(BASE_URL + "admin/deleteUser", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            switch response.result {
+            case .success:
+                AppDelegate().sharedDelegate().logoutApp()
                 break
             case .failure(let error):
                 print(error)

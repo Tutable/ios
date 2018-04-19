@@ -36,33 +36,30 @@
                                 <state key="normal" backgroundImage="user_avatar"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vishal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DZ-b3-aGI">
-                                <rect key="frame" x="50" y="5" width="240" height="21"/>
+                                <rect key="frame" x="50" y="5" width="240" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="laB-Lq-a5i"/>
+                                    <constraint firstAttribute="height" constant="20" id="laB-Lq-a5i"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1u-CL-1gc" customClass="FloatRatingView" customModule="Tutable" customModuleProvider="target">
-                                <rect key="frame" x="50" y="26" width="120" height="16"/>
+                                <rect key="frame" x="50" y="28" width="110" height="16"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="Kxy-ox-Fv8"/>
-                                    <constraint firstAttribute="width" constant="120" id="Xhd-6Z-Fpl"/>
+                                    <constraint firstAttribute="width" constant="110" id="Xhd-6Z-Fpl"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="star_off_small"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="star_on_small"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello this is test review display here Hello this is test review" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EP6-qS-Zft" customClass="ExpandableLabel" customModule="Tutable" customModuleProvider="target">
-                                <rect key="frame" x="50" y="42" width="240" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="zcS-x7-F6k"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello this is test review display here Hello this is test review" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EP6-qS-Zft">
+                                <rect key="frame" x="50" y="46" width="240" height="28"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -72,12 +69,12 @@
                             <constraint firstItem="Q1u-CL-1gc" firstAttribute="leading" secondItem="1A9-E3-4Vh" secondAttribute="trailing" constant="10" id="8tP-eP-bIp"/>
                             <constraint firstItem="1A9-E3-4Vh" firstAttribute="top" secondItem="lkx-LQ-dtL" secondAttribute="top" constant="5" id="AIx-dJ-ho1"/>
                             <constraint firstItem="3DZ-b3-aGI" firstAttribute="leading" secondItem="1A9-E3-4Vh" secondAttribute="trailing" constant="10" id="CVi-BF-bwh"/>
-                            <constraint firstAttribute="bottom" secondItem="EP6-qS-Zft" secondAttribute="bottom" constant="2.5" id="Poh-hj-ILn"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="EP6-qS-Zft" secondAttribute="bottom" id="Poh-hj-ILn"/>
                             <constraint firstItem="EP6-qS-Zft" firstAttribute="leading" secondItem="lkx-LQ-dtL" secondAttribute="leading" constant="50" id="Zwg-rv-1ha"/>
-                            <constraint firstItem="EP6-qS-Zft" firstAttribute="top" secondItem="Q1u-CL-1gc" secondAttribute="bottom" id="cWP-Iu-X4t"/>
+                            <constraint firstItem="EP6-qS-Zft" firstAttribute="top" secondItem="Q1u-CL-1gc" secondAttribute="bottom" constant="2" id="cWP-Iu-X4t"/>
                             <constraint firstItem="1A9-E3-4Vh" firstAttribute="leading" secondItem="lkx-LQ-dtL" secondAttribute="leading" constant="5" id="drm-TZ-D2f"/>
                             <constraint firstItem="3DZ-b3-aGI" firstAttribute="top" secondItem="lkx-LQ-dtL" secondAttribute="top" constant="5" id="rmb-iC-1c0"/>
-                            <constraint firstItem="Q1u-CL-1gc" firstAttribute="top" secondItem="3DZ-b3-aGI" secondAttribute="bottom" id="x9H-26-ghl"/>
+                            <constraint firstItem="Q1u-CL-1gc" firstAttribute="top" secondItem="3DZ-b3-aGI" secondAttribute="bottom" constant="3" id="x9H-26-ghl"/>
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vHx-a5-VIa">
@@ -101,12 +98,12 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="expandableLabel" destination="EP6-qS-Zft" id="tpl-5r-RXc"/>
                 <outlet property="nameLbl" destination="3DZ-b3-aGI" id="pxh-Ez-S2g"/>
                 <outlet property="profileImgBtn" destination="1A9-E3-4Vh" id="2eS-Z9-AFY"/>
+                <outlet property="reviewLbl" destination="EP6-qS-Zft" id="D6O-D5-6Vc"/>
                 <outlet property="starView" destination="Q1u-CL-1gc" id="Q9f-C5-i47"/>
             </connections>
-            <point key="canvasLocation" x="-55" y="-25.5"/>
+            <point key="canvasLocation" x="-55" y="-26"/>
         </tableViewCell>
     </objects>
     <resources>

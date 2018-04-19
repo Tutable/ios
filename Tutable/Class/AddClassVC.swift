@@ -158,10 +158,6 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         {
             displayToast("Please select class category")
         }
-        else if selectedLevel == 0
-        {
-            displayToast("Please select class level")
-        }
         else if classImg == nil && AppModel.shared.currentClass.payload == ""
         {
             displayToast("Please select class image")
@@ -170,7 +166,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         {
             AppModel.shared.currentClass.name = classNameTxt.text
             AppModel.shared.currentClass.category = selectedCategory
-            AppModel.shared.currentClass.level = selectedLevel
+            AppModel.shared.currentClass.level = Int(levelSlider.index + 1)
             AppModel.shared.currentClass.bio = subjectLbl.text
             AppModel.shared.currentClass.timeline = Double(getCurrentTimeStampValue())
             

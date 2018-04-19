@@ -28,6 +28,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var quality3Btn: UIButton!
     @IBOutlet weak var quality4Btn: UIButton!
     @IBOutlet weak var constraintHeightQualityView: NSLayoutConstraint!
+    @IBOutlet weak var seeMoreLessBtn: UIButton!
     
     var teacherID : String = ""
     var teacherData : UserModel = UserModel.init()
@@ -39,7 +40,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         // Do any additional setup after loading the view.
         tblView.register(UINib(nibName: "CustomClassesTVC", bundle: nil), forCellReuseIdentifier: "CustomClassesTVC")
         self.constraintHeightTblView.constant = self.tblView.contentSize.height
-        
+        seeMoreLessBtn.isHidden = true
         quality1Btn.isHidden = true
         quality2Btn.isHidden = true
         quality3Btn.isHidden = true
@@ -98,15 +99,17 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         var arrTemp : [[String : String]] = [[String : String]]()
         
-        if AppModel.shared.currentUser.qualification != ""
+        if teacherData.qualification != ""
         {
-            arrTemp.append(["name" : AppModel.shared.currentUser.qualification, "image" : "qualification_icon"])
+            arrTemp.append(["name" : teacherData.qualification, "image" : "qualification_icon"])
         }
-        if getPoliceCertificate() != ""
+        
+        let certsDict : [String : Any] = teacherData.certs
+        if let police : String = certsDict["policeCertificate"] as? String, police != ""
         {
             arrTemp.append(["name" : "Police check", "image" : "accept"])
         }
-        if getChildreanCertificate() != ""
+        if let children : String = certsDict["childrenCertificate"] as? String, children != ""
         {
             arrTemp.append(["name" : "Works with children", "image" : "accept"])
         }
@@ -131,7 +134,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 quality2Btn.setTitle(arrTemp[i]["name"], for: .normal)
                 quality2Btn.isHidden = false
             }
-            else if i == 3
+            else if i == 2
             {
                 quality3Btn.setImage(UIImage.init(named: arrTemp[i]["image"]!), for: .normal)
                 quality3Btn.setTitle(arrTemp[i]["name"], for: .normal)
@@ -139,9 +142,17 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 constraintHeightQualityView.constant = 80
             }
         }
-        
+        aboutUserLbl.numberOfLines = 3
         aboutUserLbl.text = teacherData.bio
-        constraintHeightAboutUserLbl.constant = aboutUserLbl.getLableHeight()
+        constraintHeightAboutUserLbl.constant = aboutUserLbl.getLableHeight(numberOfLines: 3)
+        if constraintHeightAboutUserLbl.constant < 60
+        {
+            seeMoreLessBtn.isHidden = true
+        }
+        else
+        {
+            seeMoreLessBtn.isHidden = false
+        }
         updateHeaderViewHeight()
         getClassList()
     }
@@ -149,7 +160,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     func updateHeaderViewHeight()
     {
         classHeaderView.layoutIfNeeded()
-        constraintHeightHeaderView.constant = 390 - 25 + constraintHeightAboutUserLbl.constant
+        constraintHeightHeaderView.constant = 390 - 25 + constraintHeightAboutUserLbl.constant + constraintHeightQualityView.constant
         constraintHeightTblView.constant = 100 * 2
     }
     
@@ -190,8 +201,24 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
     }
     
+    @IBAction func clickToCollapsExpandAboutUserLabel(_ sender: Any) {
+        if aboutUserLbl.numberOfLines == 3
+        {
+            aboutUserLbl.numberOfLines = 0
+            seeMoreLessBtn.setTitle("See Less", for: .normal)
+        }
+        else
+        {
+            aboutUserLbl.numberOfLines = 3
+            seeMoreLessBtn.setTitle("...See More", for: .normal)
+        }
+        constraintHeightAboutUserLbl.constant = aboutUserLbl.getLableHeight(numberOfLines: aboutUserLbl.numberOfLines)
+        updateHeaderViewHeight()
+    }
+    
     @IBAction func clickToMoreClasses(_ sender: Any) {
         let vc : ClassesListVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "ClassesListVC") as! ClassesListVC
+        vc.teacherData = teacherData
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -215,15 +242,10 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         APIManager.sharedInstance.serviceCallToGetPhoto(dict.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
         cell.titleLbl.text = dict.name
-        cell.subTitleLbl.text = dict.teacher.name
-        
-        let startDate : Date = getDateFromTimeStamp(dict.timeline)
-        cell.subTitleLbl.text = getDateStringFromDate(date: startDate, format: "MMM dd, yyyy, hh:mm a")
-        
-        let endDate : Date = Calendar.current.date(byAdding: .hour, value: 1, to: getDateFromTimeStamp(dict.timeline))!
-        cell.subTitleLbl.text = cell.subTitleLbl.text! + " - " + getDateStringFromDate(date: endDate, format: "hh:mm a")
-        
-        cell.rateBtn.setTitle(String(dict.rate), for: .normal)
+        if let avgStars = dict.reviews["avgStars"] as? Double
+        {
+            cell.starBtn.setTitle(String(avgStars), for: .normal)
+        }
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }

@@ -37,16 +37,15 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     var classId : String = ""
     var classData : ClassModel = ClassModel()
-    var reviewArr : [[String : Any]] = [[String : Any]]()
     var teacherData : UserModel = UserModel()
-    var reviewData : [[String : Any]] = [[String : Any]]()
+    var reviewData : [ReviewModel] = [ReviewModel]()
+    var offscreenReviewCell : [String : Any] = [String : Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         tblView.register(UINib(nibName: "CustomReviewsTVC", bundle: nil), forCellReuseIdentifier: "CustomReviewsTVC")
-        self.constraintHeightFooterView.constant = 0
         self.classFooterView.isHidden = true
         setUIDesigning()
     }
@@ -141,10 +140,10 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                 userSubTitleLbl.text = classData.teacher.address.state.uppercased()
             }
         }
-        classPriceLbl.text = setFlotingPrice(classData.rate)
+        classPriceLbl.text = setFlotingPriceWithCurrency(classData.rate)
         levelSlider.setIndex(UInt(classData.level-1), animated: true)
         subjectLoveLbl.text = classData.bio
-        constraintHeightSubjectLoveLbl.constant = subjectLoveLbl.getLableHeight()
+        constraintHeightSubjectLoveLbl.constant = subjectLoveLbl.getLableHeight(extraWidth: 20)
         
         if let reviewDict : [String : Any] = classData.reviews, reviewDict.count != 0
         {
@@ -161,15 +160,10 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         classHeaderView.layoutSubviews()
         classHeaderView.layoutIfNeeded()
         classFooterView.layoutIfNeeded()
-        
-        delay(0.5) {
-            self.constraintHeightClassHeaderView.constant = 529 - 25 + self.constraintHeightSubjectLoveLbl.constant
-            var newFrame : CGRect = self.classHeaderView.frame
-            newFrame.size.height = self.constraintHeightClassHeaderView.constant
-            self.classHeaderView.frame = newFrame
-            self.tblView.reloadData()
-            self.constraintHeightTblView.constant = CGFloat(90 * self.reviewArr.count)
-        }
+        self.constraintHeightClassHeaderView.constant = 529 - 25 + self.constraintHeightSubjectLoveLbl.constant
+        var newFrame : CGRect = self.classHeaderView.frame
+        newFrame.size.height = self.constraintHeightClassHeaderView.constant
+        self.classHeaderView.frame = newFrame
     }
     
     // MARK: - Button click event
@@ -214,17 +208,37 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     // MARK: - Tableview Delegate method
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviewArr.count
+        return reviewData.count
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        var cell = offscreenReviewCell["CustomCommentTVC"] as? CustomReviewsTVC
+        if cell == nil {
+            cell = tblView.dequeueReusableCell(withIdentifier: "CustomReviewsTVC") as? CustomReviewsTVC
+            offscreenReviewCell["CustomReviewsTVC"] = cell
+        }
+        if cell == nil
+        {
+            return 90
+        }
+        let review : ReviewModel = reviewData[indexPath.row]
+        cell?.reviewLbl.text = review.review
+        let height : Float = Float(90 - 32 + (cell?.reviewLbl.getLableHeight(extraWidth: 20))!)
+        if height > 90
+        {
+            return 90
+        }
+        return CGFloat(height)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomReviewsTVC", for: indexPath) as! CustomReviewsTVC
-        
+        let review : ReviewModel = reviewData[indexPath.row]
+        APIManager.sharedInstance.serviceCallToGetPhoto(review.student.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [cell.profileImgBtn])
+        cell.nameLbl.text = review.student.name
+        cell.starView.rating = review.stars
+        cell.reviewLbl.text = review.review
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }
@@ -232,8 +246,39 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     func getReviewsList()
     {
         APIManager.sharedInstance.serviceCallToGetReviewList(classData.id) { (dictArr) in
-            self.reviewData = dictArr
+            self.reviewData = [ReviewModel]()
+            for i in 0..<dictArr.count
+            {
+                if i == 2
+                {
+                    break
+                }
+                let dict : [String : Any] = dictArr[i]
+                let review : ReviewModel = ReviewModel.init()
+                review.id = dict["_id"] as! String
+                review.blocked = dict["blocked"] as! Int
+                if AppModel.shared.currentUser.id == dict["by"] as! String
+                {
+                    review.student = AppModel.shared.currentUser
+                }
+                else
+                {
+                    let index = AppModel.shared.USERS.index(where: { (temp) -> Bool in
+                        temp.id == dict["by"] as! String
+                    })
+                    if index != nil
+                    {
+                        review.student = UserModel.init(dict: AppModel.shared.USERS[index!].dictionary())
+                    }
+                }
+                review.deleted = dict["deleted"] as! Int
+                review.ref = dict["ref"] as! String
+                review.review = dict["review"] as! String
+                review.stars = dict["stars"] as! Double
+                self.reviewData.append(review)
+            }
             self.tblView.reloadData()
+            self.constraintHeightTblView.constant = CGFloat(90 * self.reviewData.count)
             if self.reviewData.count > 0
             {
                 self.constraintHeightFooterView.constant = 55

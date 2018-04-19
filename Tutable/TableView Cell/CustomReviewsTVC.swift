@@ -13,7 +13,7 @@ class CustomReviewsTVC: UITableViewCell {
     @IBOutlet weak var profileImgBtn: UIButton!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var starView: FloatRatingView!
-    @IBOutlet weak var expandableLabel: ExpandableLabel!
+    @IBOutlet weak var reviewLbl: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

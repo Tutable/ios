@@ -12,9 +12,7 @@ class CustomClassesTVC: UITableViewCell {
 
     @IBOutlet weak var imgBtn: UIButton!
     @IBOutlet weak var titleLbl: UILabel!
-    @IBOutlet weak var subTitleLbl: UILabel!
-    @IBOutlet weak var dateTimeLbl: UILabel!
-    @IBOutlet weak var rateBtn: UIButton!
+    @IBOutlet weak var starBtn: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

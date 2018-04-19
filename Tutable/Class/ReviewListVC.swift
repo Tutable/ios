@@ -14,7 +14,8 @@ class ReviewListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     @IBOutlet weak var noDataFound: UILabel!
     
     var classData : ClassModel = ClassModel.init()
-    var reviewData : [[String : Any]] = [[String : Any]]()
+    var reviewData : [ReviewModel] = [ReviewModel]()
+    var offscreenReviewCell : [String : Any] = [String : Any] ()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,14 +39,29 @@ class ReviewListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-        
+        var cell = offscreenReviewCell["CustomCommentTVC"] as? CustomReviewsTVC
+        if cell == nil {
+            cell = tblView.dequeueReusableCell(withIdentifier: "CustomReviewsTVC") as? CustomReviewsTVC
+            offscreenReviewCell["CustomReviewsTVC"] = cell
+        }
+        if cell == nil
+        {
+            return 90
+        }
+        let review : ReviewModel = reviewData[indexPath.row]
+        cell?.reviewLbl.text = review.review
+        let height : Float = Float(90 - 32 + (cell?.reviewLbl.getLableHeight(extraWidth: 80))!)
+        return CGFloat(height)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomReviewsTVC", for: indexPath) as! CustomReviewsTVC
-        
+        let review : ReviewModel = reviewData[indexPath.row]
+        APIManager.sharedInstance.serviceCallToGetPhoto(review.student.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [cell.profileImgBtn])
+        cell.nameLbl.text = review.student.name
+        cell.starView.rating = review.stars
+        cell.reviewLbl.text = review.review
         return cell
     }
     
@@ -53,7 +69,33 @@ class ReviewListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     func getReviewsList()
     {
         APIManager.sharedInstance.serviceCallToGetReviewList(classData.id) { (dictArr) in
-            self.reviewData = dictArr
+            self.reviewData = [ReviewModel]()
+            for i in 0..<dictArr.count
+            {
+                let dict : [String : Any] = dictArr[i]
+                let review : ReviewModel = ReviewModel.init()
+                review.id = dict["_id"] as! String
+                review.blocked = dict["blocked"] as! Int
+                if AppModel.shared.currentUser.id == dict["by"] as! String
+                {
+                    review.student = AppModel.shared.currentUser
+                }
+                else
+                {
+                    let index = AppModel.shared.USERS.index(where: { (temp) -> Bool in
+                        temp.id == dict["by"] as! String
+                    })
+                    if index != nil
+                    {
+                        review.student = UserModel.init(dict: AppModel.shared.USERS[index!].dictionary())
+                    }
+                }
+                review.deleted = dict["deleted"] as! Int
+                review.ref = dict["ref"] as! String
+                review.review = dict["review"] as! String
+                review.stars = dict["stars"] as! Double
+                self.reviewData.append(review)
+            }
             self.tblView.reloadData()
             if self.reviewData.count == 0
             {

@@ -277,6 +277,7 @@
 				18615BD62068B946004A6876 /* BookingVC.swift */,
 				18FE5561207394F600FE4C36 /* UpcomingBookingVC.swift */,
 				18FE55632073950B00FE4C36 /* PastBookingVC.swift */,
+				18750BB52074F1DB00ABF3B6 /* AddRateReviewVC.swift */,
 			);
 			path = Booking;
 			sourceTree = "<group>";
@@ -461,7 +462,6 @@
 				D8D49B2B2077BBF400CC4851 /* CreditCardDetailVC.swift */,
 				18803981206A283C00179778 /* TeacherDetailVC.swift */,
 				18C441CC206A673D005C6251 /* ClassesListVC.swift */,
-				18750BB52074F1DB00ABF3B6 /* AddRateReviewVC.swift */,
 				1880397D206A14CA00179778 /* ReviewListVC.swift */,
 			);
 			path = Class;
