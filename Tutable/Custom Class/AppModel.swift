@@ -89,6 +89,7 @@ class UserModel:AppModel{
     var notifications : Int!
     var payment : Int!
     var certs : [String : Any]!
+    var card : [String : Any]!
     
     override init(){
         id = ""
@@ -116,6 +117,7 @@ class UserModel:AppModel{
         notifications = 0
         payment = 0
         certs = [String : Any]()
+        card = [String : Any]()
     }
     init(dict : [String : Any])
     {
@@ -144,6 +146,7 @@ class UserModel:AppModel{
         notifications = 0
         payment = 0
         certs = [String : Any]()
+        card = [String : Any]()
         
         if let Id = dict["id"] as? String{
             id = Id
@@ -214,48 +217,48 @@ class UserModel:AppModel{
         if let temp = dict["childrenCert"] as? String{
             childrenCert = temp
         }
-        if let temp = dict["facebook"] as? [String : Any]{
-            if let temp = temp["email"] as? String
-            {
-                email = temp
-            }
-            if let temp = temp["firstName"] as? String
-            {
-                name = temp
-            }
-            if let temp = temp["lastName"] as? String
-            {
-                if name != ""
-                {
-                    name = name + " " + temp
-                }
-                else
-                {
-                    name = temp
-                }
-            }
-        }
-        if let temp = dict["google"] as? [String : Any]{
-            if let temp = temp["email"] as? String
-            {
-                email = temp
-            }
-            if let temp = temp["firstName"] as? String
-            {
-                name = temp
-            }
-            if let temp = temp["lastName"] as? String
-            {
-                if name != ""
-                {
-                    name = name + " " + temp
-                }
-                else
-                {
-                    name = temp
-                }
-            }
-        }
+//        if let temp = dict["facebook"] as? [String : Any]{
+//            if let temp = temp["email"] as? String
+//            {
+//                email = temp
+//            }
+//            if let temp = temp["firstName"] as? String
+//            {
+//                name = temp
+//            }
+//            if let temp = temp["lastName"] as? String
+//            {
+//                if name != ""
+//                {
+//                    name = name + " " + temp
+//                }
+//                else
+//                {
+//                    name = temp
+//                }
+//            }
+//        }
+//        if let temp = dict["google"] as? [String : Any]{
+//            if let temp = temp["email"] as? String
+//            {
+//                email = temp
+//            }
+//            if let temp = temp["firstName"] as? String
+//            {
+//                name = temp
+//            }
+//            if let temp = temp["lastName"] as? String
+//            {
+//                if name != ""
+//                {
+//                    name = name + " " + temp
+//                }
+//                else
+//                {
+//                    name = temp
+//                }
+//            }
+//        }
         if let temp = dict["notifications"] as? Int{
             notifications = temp
         }
@@ -265,10 +268,13 @@ class UserModel:AppModel{
         if let temp = dict["certs"] as? [String : Any]{
             certs = temp
         }
+        if let temp = dict["card"] as? [String : Any]{
+            card = temp
+        }
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert, "notifications" : notifications, "payment" : payment, "certs" : certs]
+        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert, "notifications" : notifications, "payment" : payment, "certs" : certs, "card" : card]
     }
     
     func toJson(_ dict:[String:Any]) -> String{
@@ -478,6 +484,8 @@ class BookingClassModel:AppModel{
     var teacher : UserModel!
     var timestamp : Double!
     var slot : [String : Any]!
+    var review : [String : Any]!
+    
     
     override init(){
         classDetails = ClassModel.init()
@@ -489,6 +497,7 @@ class BookingClassModel:AppModel{
         teacher = UserModel.init()
         timestamp = 0.0
         slot = [String : Any]()
+        review = [String : Any]()
     }
     init(dict : [String : Any])
     {
@@ -501,6 +510,7 @@ class BookingClassModel:AppModel{
         teacher = UserModel.init()
         timestamp = 0.0
         slot = [String : Any]()
+        review = [String : Any]()
         
         if let temp = dict["classDetails"] as? [String : Any]{
             classDetails = ClassModel.init(dict: temp)
@@ -529,10 +539,13 @@ class BookingClassModel:AppModel{
         if let temp = dict["slot"] as? [String : Any]{
             slot = temp
         }
+        if let temp = dict["review"] as? [String : Any]{
+            review = temp
+        }
     }
     
     func dictionary() -> [String:Any]{
-        return ["classDetails":classDetails.dictionary(),"completed":completed,"confirmed" : confirmed, "deleted" : deleted, "id" : id, "student" : student.dictionary(), "teacher" : teacher.dictionary(), "timestamp" : timestamp, "slot" : slot]
+        return ["classDetails":classDetails.dictionary(),"completed":completed,"confirmed" : confirmed, "deleted" : deleted, "id" : id, "student" : student.dictionary(), "teacher" : teacher.dictionary(), "timestamp" : timestamp, "slot" : slot, "review" : review]
     }
     
     func toJson(_ dict:[String:Any]) -> String{

@@ -66,7 +66,11 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             
             break
         case 1:
-            
+            if isStudentLogin()
+            {
+                let vc : PaymentMethodVC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentMethodVC") as! PaymentMethodVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
             break
         case 2:
             

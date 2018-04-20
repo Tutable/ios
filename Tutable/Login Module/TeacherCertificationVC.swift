@@ -114,6 +114,7 @@ class TeacherCertificationVC: UIViewController, UIImagePickerControllerDelegate,
             {
                 APIManager.sharedInstance.serviceCallToUpdateCertificates(policeData, childrenData: childrenData) {
                     let vc : TeacherQulificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherQulificationVC") as! TeacherQulificationVC
+                    vc.isBackDisplay = self.isBackDisplay
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }

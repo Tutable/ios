@@ -123,6 +123,10 @@ class SubClassVC: UIViewController, UICollectionViewDataSource, UICollectionView
         {
             cell.starView.rating = avgStars
         }
+        if let count : Int = dict.reviews["count"] as? Int
+        {
+            cell.reviewsLbl.text = String(count) + ((count == 1) ? " review" : " reviews")
+        }
         
         return cell
     }

@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '8B228DFE2328921677F57CEAC7D4130F'
-               BlueprintName = 'Stripe-Stripe'
+               BlueprintIdentifier = 'F62C6FEA41E229874F5814F375E0CB35'
+               BlueprintName = 'Toaster'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Stripe.bundle'>
+               BuildableName = 'Toaster.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

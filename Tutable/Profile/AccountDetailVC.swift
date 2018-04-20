@@ -148,7 +148,7 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
         }
         else if _imgCompress == nil
         {
-            displayToast("Please select verification document approved by Australina government.")
+            displayToast("Please select verification document approved by Australian Government.")
         }
         else if termsConditionBtn.isSelected == false
         {

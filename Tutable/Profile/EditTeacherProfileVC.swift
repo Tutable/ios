@@ -268,15 +268,15 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
         {
             displayToast("Please select certificate for police check")
         }
-        else if relevantSegment.selectedSegmentIndex == 1 && qulificationTxt.text == ""
+        else if relevantSegment.selectedSegmentIndex == 0 && qulificationTxt.text == ""
         {
             displayToast("Please enter your qulification")
         }
-        else if relevantSegment.selectedSegmentIndex == 1 && schoolTxt.text == ""
+        else if relevantSegment.selectedSegmentIndex == 0 && schoolTxt.text == ""
         {
             displayToast("Please enter your school name")
         }
-        else if relevantSegment.selectedSegmentIndex == 1 && AppModel.shared.currentUser.degreeAsset == "" && degreeImg == nil
+        else if relevantSegment.selectedSegmentIndex == 0 && AppModel.shared.currentUser.degreeAsset == "" && degreeImg == nil
         {
             displayToast("Please upload your degree")
         }
@@ -314,7 +314,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             dict["address"] = location.dictionary()
             AppModel.shared.currentUser.address = location
             
-            if relevantSegment.selectedSegmentIndex == 1
+            if relevantSegment.selectedSegmentIndex == 0
             {
                 AppModel.shared.currentUser.qualification = qulificationTxt.text
                 AppModel.shared.currentUser.school = schoolTxt.text
@@ -331,7 +331,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             {
                 imageData = UIImagePNGRepresentation(imgCompress)!
             }
-            if relevantSegment.selectedSegmentIndex == 1 && degreeImg != nil
+            if relevantSegment.selectedSegmentIndex == 0 && degreeImg != nil
             {
                 degreeData = UIImagePNGRepresentation(degreeImg)!
             }
@@ -427,6 +427,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
     
     @objc open func onCaptureImageThroughCamera()
     {
+        self.dismiss(animated: true, completion: nil)
         if !UIImagePickerController.isSourceTypeAvailable(.camera) {
             displayToast("Your device has no camera")
             
@@ -435,7 +436,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             let imgPicker = UIImagePickerController()
             imgPicker.delegate = self
             imgPicker.sourceType = .camera
-            UIViewController.top?.present(imgPicker, animated: true, completion: {() -> Void in
+            self.present(imgPicker, animated: true, completion: {() -> Void in
             })
         }
     }
@@ -443,13 +444,11 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
     @objc open func onCaptureImageThroughGallery()
     {
         self.dismiss(animated: true, completion: nil)
-        DispatchQueue.main.async {
-            let imgPicker = UIImagePickerController()
-            imgPicker.delegate = self
-            imgPicker.sourceType = .photoLibrary
-            self.present(imgPicker, animated: true, completion: {() -> Void in
-            })
-        }
+        let imgPicker = UIImagePickerController()
+        imgPicker.delegate = self
+        imgPicker.sourceType = .photoLibrary
+        self.present(imgPicker, animated: true, completion: {() -> Void in
+        })
     }
     
     func imagePickerController(_ imgPicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {

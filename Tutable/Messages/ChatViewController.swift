@@ -58,6 +58,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
         IQKeyboardManager.sharedManager().enableAutoToolbar = true
         IQKeyboardManager.sharedManager().enable = true
         isAppear = false
+        AppDelegate().sharedDelegate().stopTyping()
         DispatchQueue.main.async {
             removeLoader()
         }
@@ -519,7 +520,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
     {
         if textView == msgTextView
         {
-            startTyping()
+            AppDelegate().sharedDelegate().startTyping()
             if msgTextView.contentSize.height > 70 {
                 constraintHeightMsgTextView.constant = 70 + 20
             }
@@ -535,6 +536,11 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
             typeTimer.invalidate()
             typeTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(stopTyping), userInfo: nil, repeats: false)
         }
+    }
+    
+    @objc func stopTyping()
+    {
+        AppDelegate().sharedDelegate().stopTyping()
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -554,26 +560,8 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
     }
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        stopTyping()
+        AppDelegate().sharedDelegate().stopTyping()
         return true
-    }
-    
-    func startTyping()
-    {
-        if AppModel.shared.firebaseCurrentUser.isType == 0
-        {
-            AppModel.shared.firebaseCurrentUser.isType = 1
-            AppDelegate().sharedDelegate().updateCurrentUserData()
-        }
-    }
-    
-    @objc func stopTyping()
-    {
-        if AppModel.shared.firebaseCurrentUser.isType == 1
-        {
-            AppModel.shared.firebaseCurrentUser.isType = 0
-            AppDelegate().sharedDelegate().updateCurrentUserData()
-        }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

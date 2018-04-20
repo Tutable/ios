@@ -71,48 +71,7 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
         button.setBackgroundImage(imageWithColor(color: colorFromHex(hex: COLOR.WHITE_COLOR)), for: .normal)
         button.setBackgroundImage(imageWithColor(color: colorFromHex(hex: COLOR.APP_COLOR)), for: .selected)
     }
-    /*
-    func setButtonLable()
-    {
-        for i in 1...7
-        {
-            let timestamp : Double = Double(timeArr[i-1])!
-            let date : Date = getDateFromTimeStamp(timestamp)
-            switch i {
-            case 1:
-                btn1.setTitle(getDateOnlyFromDate(date: date), for: .normal)
-                btn1.tag = Int(timestamp)
-                break
-            case 2:
-                btn2.setTitle(getDateOnlyFromDate(date: date), for: .normal)
-                btn2.tag = Int(timestamp)
-                break
-            case 3:
-                btn3.setTitle(getDateOnlyFromDate(date: date), for: .normal)
-                btn3.tag = Int(timestamp)
-                break
-            case 4:
-                btn4.setTitle(getDateOnlyFromDate(date: date), for: .normal)
-                btn4.tag = Int(timestamp)
-                break
-            case 5:
-                btn5.setTitle(getDateOnlyFromDate(date: date), for: .normal)
-                btn5.tag = Int(timestamp)
-                break
-            case 6:
-                btn6.setTitle(getDateOnlyFromDate(date: date), for: .normal)
-                btn6.tag = Int(timestamp)
-                break
-            case 7:
-                btn7.setTitle(getDateOnlyFromDate(date: date), for: .normal)
-                btn7.tag = Int(timestamp)
-                break
-            default:
-                break
-            }
-        }
-    }
-    */
+
     func setButtonLable()
     {
         for i in 1...7
@@ -292,17 +251,6 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
             cardParams.expMonth = UInt((card?.month?.rawValue)!)!
             cardParams.expYear = UInt((card?.year!)!)!
             cardParams.cvc = card?.cvc
-            
-//            let stripeClient : STPAPIClient = STPAPIClient.shared()
-//            var redirectContext : STPRedirectContext?
-//            let sourceParams = STPSourceParams.cardParams(withCard: cardParams)
-//
-//            stripeClient.createSource(with: sourceParams, completion: { (source, error) in
-//                if error == nil
-//                {
-//                    print(source?.stripeID)
-//                }
-//            })
             
             STPAPIClient.shared().createToken(withCard: cardParams) { (token, error) in
                 removeLoader()

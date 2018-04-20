@@ -28,6 +28,10 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         refreshControl.tintColor = colorFromHex(hex: COLOR.APP_COLOR)
         refreshControl.addTarget(self, action: #selector(refreshUpcomingBookingList), for: .valueChanged)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         refreshUpcomingBookingList()
     }
     
@@ -64,8 +68,15 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         APIManager.sharedInstance.serviceCallToGetPhoto(dict.classDetails.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
         if isStudentLogin()
         {
-            cell.starBtn.tag = indexPath.row
-            cell.starBtn.addTarget(self, action: #selector(clickToReviewBtn(_:)), for: .touchUpInside)
+            if let stars : Double = dict.review["stars"] as? Double
+            {
+                cell.starView.rating = stars
+            }
+            else
+            {
+                cell.starBtn.tag = indexPath.row
+                cell.starBtn.addTarget(self, action: #selector(clickToReviewBtn(_:)), for: .touchUpInside)
+            }
             
             cell.starBtn.isHidden = false
             cell.starView.isHidden = false

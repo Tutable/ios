@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 //MARK:- Image Function
 func compressImage(_ image: UIImage, to toSize: CGSize) -> UIImage {
@@ -71,10 +72,13 @@ func setUserProfileImage(_ user : UserModel, button : UIButton)
 //MARK:- Toast
 func displayToast(_ message:String)
 {
-    AppDelegate().sharedDelegate().window?.makeToast(message)
-    if(AppDelegate().sharedDelegate().isKeyboardOpen){
-        UIApplication.shared.windows.last!.makeToast(message)
-    }
+    let toast = Toast(text: message)
+    toast.show()
+//    AppDelegate().sharedDelegate().window?.makeToast(message)
+//    if(AppDelegate().sharedDelegate().isKeyboardOpen){
+//        UIApplication.shared.windows.last!.makeToast(message)
+//    }
+    
 }
 
 //MARK:- Loader

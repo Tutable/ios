@@ -28,14 +28,21 @@ class TeacherProfileVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        quality1Btn.isHidden = true
+        quality2Btn.isHidden = true
+        quality3Btn.isHidden = true
+        quality4Btn.isHidden = true
+        constraintHeightQualityView.constant = 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
         let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
         tabBar.setTabBarHidden(tabBarHidden: false)
         
-        setTeacherDetail()
+        delay(0.5) {
+            self.setTeacherDetail()
+        }
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -76,11 +83,12 @@ class TeacherProfileVC: UIViewController {
             arrTemp.append(["name" : AppModel.shared.currentUser.qualification, "image" : "qualification_icon"])
         }
         
-        if getPoliceCertificate() != ""
+        let certsDict : [String : Any] = AppModel.shared.currentUser.certs
+        if let police : String = certsDict["policeCertificate"] as? String, police != ""
         {
             arrTemp.append(["name" : "Police check", "image" : "accept"])
         }
-        if getChildreanCertificate() != ""
+        if let children : String = certsDict["childrenCertificate"] as? String, children != ""
         {
             arrTemp.append(["name" : "Works with children", "image" : "accept"])
         }

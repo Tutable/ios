@@ -101,6 +101,7 @@ PODS:
   - SDWebImage/Core (4.3.2)
   - StepSlider (1.1.0)
   - Stripe (12.1.1)
+  - Toaster (2.1.1)
 
 DEPENDENCIES:
   - Alamofire
@@ -124,6 +125,7 @@ DEPENDENCIES:
   - SDWebImage
   - StepSlider
   - Stripe
+  - Toaster
 
 SPEC CHECKSUMS:
   Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
@@ -157,7 +159,8 @@ SPEC CHECKSUMS:
   SDWebImage: 29bd3c0bc1f01e5eb59720847c64ad4c4ca1af5d
   StepSlider: f0754da9b5bd112420f9d647f90114a9af3007e2
   Stripe: f8e8feff38ba5caf7b2568c64eab96b0440ecb95
+  Toaster: a6c9532de1ded8105e77376f7dffeb2e12b46dbb
 
-PODFILE CHECKSUM: c2d4f4c766ea3f15e09346c0f38f55d5e8b29b49
+PODFILE CHECKSUM: af2375694dc7ba6e92a6694771fd48c06724d564
 
 COCOAPODS: 1.3.1

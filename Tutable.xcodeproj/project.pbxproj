@@ -94,6 +94,7 @@
 		18B9919520693973009F8A13 /* ClassDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B9919420693973009F8A13 /* ClassDetailVC.swift */; };
 		18C441CB206A5ECC005C6251 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C441CA206A5ECC005C6251 /* RegistrationVC.swift */; };
 		18C441CD206A673D005C6251 /* ClassesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C441CC206A673D005C6251 /* ClassesListVC.swift */; };
+		18F2DCE4208A32CE008F56EE /* PaymentMethodVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2DCE3208A32CE008F56EE /* PaymentMethodVC.swift */; };
 		18FE555E207387E400FE4C36 /* CustomSettingTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE555C207387E400FE4C36 /* CustomSettingTVC.swift */; };
 		18FE555F207387E400FE4C36 /* CustomSettingTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FE555D207387E400FE4C36 /* CustomSettingTVC.xib */; };
 		18FE5562207394F600FE4C36 /* UpcomingBookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE5561207394F600FE4C36 /* UpcomingBookingVC.swift */; };
@@ -198,6 +199,7 @@
 		18B9919420693973009F8A13 /* ClassDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailVC.swift; sourceTree = "<group>"; };
 		18C441CA206A5ECC005C6251 /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
 		18C441CC206A673D005C6251 /* ClassesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesListVC.swift; sourceTree = "<group>"; };
+		18F2DCE3208A32CE008F56EE /* PaymentMethodVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodVC.swift; sourceTree = "<group>"; };
 		18FE555C207387E400FE4C36 /* CustomSettingTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSettingTVC.swift; sourceTree = "<group>"; };
 		18FE555D207387E400FE4C36 /* CustomSettingTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomSettingTVC.xib; sourceTree = "<group>"; };
 		18FE5561207394F600FE4C36 /* UpcomingBookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingBookingVC.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				18615BD02068B90D004A6876 /* SettingsVC.swift */,
+				18F2DCE3208A32CE008F56EE /* PaymentMethodVC.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -605,6 +608,7 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/StepSlider/StepSlider.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
+				"${BUILT_PRODUCTS_DIR}/Toaster/Toaster.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -628,6 +632,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StepSlider.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toaster.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -696,6 +701,7 @@
 				1815CB332071EFCC0081F852 /* CustomMyClassTVC.swift in Sources */,
 				18615BD72068B946004A6876 /* BookingVC.swift in Sources */,
 				18615BD92068CC42004A6876 /* ResetPasswordVC.swift in Sources */,
+				18F2DCE4208A32CE008F56EE /* PaymentMethodVC.swift in Sources */,
 				18B9918620692620009F8A13 /* CustomCategoryCVC.swift in Sources */,
 				18FE55642073950B00FE4C36 /* PastBookingVC.swift in Sources */,
 				18615BD12068B90D004A6876 /* SettingsVC.swift in Sources */,

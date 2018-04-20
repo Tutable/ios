@@ -9,6 +9,7 @@
 import UIKit
 import DropDown
 import StepSlider
+import Toaster
 
 class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -25,6 +26,8 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var constraintHeightCategoryPopup: NSLayoutConstraint!
     @IBOutlet weak var levelSlider: StepSlider!
     
+    @IBOutlet weak var scrollview: UIScrollView!
+    @IBOutlet weak var underView: UIView!
     
     var classImg:UIImage!
     var categoryArr : [CategoryModel] = [CategoryModel]()
@@ -66,7 +69,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         classImgBtn.addCornerRadiusOfView(5.0)
         nextBtn.addCornerRadiusOfView(nextBtn.frame.size.height/2)
         categoryPopupView.addCornerRadiusOfView(10.0)
-        
+        classNameTxt.autocapitalizationType = .sentences
         categoryTblView.register(UINib.init(nibName: "CustomTimeSlotTVC", bundle: nil), forCellReuseIdentifier: "CustomTimeSlotTVC")
         
         if getCategoryList().count == 0
@@ -251,6 +254,8 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
         actionSheet.addAction(galleryButton)
         self.present(actionSheet, animated: true, completion: nil)
+        
+        onCaptureImageThroughCamera()
     }
     
     @objc open func onCaptureImageThroughCamera()
@@ -263,21 +268,18 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let imgPicker = UIImagePickerController()
             imgPicker.delegate = self
             imgPicker.sourceType = .camera
-            UIViewController.top?.present(imgPicker, animated: true, completion: {() -> Void in
+            self.present(imgPicker, animated: true, completion: {() -> Void in
             })
         }
     }
     
     @objc open func onCaptureImageThroughGallery()
     {
-        self.dismiss(animated: true, completion: nil)
-        DispatchQueue.main.async {
-            let imgPicker = UIImagePickerController()
-            imgPicker.delegate = self
-            imgPicker.sourceType = .photoLibrary
-            self.present(imgPicker, animated: true, completion: {() -> Void in
-            })
-        }
+        let imgPicker = UIImagePickerController()
+        imgPicker.delegate = self
+        imgPicker.sourceType = .photoLibrary
+        self.present(imgPicker, animated: true, completion: {() -> Void in
+        })
     }
     
     func imagePickerController(_ imgPicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {

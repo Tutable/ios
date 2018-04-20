@@ -411,9 +411,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     //MARK:- Logout
     func logoutApp()
     {
-        AppModel.shared.firebaseCurrentUser.fcmToken = ""
-        updateLastSeen(isOnline: false)
-        updateCurrentUserData()
+        if AppModel.shared.firebaseCurrentUser != nil
+        {
+            AppModel.shared.firebaseCurrentUser.fcmToken = ""
+            updateLastSeen(isOnline: false)
+            updateCurrentUserData()
+        }
         let deviceToken : String = getDeviceToken()
         AppModel.shared.currentUser = nil
         AppModel.shared.currentClass = nil
@@ -645,6 +648,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         appUsersRef.child(AppModel.shared.firebaseCurrentUser.id).setValue(AppModel.shared.firebaseCurrentUser.dictionary())
     }
     
+    @objc func startTyping()
+    {
+        if AppModel.shared.firebaseCurrentUser.isType == 0
+        {
+            AppModel.shared.firebaseCurrentUser.isType = 1
+            AppDelegate().sharedDelegate().updateCurrentUserData()
+        }
+    }
+    
+    @objc func stopTyping()
+    {
+        if AppModel.shared.firebaseCurrentUser.isType == 1
+        {
+            AppModel.shared.firebaseCurrentUser.isType = 0
+            AppDelegate().sharedDelegate().updateCurrentUserData()
+        }
+    }
+    
     func updateLastSeen(isOnline : Bool)
     {
         if AppModel.shared.firebaseCurrentUser != nil
@@ -660,6 +681,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                     }
                     else
                     {
+                        AppModel.shared.firebaseCurrentUser.isType = 0
                         AppModel.shared.firebaseCurrentUser.last_seen = getCurrentTimeStampValue()
                         updateCurrentUserData()
                     }

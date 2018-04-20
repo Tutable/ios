@@ -21,6 +21,7 @@ pod ‘IQKeyboardManagerSwift’
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'StepSlider'
+  pod 'Toaster'
   
   pod 'Firebase/Core'
   pod 'Firebase/Auth'

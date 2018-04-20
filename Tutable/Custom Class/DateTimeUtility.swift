@@ -67,8 +67,8 @@ func getDateStringFromDate(date : Date) -> String
 func getDateStringFromDate(date : Date, format : String) -> String
 {
     let dateFormatter = DateFormatter()
-    //dateFormatter.timeZone = TimeZone(abbreviation: "GMT") //Set timezone that you want
-    dateFormatter.locale = NSLocale.current
+    dateFormatter.timeZone = TimeZone(abbreviation: "GMT") //Set timezone that you want
+//    dateFormatter.locale = NSLocale.current
     dateFormatter.dateFormat = format
     return dateFormatter.string(from: date)
 }
@@ -195,7 +195,11 @@ func getDateOnlyFromDate(date : Date) -> String
 func getOnlyDateTimestamp(date : Date) -> Double
 {
     let strDate : String = getDateStringFromDate(date: date)
-    return getTimestampFromDate(date: getDateFromDateString(strDate: strDate))
+    let dateFormatter = DateFormatter()
+    dateFormatter.timeZone = TimeZone(abbreviation: "GMT") //Set timezone that you want
+//    dateFormatter.locale = NSLocale.current
+    dateFormatter.dateFormat = DATE_FORMAT.DISPLAY_DATE_FORMAT
+    return getTimestampFromDate(date: dateFormatter.date(from: strDate)!)
 }
 
 func getDateTimeStringForChat(_ timesstamp : Double) -> String

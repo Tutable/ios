@@ -666,7 +666,9 @@ public class APIManager {
                     if let result = response.result.value as? [String:Any]{
                         if let code = result["code"] as? Int{
                             if(code == 100 || code == 104){
-                                completion()
+                                self.serviceCallToGetUserDetail {
+                                    completion()
+                                }
                                 return
                             }
                         }
@@ -727,7 +729,7 @@ public class APIManager {
                                 })
                             }
                         }
-                        if let message = result["message"] as? String{
+                        if (result["message"] as? String) != nil{
                             //displayToast(message)
                             return
                         }
@@ -777,9 +779,9 @@ public class APIManager {
                     if let result = response.result.value as? [String:Any]{
                         if let code = result["code"] as? Int{
                             if(code == 100){
-                                self.serviceCallToGetCertificate({
+                                self.serviceCallToGetUserDetail {
                                     
-                                })
+                                }
                                 completion()
                                 return
                             }
@@ -997,7 +999,7 @@ public class APIManager {
                     print(response.result.value!)
                     if let result = response.result.value as? [String:Any]{
                         if let code = result["code"] as? Int{
-                            if(code == 100){
+                            if(code == 100 || code == 104){
                                 completion()
                                 return
                             }
@@ -1284,8 +1286,16 @@ public class APIManager {
                                 completion()
                                 return
                             }
+                            else if(code == 104){
+                                if let errorDict = result["error"] as? [String : Any]{
+                                    if let message = errorDict["message"] as? String{
+                                        displayToast(message)
+                                    }
+                                }
+                            }
                         }
                         if (result["message"] as? String) != nil{
+                            displayToast((result["message"] as? String)!)
                             return
                         }
                     }
@@ -1297,6 +1307,46 @@ public class APIManager {
                 }
             case .failure(let error):
                 removeLoader()
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
+    func serviceCallToDeletePaymentMethod(_ completion: @escaping (_ isSuccess :Bool) -> Void){
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        Alamofire.request(BASE_URL+"payments/remove", method: .post, parameters: [String : Any](), encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            removeLoader()
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let code = result["code"] as? Int
+                    {
+                        if code == 100
+                        {
+                            completion(true)
+                            return
+                        }
+                        else
+                        {
+                            displayToast((result["message"] as? String)!)
+                            completion(false)
+                            return
+                        }
+                    }
+                    
+                }
+                if let error = response.result.error
+                {
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                break
+            case .failure(let error):
                 print(error)
                 displayToast(error.localizedDescription)
                 break

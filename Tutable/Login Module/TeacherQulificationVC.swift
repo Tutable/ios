@@ -102,7 +102,11 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
         }
         else
         {
-            if self.tabBarController?.tabBar == nil
+            if isBackDisplay == false
+            {
+                AppDelegate().sharedDelegate().navigateToDashboard()
+            }
+            else if self.tabBarController?.tabBar == nil
             {
                 let vc : TeacherFinishVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
                 self.navigationController?.pushViewController(vc, animated: true)
