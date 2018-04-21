@@ -55,6 +55,21 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
+    @IBAction func clickToChangeSegment(_ sender: Any) {
+        if relevantSegment.selectedSegmentIndex == 0
+        {
+            qulificationTxt.isUserInteractionEnabled = true
+            schoolTxt.isUserInteractionEnabled = true
+            degreeImgBtn.isUserInteractionEnabled = true
+        }
+        else
+        {
+            qulificationTxt.isUserInteractionEnabled = false
+            schoolTxt.isUserInteractionEnabled = false
+            degreeImgBtn.isUserInteractionEnabled = false
+        }
+    }
+    
     @IBAction func clickToBack(_ sender: Any) {
         self.view.endEditing(true)
         self.navigationController?.popViewController(animated: true)

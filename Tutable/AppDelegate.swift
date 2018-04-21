@@ -86,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         STPPaymentConfiguration.shared().publishableKey = STRIPE.STRIPE_PUB_KEY
         
         //User Login
-        if isUserLogin()
+        if isUserLogin() && getLoginUserData() != nil
         {
             AppModel.shared.currentUser = UserModel.init(dict: getLoginUserData()!)
             AppModel.shared.token = AppModel.shared.currentUser.accessToken
@@ -140,7 +140,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         }
         Crashlytics.setValue(APP_VERSION, forKey: "version")
     }
-
     
     //MARK:- Facebook Login
     func loginWithFacebook()
@@ -312,6 +311,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                     if AppModel.shared.currentUser.dob == 0.0
                     {
                         let vc : EditStudentProfileVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "EditStudentProfileVC") as! EditStudentProfileVC
+                        vc.isBackBtnDisplay = false
                         if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
                         {
                             rootNavigatioVC.pushViewController(vc, animated: false)
@@ -465,18 +465,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         {
             redirectionType = 2
         }
-        else if AppModel.shared.currentUser.qualification == ""
-        {
-            redirectionType = 3
-        }
-        else if AppModel.shared.currentUser.school == ""
-        {
-            redirectionType = 3
-        }
-        else if AppModel.shared.currentUser.degreeAsset == ""
-        {
-            redirectionType = 3
-        }
+//        else if AppModel.shared.currentUser.qualification == ""
+//        {
+//            redirectionType = 3
+//        }
+//        else if AppModel.shared.currentUser.school == ""
+//        {
+//            redirectionType = 3
+//        }
+//        else if AppModel.shared.currentUser.degreeAsset == ""
+//        {
+//            redirectionType = 3
+//        }
         
         
         return redirectionType

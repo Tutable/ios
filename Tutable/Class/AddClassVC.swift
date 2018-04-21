@@ -165,6 +165,10 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         {
             displayToast("Please select class image")
         }
+        else if subjectLbl.text?.trimmed == ""
+        {
+            displayToast("Please enter why you are qualified to teach this class.")
+        }
         else
         {
             AppModel.shared.currentClass.name = classNameTxt.text

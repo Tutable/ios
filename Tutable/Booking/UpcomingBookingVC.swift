@@ -17,6 +17,10 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet weak var cancelYesBtn: UIButton!
     @IBOutlet weak var noDataFound: UILabel!
     
+    @IBOutlet weak var popupTitleLbl: UILabel!
+    @IBOutlet weak var popupSubTitleLbl: UILabel!
+    @IBOutlet weak var constraintHeightPopupSubTitleLbl: NSLayoutConstraint!
+    
     var arrUpcomingBookingData : [BookingClassModel] = [BookingClassModel]()
     var page : Int = 1
     var limit : Int = 10
@@ -33,6 +37,17 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
         
         refreshControl.tintColor = colorFromHex(hex: COLOR.APP_COLOR)
         refreshControl.addTarget(self, action: #selector(refreshUpcomingBookingList), for: .valueChanged)
+        
+        if isStudentLogin()
+        {
+            popupSubTitleLbl.isHidden = false
+            constraintHeightPopupSubTitleLbl.constant = 50
+        }
+        else
+        {
+            popupSubTitleLbl.isHidden = true
+            constraintHeightPopupSubTitleLbl.constant = 0
+        }
         
     }
     

@@ -28,15 +28,15 @@ class TeacherAvailabilityVC: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var btn6: UIButton!
     @IBOutlet weak var btn7: UIButton!
     
-    var timeArr : [[String : String]] = [["name" : "1 AM to 2 AM", "value" : "1-2"],
-                                         ["name" : "2 AM to 3 AM", "value" : "2-3"],
-                                        ["name" : "3 AM to 4 AM", "value" : "3-4"],
-                                        ["name" : "4 AM to 5 AM", "value" : "4-5"],
-                                        ["name" : "5 AM to 6 AM", "value" : "5-6"],
-                                        ["name" : "6 AM to 7 AM", "value" : "6-7"],
-                                        ["name" : "7 AM to 8 AM", "value" : "7-8"],
-                                        ["name" : "8 AM to 9 AM", "value" : "8-9"],
-                                        ["name" : "9 AM to 10 AM", "value" : "9-10"],
+    var timeArr : [[String : String]] = [["name" : "1 AM to 2 AM", "value" : "01-02"],
+                                         ["name" : "2 AM to 3 AM", "value" : "02-03"],
+                                        ["name" : "3 AM to 4 AM", "value" : "03-04"],
+                                        ["name" : "4 AM to 5 AM", "value" : "04-05"],
+                                        ["name" : "5 AM to 6 AM", "value" : "05-06"],
+                                        ["name" : "6 AM to 7 AM", "value" : "06-07"],
+                                        ["name" : "7 AM to 8 AM", "value" : "07-08"],
+                                        ["name" : "8 AM to 9 AM", "value" : "08-09"],
+                                        ["name" : "9 AM to 10 AM", "value" : "09-10"],
                                         ["name" : "10 AM to 11 AM", "value" : "10-11"],
                                         ["name" : "11 AM to 12 AM", "value" : "11-12"],
                                         ["name" : "12 AM to 1 PM", "value" : "12-13"],
@@ -161,7 +161,7 @@ class TeacherAvailabilityVC: UIViewController, UITableViewDelegate, UITableViewD
             var dict : [String : Any] = [String : Any]()
             dict["availability"] = AppModel.shared.currentUser.availability
             APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: Data(), pictureData: Data(), completion: {
-                displayToast("Availability updated")
+                displayToast("Availability Updated")
                 self.navigationController?.popViewController(animated: true)
             })
         }
@@ -198,7 +198,7 @@ class TeacherAvailabilityVC: UIViewController, UITableViewDelegate, UITableViewD
         cell.titleLbl.text = timeArr[indexPath.row]["name"]
         
         cell.selectionBtn.isSelected = false
-        if let tempArr : [String] = finalTimeDict[String(selectedDateIndex)] as? [String]
+        if let tempArr : [String] = finalTimeDict[String(selectedDateIndex)]
         {
             let index = tempArr.index { (strTime) -> Bool in
                 strTime == timeArr[indexPath.row]["value"]
@@ -226,6 +226,8 @@ class TeacherAvailabilityVC: UIViewController, UITableViewDelegate, UITableViewD
         {
             tempArr.remove(at: index!)
         }
+        tempArr = tempArr.sorted()
+        print(tempArr)
         finalTimeDict[String(selectedDateIndex)] = tempArr
         tblView.reloadData()
     }

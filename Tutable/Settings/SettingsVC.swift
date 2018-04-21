@@ -21,7 +21,6 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tblView.register(UINib(nibName: "CustomSettingTVC", bundle: nil), forCellReuseIdentifier: "CustomSettingTVC")
         tblView.backgroundColor = UIColor.clear
         tblView.setInnerViewShadow(colorFromHex(hex: COLOR.SHADOW_GRAY))
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,17 +62,18 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            
+            let vc : HelpAboutUsVC = self.storyboard?.instantiateViewController(withIdentifier: "HelpAboutUsVC") as! HelpAboutUsVC
+            vc.strTitle = "HELP"
+            self.navigationController?.pushViewController(vc, animated: true)
             break
         case 1:
-            if isStudentLogin()
-            {
-                let vc : PaymentMethodVC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentMethodVC") as! PaymentMethodVC
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+            let vc : PaymentMethodVC = self.storyboard?.instantiateViewController(withIdentifier: "PaymentMethodVC") as! PaymentMethodVC
+            self.navigationController?.pushViewController(vc, animated: true)
             break
         case 2:
-            
+            let vc : HelpAboutUsVC = self.storyboard?.instantiateViewController(withIdentifier: "HelpAboutUsVC") as! HelpAboutUsVC
+            vc.strTitle = "ABOUT"
+            self.navigationController?.pushViewController(vc, animated: true)
             break
         case 3:
             DispatchQueue.main.async {

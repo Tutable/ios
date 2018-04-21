@@ -16,10 +16,11 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePicker
     @IBOutlet weak var addressTxt: UITextField!
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var dobTxt: UITextField!
-    
+    @IBOutlet weak var backBtn: UIButton!
     
     var _imgCompress:UIImage!
     var selectedDob : Date!
+    var isBackBtnDisplay : Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +60,14 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePicker
         {
             dobTxt.text = getDateStringFromServerTimeStemp(AppModel.shared.currentUser.dob)
             selectedDob = getDateFromTimeStamp(AppModel.shared.currentUser.dob)
+        }
+        if isBackBtnDisplay == false
+        {
+            backBtn.isHidden = true
+        }
+        else
+        {
+            backBtn.isHidden = false
         }
     }
     
@@ -141,7 +150,7 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePicker
     func continueUpdating(_ dict : [String : Any], _ imageData : Data)
     {
         APIManager.sharedInstance.serviceCallToUpdateStudentDetail(dict, pictureData: imageData) {
-            displayToast("Profile updated successfully")
+            displayToast("You have successfully Logged In")
             if AppModel.shared.firebaseCurrentUser != nil
             {
                 AppModel.shared.firebaseCurrentUser.name =  AppModel.shared.currentUser.name

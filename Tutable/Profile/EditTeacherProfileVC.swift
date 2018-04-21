@@ -238,6 +238,21 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
         uploadImage()
     }
     
+    @IBAction func clickToChangeSegment(_ sender: Any) {
+        if relevantSegment.selectedSegmentIndex == 0
+        {
+            qulificationTxt.isUserInteractionEnabled = true
+            schoolTxt.isUserInteractionEnabled = true
+            degreeImgBtn.isUserInteractionEnabled = true
+        }
+        else
+        {
+            qulificationTxt.isUserInteractionEnabled = false
+            schoolTxt.isUserInteractionEnabled = false
+            degreeImgBtn.isUserInteractionEnabled = false
+        }
+    }
+    
     @IBAction func clickToContinue(_ sender: Any) {
         self.view.endEditing(true)
         if AppModel.shared.currentUser.picture == "" && imgCompress == nil
@@ -353,13 +368,13 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
                 if policeData.count != 0 || childrenData.count != 0
                 {
                     APIManager.sharedInstance.serviceCallToUpdateCertificates(policeData, childrenData: childrenData, completion: {
-                        displayToast("Profile updated successfully")
+                        displayToast("Profile Updated Sucessfully")
                         self.navigationController?.popViewController(animated: true)
                     })
                 }
                 else
                 {
-                    displayToast("Profile updated successfully")
+                    displayToast("Profile Updated Sucessfully")
                     self.navigationController?.popViewController(animated: true)
                 }
             })

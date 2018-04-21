@@ -104,7 +104,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                     cell.subTitleLbl.text = cell.subTitleLbl.text! + " for " + temp.capitalized + " class"
                 }
             }
-            cell.dateTimeLbl.text = getDateStringFromDate(date: getDateFromTimeStamp(dict["timestamp"] as! Double), format: "dd MMM at hh:mm a")
+            cell.dateTimeLbl.text = getDateStringFromDate(date: getDateFromTimeStamp(dict["timestamp"] as! Double), format: "dd MMM YYYY, h:mm a")
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             return cell
         }
@@ -179,7 +179,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: - Button click event
     @IBAction func clickToAccept(_ sender: UIButton) {
         
-        if AppModel.shared.currentUser.payment == 1
+        if AppModel.shared.currentUser.card.count != 0
         {
             let dict : [String : Any] = arrNotiData[sender.tag]
             
@@ -191,18 +191,28 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 APIManager.sharedInstance.serviceCallToBookingAction(param) { (isSuccess) in
                     if isSuccess
                     {
-                        displayToast("Booking request accepted")
+                        displayToast("Booking Request Accepted")
                         APIManager.sharedInstance.serviceCallToRemoveNotification(dict["id"] as! String)
                         self.arrNotiData.remove(at: sender.tag)
                         self.tblView.reloadData()
+                        if self.arrNotiData.count == 0
+                        {
+                            self.noDataFound.isHidden = false
+                        }
+                        else
+                        {
+                            self.noDataFound.isHidden = true
+                        }
                     }
                 }
             }
         }
         else
         {
-            let vc : AccountDetailVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "AccountDetailVC") as! AccountDetailVC
-            self.navigationController?.pushViewController(vc, animated: true)
+            showAlert("Tutable", message: "To accept booking, you must add your accont details so that we transfer funds easily.", completion: {
+                let vc : AccountDetailVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "AccountDetailVC") as! AccountDetailVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
         }
     }
     
@@ -217,10 +227,18 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             APIManager.sharedInstance.serviceCallToBookingAction(param) { (isSuccess) in
                 if isSuccess
                 {
-                    displayToast("Booking request rejected")
+                    displayToast("Booking Request Rejected")
                     APIManager.sharedInstance.serviceCallToRemoveNotification(dict["id"] as! String)
                     self.arrNotiData.remove(at: sender.tag)
                     self.tblView.reloadData()
+                    if self.arrNotiData.count == 0
+                    {
+                        self.noDataFound.isHidden = false
+                    }
+                    else
+                    {
+                        self.noDataFound.isHidden = true
+                    }
                 }
             }
         }

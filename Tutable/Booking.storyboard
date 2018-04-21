@@ -121,7 +121,10 @@
                         <outlet property="cancelNoBtn" destination="9ud-Wp-N6x" id="KJW-6q-PJ7"/>
                         <outlet property="cancelPopupView" destination="iez-1l-tne" id="K3n-K3-ARz"/>
                         <outlet property="cancelYesBtn" destination="9jm-t3-Wv3" id="IBg-3V-sYL"/>
+                        <outlet property="constraintHeightPopupSubTitleLbl" destination="aD9-ks-DXk" id="bjh-Ri-88u"/>
                         <outlet property="noDataFound" destination="bzK-aH-d2Z" id="pn8-Xs-hWG"/>
+                        <outlet property="popupSubTitleLbl" destination="w4E-A5-g0E" id="qrb-Yh-yCl"/>
+                        <outlet property="popupTitleLbl" destination="I5L-zx-Kg5" id="fCd-MG-XFX"/>
                         <outlet property="tblView" destination="q4k-dv-t1L" id="pU1-eT-3VL"/>
                     </connections>
                 </viewController>
@@ -135,10 +138,10 @@
                             <color key="backgroundColor" white="0.0" alpha="0.50426386443661975" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iez-1l-tne">
-                            <rect key="frame" x="20" y="184" width="280" height="200"/>
+                            <rect key="frame" x="20" y="194" width="280" height="180"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5L-zx-Kg5">
-                                    <rect key="frame" x="22.5" y="20" width="236.5" height="41"/>
+                                    <rect key="frame" x="22.5" y="14" width="236.5" height="41"/>
                                     <string key="text">Are you sure
 you want to cancel this class?</string>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
@@ -146,7 +149,7 @@ you want to cancel this class?</string>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4E-A5-g0E">
-                                    <rect key="frame" x="10" y="81" width="260" height="50"/>
+                                    <rect key="frame" x="10" y="65" width="260" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="aD9-ks-DXk"/>
                                     </constraints>
@@ -157,7 +160,7 @@ within 24 hours of the start time.</string>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ud-Wp-N6x">
-                                    <rect key="frame" x="31" y="141" width="100" height="35"/>
+                                    <rect key="frame" x="31" y="125" width="100" height="35"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="100" id="LYv-Xn-yfb"/>
                                         <constraint firstAttribute="height" constant="35" id="agj-5R-HM1"/>
@@ -171,7 +174,7 @@ within 24 hours of the start time.</string>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9jm-t3-Wv3">
-                                    <rect key="frame" x="149" y="141" width="100" height="35"/>
+                                    <rect key="frame" x="149" y="125" width="100" height="35"/>
                                     <color key="backgroundColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="35" id="RZl-yM-arE"/>
@@ -188,16 +191,18 @@ within 24 hours of the start time.</string>
                             <constraints>
                                 <constraint firstItem="9jm-t3-Wv3" firstAttribute="centerX" secondItem="iez-1l-tne" secondAttribute="centerX" constant="59" id="0TR-oD-Bj3"/>
                                 <constraint firstItem="w4E-A5-g0E" firstAttribute="centerX" secondItem="iez-1l-tne" secondAttribute="centerX" id="9nf-cV-jCE"/>
+                                <constraint firstItem="w4E-A5-g0E" firstAttribute="centerY" secondItem="iez-1l-tne" secondAttribute="centerY" id="FcB-6v-AkI"/>
                                 <constraint firstItem="I5L-zx-Kg5" firstAttribute="centerX" secondItem="iez-1l-tne" secondAttribute="centerX" id="JeU-3d-ecC"/>
+                                <constraint firstItem="I5L-zx-Kg5" firstAttribute="leading" secondItem="iez-1l-tne" secondAttribute="leading" constant="22.5" id="KoI-jN-eZA"/>
+                                <constraint firstAttribute="trailing" secondItem="I5L-zx-Kg5" secondAttribute="trailing" constant="21" id="OpT-yK-K99"/>
                                 <constraint firstItem="9jm-t3-Wv3" firstAttribute="top" secondItem="w4E-A5-g0E" secondAttribute="bottom" constant="10" id="Vfq-Ve-Col"/>
                                 <constraint firstAttribute="width" constant="280" id="VzH-Kh-1lt"/>
-                                <constraint firstItem="I5L-zx-Kg5" firstAttribute="top" secondItem="iez-1l-tne" secondAttribute="top" constant="20" id="Wi6-sk-6Hp"/>
                                 <constraint firstItem="9ud-Wp-N6x" firstAttribute="centerX" secondItem="iez-1l-tne" secondAttribute="centerX" constant="-59" id="X1z-aA-l8P"/>
                                 <constraint firstItem="w4E-A5-g0E" firstAttribute="leading" secondItem="iez-1l-tne" secondAttribute="leading" constant="10" id="ad5-MN-HZI"/>
                                 <constraint firstItem="9ud-Wp-N6x" firstAttribute="top" secondItem="w4E-A5-g0E" secondAttribute="bottom" constant="10" id="eFX-bL-D0a"/>
                                 <constraint firstAttribute="trailing" secondItem="w4E-A5-g0E" secondAttribute="trailing" constant="10" id="h0b-B4-kTg"/>
-                                <constraint firstAttribute="height" constant="200" id="huB-iZ-Yiq"/>
-                                <constraint firstItem="w4E-A5-g0E" firstAttribute="top" secondItem="I5L-zx-Kg5" secondAttribute="bottom" constant="20" id="y1b-8i-8MH"/>
+                                <constraint firstAttribute="height" constant="180" id="huB-iZ-Yiq"/>
+                                <constraint firstItem="w4E-A5-g0E" firstAttribute="top" secondItem="I5L-zx-Kg5" secondAttribute="bottom" constant="10" id="y1b-8i-8MH"/>
                             </constraints>
                         </view>
                     </subviews>

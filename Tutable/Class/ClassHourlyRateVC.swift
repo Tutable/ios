@@ -48,6 +48,14 @@ class ClassHourlyRateVC: UIViewController {
     
     @IBAction func clickToSubmit(_ sender: Any) {
         self.view.endEditing(true)
+        if priceTxt.text?.trimmed == ""
+        {
+            displayToast("Please set your hourly rate")
+        }
+        else if Float(priceTxt.text!) == 0.0
+        {
+            displayToast("Please set your hourly rate")
+        }
         AppModel.shared.currentClass.rate = Float(priceTxt.text!)
         if AppModel.shared.currentClass.id == ""
         {
@@ -82,7 +90,7 @@ class ClassHourlyRateVC: UIViewController {
     func continueUpdating(_ imageData : Data)
     {
         APIManager.sharedInstance.serviceCallToUpdateClass(imageData) {
-            displayToast("Class update successfully.")
+            displayToast("Class Updated Successfully")
             for controller in self.navigationController!.viewControllers as Array {
                 if controller.isKind(of: ClassDetailVC.self) {
                     self.navigationController!.popToViewController(controller, animated: true)

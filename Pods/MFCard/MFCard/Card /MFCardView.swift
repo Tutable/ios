@@ -410,7 +410,10 @@ extension MFCardDelegate{
     
     @IBAction func btnDoneAction(_ sender: AnyObject) {
         if (btnDone.title(for: .normal) == "Close"){
-            dismissCard()
+//            dismissCard()
+            if self.delegate != nil{
+                self.delegate?.cardDoneButtonClicked(nil, error: error)
+            }
         }else{
             error = nil
             var card :Card?
@@ -441,7 +444,10 @@ extension MFCardDelegate{
             flip(nil)
         }
         if autoDismiss == true && (error == "" || error == nil){
-            dismissCard()
+//            dismissCard()
+            if self.delegate != nil{
+                self.delegate?.cardDoneButtonClicked(nil, error: error)
+            }
         }
         
     }

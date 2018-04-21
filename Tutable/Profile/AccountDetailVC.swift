@@ -22,7 +22,6 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
     @IBOutlet weak var postalCodeTxt: UITextField!
     @IBOutlet weak var dobTxt: UITextField!
     @IBOutlet weak var documentImgBtn: UIButton!
-    @IBOutlet weak var termsConditionBtn: UIButton!
     @IBOutlet weak var doneBtn: UIButton!
     
     var _imgCompress:UIImage!
@@ -95,10 +94,6 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
         uploadImage()
     }
     
-    @IBAction func clickToTermsCondition(_ sender: Any) {
-        self.view.endEditing(true)
-        termsConditionBtn.isSelected = !termsConditionBtn.isSelected
-    }
     
     @IBAction func clickToDone(_ sender: Any) {
         self.view.endEditing(true)
@@ -148,11 +143,7 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
         }
         else if _imgCompress == nil
         {
-            displayToast("Please select verification document approved by Australian Government.")
-        }
-        else if termsConditionBtn.isSelected == false
-        {
-            displayToast("Please agree terms and conditions")
+            displayToast("Please add a valid verification document")
         }
         else
         {
@@ -189,7 +180,6 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
             print(finalDict)
             if let imageData = UIImagePNGRepresentation(_imgCompress){
                 APIManager.sharedInstance.serviceCallToCreateStripeBankAccount(finalDict, imgData: imageData, completion: {
-                    AppModel.shared.currentUser.payment = 1
                     displayToast("Account Create Succefully.")
                     self.navigationController?.popViewController(animated: true)
                 })

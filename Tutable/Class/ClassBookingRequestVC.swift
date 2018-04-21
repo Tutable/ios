@@ -174,8 +174,8 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
             let tempTimeStr : String = arrTemp[indexPath.row]
             
             let timeArr : [String] = tempTimeStr.components(separatedBy: "-")
-            let startTime : String = timeArr[0]
-            let endTime : String = timeArr[1]
+            var startTime : String = timeArr[0]
+            var endTime : String = timeArr[1]
             
             if Int(startTime)! > 12
             {
@@ -183,6 +183,10 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
             }
             else
             {
+                if startTime.first == "0"
+                {
+                    startTime = startTime.replacingOccurrences(of: "0", with: "")
+                }
                 cell.titleLbl.text = startTime + " AM to "
             }
             
@@ -192,6 +196,10 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
             }
             else
             {
+                if endTime.first == "0"
+                {
+                    endTime = endTime.replacingOccurrences(of: "0", with: "")
+                }
                 cell.titleLbl.text = cell.titleLbl.text! + endTime + " AM"
             }
             
@@ -226,9 +234,13 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 else if code == 104
                 {
-                    showAlert("Tutable", message: dict["message"] as! String, completion: {
+                    let myAlert = UIAlertController(title:"Tutable", message:dict["message"] as? String, preferredStyle: UIAlertControllerStyle.alert)
+                    let okAction = UIAlertAction(title: "Add", style: UIAlertActionStyle.cancel, handler:{ (action) in
                         displaySubViewtoParentView(self.view, subview: self.creditCardView)
                     })
+                    myAlert.addAction(okAction)
+                    myAlert.view.tintColor = colorFromHex(hex: COLOR.APP_COLOR)
+                    self.present(myAlert, animated: true, completion: nil)
                 }
                 else
                 {
@@ -242,7 +254,11 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
     
     func cardDoneButtonClicked(_ card: Card?, error: String?) {
         
-        if card != nil
+        if card == nil
+        {
+            creditCardView.removeFromSuperview()
+        }
+        else if card != nil
         {
             showLoader()
             let cardParams = STPCardParams()
@@ -273,10 +289,6 @@ class ClassBookingRequestVC: UIViewController, UITableViewDelegate, UITableViewD
                     })
                 }
             }
-        }
-        else
-        {
-            displayToast("Invalid card details.")
         }
     }
     

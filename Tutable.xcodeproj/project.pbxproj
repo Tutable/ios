@@ -15,6 +15,8 @@
 		1815CB2A2071EC410081F852 /* MyClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815CB292071EC410081F852 /* MyClassVC.swift */; };
 		1815CB332071EFCC0081F852 /* CustomMyClassTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1815CB312071EFCC0081F852 /* CustomMyClassTVC.swift */; };
 		1815CB342071EFCC0081F852 /* CustomMyClassTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */; };
+		1821A392208B160F009CFC7B /* UpdateBankAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1821A391208B160F009CFC7B /* UpdateBankAccountVC.swift */; };
+		1821A394208B6F1A009CFC7B /* HelpAboutUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1821A393208B6F1A009CFC7B /* HelpAboutUsVC.swift */; };
 		1841CADB207F29B000885B2D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1841CADA207F29B000885B2D /* GoogleService-Info.plist */; };
 		184637EA207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184637E8207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift */; };
 		184637EB207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184637E9207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib */; };
@@ -115,6 +117,8 @@
 		1815CB292071EC410081F852 /* MyClassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClassVC.swift; sourceTree = "<group>"; };
 		1815CB312071EFCC0081F852 /* CustomMyClassTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMyClassTVC.swift; sourceTree = "<group>"; };
 		1815CB322071EFCC0081F852 /* CustomMyClassTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMyClassTVC.xib; sourceTree = "<group>"; };
+		1821A391208B160F009CFC7B /* UpdateBankAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBankAccountVC.swift; sourceTree = "<group>"; };
+		1821A393208B6F1A009CFC7B /* HelpAboutUsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAboutUsVC.swift; sourceTree = "<group>"; };
 		1841CADA207F29B000885B2D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		184637E7207B388800F0B8A4 /* Tutable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tutable.entitlements; sourceTree = "<group>"; };
 		184637E8207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAcceptRejectNotiTVC.swift; sourceTree = "<group>"; };
@@ -270,6 +274,8 @@
 			children = (
 				18615BD02068B90D004A6876 /* SettingsVC.swift */,
 				18F2DCE3208A32CE008F56EE /* PaymentMethodVC.swift */,
+				1821A391208B160F009CFC7B /* UpdateBankAccountVC.swift */,
+				1821A393208B6F1A009CFC7B /* HelpAboutUsVC.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -764,6 +770,8 @@
 				18615BDB2068D1CE004A6876 /* EditStudentProfileVC.swift in Sources */,
 				18846B61207F903200C422CE /* TeacherProfileVC.swift in Sources */,
 				188FB357207E257C00663CE7 /* TutableModel.xcdatamodel in Sources */,
+				1821A394208B6F1A009CFC7B /* HelpAboutUsVC.swift in Sources */,
+				1821A392208B160F009CFC7B /* UpdateBankAccountVC.swift in Sources */,
 				18722852206CE07D00CD3076 /* ClassHourlyRateVC.swift in Sources */,
 				186A751B206510340013D863 /* CustomTabBarView.swift in Sources */,
 				185CC56B207DE36200B05B8A /* MessageCell.swift in Sources */,

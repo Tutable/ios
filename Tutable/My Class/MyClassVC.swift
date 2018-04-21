@@ -23,7 +23,7 @@ class MyClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
         // Do any additional setup after loading the view.
         tblView.register(UINib(nibName: "CustomMyClassTVC", bundle: nil), forCellReuseIdentifier: "CustomMyClassTVC")
         notiCountLbl.isHidden = true
-        
+        print(getIPAddress())
     }
     
     override func viewWillAppear(_ animated: Bool) {

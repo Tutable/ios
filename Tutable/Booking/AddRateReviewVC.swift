@@ -80,7 +80,10 @@ class AddRateReviewVC: UIViewController, UITextViewDelegate {
             params["ref"] = bookClassData.classDetails.id
             params["bookingReference"] = bookClassData.id
             params["stars"] = starView.rating
-            params["review"] = reviewTxtView.text
+            if reviewTxtView.text != placeHolder
+            {
+                params["review"] = reviewTxtView.text
+            }
             
             APIManager.sharedInstance.serviceCallToAddReview(params, completion: { (isDone) in
                 if isDone

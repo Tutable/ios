@@ -143,6 +143,49 @@ func getChildreanCertificate() -> String
     return ""
 }
 
+
+func setHelpContent(_ value : String)
+{
+    setDataToPreference(data: value as AnyObject, forKey: "help_content")
+}
+
+func getHelpContent() -> String
+{
+    if let value : String = getDataFromPreference(key: "help_content") as? String
+    {
+        return value
+    }
+    return ""
+}
+
+func setAboutContent(_ value : String)
+{
+    setDataToPreference(data: value as AnyObject, forKey: "about_content")
+}
+
+func getAboutContent() -> String
+{
+    if let value : String = getDataFromPreference(key: "about_content") as? String
+    {
+        return value
+    }
+    return ""
+}
+
+func setTearmsConditionContent(_ value : String)
+{
+    setDataToPreference(data: value as AnyObject, forKey: "tearms_content")
+}
+
+func getTearmsConditionContent() -> String
+{
+    if let value : String = getDataFromPreference(key: "tearms_content") as? String
+    {
+        return value
+    }
+    return ""
+}
+
 func setCategoryList(_ data : [[String : Any]])
 {
     setDataToPreference(data: data as AnyObject, forKey: "category_list")

@@ -46,11 +46,22 @@ public class APIManager {
         return ["Content-Type":"multipart/form-data", "Authorization":AppModel.shared.token]
     }
     
+    func networkErrorMsg()
+    {
+        showAlert("Tutable", message: "You are not connected to the internet") {
+            
+        }
+    }
+    
     //MARK:- login-signup
  
     func serviceCallToRegister(_ imageData : Data, completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
-        
         let headerParams :[String : String] = getMultipartHeader()
         var params :[String : Any] = [String : Any] ()
         
@@ -89,13 +100,12 @@ public class APIManager {
                                 return
                             }
                         }
-                        if let message = result["message"] as? String{
-                            //displayToast(message)
+                        else if let message = result["message"] as? String{
+                            displayToast(message)
                             return
                         }
                     }
-                    
-                    if let error = response.error{
+                    else if let error = response.error{
                         displayToast(error.localizedDescription)
                         return
                     }
@@ -111,6 +121,11 @@ public class APIManager {
     }
     
     func serviceCallToLogin(_ completion: @escaping (_ code:Int) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeader()
@@ -150,28 +165,31 @@ public class APIManager {
                         }
                         else if code == 104
                         {
-                            if result["message"] as! String == "Requested user not found" || result["message"] as! String == "error"
-                            {
-                                displayToast("Invalid username or password")
-                                return
-                            }
-                            else
-                            {
-                                completion(code)
-                            }
+                            displayToast("User Not Found")
+                            return
+                        }
+                        else if code == 105
+                        {
+                            completion(code)
+                            return
+                        }
+                        else if code == 106
+                        {
+                            displayToast("Invalid Email Id or Password.")
+                            return
                         }
                     }
-                    if let message = result["message"] as? String{
+                    else if let message = result["message"] as? String{
                         if(message == "User is not verified. Verify verification code first."){
                             completion((result["code"] as? Int)!)
                         }
-                        //displayToast(message)
+                        displayToast(message)
                         return
                     }
                 }
                 if let error = response.result.error
                 {
-                    //displayToast(error.localizedDescription)
+                    displayToast(error.localizedDescription)
                     return
                 }
                 //displayToast("Login error")
@@ -185,6 +203,11 @@ public class APIManager {
     }
     
     func serviceCallToStudentSocialLogin(_ params : [String : Any], completion: @escaping (_ code:Int) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeader()
@@ -225,11 +248,11 @@ public class APIManager {
                             }
                         }
                     }
-                    if let message = result["message"] as? String{
+                    else if let message = result["message"] as? String{
                         if(message == "User is not verified. Verify verification code first."){
                             completion((result["code"] as? Int)!)
                         }
-                        //displayToast(message)
+                        displayToast(message)
                         return
                     }
                 }
@@ -249,6 +272,11 @@ public class APIManager {
     }
     
     func serviceCallToTeacherSocialLogin(_ params : [String : Any], completion: @escaping (_ code:Int) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeader()
@@ -293,7 +321,7 @@ public class APIManager {
                         if(message == "User is not verified. Verify verification code first."){
                             completion((result["code"] as? Int)!)
                         }
-                        //displayToast(message)
+                        displayToast(message)
                         return
                     }
                 }
@@ -314,6 +342,11 @@ public class APIManager {
     
     //MARK:- User verification
     func serviceCallToVerifyCode(_ code:String, completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeader()
@@ -351,7 +384,7 @@ public class APIManager {
                         return
                     }
                     if let message = result["message"] as? String{
-                        //displayToast(message)
+                        displayToast(message)
                         return
                     }
                 }
@@ -371,6 +404,11 @@ public class APIManager {
     }
     
     func serviceCallToResendVerifyCode(_ tokenType:Int, completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeader()
@@ -399,7 +437,7 @@ public class APIManager {
                         }
                     }
                     if let message = result["message"] as? String{
-                        //displayToast(message)
+                        displayToast(message)
                         return
                     }
                 }
@@ -419,6 +457,11 @@ public class APIManager {
     }
     
     func serviceCallToGetPasswordToken(_ completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeader()
@@ -441,7 +484,7 @@ public class APIManager {
                         }
                     }
                     if let message = result["message"] as? String{
-                        //displayToast(message)
+                        displayToast(message)
                         return
                     }
                 }
@@ -450,7 +493,6 @@ public class APIManager {
                     displayToast(error.localizedDescription)
                     return
                 }
-                displayToast("Verifying email error")
                 break
             case .failure(let error):
                 print(error)
@@ -462,6 +504,11 @@ public class APIManager {
     
     //MARK:- Change Password
     func serviceCallToChangePassword(_ completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeader()
@@ -492,7 +539,7 @@ public class APIManager {
                         }
                     }
                     if let message = result["message"] as? String{
-                        //displayToast(message)
+                        displayToast(message)
                         return
                     }
                 }
@@ -501,7 +548,6 @@ public class APIManager {
                     displayToast(error.localizedDescription)
                     return
                 }
-                displayToast("Verifying email error")
                 break
             case .failure(let error):
                 print(error)
@@ -513,6 +559,11 @@ public class APIManager {
     
     //MARK:- Get Category
     func serviceCallToGetCategory(_ completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -550,6 +601,11 @@ public class APIManager {
     
     //MARK:- Get User detail
     func serviceCallToGetUserDetail(_ completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -596,6 +652,11 @@ public class APIManager {
     }
     
     func serviceCallToGetTeacehrDetail(_ teacherID : String, completion: @escaping ([String : Any]) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -632,6 +693,11 @@ public class APIManager {
     }
     
     func serviceCallToUpdateTeacherDetail(_ dict : [String : Any], degreeData : Data, pictureData : Data, completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getMultipartHeaderWithToken()
@@ -672,8 +738,8 @@ public class APIManager {
                                 return
                             }
                         }
-                        if (result["message"] as? String) != nil{
-                            //displayToast(message)
+                        if let message = result["message"] as? String {
+                            displayToast(message)
                             return
                         }
                     }
@@ -693,6 +759,11 @@ public class APIManager {
     }
     
     func serviceCallToUpdateStudentDetail(_ dict : [String : Any], pictureData : Data, completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getMultipartHeaderWithToken()
@@ -729,8 +800,8 @@ public class APIManager {
                                 })
                             }
                         }
-                        if (result["message"] as? String) != nil{
-                            //displayToast(message)
+                        else if let message = result["message"] as? String {
+                            displayToast(message)
                             return
                         }
                     }
@@ -751,6 +822,11 @@ public class APIManager {
     
     //MARK:- Certificate
     func serviceCallToUpdateCertificates(_ policeData : Data, childrenData : Data, completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getMultipartHeaderWithToken()
@@ -786,8 +862,8 @@ public class APIManager {
                                 return
                             }
                         }
-                        if (result["message"] as? String) != nil{
-                            //displayToast(message)
+                        else if let message = result["message"] as? String {
+                            displayToast(message)
                             return
                         }
                     }
@@ -835,7 +911,7 @@ public class APIManager {
                     completion()
                     return
                 }
-                if let error = response.result.error
+                else if let error = response.result.error
                 {
                     displayToast(error.localizedDescription)
                     return
@@ -915,6 +991,11 @@ public class APIManager {
     
     //MARK:- Class
     func serviceCallToCreateClass(_ classImgData : Data, completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getMultipartHeaderWithToken()
@@ -949,8 +1030,8 @@ public class APIManager {
                                 return
                             }
                         }
-                        if let message = result["message"] as? String{
-                            //displayToast(message)
+                        else if let message = result["message"] as? String{
+                            displayToast(message)
                             return
                         }
                     }
@@ -970,6 +1051,11 @@ public class APIManager {
     }
     
     func serviceCallToUpdateClass(_ classImgData : Data, completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getMultipartHeaderWithToken()
@@ -1004,8 +1090,8 @@ public class APIManager {
                                 return
                             }
                         }
-                        if let message = result["message"] as? String{
-                            //displayToast(message)
+                        else if let message = result["message"] as? String{
+                            displayToast(message)
                             return
                         }
                     }
@@ -1025,6 +1111,11 @@ public class APIManager {
     }
     
     func serviceCallToGetClassList(_ categoryId : String, teacherId : String, completion: @escaping (_ dataArr : [[String : Any]]) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -1057,7 +1148,7 @@ public class APIManager {
                         return
                     }
                 }
-                if let error = response.result.error
+                else if let error = response.result.error
                 {
                     displayToast(error.localizedDescription)
                     return
@@ -1072,6 +1163,11 @@ public class APIManager {
     }
     
     func serviceCallToGetClassDetail(_ classId : String, _ completion: @escaping (_ dataArr : [String : Any]) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -1093,12 +1189,11 @@ public class APIManager {
                         return
                     }
                 }
-                if let error = response.result.error
+                else if let error = response.result.error
                 {
                     displayToast(error.localizedDescription)
                     return
                 }
-                displayToast("Error in getting user detail.")
                 break
             case .failure(let error):
                 print(error)
@@ -1109,6 +1204,11 @@ public class APIManager {
     }
     
     func serviceCallToBookClass(_ classId : String, slotDict : [String : Any], completion: @escaping (_ result :[String : Any]) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -1125,8 +1225,7 @@ public class APIManager {
                 if let result = response.result.value as? [String:Any]{
                     completion(result)
                 }
-                
-                if let error = response.error{
+                else if let error = response.error{
                     displayToast(error.localizedDescription)
                     return
                 }
@@ -1140,6 +1239,11 @@ public class APIManager {
     }
     
     func serviceCallToGetBookingList(_ params : [String : Any], completion: @escaping (_ dictArr :[[String : Any]]) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -1156,7 +1260,7 @@ public class APIManager {
                         return
                     }
                 }
-                if let error = response.result.error
+                else if let error = response.result.error
                 {
                     displayToast(error.localizedDescription)
                     return
@@ -1172,6 +1276,11 @@ public class APIManager {
     
     
     func serviceCallToBookingAction(_ params : [String : Any], completion: @escaping (_ isSuccess :Bool) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -1188,8 +1297,8 @@ public class APIManager {
                             return
                         }
                     }
-                    if let message = result["message"] as? String{
-                        //displayToast(message)
+                    else if let message = result["message"] as? String{
+                        displayToast(message)
                         return
                     }
                 }
@@ -1209,6 +1318,11 @@ public class APIManager {
     
     //MARK: - Payment
     func serviceCallToAddStripeToken(_ params : [String : Any], completion: @escaping (_ isSuccess :Bool) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -1223,8 +1337,10 @@ public class APIManager {
                     {
                         if code == 100
                         {
-                            completion(true)
-                            return
+                            self.serviceCallToGetUserDetail({
+                                completion(true)
+                                return
+                            })
                         }
                         else
                         {
@@ -1238,7 +1354,7 @@ public class APIManager {
                         return
                     }
                 }
-                if let error = response.result.error
+                else if let error = response.result.error
                 {
                     displayToast(error.localizedDescription)
                     return
@@ -1253,6 +1369,11 @@ public class APIManager {
     }
     
     func serviceCallToCreateStripeBankAccount(_ dict : [String : Any], imgData : Data, completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getMultipartHeaderWithToken()
@@ -1283,8 +1404,10 @@ public class APIManager {
                     if let result = response.result.value as? [String:Any]{
                         if let code = result["code"] as? Int{
                             if(code == 100){
-                                completion()
-                                return
+                                self.serviceCallToGetUserDetail({
+                                    completion()
+                                    return
+                                })
                             }
                             else if(code == 104){
                                 if let errorDict = result["error"] as? [String : Any]{
@@ -1294,7 +1417,7 @@ public class APIManager {
                                 }
                             }
                         }
-                        if (result["message"] as? String) != nil{
+                        else if (result["message"] as? String) != nil{
                             displayToast((result["message"] as? String)!)
                             return
                         }
@@ -1314,7 +1437,63 @@ public class APIManager {
         }
     }
     
+    func serviceCallToUpdateStripeBankAccount(_ dict : [String : Any], completion: @escaping () -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        
+        Alamofire.request(BASE_URL+"payments/updateBank", method: .post, parameters: dict, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            removeLoader()
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let code = result["code"] as? Int{
+                        if(code == 104){
+                            if let errorDict = result["error"] as? [String : Any]{
+                                if let message = errorDict["message"] as? String{
+                                    displayToast(message)
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        self.serviceCallToGetUserDetail({
+                            completion()
+                            return
+                        })
+                    }
+                    if (result["message"] as? String) != nil{
+                        displayToast((result["message"] as? String)!)
+                        return
+                    }
+                }
+                
+                if let error = response.error{
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
+    
     func serviceCallToDeletePaymentMethod(_ completion: @escaping (_ isSuccess :Bool) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -1340,7 +1519,7 @@ public class APIManager {
                     }
                     
                 }
-                if let error = response.result.error
+                else if let error = response.result.error
                 {
                     displayToast(error.localizedDescription)
                     return
@@ -1356,6 +1535,11 @@ public class APIManager {
     
     //MARK: - Review
     func serviceCallToAddReview(_ params : [String : Any], completion: @escaping (_ isSuccess :Bool) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -1382,7 +1566,7 @@ public class APIManager {
                     }
                     
                 }
-                if let error = response.result.error
+                else if let error = response.result.error
                 {
                     displayToast(error.localizedDescription)
                     return
@@ -1397,6 +1581,11 @@ public class APIManager {
     }
     
     func serviceCallToGetReviewList(_ classId : String, completion: @escaping (_ dictArr :[[String : Any]]) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -1416,7 +1605,7 @@ public class APIManager {
                         return
                     }
                 }
-                if let error = response.result.error
+                else if let error = response.result.error
                 {
                     displayToast(error.localizedDescription)
                     return
@@ -1432,6 +1621,11 @@ public class APIManager {
     
     //MARK: - Notification
     func serviceCallToGetNotificationList(_ params : [String : Any], completion: @escaping (_ dictArr :[[String : Any]]) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
         showLoader()
         
         let headerParams :[String : String] = getJsonHeaderWithToken()
@@ -1453,7 +1647,7 @@ public class APIManager {
                         completion([[String : Any]]())
                     }
                 }
-                if let error = response.result.error
+                else if let error = response.result.error
                 {
                     displayToast(error.localizedDescription)
                     return
@@ -1518,6 +1712,12 @@ public class APIManager {
     
     //MARK: - Delete User
     func serviceCallToDeleteUser(){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
+        
         let headerParams :[String : String] = getJsonHeaderWithToken()
         
         let params : [String : Any] = [String : Any]()
@@ -1526,6 +1726,46 @@ public class APIManager {
             switch response.result {
             case .success:
                 AppDelegate().sharedDelegate().logoutApp()
+                break
+            case .failure(let error):
+                print(error)
+                break
+            }
+        }
+    }
+    
+    //MARK: - Help, About
+    func serviceCallToGetHelpAbout(){
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        
+        Alamofire.request(BASE_URL + "content/details", method: .post, parameters: [String : Any](), encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            removeLoader()
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let data : [String : Any] = result["data"] as? [String : Any]
+                    {
+                        if let tearms : String = data["terms"] as? String
+                        {
+                            setTearmsConditionContent(tearms)
+                        }
+                        if let help : String = data["help"] as? String
+                        {
+                            setHelpContent(help)
+                        }
+                        if let about : String = data["about"] as? String
+                        {
+                            setAboutContent(about)
+                        }
+                    }
+                    
+                }
+                if let error = response.result.error
+                {
+                    print(error.localizedDescription)
+                    return
+                }
                 break
             case .failure(let error):
                 print(error)

@@ -31,6 +31,7 @@ class LoginVC: UIViewController {
                 passwordTxt.text = "qqqq"
             }
         }
+        
     }
 
     override func viewWillLayoutSubviews() {
@@ -41,6 +42,12 @@ class LoginVC: UIViewController {
     func setUIDesigning()
     {
         loginBtn.addCornerRadiusOfView(loginBtn.frame.size.height/2)
+    }
+    
+    @IBAction func clickToTearmsConditions(_ sender: Any) {
+        let vc : HelpAboutUsVC = self.storyboard?.instantiateViewController(withIdentifier: "HelpAboutUsVC") as! HelpAboutUsVC
+        vc.strTitle = "TEARMS & CONDITIONS"
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - Button click event
@@ -100,7 +107,7 @@ class LoginVC: UIViewController {
                         }
                     }
                 }
-                else if code == 104
+                else if code == 105
                 {
                     let vc : VerificationCodeVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "VerificationCodeVC") as! VerificationCodeVC
                     vc.isFromLoginScreen = true

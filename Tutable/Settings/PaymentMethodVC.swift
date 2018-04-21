@@ -12,86 +12,151 @@ import Stripe
 
 class PaymentMethodVC: UIViewController, MFCardDelegate {
 
+    @IBOutlet weak var teacherView: UIView!
+    @IBOutlet weak var accountDetailLbl: UILabel!
+    @IBOutlet weak var addAccount: UIButton!
+    
+    @IBOutlet weak var studentView: UIView!
     @IBOutlet weak var cardImgBtn: UIButton!
     @IBOutlet weak var cardNumberLbl: UILabel!
-    
+    @IBOutlet weak var deleteCardBtn: UIButton!
     @IBOutlet var creditCardView: UIView!
     @IBOutlet var cardView: MFCardView!
+    @IBOutlet weak var addCardBtn: UIButton!
+    
+    var isUpdateAccount : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        cardView.delegate = self
-        cardView.autoDismiss = false
-        cardView.toast = true
-        
-        if let cardType : Int = AppModel.shared.currentUser.card["type"] as? Int
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if self.tabBarController != nil
         {
-            switch cardType {
-                
-            case 1:
-                cardImgBtn.setImage(UIImage.init(named: "Visa"), for: .normal)
-                break
-                
-            case 2:
-                cardImgBtn.setImage(UIImage.init(named: "MasterCard"), for: .normal)
-                break
-                
-            case 3:
-                cardImgBtn.setImage(UIImage.init(named: "Amex"), for: .normal)
-                break
-                
-            case 4:
-                cardImgBtn.setImage(UIImage.init(named: "JCB"), for: .normal)
-                break
-                
-            case 5:
-                cardImgBtn.setImage(UIImage.init(named: "Discover"), for: .normal)
-                break
-                
-            case 6:
-                cardImgBtn.setImage(UIImage.init(named: "DinersClub"), for: .normal)
-                break
-            case 7:
-                cardImgBtn.setImage(UIImage.init(named: "Maestro"), for: .normal)
-                break
-            case 8:
-                cardImgBtn.setImage(UIImage.init(named: "Electron"), for: .normal)
-                break
-            case 9:
-                cardImgBtn.setImage(UIImage.init(named: "Dankort"), for: .normal)
-                break
-            case 10:
-                cardImgBtn.setImage(UIImage.init(named: "UnionPay"), for: .normal)
-                break
-            case 11:
-                cardImgBtn.setImage(UIImage.init(named: "RuPay"), for: .normal)
-                break
-            default:
-                cardImgBtn.setImage(nil, for: .normal)
-                break
+            let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
+            self.edgesForExtendedLayout = UIRectEdge.bottom
+            tabBar.setTabBarHidden(tabBarHidden: true)
+        }
+        setDataValue()
+    }
+    
+    func setDataValue()
+    {
+        if isStudentLogin()
+        {
+            cardImgBtn.setImage(nil, for: .normal)
+            cardNumberLbl.text = ""
+            studentView.isHidden = false
+            teacherView.isHidden = true
+            cardView.delegate = self
+            cardView.autoDismiss = false
+            cardView.toast = true
+            
+            if let cardImg : String = AppModel.shared.currentUser.card["type"] as? String
+            {
+                cardImgBtn.setImage(UIImage.init(named: cardImg), for: .normal)
+            }
+            
+            if let cardnumber : String = AppModel.shared.currentUser.card["number"] as? String
+            {
+                cardNumberLbl.text = "•••• •••• •••• " + cardnumber
+            }
+            
+            if cardNumberLbl.text == ""
+            {
+                cardNumberLbl.text = "You have not add any card"
+                deleteCardBtn.isHidden = true
+                addCardBtn.isHidden = false
+            }
+            else
+            {
+                deleteCardBtn.isHidden = false
+                addCardBtn.isHidden = true
             }
         }
-        
-        if let cardnumber : String = AppModel.shared.currentUser.card["number"] as? String
+        else
         {
-            cardNumberLbl.text = "•••• •••• •••• " + cardnumber
+            studentView.isHidden = true
+            teacherView.isHidden = false
+            accountDetailLbl.text = ""
+            
+            if let cardnumber : String = AppModel.shared.currentUser.card["number"] as? String
+            {
+                accountDetailLbl.text = "•••• •••• •••• " + cardnumber
+            }
+            if let bank_name : String = AppModel.shared.currentUser.card["bank"] as? String
+            {
+                accountDetailLbl.text = accountDetailLbl.text! + "\n" + bank_name
+            }
+            
+            if accountDetailLbl.text == ""
+            {
+                accountDetailLbl.text = "You have not added any account yet."
+                addAccount.setTitle("Add Account", for: .normal)
+                isUpdateAccount = false
+            }
+            else
+            {
+                addAccount.setTitle("Update Account", for: .normal)
+                isUpdateAccount = true
+            }
         }
-        
     }
-
+    
     @IBAction func clickToAddPaymentMethod(_ sender: Any) {
-        displaySubViewtoParentView(self.view, subview: self.creditCardView)
+        if isStudentLogin()
+        {
+            displaySubViewtoParentView(AppDelegate().sharedDelegate().window, subview: self.creditCardView)
+        }
+        else
+        {
+            if isUpdateAccount
+            {
+                let vc : UpdateBankAccountVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "UpdateBankAccountVC") as! UpdateBankAccountVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else
+            {
+                let vc : AccountDetailVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "AccountDetailVC") as! AccountDetailVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
     @IBAction func clickToDelete(_ sender: Any) {
-        showAlertWithOption("Tutable", message: "Are you sure you want to delete this card ?", completionConfirm: {
+        var strMessage : String = ""
+        if isStudentLogin()
+        {
+            strMessage = "Are you sure you want to delete this card?"
+        }
+        else
+        {
+            strMessage = "Are you sure you want to delete this Account?"
+        }
+        showAlertWithOption("Tutable", message: strMessage, completionConfirm: {
             APIManager.sharedInstance.serviceCallToDeletePaymentMethod({ (isSuccess) in
                 if isSuccess
                 {
-                    displayToast("Payment method removed.")
-                    self.clickToBack(self)
+                    if isStudentLogin()
+                    {
+                        displayToast("Payment Method Removed")
+                    }
+                    else
+                    {
+                        displayToast("Account Deleted Successfully")
+                    }
+                    
+                    if isStudentLogin()
+                    {
+                        AppModel.shared.currentUser.card = [String : Any]()
+                    }
+                    else
+                    {
+                        AppModel.shared.currentUser.card = [String : Any]()
+                    }
+                    self.setDataValue()
                 }
             })
         }) {
@@ -107,7 +172,11 @@ class PaymentMethodVC: UIViewController, MFCardDelegate {
     
     func cardDoneButtonClicked(_ card: Card?, error: String?) {
         
-        if card != nil
+        if card == nil
+        {
+            creditCardView.removeFromSuperview()
+        }
+        else if card != nil
         {
             showLoader()
             let cardParams = STPCardParams()
@@ -127,7 +196,7 @@ class PaymentMethodVC: UIViewController, MFCardDelegate {
                     APIManager.sharedInstance.serviceCallToAddStripeToken(param, completion: { (isSuccess) in
                         if isSuccess
                         {
-                            self.clickToBack(self)
+                            self.setDataValue()
                         }
                     })
                 }
