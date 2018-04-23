@@ -82,6 +82,7 @@ class UserModel:AppModel{
     var address : LocationModel!
     var qualification : String!
     var school : String!
+    var experience : Int!
     var degreeAsset : String!
     var deviceId : String!
     var policeCert : String!
@@ -110,6 +111,7 @@ class UserModel:AppModel{
         address = LocationModel.init()
         qualification = ""
         school = ""
+        experience = 0
         deviceId = ""
         policeCert = ""
         childrenCert = ""
@@ -138,6 +140,7 @@ class UserModel:AppModel{
         address = LocationModel.init()
         qualification = ""
         school = ""
+        experience = 0
         deviceId = ""
         policeCert = ""
         childrenCert = ""
@@ -151,8 +154,8 @@ class UserModel:AppModel{
         else if let Id = dict["_id"] as? String{
             id = Id
         }
-        if let Name = dict["name"] as? String{
-            name = Name
+        if let temp = dict["name"] as? String{
+            name = temp
         }
         if let Email = dict["email"] as? String{
             email = Email
@@ -204,6 +207,9 @@ class UserModel:AppModel{
         }
         if let temp = dict["school"] as? String{
             school = temp
+        }
+        if let temp = dict["experience"] as? Int{
+            experience = temp
         }
         if let temp = dict["deviceId"] as? String{
             deviceId = temp
@@ -268,7 +274,7 @@ class UserModel:AppModel{
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert, "notifications" : notifications, "certs" : certs, "card" : card]
+        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "experience" : experience, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert, "notifications" : notifications, "certs" : certs, "card" : card]
     }
     
     func toJson(_ dict:[String:Any]) -> String{
@@ -328,6 +334,7 @@ class ClassModel:AppModel{
     var category : CategoryModel!
     var level : Int!
     var bio : String!
+    var whyQualified : String!
     var timeline : Double!
     var payload : String!
     var rate : Float!
@@ -342,6 +349,7 @@ class ClassModel:AppModel{
         category = CategoryModel.init()
         level = 0
         bio = ""
+        whyQualified = ""
         timeline = 0
         payload = ""
         rate = 0.0
@@ -357,6 +365,7 @@ class ClassModel:AppModel{
         category = CategoryModel.init()
         level = 0
         bio = ""
+        whyQualified = ""
         timeline = 0
         payload = ""
         rate = 0.0
@@ -379,6 +388,9 @@ class ClassModel:AppModel{
         }
         if let temp = dict["bio"] as? String{
             bio = temp
+        }
+        if let temp = dict["whyQualified"] as? String{
+            whyQualified = temp
         }
         if let temp = dict["timeline"] as? Double{
             timeline = temp
@@ -410,7 +422,7 @@ class ClassModel:AppModel{
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"category" : category.dictionary(), "level" : level, "bio":bio, "payload":payload, "timeline":timeline, "rate":rate, "cancelled" : cancelled, "created" : created, "teacher" : teacher.dictionary(), "reviews" : reviews]
+        return ["id":id,"name":name,"category" : category.dictionary(), "level" : level, "bio":bio, "whyQualified":whyQualified, "payload":payload, "timeline":timeline, "rate":rate, "cancelled" : cancelled, "created" : created, "teacher" : teacher.dictionary(), "reviews" : reviews]
     }
     
     func toJson(_ dict:[String:Any]) -> String{
@@ -585,6 +597,9 @@ class FirebaseUserModel:AppModel{
             id = temp
         }
         if let temp = dict["name"] as? String{
+            name = temp
+        }
+        else if let temp = dict["name"] as? String{
             name = temp
         }
         if let temp = dict["email"] as? String{

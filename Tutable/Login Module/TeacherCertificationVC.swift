@@ -81,6 +81,15 @@ class TeacherCertificationVC: UIViewController, UIImagePickerControllerDelegate,
         uploadImage()
     }
     
+    @IBAction func clickToChildrenCheckURL(_ sender: Any) {
+        self.view.endEditing(true)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string : CHILDREN_CHECK_URL)!, options: [:], completionHandler: nil)
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
     @IBAction func clickToBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }

@@ -124,7 +124,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         classNameLbl.text = classData.name
         APIManager.sharedInstance.serviceCallToGetPhoto(classData.teacher.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
-        userNameLbl.text = classData.teacher.name
+        userNameLbl.text = getFirstName(name: classData.teacher.name)
         if classData.teacher.address.suburb != ""
         {
             userSubTitleLbl.text = classData.teacher.address.suburb.capitalized
@@ -151,9 +151,9 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             {
                 starBtn.setTitle(String(avgStars), for: .normal)
             }
-            if let count : Int = reviewDict["count"] as? Int
+            if let count : Double = reviewDict["count"] as? Double
             {
-                totalReviewLbl.text = String(count) + ((count == 1) ? " review" : " reviews")
+                totalReviewLbl.text = setRatingValue(rate: count) + ((count == 1.0) ? " review" : " reviews")
             }
         }
         
@@ -236,7 +236,7 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomReviewsTVC", for: indexPath) as! CustomReviewsTVC
         let review : ReviewModel = reviewData[indexPath.row]
         APIManager.sharedInstance.serviceCallToGetPhoto(review.student.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [cell.profileImgBtn])
-        cell.nameLbl.text = review.student.name
+        cell.nameLbl.text = getFirstName(name: review.student.name)
         cell.starView.rating = review.stars
         cell.reviewLbl.text = review.review
         cell.selectionStyle = UITableViewCellSelectionStyle.none

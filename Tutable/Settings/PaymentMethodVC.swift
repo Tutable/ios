@@ -12,6 +12,8 @@ import Stripe
 
 class PaymentMethodVC: UIViewController, MFCardDelegate {
 
+    @IBOutlet weak var titleLbl: UILabel!
+    
     @IBOutlet weak var teacherView: UIView!
     @IBOutlet weak var accountDetailLbl: UILabel!
     @IBOutlet weak var addAccount: UIButton!
@@ -30,6 +32,18 @@ class PaymentMethodVC: UIViewController, MFCardDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        if isStudentLogin()
+        {
+            titleLbl.text = "PAYMENT METHOD"
+        }
+        else
+        {
+            titleLbl.text = "PAYMENT DETAILS"
+        }
+        
+        addAccount.addCornerRadiusOfView(addAccount.frame.size.height/2)
+        addCardBtn.addCornerRadiusOfView(addCardBtn.frame.size.height/2)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,7 +80,7 @@ class PaymentMethodVC: UIViewController, MFCardDelegate {
             
             if cardNumberLbl.text == ""
             {
-                cardNumberLbl.text = "You have not add any card"
+                cardNumberLbl.text = "You have not added a card yet"
                 deleteCardBtn.isHidden = true
                 addCardBtn.isHidden = false
             }
@@ -93,13 +107,13 @@ class PaymentMethodVC: UIViewController, MFCardDelegate {
             
             if accountDetailLbl.text == ""
             {
-                accountDetailLbl.text = "You have not added any account yet."
-                addAccount.setTitle("Add Account", for: .normal)
+                accountDetailLbl.text = "You have not added an account yet"
+                addAccount.setTitle("ADD ACCOUNT", for: .normal)
                 isUpdateAccount = false
             }
             else
             {
-                addAccount.setTitle("Update Account", for: .normal)
+                addAccount.setTitle("UPDATE ACCOUNT", for: .normal)
                 isUpdateAccount = true
             }
         }

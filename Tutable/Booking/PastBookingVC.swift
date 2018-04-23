@@ -58,7 +58,7 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         let dict : BookingClassModel = arrPastBookingData[indexPath.row]
         cell.classNameLbl.text = dict.classDetails.name
-        cell.userNameLbl.text = dict.teacher.name
+        cell.userNameLbl.text = getFirstName(name: dict.teacher.name)
         cell.priceLbl.text = setFlotingPriceWithCurrency(dict.classDetails.rate)
         
         if dict.slot.count != 0

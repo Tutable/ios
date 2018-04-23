@@ -101,7 +101,7 @@ class SubClassVC: UIViewController, UICollectionViewDataSource, UICollectionView
         cell.imgBtn.setBackgroundImage(nil, for: .normal)
         let dict : ClassModel = classData[indexPath.row]
         cell.mainLbl.text = dict.name
-        cell.autherLbl.text = dict.teacher.name
+        cell.autherLbl.text = getFirstName(name: dict.teacher.name)
         if dict.teacher.address.suburb != ""
         {
             cell.addressLbl.text = dict.teacher.address.suburb.capitalized
@@ -123,9 +123,9 @@ class SubClassVC: UIViewController, UICollectionViewDataSource, UICollectionView
         {
             cell.starView.rating = avgStars
         }
-        if let count : Int = dict.reviews["count"] as? Int
+        if let count : Double = dict.reviews["count"] as? Double
         {
-            cell.reviewsLbl.text = String(count) + ((count == 1) ? " review" : " reviews")
+            cell.reviewsLbl.text = setRatingValue(rate: count) + ((count == 1.0) ? " review" : " reviews")
         }
         
         return cell

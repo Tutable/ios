@@ -28,18 +28,19 @@ class TeacherAvailabilityVC: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var btn6: UIButton!
     @IBOutlet weak var btn7: UIButton!
     
-    var timeArr : [[String : String]] = [["name" : "1 AM to 2 AM", "value" : "01-02"],
-                                         ["name" : "2 AM to 3 AM", "value" : "02-03"],
-                                        ["name" : "3 AM to 4 AM", "value" : "03-04"],
-                                        ["name" : "4 AM to 5 AM", "value" : "04-05"],
-                                        ["name" : "5 AM to 6 AM", "value" : "05-06"],
+/*["name" : "1 AM to 2 AM", "value" : "01-02"],
+ ["name" : "2 AM to 3 AM", "value" : "02-03"],
+ ["name" : "3 AM to 4 AM", "value" : "03-04"],
+ ["name" : "4 AM to 5 AM", "value" : "04-05"],*/
+    
+    var timeArr : [[String : String]] = [["name" : "5 AM to 6 AM", "value" : "05-06"],
                                         ["name" : "6 AM to 7 AM", "value" : "06-07"],
                                         ["name" : "7 AM to 8 AM", "value" : "07-08"],
                                         ["name" : "8 AM to 9 AM", "value" : "08-09"],
                                         ["name" : "9 AM to 10 AM", "value" : "09-10"],
                                         ["name" : "10 AM to 11 AM", "value" : "10-11"],
-                                        ["name" : "11 AM to 12 AM", "value" : "11-12"],
-                                        ["name" : "12 AM to 1 PM", "value" : "12-13"],
+                                        ["name" : "11 AM to 12 PM", "value" : "11-12"],
+                                        ["name" : "12 PM to 1 PM", "value" : "12-13"],
                                         ["name" : "1 PM to 2 PM", "value" : "13-14"],
                                         ["name" : "2 PM to 3 PM", "value" : "14-15"],
                                         ["name" : "3 PM to 4 PM", "value" : "15-16"],
@@ -50,7 +51,8 @@ class TeacherAvailabilityVC: UIViewController, UITableViewDelegate, UITableViewD
                                         ["name" : "8 PM to 9 PM", "value" : "20-21"],
                                         ["name" : "9 PM to 10 PM", "value" : "21-22"],
                                         ["name" : "10 PM to 11 PM", "value" : "22-23"],
-                                        ["name" : "11 PM to 12 PM", "value" : "23-24"]
+                                        ["name" : "11 PM to 12 AM", "value" : "23-24"],
+                                        ["name" : "12 AM to 1 AM", "value" : "24-01"]
     ]
     
     var finalTimeDict : [String : [String]] = [String : [String]]()

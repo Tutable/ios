@@ -555,6 +555,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                 AppModel.shared.isFCMConnected = true
                 AppModel.shared.firebaseCurrentUser = FirebaseUserModel.init(dict: AppModel.shared.currentUser.dictionary())
                 AppModel.shared.firebaseCurrentUser.fcmToken = self.getFcmToken()
+                
                 self.updateCurrentUserData()
                 self.callAllHandler()
             }
@@ -591,9 +592,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     {
         if userFcmToken == ""
         {
-            if let token = Messaging.messaging().fcmToken as? String
+            if let token = Messaging.messaging().fcmToken
             {
-                userFcmToken = token as! String
+                userFcmToken = token
             }
         }
         return userFcmToken
@@ -770,6 +771,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     
     func onChannelTap(connectUser : FirebaseUserModel)
     {
+        if connectUser == nil
+        {
+            return
+        }
         let tappedChannelID = createChannel(connectUserId: connectUser.id)
         if tappedChannelID != ""
         {
@@ -845,6 +850,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     
     func isMyChanel(channelId : String) -> Bool
     {
+        if channelId == "" || AppModel.shared.firebaseCurrentUser == nil
+        {
+            return false
+        }
         let arrtemp : [String] = channelId.components(separatedBy: "-")
         if (arrtemp[0] == AppModel.shared.firebaseCurrentUser.id) || (arrtemp[1] == AppModel.shared.firebaseCurrentUser.id)
         {

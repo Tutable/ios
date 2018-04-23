@@ -80,7 +80,25 @@ class TeacherProfileVC: UIViewController {
         
         if AppModel.shared.currentUser.qualification != ""
         {
-            arrTemp.append(["name" : AppModel.shared.currentUser.qualification, "image" : "qualification_icon"])
+            var strDegree : String = AppModel.shared.currentUser.qualification
+            if AppModel.shared.currentUser.school != ""
+            {
+                strDegree = strDegree + " from " + AppModel.shared.currentUser.school
+            }
+            arrTemp.append(["name" : strDegree, "image" : "qualification_icon"])
+        }
+        if AppModel.shared.currentUser.experience > 0
+        {
+            var exprince : String = String(AppModel.shared.currentUser.experience)
+            if AppModel.shared.currentUser.experience > 1
+            {
+                exprince = exprince + " years experience"
+            }
+            else
+            {
+                exprince = exprince + " year experience"
+            }
+            arrTemp.append(["name" : exprince, "image" : "experience_icon"])
         }
         
         let certsDict : [String : Any] = AppModel.shared.currentUser.certs
@@ -90,7 +108,7 @@ class TeacherProfileVC: UIViewController {
         }
         if let children : String = certsDict["childrenCertificate"] as? String, children != ""
         {
-            arrTemp.append(["name" : "Works with children", "image" : "accept"])
+            arrTemp.append(["name" : "WWCC", "image" : "accept"])
         }
         
         quality1Btn.isHidden = true
@@ -119,6 +137,12 @@ class TeacherProfileVC: UIViewController {
                 quality3Btn.setTitle(arrTemp[i]["name"], for: .normal)
                 quality3Btn.isHidden = false
                 constraintHeightQualityView.constant = 80
+            }
+            else if i == 3
+            {
+                quality4Btn.setImage(UIImage.init(named: arrTemp[i]["image"]!), for: .normal)
+                quality4Btn.setTitle(arrTemp[i]["name"], for: .normal)
+                quality4Btn.isHidden = false
             }
         }
         aboutUserLbl.numberOfLines = 3

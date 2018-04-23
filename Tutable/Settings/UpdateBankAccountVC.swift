@@ -75,7 +75,7 @@ class UpdateBankAccountVC: UIViewController, UITextFieldDelegate {
             
             print(finalDict)
             APIManager.sharedInstance.serviceCallToUpdateStripeBankAccount(finalDict, completion: {
-                displayToast("Account Update Succefully.")
+                displayToast("Payment details updated successfully")
                 self.navigationController?.popViewController(animated: true)
             })
         }

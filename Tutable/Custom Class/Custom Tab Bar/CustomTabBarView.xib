@@ -24,10 +24,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Suj-cZ-PJq">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                     <color key="backgroundColor" red="0.71764705880000002" green="0.72156862749999995" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="2" id="qZl-gh-MlR"/>
+                        <constraint firstAttribute="height" constant="1" id="qZl-gh-MlR"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PmN-fH-KYm">
@@ -66,7 +66,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T4S-Oa-rq8">
                     <rect key="frame" x="64" y="0.0" width="64" height="50"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOOKING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xo0-T3-MYp">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOOKINGS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xo0-T3-MYp">
                             <rect key="frame" x="2" y="35" width="60" height="13"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="13" id="7gR-Ex-bMK"/>
@@ -255,15 +255,15 @@
         </view>
     </objects>
     <resources>
-        <image name="tab_browse_off" width="21" height="25"/>
-        <image name="tab_browse_on" width="21" height="25"/>
-        <image name="tab_calendar_off" width="21" height="23"/>
-        <image name="tab_calendar_on" width="21" height="23"/>
+        <image name="tab_browse_off" width="16" height="19"/>
+        <image name="tab_browse_on" width="16" height="19"/>
+        <image name="tab_calendar_off" width="17" height="19"/>
+        <image name="tab_calendar_on" width="17" height="19"/>
         <image name="tab_msg_off" width="21" height="19"/>
         <image name="tab_msg_on" width="21" height="19"/>
-        <image name="tab_profile_off" width="21" height="24"/>
-        <image name="tab_profile_on" width="21" height="24"/>
-        <image name="tab_settings_off" width="21" height="21"/>
-        <image name="tab_settings_on" width="21" height="21"/>
+        <image name="tab_profile_off" width="17" height="20"/>
+        <image name="tab_profile_on" width="17" height="20"/>
+        <image name="tab_settings_off" width="19" height="19"/>
+        <image name="tab_settings_on" width="19" height="19"/>
     </resources>
 </document>

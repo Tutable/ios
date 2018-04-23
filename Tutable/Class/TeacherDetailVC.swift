@@ -101,7 +101,17 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         if teacherData.qualification != ""
         {
-            arrTemp.append(["name" : teacherData.qualification, "image" : "qualification_icon"])
+            var strDegree : String = teacherData.qualification
+            if teacherData.school != ""
+            {
+                strDegree = strDegree + " from " + teacherData.school
+            }
+            arrTemp.append(["name" : strDegree, "image" : "qualification_icon"])
+        }
+        
+        if teacherData.experience > 0
+        {
+            arrTemp.append(["name" : String(teacherData.experience), "image" : "experience_icon"])
         }
         
         let certsDict : [String : Any] = teacherData.certs
@@ -111,7 +121,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
         if let children : String = certsDict["childrenCertificate"] as? String, children != ""
         {
-            arrTemp.append(["name" : "Works with children", "image" : "accept"])
+            arrTemp.append(["name" : "WWCC", "image" : "accept"])
         }
         
         quality1Btn.isHidden = true
@@ -140,6 +150,12 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 quality3Btn.setTitle(arrTemp[i]["name"], for: .normal)
                 quality3Btn.isHidden = false
                 constraintHeightQualityView.constant = 80
+            }
+            else if i == 3
+            {
+                quality4Btn.setImage(UIImage.init(named: arrTemp[i]["image"]!), for: .normal)
+                quality4Btn.setTitle(arrTemp[i]["name"], for: .normal)
+                quality4Btn.isHidden = false
             }
         }
         aboutUserLbl.numberOfLines = 3

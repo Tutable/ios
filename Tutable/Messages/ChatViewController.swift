@@ -172,7 +172,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
         }
         else
         {
-            var fname : String = receiver.name
+            var fname : String = getFirstName(name: receiver.name)
             if fname.contains(" ")
             {
                 let tempArr : [String] = fname.components(separatedBy: " ")

@@ -99,6 +99,10 @@ public class APIManager {
                                 completion()
                                 return
                             }
+                            else if code == 104
+                            {
+                                displayToast("User laready exists")
+                            }
                         }
                         else if let message = result["message"] as? String{
                             displayToast(message)
@@ -1062,7 +1066,7 @@ public class APIManager {
         
         var params :[String : Any] = [String : Any] ()
         
-        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "bio" : AppModel.shared.currentClass.bio, "rate" : AppModel.shared.currentClass.rate, "classId" : AppModel.shared.currentClass.id])
+        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "bio" : AppModel.shared.currentClass.bio, "whyQualified" : AppModel.shared.currentClass.whyQualified, "rate" : AppModel.shared.currentClass.rate, "classId" : AppModel.shared.currentClass.id])
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
@@ -1777,7 +1781,15 @@ public class APIManager {
     //MARK: - Fetch Image
     func serviceCallToGetPhoto(_ picPath:String?, placeHolder : String, btn:[UIButton]){
         
-        let url : String = BASE_URL + picPath!
+        var url : String = ""
+        if picPath!.contains("http://") || picPath!.contains("https://")
+        {
+            url = picPath!
+        }
+        else
+        {
+            url = BASE_URL + picPath!
+        }
         
         for i in 0..<btn.count{
             btn[i].sd_setBackgroundImage(with: URL(string : url), for: .normal, completed: { (image, error, caheType, url) in

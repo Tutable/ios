@@ -36,6 +36,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
     @IBOutlet weak var relevantSegment: UISegmentedControl!
     @IBOutlet weak var qulificationTxt: UITextField!
     @IBOutlet weak var schoolTxt: UITextField!
+    @IBOutlet weak var experienceearTxt: UITextField!
     @IBOutlet weak var degreeImgBtn: UIButton!
     
     @IBOutlet weak var continueBtn: UIButton!
@@ -143,6 +144,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             relevantSegment.selectedSegmentIndex = 0
             qulificationTxt.text = AppModel.shared.currentUser.qualification
             schoolTxt.text = AppModel.shared.currentUser.school
+            experienceearTxt.text = String(AppModel.shared.currentUser.experience)
             if AppModel.shared.currentUser.degreeAsset != ""
             {
                 APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.degreeAsset, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [degreeImgBtn])
@@ -232,6 +234,15 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
         uploadImage()
     }
     
+    @IBAction func clickToChildrenCheckURL(_ sender: Any) {
+        self.view.endEditing(true)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string : CHILDREN_CHECK_URL)!, options: [:], completionHandler: nil)
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
     @IBAction func clickToUploadDegreeImg(_ sender: Any) {
         self.view.endEditing(true)
         photoSelectionType = PHOTO.DEGREE_IMAGE
@@ -291,6 +302,10 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
         {
             displayToast("Please enter your school name")
         }
+        else if experienceearTxt.text == ""
+        {
+            displayToast("Please enter your experience")
+        }
         else if relevantSegment.selectedSegmentIndex == 0 && AppModel.shared.currentUser.degreeAsset == "" && degreeImg == nil
         {
             displayToast("Please upload your degree")
@@ -335,6 +350,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
                 AppModel.shared.currentUser.school = schoolTxt.text
                 dict["qualification"] = AppModel.shared.currentUser.qualification
                 dict["school"] = AppModel.shared.currentUser.school
+                dict["experience"] = experienceearTxt.text
             }
             
             var imageData : Data = Data()

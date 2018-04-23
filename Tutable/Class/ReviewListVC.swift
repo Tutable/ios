@@ -59,7 +59,7 @@ class ReviewListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         let cell = tblView.dequeueReusableCell(withIdentifier: "CustomReviewsTVC", for: indexPath) as! CustomReviewsTVC
         let review : ReviewModel = reviewData[indexPath.row]
         APIManager.sharedInstance.serviceCallToGetPhoto(review.student.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [cell.profileImgBtn])
-        cell.nameLbl.text = review.student.name
+        cell.nameLbl.text = getFirstName(name: review.student.name)
         cell.starView.rating = review.stars
         cell.reviewLbl.text = review.review
         return cell

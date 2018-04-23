@@ -12,7 +12,8 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tblView: UITableView!
 
-    var arrData : [[String : String]] = [["image" : "information", "name" : "Help"],["image" : "account", "name" : "Account Details"],["image" : "logo_green", "name" : "About"],["image" : "logout", "name" : "Log out"],["image" : "", "name" : "Delete Account"]]
+    
+    var arrData : [[String : String]] = [["image" : "information", "name" : "Help"],["image" : "account", "name" : (isStudentLogin() ? "Payment method" : "Payment details")],["image" : "logo_green", "name" : "About"],["image" : "logout", "name" : "Log out"],["image" : "", "name" : "Delete Account"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +84,7 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         case 4:
             DispatchQueue.main.async {
                 showAlertWithOption("Tutable", message: "Are you sure you want to delete your account?", btns: ["Yes, Delete", "No"], completionConfirm: {
-                    displayToast("Account Detele Successfully")
+                    displayToast("Account deleted successfully")
                     APIManager.sharedInstance.serviceCallToDeleteUser()
                 }) {
                     

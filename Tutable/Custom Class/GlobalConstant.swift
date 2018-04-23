@@ -24,12 +24,13 @@ let APP_VERSION = 1.0
 let BUILD_VERSION = 1
 
 let POLICE_CHECK_URL = "https://npcoapr.police.nsw.gov.au/aspx/dataentry/Introduction.aspx"
+let CHILDREN_CHECK_URL = "https://www.service.nsw.gov.au/transaction/apply-working-children-check"
 
 let ITUNES_URL = "https://itunes.apple.com/us/app/lit-nite/id1360588270?ls=1&mt=8"
 
 let TERMS_CONDITIONS = "http://mylitnite.com/terms"
 
-let stateArr : [String] = ["ACT", "JBT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"]
+let stateArr : [String] = ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"]
 let classLevelArr : [String] = ["Beginner", "Intermediate", "Advanced"]
 
 struct SCREEN
@@ -59,8 +60,8 @@ struct DATE_FORMAT {
 }
 
 struct CONSTANT{
-    static var DP_IMAGE_WIDTH     =  512
-    static var DP_IMAGE_HEIGHT    =  512
+    static var DP_IMAGE_WIDTH     =  800
+    static var DP_IMAGE_HEIGHT    =  800
 }
 
 struct IMAGE {

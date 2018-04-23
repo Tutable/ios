@@ -102,7 +102,7 @@ class MessageVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         {
             let otherUser : FirebaseUserModel = AppModel.shared.USERS[index!]
             APIManager.sharedInstance.serviceCallToGetPhoto(otherUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [cell.imageBtn])
-            cell.nameLbl.text = otherUser.name
+            cell.nameLbl.text = getFirstName(name: otherUser.name)
             if otherUser.last_seen == ""
             {
                 cell.statusImgView.backgroundColor = colorFromHex(hex: COLOR.APP_COLOR)

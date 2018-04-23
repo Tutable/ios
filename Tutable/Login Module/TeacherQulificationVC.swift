@@ -13,6 +13,7 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var relevantSegment: UISegmentedControl!
     @IBOutlet weak var qulificationTxt: UITextField!
     @IBOutlet weak var schoolTxt: UITextField!
+    @IBOutlet weak var exprienceYearTxt: UITextField!
     @IBOutlet weak var degreeImgBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
@@ -92,6 +93,10 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
             {
                 displayToast("Please enter your school name")
             }
+            else if exprienceYearTxt.text == ""
+            {
+                displayToast("Please enter your experience")
+            }
             else if AppModel.shared.currentUser.degreeAsset == "" && degreeImg == nil
             {
                 displayToast("Please upload your degree")
@@ -100,7 +105,7 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
             {
                 AppModel.shared.currentUser.qualification = qulificationTxt.text
                 AppModel.shared.currentUser.school = schoolTxt.text
-                let dict : [String  :Any] = ["qualification" : AppModel.shared.currentUser.qualification, "school" : AppModel.shared.currentUser.school]
+                let dict : [String  :Any] = ["qualification" : AppModel.shared.currentUser.qualification, "school" : AppModel.shared.currentUser.school, "experience" : AppModel.shared.currentUser.experience]
                 print(dict)
                 if degreeImg == nil
                 {

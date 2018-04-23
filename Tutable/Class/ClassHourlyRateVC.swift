@@ -90,11 +90,18 @@ class ClassHourlyRateVC: UIViewController {
     func continueUpdating(_ imageData : Data)
     {
         APIManager.sharedInstance.serviceCallToUpdateClass(imageData) {
-            displayToast("Class Updated Successfully")
-            for controller in self.navigationController!.viewControllers as Array {
-                if controller.isKind(of: ClassDetailVC.self) {
-                    self.navigationController!.popToViewController(controller, animated: true)
-                    break
+            displayToast("Class updated successfully")
+            if self.tabBarController?.tabBar == nil
+            {
+                AppDelegate().sharedDelegate().navigateToDashboard()
+            }
+            else
+            {
+                for controller in self.navigationController!.viewControllers as Array {
+                    if controller.isKind(of: ClassDetailVC.self) {
+                        self.navigationController!.popToViewController(controller, animated: true)
+                        break
+                    }
                 }
             }
         }

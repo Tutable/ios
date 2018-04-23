@@ -17,7 +17,8 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var classNameTxt: UITextField!
     @IBOutlet weak var classImgBtn: UIButton!
     @IBOutlet weak var categoryBtn: UIButton!
-    @IBOutlet weak var subjectLbl: UITextField!
+    @IBOutlet weak var aboutClassTxt: UITextField!
+    @IBOutlet weak var subjectTxt: UITextField!
     @IBOutlet weak var nextBtn: UIButton!
     
     @IBOutlet var categoryContainerView: UIView!
@@ -104,7 +105,8 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         categoryBtn.setTitle(selectedCategory.title, for: .normal)
         selectedLevel = AppModel.shared.currentClass.level
         levelSlider.setIndex(UInt(selectedLevel-1), animated: false)
-        subjectLbl.text = AppModel.shared.currentClass.bio
+        aboutClassTxt.text = AppModel.shared.currentClass.bio
+        subjectTxt.text = AppModel.shared.currentClass.whyQualified
     }
     
     func setCategoryData()
@@ -138,7 +140,7 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBAction func clickToSelectCategory(_ sender: Any) {
         self.view.endEditing(true)
         categoryTblView.reloadData()
-        constraintHeightCategoryPopup.constant = categoryTblView.contentSize.height + 10
+        constraintHeightCategoryPopup.constant = CGFloat(categoryArr.count*50)
         if constraintHeightCategoryPopup.constant > (UIScreen.main.bounds.size.height - 100)
         {
             constraintHeightCategoryPopup.constant = (UIScreen.main.bounds.size.height - 100)
@@ -165,7 +167,11 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         {
             displayToast("Please select class image")
         }
-        else if subjectLbl.text?.trimmed == ""
+        else if aboutClassTxt.text?.trimmed == ""
+        {
+            displayToast("Please enter about this class.")
+        }
+        else if subjectTxt.text?.trimmed == ""
         {
             displayToast("Please enter why you are qualified to teach this class.")
         }
@@ -174,7 +180,8 @@ class AddClassVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             AppModel.shared.currentClass.name = classNameTxt.text
             AppModel.shared.currentClass.category = selectedCategory
             AppModel.shared.currentClass.level = Int(levelSlider.index + 1)
-            AppModel.shared.currentClass.bio = subjectLbl.text
+            AppModel.shared.currentClass.bio = aboutClassTxt.text
+            AppModel.shared.currentClass.whyQualified = subjectTxt.text
             AppModel.shared.currentClass.timeline = Double(getCurrentTimeStampValue())
             
             let vc : ClassHourlyRateVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "ClassHourlyRateVC") as! ClassHourlyRateVC

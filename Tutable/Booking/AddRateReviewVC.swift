@@ -62,7 +62,7 @@ class AddRateReviewVC: UIViewController, UITextViewDelegate {
         
         classNameLbl.text = bookClassData.classDetails.name
         APIManager.sharedInstance.serviceCallToGetPhoto(bookClassData.teacher.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userPicBtn])
-        userNameLbl.text = bookClassData.teacher.name
+        userNameLbl.text = getFirstName(name: bookClassData.teacher.name)
         dateTimeLbl.text = AppDelegate().sharedDelegate().getDateTimeValueFromSlot(bookClassData.slot)
         priceLbl.text = setFlotingPriceWithCurrency(bookClassData.classDetails.rate)
         

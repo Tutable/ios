@@ -236,6 +236,17 @@ func setFlotingPrice(_ price : Float) -> String
     return strPrice
 }
 
+func setRatingValue(rate : Double) -> String
+{
+    var strRate : String = String(format: "%0.1f", rate)
+    if strRate.contains(".0")
+    {
+        strRate = strRate.replacingOccurrences(of: ".0", with: "")
+    }
+    return strRate
+}
+
+
 func getIPAddress() -> String? {
     
     var address : String?
@@ -310,6 +321,35 @@ func getIFAddresses() -> [String] {
     
     freeifaddrs(ifaddr)
     return addresses
+}
+
+
+func getFirstName(name : String) -> String
+{
+    var fname : String = name
+    if fname.contains(" ")
+    {
+        let arrTemp = fname.components(separatedBy: " ")
+        if arrTemp.count > 0
+        {
+            fname = arrTemp[0]
+        }
+    }
+    return fname
+}
+
+func getLastName(name : String) -> String
+{
+    var lname : String = name
+    if lname.contains(" ")
+    {
+        let arrTemp = lname.components(separatedBy: " ")
+        if arrTemp.count > 1
+        {
+            lname = arrTemp[1]
+        }
+    }
+    return lname
 }
 
 extension UIImage {
