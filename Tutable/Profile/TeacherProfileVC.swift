@@ -39,9 +39,7 @@ class TeacherProfileVC: UIViewController {
         let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
         tabBar.setTabBarHidden(tabBarHidden: false)
         
-        delay(0.5) {
-            self.setTeacherDetail()
-        }
+        self.setTeacherDetail()
         
     }
     

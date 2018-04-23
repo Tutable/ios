@@ -231,3 +231,11 @@ func getOrdinalDate(date : Date) -> String{
     }
     return day + " " + newDate
 }
+
+func getUserAge(date : Date) -> Int
+{
+    let calendar = Calendar.current
+    let totalYear = calendar.dateComponents([.year], from: date, to: Date())
+    return totalYear.year!
+}
+

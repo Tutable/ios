@@ -144,7 +144,14 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             relevantSegment.selectedSegmentIndex = 0
             qulificationTxt.text = AppModel.shared.currentUser.qualification
             schoolTxt.text = AppModel.shared.currentUser.school
-            experienceearTxt.text = String(AppModel.shared.currentUser.experience)
+            if AppModel.shared.currentUser.experience > 0
+            {
+                experienceearTxt.text = String(AppModel.shared.currentUser.experience)
+            }
+            else
+            {
+                experienceearTxt.text = ""
+            }
             if AppModel.shared.currentUser.degreeAsset != ""
             {
                 APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.degreeAsset, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [degreeImgBtn])
@@ -255,12 +262,14 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             qulificationTxt.isUserInteractionEnabled = true
             schoolTxt.isUserInteractionEnabled = true
             degreeImgBtn.isUserInteractionEnabled = true
+            experienceearTxt.isUserInteractionEnabled = true
         }
         else
         {
             qulificationTxt.isUserInteractionEnabled = false
             schoolTxt.isUserInteractionEnabled = false
             degreeImgBtn.isUserInteractionEnabled = false
+            experienceearTxt.isUserInteractionEnabled = false
         }
     }
     
@@ -277,6 +286,10 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
         else if selectedDob == nil || dobTxt.text == ""
         {
             displayToast("Please select date of birth")
+        }
+        else if getUserAge(date: selectedDob) < VALID_USER_AGE
+        {
+            displayToast("You need to be atleast 13 years old to register")
         }
         else if aboutMeTxt.text == ""
         {

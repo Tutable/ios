@@ -33,6 +33,8 @@ let TERMS_CONDITIONS = "http://mylitnite.com/terms"
 let stateArr : [String] = ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"]
 let classLevelArr : [String] = ["Beginner", "Intermediate", "Advanced"]
 
+let VALID_USER_AGE = 13
+
 struct SCREEN
 {
     static var WIDTH = UIScreen.main.bounds.size.width

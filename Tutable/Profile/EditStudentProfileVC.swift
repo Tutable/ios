@@ -126,6 +126,10 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePicker
         {
             displayToast("Please select date of birth")
         }
+        else if getUserAge(date: selectedDob) < VALID_USER_AGE
+        {
+            displayToast("You need to be atleast 13 years old to register")
+        }
         else
         {
             var dict : [String : Any] = [String : Any]()

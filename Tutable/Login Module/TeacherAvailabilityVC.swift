@@ -28,10 +28,7 @@ class TeacherAvailabilityVC: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var btn6: UIButton!
     @IBOutlet weak var btn7: UIButton!
     
-/*["name" : "1 AM to 2 AM", "value" : "01-02"],
- ["name" : "2 AM to 3 AM", "value" : "02-03"],
- ["name" : "3 AM to 4 AM", "value" : "03-04"],
- ["name" : "4 AM to 5 AM", "value" : "04-05"],*/
+
     
     var timeArr : [[String : String]] = [["name" : "5 AM to 6 AM", "value" : "05-06"],
                                         ["name" : "6 AM to 7 AM", "value" : "06-07"],
@@ -52,7 +49,11 @@ class TeacherAvailabilityVC: UIViewController, UITableViewDelegate, UITableViewD
                                         ["name" : "9 PM to 10 PM", "value" : "21-22"],
                                         ["name" : "10 PM to 11 PM", "value" : "22-23"],
                                         ["name" : "11 PM to 12 AM", "value" : "23-24"],
-                                        ["name" : "12 AM to 1 AM", "value" : "24-01"]
+                                        ["name" : "12 AM to 1 AM", "value" : "24-01"],
+                                        ["name" : "1 AM to 2 AM", "value" : "01-02"],
+                                        ["name" : "2 AM to 3 AM", "value" : "02-03"],
+                                        ["name" : "3 AM to 4 AM", "value" : "03-04"],
+                                        ["name" : "4 AM to 5 AM", "value" : "04-05"]
     ]
     
     var finalTimeDict : [String : [String]] = [String : [String]]()

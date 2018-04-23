@@ -860,10 +860,10 @@ public class APIManager {
                         if let code = result["code"] as? Int{
                             if(code == 100){
                                 self.serviceCallToGetUserDetail {
-                                    
+                                    completion()
+                                    return
                                 }
-                                completion()
-                                return
+                                
                             }
                         }
                         else if let message = result["message"] as? String {
@@ -1006,7 +1006,7 @@ public class APIManager {
         
         var params :[String : Any] = [String : Any] ()
         
-        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "bio" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "rate" : AppModel.shared.currentClass.rate])
+        params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "bio" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "whyQualified" : AppModel.shared.currentClass.whyQualified, "rate" : AppModel.shared.currentClass.rate])
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
@@ -1458,25 +1458,23 @@ public class APIManager {
                 print(response.result.value!)
                 if let result = response.result.value as? [String:Any]{
                     if let code = result["code"] as? Int{
-                        if(code == 104){
-                            if let errorDict = result["error"] as? [String : Any]{
-                                if let message = errorDict["message"] as? String{
-                                    displayToast(message)
-                                }
+                        if code == 100
+                        {
+                            self.serviceCallToGetUserDetail({
+                                completion()
+                                return
+                            })
+                        }
+                        else if(code == 104){
+                            if let message = result["message"] as? String{
+                                displayToast(message)
                             }
                         }
                     }
-                    else
-                    {
-                        self.serviceCallToGetUserDetail({
-                            completion()
-                            return
-                        })
-                    }
-                    if (result["message"] as? String) != nil{
-                        displayToast((result["message"] as? String)!)
-                        return
-                    }
+//                    if (result["message"] as? String) != nil{
+//                        displayToast((result["message"] as? String)!)
+//                        return
+//                    }
                 }
                 
                 if let error = response.error{

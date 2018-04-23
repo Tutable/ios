@@ -90,6 +90,10 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, UIImagePickerC
         {
             displayToast("Please select date of birth")
         }
+        else if getUserAge(date: selectedDob) < VALID_USER_AGE
+        {
+            displayToast("You need to be atleast 13 years old to register")
+        }
         else
         {
             AppModel.shared.currentUser = UserModel.init(dict: [String : Any]())

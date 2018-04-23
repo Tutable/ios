@@ -141,6 +141,10 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
         {
             displayToast("Please select date of birth")
         }
+        else if getUserAge(date: selectedDob) < VALID_USER_AGE
+        {
+            displayToast("You need to be atleast 13 years old to be able to accept paymenmts")
+        }
         else if _imgCompress == nil
         {
             displayToast("Please add a valid verification document")
@@ -180,7 +184,7 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
             print(finalDict)
             if let imageData = UIImagePNGRepresentation(_imgCompress){
                 APIManager.sharedInstance.serviceCallToCreateStripeBankAccount(finalDict, imgData: imageData, completion: {
-                    displayToast("Account Create Succefully.")
+                    displayToast("Account created successfully")
                     self.navigationController?.popViewController(animated: true)
                 })
             }

@@ -98,7 +98,7 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func logoutUser()
     {
-        showAlertWithOption("Tutable", message: "Are you sure you want to Logout?", btns: ["Log out", "No"], completionConfirm: {
+        showAlertWithOption("Tutable", message: "Are you sure you want to Logout?", btns: ["Log out", "Cancel"], completionConfirm: {
             AppDelegate().sharedDelegate().logoutApp()
         }) {
             

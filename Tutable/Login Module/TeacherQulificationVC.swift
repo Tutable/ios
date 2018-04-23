@@ -62,12 +62,14 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
             qulificationTxt.isUserInteractionEnabled = true
             schoolTxt.isUserInteractionEnabled = true
             degreeImgBtn.isUserInteractionEnabled = true
+            exprienceYearTxt.isUserInteractionEnabled = true
         }
         else
         {
             qulificationTxt.isUserInteractionEnabled = false
             schoolTxt.isUserInteractionEnabled = false
             degreeImgBtn.isUserInteractionEnabled = false
+            exprienceYearTxt.isUserInteractionEnabled = false
         }
     }
     
@@ -105,6 +107,7 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
             {
                 AppModel.shared.currentUser.qualification = qulificationTxt.text
                 AppModel.shared.currentUser.school = schoolTxt.text
+                AppModel.shared.currentUser.experience = Int(exprienceYearTxt.text!)
                 let dict : [String  :Any] = ["qualification" : AppModel.shared.currentUser.qualification, "school" : AppModel.shared.currentUser.school, "experience" : AppModel.shared.currentUser.experience]
                 print(dict)
                 if degreeImg == nil
