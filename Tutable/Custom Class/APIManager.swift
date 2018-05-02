@@ -708,7 +708,7 @@ public class APIManager {
         var params :[String : Any] = [String : Any] ()
         params["data"] = AppModel.shared.currentUser.toJson(dict)
         
-        print(getMultipartHeaderWithToken())
+        //print(getMultipartHeaderWithToken())
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
                 multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
@@ -972,26 +972,30 @@ public class APIManager {
         }
     }
     
-    //MARK:- Get Photo
-    func serviceCallToGetUserAvatar(_ user:UserModel, btn:UIButton){
+    //MARK:- Get Certificate Image
+    func serviceCallToGetCertificateImage(_ path:String, btn:UIButton, completion: @escaping () -> Void){
         
+//        if let image : UIImage = AppModel.shared.imageQueue[path] as? UIImage
+//        {
+//            btn.setBackgroundImage(image, for: .normal)
+//            completion()
+//            return
+//        }
         let _ :[String : String] = [String:String]()
         
-        var strUrl : String = BASE_URL+"user/getProfilePic/"+user.picture
-        if isStudentLogin()
-        {
-            strUrl = BASE_URL+"student/assets/"+user.picture
-        }
+        let strUrl : String = BASE_URL + path
         
         Alamofire.request(strUrl).responseImage { response in
             if let image = response.result.value {
                 btn.setBackgroundImage(image, for: .normal)
-                AppModel.shared.usersAvatar[user.id] = image
+                AppModel.shared.imageQueue[path] = image
+                completion()
                 return
             }
             else
             {
-                
+                btn.setBackgroundImage(UIImage.init(named: IMAGE.CAMERA_PLACEHOLDER), for: .normal)
+                completion()
             }
         }
     }

@@ -62,14 +62,16 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
             qulificationTxt.isUserInteractionEnabled = true
             schoolTxt.isUserInteractionEnabled = true
             degreeImgBtn.isUserInteractionEnabled = true
-//            exprienceYearTxt.isUserInteractionEnabled = true
         }
         else
         {
             qulificationTxt.isUserInteractionEnabled = false
             schoolTxt.isUserInteractionEnabled = false
             degreeImgBtn.isUserInteractionEnabled = false
-//            exprienceYearTxt.isUserInteractionEnabled = false
+            qulificationTxt.text = ""
+            schoolTxt.text = ""
+            degreeImg = nil
+            degreeImgBtn.setBackgroundImage(UIImage.init(named: IMAGE.CAMERA_PLACEHOLDER), for: .normal)
         }
     }
     

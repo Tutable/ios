@@ -21,6 +21,19 @@ class HelpAboutUsVC: UIViewController {
         // Do any additional setup after loading the view.
         
         titlelbl.text = strTitle
+        setDataValue()
+        aboutTxtView.setContentOffset(CGPoint.zero, animated: false)
+        if aboutTxtView.text == ""
+        {
+            APIManager.sharedInstance.serviceCallToGetHelpAbout()
+            delay(5.0, closure: {
+                self.setDataValue()
+            })
+        }
+    }
+
+    func setDataValue()
+    {
         if strTitle == "HELP"
         {
             aboutTxtView.text = getHelpContent()
@@ -33,9 +46,8 @@ class HelpAboutUsVC: UIViewController {
         {
             aboutTxtView.text = getTearmsConditionContent()
         }
-        aboutTxtView.setContentOffset(CGPoint.zero, animated: false)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         if self.tabBarController != nil
         {

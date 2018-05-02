@@ -94,6 +94,14 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             return
         }
         APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
+//        if let police : String = AppModel.shared.currentUser.certs["policeCertificate"] as? String
+//        {
+//            APIManager.sharedInstance.serviceCallToGetPhoto(police, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [policeCheckBtn])
+//        }
+//        if let police : String = AppModel.shared.currentUser.certs["policeCertificate"] as? String
+//        {
+//            APIManager.sharedInstance.serviceCallToGetPhoto(police, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [policeCheckBtn])
+//        }
         if getPoliceCertificate() != "" && getChildreanCertificate() != ""
         {
             setCertificateImage()
@@ -173,32 +181,15 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
     {
         if getPoliceCertificate() != ""
         {
-            
-            
-            let sd = SDWebImageDownloader.init()
-            sd.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            sd.setValue(AppModel.shared.token, forHTTPHeaderField: "Authorization")
-            
-            let str = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api" + getPoliceCertificate()
-            
-            sd.downloadImage(with: URL.init(string: str), options: SDWebImageDownloaderOptions.progressiveDownload, progress: nil, completed: { (image, _, err, _) in
-                
-                if image != nil {
-                    
-                    self.policeCheckBtn.setBackgroundImage(image, for: .normal)
-                    self.policeCheckImg = image
-                } else if err != nil {
-                    
-                    print(err?.localizedDescription ?? "")
-                }
-                
+            APIManager.sharedInstance.serviceCallToGetCertificateImage(getPoliceCertificate(), btn: policeCheckBtn, completion: {
+                self.policeCheckImg = self.policeCheckBtn.backgroundImage(for: .normal)
             })
-            
-//            APIManager.sharedInstance.serviceCallToGetCertificate(getPoliceCertificate(), placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [policeCheckBtn])
         }
         if getChildreanCertificate() != ""
         {
-            APIManager.sharedInstance.serviceCallToGetCertificate(getChildreanCertificate(), placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [childrenCheckBtn])
+            APIManager.sharedInstance.serviceCallToGetCertificateImage(getChildreanCertificate(), btn: childrenCheckBtn, completion: {
+                self.childrenCheckImg = self.childrenCheckBtn.backgroundImage(for: .normal)
+            })
         }
     }
     
@@ -304,6 +295,10 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             qulificationTxt.isUserInteractionEnabled = false
             schoolTxt.isUserInteractionEnabled = false
             degreeImgBtn.isUserInteractionEnabled = false
+            qulificationTxt.text = ""
+            schoolTxt.text = ""
+            degreeImg = nil
+            degreeImgBtn.setBackgroundImage(UIImage.init(named: IMAGE.CAMERA_PLACEHOLDER), for: .normal)
         }
     }
     

@@ -57,18 +57,6 @@ func getTableBackgroundViewForNoData(_ str:String, size:CGSize) -> UIView{
     return noDataLabel
 }
 
-//MARK:- set button Image
-func setUserProfileImage(_ user : UserModel, button : UIButton)
-{
-    if let image : UIImage = AppModel.shared.usersAvatar[user.id]{
-        button.setBackgroundImage(image.imageCropped(toFit: button.frame.size), for: .normal)
-    }
-    else{
-        button.setBackgroundImage(UIImage(named:IMAGE.USER_PLACEHOLDER), for: .normal)
-        APIManager.sharedInstance.serviceCallToGetUserAvatar(user, btn: button)
-    }
-}
-
 //MARK:- Toast
 func displayToast(_ message:String)
 {
