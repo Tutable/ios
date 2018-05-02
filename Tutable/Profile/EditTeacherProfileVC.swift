@@ -386,11 +386,6 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             dict["gender"] = AppModel.shared.currentUser.gender
             dict["email"] = AppModel.shared.currentUser.email
             dict["bio"] = AppModel.shared.currentUser.bio
-            if relevantSegment.selectedSegmentIndex == 1 {
-                
-                dict["hasDegree"] = false
-
-            }
             
             let location : LocationModel = LocationModel.init()
             location.state = stateLbl.text?.uppercased()
@@ -405,9 +400,14 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
                 dict["qualification"] = AppModel.shared.currentUser.qualification
                 dict["school"] = AppModel.shared.currentUser.school
                 dict["experience"] = experienceearTxt.text
+                AppModel.shared.currentUser.hasDegree = true
+            }
+            else
+            {
+                AppModel.shared.currentUser.hasDegree = false
             }
             dict["experience"] = experienceearTxt.text
-
+            dict["hasDegree"] = AppModel.shared.currentUser.hasDegree
             var imageData : Data = Data()
             var degreeData : Data = Data()
             var policeData : Data = Data()

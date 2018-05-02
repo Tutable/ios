@@ -90,6 +90,7 @@ class UserModel:AppModel{
     var notifications : Int!
     var certs : [String : Any]!
     var card : [String : Any]!
+    var hasDegree : Bool!
     
     override init(){
         id = ""
@@ -118,6 +119,7 @@ class UserModel:AppModel{
         notifications = 0
         certs = [String : Any]()
         card = [String : Any]()
+        hasDegree = false
     }
     init(dict : [String : Any])
     {
@@ -147,6 +149,7 @@ class UserModel:AppModel{
         notifications = 0
         certs = [String : Any]()
         card = [String : Any]()
+        hasDegree = false
         
         if let Id = dict["id"] as? String{
             id = Id
@@ -271,10 +274,13 @@ class UserModel:AppModel{
         if let temp = dict["card"] as? [String : Any]{
             card = temp
         }
+        if let temp = dict["hasDegree"] as? Bool{
+            hasDegree = temp
+        }
     }
     
     func dictionary() -> [String:Any]{
-        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "experience" : experience, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert, "notifications" : notifications, "certs" : certs, "card" : card]
+        return ["id":id,"name":name,"email" : email, "password" : password, "verificationCode" : verificationCode, "accessToken":accessToken, "picture":picture, "blocked":blocked, "degreeAsset":degreeAsset, "deleted":deleted, "firstLogin":firstLogin, "isVerified":isVerified, "dob":dob, "gender":gender, "bio":bio, "availability" : availability, "address":address.dictionary(), "qualification":qualification, "school":school, "experience" : experience, "deviceId":deviceId, "policeCert" : policeCert, "childrenCert" : childrenCert, "notifications" : notifications, "certs" : certs, "card" : card, "hasDegree" : hasDegree]
     }
     
     func toJson(_ dict:[String:Any]) -> String{

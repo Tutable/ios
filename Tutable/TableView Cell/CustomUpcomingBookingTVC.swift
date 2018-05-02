@@ -18,7 +18,7 @@ class CustomUpcomingBookingTVC: UITableViewCell {
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var dateTimeLbl: UILabel!
     @IBOutlet weak var cancelBtn: UIButton!
-    @IBOutlet weak var acceptBtn: UIButton!
+    @IBOutlet weak var userNameBtn: UIButton!
     @IBOutlet weak var chatBtn: UIButton!
     @IBOutlet weak var starBtn: UIButton!
     @IBOutlet weak var starView: FloatRatingView!
@@ -27,7 +27,7 @@ class CustomUpcomingBookingTVC: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       starView.type = .floatRatings
+        starView.type = .floatRatings
         starView.editable = false
     }
 
