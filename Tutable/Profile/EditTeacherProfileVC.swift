@@ -166,6 +166,7 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
                 APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.degreeAsset, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [degreeImgBtn])
             }
         }
+        setDegreeFields()
     }
     
     func setCertificateImage()
@@ -287,19 +288,22 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
     }
     
     @IBAction func clickToChangeSegment(_ sender: Any) {
+        setDegreeFields()
+    }
+    
+    func setDegreeFields()
+    {
         if relevantSegment.selectedSegmentIndex == 0
         {
             qulificationTxt.isUserInteractionEnabled = true
             schoolTxt.isUserInteractionEnabled = true
             degreeImgBtn.isUserInteractionEnabled = true
-            experienceearTxt.isUserInteractionEnabled = true
         }
         else
         {
             qulificationTxt.isUserInteractionEnabled = false
             schoolTxt.isUserInteractionEnabled = false
             degreeImgBtn.isUserInteractionEnabled = false
-            experienceearTxt.isUserInteractionEnabled = false
         }
     }
     
@@ -351,10 +355,10 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
         {
             displayToast("Please enter your school name")
         }
-        else if relevantSegment.selectedSegmentIndex == 0 && experienceearTxt.text == ""
-        {
-            displayToast("Please enter your experience")
-        }
+//        else if relevantSegment.selectedSegmentIndex == 0 && experienceearTxt.text == ""
+//        {
+//            displayToast("Please enter your experience")
+//        }
         else if relevantSegment.selectedSegmentIndex == 0 && AppModel.shared.currentUser.degreeAsset == "" && degreeImg == nil
         {
             displayToast("Please upload your degree")
@@ -399,7 +403,6 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
                 AppModel.shared.currentUser.school = schoolTxt.text
                 dict["qualification"] = AppModel.shared.currentUser.qualification
                 dict["school"] = AppModel.shared.currentUser.school
-                dict["experience"] = experienceearTxt.text
                 AppModel.shared.currentUser.hasDegree = true
             }
             else
