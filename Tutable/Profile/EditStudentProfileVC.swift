@@ -154,7 +154,7 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePicker
     func continueUpdating(_ dict : [String : Any], _ imageData : Data)
     {
         APIManager.sharedInstance.serviceCallToUpdateStudentDetail(dict, pictureData: imageData) {
-            displayToast("You have successfully Logged In")
+            displayToast("Profile updated successfully.")
             if AppModel.shared.firebaseCurrentUser != nil
             {
                 AppModel.shared.firebaseCurrentUser.name =  AppModel.shared.currentUser.name
@@ -197,7 +197,19 @@ class EditStudentProfileVC: UIViewController, UITextFieldDelegate, UIImagePicker
             print("Camera")
             self.onCaptureImageThroughCamera()
         }
+        
+        
         actionSheet.addAction(cameraButton)
+        
+        let deleteButton = UIAlertAction(title: "Delete Photo", style: .default)
+        { _ in
+            print("Delete")
+            self._imgCompress = nil
+             self.profilePicBtn.setBackgroundImage(UIImage.init(named: IMAGE.USER_PLACEHOLDER), for: .normal)
+        }
+        
+        
+        actionSheet.addAction(deleteButton)
         
         let galleryButton = UIAlertAction(title: "Choose Existing Photo", style: .default)
         { _ in

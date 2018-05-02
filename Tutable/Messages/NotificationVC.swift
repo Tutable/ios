@@ -203,6 +203,11 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                         {
                             self.noDataFound.isHidden = true
                         }
+                    } else {
+                        
+                        
+                        displayToast("You already have a class scheduled at this time")
+
                     }
                 }
             }

@@ -128,6 +128,8 @@ class TeacherProfileVC: UIViewController {
                 quality2Btn.setImage(UIImage.init(named: arrTemp[i]["image"]!), for: .normal)
                 quality2Btn.setTitle(arrTemp[i]["name"], for: .normal)
                 quality2Btn.isHidden = false
+                constraintHeightQualityView.constant = 40
+
             }
             else if i == 2
             {
@@ -141,6 +143,8 @@ class TeacherProfileVC: UIViewController {
                 quality4Btn.setImage(UIImage.init(named: arrTemp[i]["image"]!), for: .normal)
                 quality4Btn.setTitle(arrTemp[i]["name"], for: .normal)
                 quality4Btn.isHidden = false
+                constraintHeightQualityView.constant = 80
+
             }
         }
         aboutUserLbl.numberOfLines = 3
@@ -149,6 +153,7 @@ class TeacherProfileVC: UIViewController {
         if constraintHeightAboutUserLbl.constant < 60
         {
             seeMoreLessBtn.isHidden = true
+            
         }
         else
         {

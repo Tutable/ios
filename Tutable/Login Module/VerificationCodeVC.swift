@@ -134,7 +134,7 @@ class VerificationCodeVC: UIViewController, UITextFieldDelegate {
     func serviceCalledForResendOTP()
     {
         APIManager.sharedInstance.serviceCallToResendVerifyCode(tokenType, completion: {
-            displayToast("Code is sent to your email address, please verify now.")
+            displayToast("We've re-sent the code, try checking now!")
             self.verificationLbl.text = "We've re-sent the code, try checking now!"
         })
     }

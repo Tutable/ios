@@ -58,7 +58,15 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         let dict : BookingClassModel = arrPastBookingData[indexPath.row]
         cell.classNameLbl.text = dict.classDetails.name
-        cell.userNameLbl.text = getFirstName(name: dict.teacher.name)
+        if isStudentLogin() {
+            
+            cell.userNameLbl.text = getFirstName(name: dict.teacher.name)
+            
+        } else {
+            
+            cell.userNameLbl.text = getFirstName(name: dict.student.name)
+            
+        }
         cell.priceLbl.text = setFlotingPriceWithCurrency(dict.classDetails.rate)
         
         if dict.slot.count != 0
@@ -101,14 +109,99 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             serviceCallForPastBookingList()
         }
     }
-    
-    @IBAction func clickToReviewBtn(_ sender: UIButton) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        self.showRatingScreen(for: indexPath.row)
+        
+        /*
         if isStudentLogin()
         {
-            let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
-            vc.bookClassData = arrPastBookingData[sender.tag]
-            self.navigationController?.pushViewController(vc, animated: true)
+            
+            if let v = arrPastBookingData[indexPath.row].review {
+                
+                if let avgRating = v["avgStars"] as? Double , avgRating > 0.0 {
+                    
+                    
+                } else {
+                    
+                    let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
+                    vc.bookClassData = arrPastBookingData[indexPath.row]
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+            } else {
+                
+                let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
+                vc.bookClassData = arrPastBookingData[indexPath.row]
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+            
         }
+         */
+    }
+    
+    @IBAction func clickToReviewBtn(_ sender: UIButton) {
+        
+        
+        self.showRatingScreen(for: sender.tag)
+        
+        /*
+        if isStudentLogin()
+        {
+            
+            if let v = arrPastBookingData[sender.tag].review {
+                
+                if let avgRating = v["avgStars"] as? Double , avgRating > 0.0 {
+                    
+                    
+                } else {
+                    
+                    let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
+                    vc.bookClassData = arrPastBookingData[sender.tag]
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+            } else {
+                
+                let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
+                vc.bookClassData = arrPastBookingData[sender.tag]
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+           
+        } */
+    }
+    
+    func showRatingScreen(for index:Int) {
+        
+        if isStudentLogin()
+        {
+            
+            if let v = arrPastBookingData[index].review {
+                
+                if let avgRating = v["avgStars"] as? Double , avgRating > 0.0 {
+                    
+                    
+                } else {
+                    
+                    let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
+                    vc.bookClassData = arrPastBookingData[index]
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+            } else {
+                
+                let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
+                vc.bookClassData = arrPastBookingData[index]
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+            
+        }
+        
+        
     }
     
     func serviceCallForPastBookingList()

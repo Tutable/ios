@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -100,7 +100,7 @@
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no upcoming bookings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzK-aH-d2Z">
                                 <rect key="frame" x="20" y="274" width="280" height="19"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -148,13 +148,11 @@ you want to cancel this class?</string>
                                     <color key="textColor" red="0.27450980390000002" green="0.27450980390000002" blue="0.27450980390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4E-A5-g0E">
-                                    <rect key="frame" x="10" y="65" width="260" height="50"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You may be charged a 20% cancellation fee if you cancel a class within less than 24 hours of the scheduled class time." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4E-A5-g0E">
+                                    <rect key="frame" x="10" y="65" width="260" height="52"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="aD9-ks-DXk"/>
+                                        <constraint firstAttribute="height" constant="52" id="aD9-ks-DXk"/>
                                     </constraints>
-                                    <string key="text">You may loss 20% deposit if cancelling
-within 24 hours of the start time.</string>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                     <color key="textColor" red="0.27450980390000002" green="0.27450980390000002" blue="0.27450980390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -166,7 +164,7 @@ within 24 hours of the start time.</string>
                                         <constraint firstAttribute="height" constant="35" id="agj-5R-HM1"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
-                                    <state key="normal" title="NOPE">
+                                    <state key="normal" title="NO">
                                         <color key="titleColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
@@ -191,15 +189,15 @@ within 24 hours of the start time.</string>
                             <constraints>
                                 <constraint firstItem="9jm-t3-Wv3" firstAttribute="centerX" secondItem="iez-1l-tne" secondAttribute="centerX" constant="59" id="0TR-oD-Bj3"/>
                                 <constraint firstItem="w4E-A5-g0E" firstAttribute="centerX" secondItem="iez-1l-tne" secondAttribute="centerX" id="9nf-cV-jCE"/>
-                                <constraint firstItem="w4E-A5-g0E" firstAttribute="centerY" secondItem="iez-1l-tne" secondAttribute="centerY" id="FcB-6v-AkI"/>
+                                <constraint firstItem="w4E-A5-g0E" firstAttribute="centerY" secondItem="iez-1l-tne" secondAttribute="centerY" constant="1" id="FcB-6v-AkI"/>
                                 <constraint firstItem="I5L-zx-Kg5" firstAttribute="centerX" secondItem="iez-1l-tne" secondAttribute="centerX" id="JeU-3d-ecC"/>
                                 <constraint firstItem="I5L-zx-Kg5" firstAttribute="leading" secondItem="iez-1l-tne" secondAttribute="leading" constant="22.5" id="KoI-jN-eZA"/>
                                 <constraint firstAttribute="trailing" secondItem="I5L-zx-Kg5" secondAttribute="trailing" constant="21" id="OpT-yK-K99"/>
-                                <constraint firstItem="9jm-t3-Wv3" firstAttribute="top" secondItem="w4E-A5-g0E" secondAttribute="bottom" constant="10" id="Vfq-Ve-Col"/>
+                                <constraint firstItem="9jm-t3-Wv3" firstAttribute="top" secondItem="w4E-A5-g0E" secondAttribute="bottom" constant="8" id="Vfq-Ve-Col"/>
                                 <constraint firstAttribute="width" constant="280" id="VzH-Kh-1lt"/>
                                 <constraint firstItem="9ud-Wp-N6x" firstAttribute="centerX" secondItem="iez-1l-tne" secondAttribute="centerX" constant="-59" id="X1z-aA-l8P"/>
                                 <constraint firstItem="w4E-A5-g0E" firstAttribute="leading" secondItem="iez-1l-tne" secondAttribute="leading" constant="10" id="ad5-MN-HZI"/>
-                                <constraint firstItem="9ud-Wp-N6x" firstAttribute="top" secondItem="w4E-A5-g0E" secondAttribute="bottom" constant="10" id="eFX-bL-D0a"/>
+                                <constraint firstItem="9ud-Wp-N6x" firstAttribute="top" secondItem="w4E-A5-g0E" secondAttribute="bottom" constant="8" id="eFX-bL-D0a"/>
                                 <constraint firstAttribute="trailing" secondItem="w4E-A5-g0E" secondAttribute="trailing" constant="10" id="h0b-B4-kTg"/>
                                 <constraint firstAttribute="height" constant="180" id="huB-iZ-Yiq"/>
                                 <constraint firstItem="w4E-A5-g0E" firstAttribute="top" secondItem="I5L-zx-Kg5" secondAttribute="bottom" constant="10" id="y1b-8i-8MH"/>
@@ -238,7 +236,7 @@ within 24 hours of the start time.</string>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no past bookings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3on-3E-UBV">
                                 <rect key="frame" x="20" y="274" width="280" height="19"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
