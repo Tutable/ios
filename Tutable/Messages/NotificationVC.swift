@@ -191,7 +191,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 APIManager.sharedInstance.serviceCallToBookingAction(param) { (isSuccess) in
                     if isSuccess
                     {
-                        displayToast("Booking Request Accepted")
+                        displayToast("Booking request accepted")
                         APIManager.sharedInstance.serviceCallToRemoveNotification(dict["id"] as! String)
                         self.arrNotiData.remove(at: sender.tag)
                         self.tblView.reloadData()
@@ -214,7 +214,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         else
         {
-            showAlert("Tutable", message: "To accept booking, you must add your accont details so that we transfer funds easily.", completion: {
+            showAlert("Tutable", message: "To accept this booking, you must add your accont details so that we are able to transfer your funds.", completion: {
                 let vc : AccountDetailVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "AccountDetailVC") as! AccountDetailVC
                 self.navigationController?.pushViewController(vc, animated: true)
             })
@@ -232,7 +232,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             APIManager.sharedInstance.serviceCallToBookingAction(param) { (isSuccess) in
                 if isSuccess
                 {
-                    displayToast("Booking Request Rejected")
+                    displayToast("Booking request rejected")
                     APIManager.sharedInstance.serviceCallToRemoveNotification(dict["id"] as! String)
                     self.arrNotiData.remove(at: sender.tag)
                     self.tblView.reloadData()

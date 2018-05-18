@@ -983,7 +983,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             let uploadRequest = UNNotificationRequest(identifier: uploadRequestIdentifier, content: uploadContent, trigger: trigger)
             UNUserNotificationCenter.current().add(uploadRequest, withCompletionHandler: nil)
         }
-        
     }
     
     func updateLastMessageInInbox(message : MessageModel, chanelId : String)

@@ -147,7 +147,7 @@ class PaymentMethodVC: UIViewController, MFCardDelegate {
         }
         else
         {
-            strMessage = "Are you sure you want to delete this Account?"
+            strMessage = "Are you sure you want to delete this account?"
         }
         showAlertWithOption("Tutable", message: strMessage, completionConfirm: {
             APIManager.sharedInstance.serviceCallToDeletePaymentMethod({ (isSuccess) in
@@ -155,11 +155,11 @@ class PaymentMethodVC: UIViewController, MFCardDelegate {
                 {
                     if isStudentLogin()
                     {
-                        displayToast("Payment Method Removed")
+                        displayToast("Payment method removed")
                     }
                     else
                     {
-                        displayToast("Account Deleted Successfully")
+                        displayToast("Account deleted successfully")
                     }
                     
                     if isStudentLogin()

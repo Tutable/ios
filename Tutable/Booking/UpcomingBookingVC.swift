@@ -217,7 +217,7 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
             
             if isSuccess {
                 
-                displayToast("Booking Cancelled Successfully.")
+                displayToast("Booking cancelled successfully.")
                 self.serviceCallForUpcomingBookingList()
                 
             }

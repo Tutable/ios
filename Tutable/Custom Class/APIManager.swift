@@ -169,7 +169,7 @@ public class APIManager {
                         }
                         else if code == 104
                         {
-                            displayToast("User Not Found")
+                            displayToast("User not found")
                             return
                         }
                         else if code == 105

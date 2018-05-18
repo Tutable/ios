@@ -444,13 +444,13 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
                 if policeData.count != 0 || childrenData.count != 0
                 {
                     APIManager.sharedInstance.serviceCallToUpdateCertificates(policeData, childrenData: childrenData, completion: {
-                        displayToast("Profile Updated Sucessfully")
+                        displayToast("Profile updated sucessfully")
                         self.navigationController?.popViewController(animated: true)
                     })
                 }
                 else
                 {
-                    displayToast("Profile Updated Sucessfully")
+                    displayToast("Profile updated sucessfully")
                     self.navigationController?.popViewController(animated: true)
                 }
             })

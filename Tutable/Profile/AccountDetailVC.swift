@@ -147,7 +147,7 @@ class AccountDetailVC: UIViewController, UITextFieldDelegate, UIImagePickerContr
         }
         else if _imgCompress == nil
         {
-            displayToast("Please add a valid verification document")
+            displayToast("Please add a valid photo ID")
         }
         else
         {
