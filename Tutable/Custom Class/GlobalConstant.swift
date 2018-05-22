@@ -9,15 +9,12 @@
 import Foundation
 import UIKit
 
-//Development
-//let BASE_URL = "http://ec2-13-58-51-213.us-east-2.compute.amazonaws.com/development/api/"
-//let PHOTO_BASE_URL = "http://ec2-13-58-51-213.us-east-2.compute.amazonaws.com/development/api"
-
 //Live
-let BASE_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api/"
-let PHOTO_BASE_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api/"
-let CERTIFICATE_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api/certificates/asset/"
-let CLASS_URL = "http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api/class/assets/"
+let BASE_URL = "https://backend.tutable.com.au/production/api/"
+//let BASE_URL = "https://backend.tutable.com.au/development/api/"
+let PHOTO_BASE_URL = BASE_URL
+let CERTIFICATE_URL = BASE_URL + "api/certificates/asset/"
+let CLASS_URL = BASE_URL + "api/class/assets/"
 
 
 let APP_VERSION = 1.0
@@ -90,8 +87,10 @@ struct FACEBOOK {
 }
 
 struct STRIPE {
-    static var STRIPE_PUB_KEY = "pk_test_u3xxbQe9ozU9Ql5bwQMFyPzh"
-    static var STRIPE_SECRET_KEY = "sk_test_SRQOZSEF09YCrg9bCCDeF4Qa"
+//    static var STRIPE_PUB_KEY = "pk_test_u3xxbQe9ozU9Ql5bwQMFyPzh"
+//    static var STRIPE_SECRET_KEY = "sk_test_SRQOZSEF09YCrg9bCCDeF4Qa"
+    static var STRIPE_PUB_KEY = "pk_live_g4fAnJnNuPRgdNfOzqXrzPp2"
+    static var STRIPE_SECRET_KEY = "sk_live_ApH1O1WMDZbzrKacgzpsUDiG"
 }
 
 struct NOTIFICATION {
