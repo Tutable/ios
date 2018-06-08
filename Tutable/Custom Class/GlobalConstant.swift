@@ -10,8 +10,10 @@ import Foundation
 import UIKit
 
 //Live
-let BASE_URL = "https://backend.tutable.com.au/production/api/"
+//let BASE_URL = "https://backend.tutable.com.au/production/api/"
 //let BASE_URL = "https://backend.tutable.com.au/development/api/"
+let BASE_URL = "https://betutable.com.au/production/api/"
+
 let PHOTO_BASE_URL = BASE_URL
 let CERTIFICATE_URL = BASE_URL + "api/certificates/asset/"
 let CLASS_URL = BASE_URL + "api/class/assets/"
