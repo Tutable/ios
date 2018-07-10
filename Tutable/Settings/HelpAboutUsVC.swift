@@ -42,7 +42,7 @@ class HelpAboutUsVC: UIViewController {
         {
             aboutTxtView.text = getAboutContent()
         }
-        else if strTitle == "TEARMS & CONDITIONS"
+        else if strTitle == "TERMS & CONDITIONS"
         {
             aboutTxtView.text = getTearmsConditionContent()
         }

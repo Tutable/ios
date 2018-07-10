@@ -46,7 +46,7 @@ class LoginVC: UIViewController {
     
     @IBAction func clickToTearmsConditions(_ sender: Any) {
         let vc : HelpAboutUsVC = self.storyboard?.instantiateViewController(withIdentifier: "HelpAboutUsVC") as! HelpAboutUsVC
-        vc.strTitle = "TEARMS & CONDITIONS"
+        vc.strTitle = "TERMS & CONDITIONS"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

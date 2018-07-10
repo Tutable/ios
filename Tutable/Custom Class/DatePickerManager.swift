@@ -132,7 +132,6 @@ open class DatePickerManager: NSObject, UIPickerViewDelegate, UIPickerViewDataSo
             completion?(false)
         }
         alertView.addAction(ok)
-        
         UIViewController.top?.present(alertView, animated: true, completion: nil)
         
     }

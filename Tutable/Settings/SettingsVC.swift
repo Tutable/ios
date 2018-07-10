@@ -13,7 +13,7 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tblView: UITableView!
 
     
-    var arrData : [[String : String]] = [["image" : "information", "name" : "Help"],["image" : "account", "name" : (isStudentLogin() ? "Payment method" : "Payment details")],["image" : "logo_green", "name" : "About"],["image" : "logout", "name" : "Log out"],["image" : "", "name" : "Delete Account"]]
+    var arrData : [[String : String]] = [["image" : "information", "name" : "Help"],["image" : "account", "name" : (isStudentLogin() ? "Payment method" : "Payment details")],["image" : "logo_green", "name" : "About"],["image" : "terms", "name" : "Terms & Conditions"],["image" : "logout", "name" : "Log out"],["image" : "", "name" : "Delete Account"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,11 +77,16 @@ class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             self.navigationController?.pushViewController(vc, animated: true)
             break
         case 3:
+            let vc : HelpAboutUsVC = self.storyboard?.instantiateViewController(withIdentifier: "HelpAboutUsVC") as! HelpAboutUsVC
+            vc.strTitle = "TERMS & CONDITIONS"
+            self.navigationController?.pushViewController(vc, animated: true)
+            break
+        case 4:
             DispatchQueue.main.async {
                 self.logoutUser()
             }
             break
-        case 4:
+        case 5:
             DispatchQueue.main.async {
                 showAlertWithOption("Tutable", message: "Are you sure you want to delete your account?", btns: ["Yes, Delete", "No"], completionConfirm: {
                     displayToast("Account deleted successfully")
