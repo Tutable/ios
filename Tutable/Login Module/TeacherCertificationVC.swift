@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class TeacherCertificationVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
 
     @IBOutlet weak var policeCheckBtn: UIButton!
@@ -54,6 +55,8 @@ class TeacherCertificationVC: UIViewController, UIImagePickerControllerDelegate,
     {
         if getPoliceCertificate() != ""
         {
+            
+            
             APIManager.sharedInstance.serviceCallToGetCertificate(getPoliceCertificate(), placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [policeCheckBtn])
         }
         if getChildreanCertificate() != ""

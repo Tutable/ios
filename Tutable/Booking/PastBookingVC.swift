@@ -58,7 +58,19 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         let dict : BookingClassModel = arrPastBookingData[indexPath.row]
         cell.classNameLbl.text = dict.classDetails.name
-        cell.userNameLbl.text = getFirstName(name: dict.teacher.name)
+        if isStudentLogin() {
+            
+            cell.userNameLbl.text = getFirstName(name: dict.teacher.name)
+            
+        } else {
+            
+            cell.userNameLbl.text = getFirstName(name: dict.student.name)
+            
+        }
+        
+        cell.userNameBtn.tag = indexPath.row
+        cell.userNameBtn.addTarget(self, action: #selector(clickToUserName(_:)), for: .touchUpInside)
+        
         cell.priceLbl.text = setFlotingPriceWithCurrency(dict.classDetails.rate)
         
         if dict.slot.count != 0
@@ -66,6 +78,10 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             cell.dateTimeLbl.text = AppDelegate().sharedDelegate().getDateTimeValueFromSlot(dict.slot)
         }
         APIManager.sharedInstance.serviceCallToGetPhoto(dict.classDetails.payload, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [cell.imgBtn])
+        cell.imgBtn.isUserInteractionEnabled = true
+        cell.imgBtn.tag = indexPath.row
+        cell.imgBtn.addTarget(self, action: #selector(clickToReviewBtn(_:)), for: .touchUpInside)
+        
         if isStudentLogin()
         {
             if let stars : Double = dict.review["stars"] as? Double
@@ -105,8 +121,31 @@ class PastBookingVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBAction func clickToReviewBtn(_ sender: UIButton) {
         if isStudentLogin()
         {
-            let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
-            vc.bookClassData = arrPastBookingData[sender.tag]
+            if let v = arrPastBookingData[sender.tag].review {
+                
+                if let avgRating = v["avgStars"] as? Double , avgRating > 0.0 {
+                    
+                    
+                } else {
+                    
+                    let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
+                    vc.bookClassData = arrPastBookingData[sender.tag]
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+            } else {
+                
+                let vc : AddRateReviewVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "AddRateReviewVC") as! AddRateReviewVC
+                vc.bookClassData = arrPastBookingData[sender.tag]
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+    
+    @IBAction func clickToUserName(_ sender: UIButton) {
+        if isStudentLogin() {
+            let vc : TeacherDetailVC = STORYBOARD.CLASS.instantiateViewController(withIdentifier: "TeacherDetailVC") as! TeacherDetailVC
+            vc.teacherID = arrPastBookingData[sender.tag].teacher.id
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

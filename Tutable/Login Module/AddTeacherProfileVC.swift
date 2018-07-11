@@ -171,7 +171,7 @@ class AddTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIImag
         }
         else if getUserAge(date: selectedDob) < VALID_USER_AGE
         {
-            displayToast("You need to be atleast 13 years old to register")
+            displayToast("You need to be at least 13 years old to be able to accept payments.")
         }
         else if aboutMeTxt.text == ""
         {

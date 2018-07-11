@@ -62,14 +62,16 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
             qulificationTxt.isUserInteractionEnabled = true
             schoolTxt.isUserInteractionEnabled = true
             degreeImgBtn.isUserInteractionEnabled = true
-            exprienceYearTxt.isUserInteractionEnabled = true
         }
         else
         {
             qulificationTxt.isUserInteractionEnabled = false
             schoolTxt.isUserInteractionEnabled = false
             degreeImgBtn.isUserInteractionEnabled = false
-            exprienceYearTxt.isUserInteractionEnabled = false
+            qulificationTxt.text = ""
+            schoolTxt.text = ""
+            degreeImg = nil
+            degreeImgBtn.setBackgroundImage(UIImage.init(named: IMAGE.CAMERA_PLACEHOLDER), for: .normal)
         }
     }
     
@@ -95,10 +97,10 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
             {
                 displayToast("Please enter your school name")
             }
-            else if exprienceYearTxt.text == ""
-            {
-                displayToast("Please enter your experience")
-            }
+//            else if exprienceYearTxt.text == ""
+//            {
+//                displayToast("Please enter your experience")
+//            }
             else if AppModel.shared.currentUser.degreeAsset == "" && degreeImg == nil
             {
                 displayToast("Please upload your degree")
@@ -108,7 +110,8 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
                 AppModel.shared.currentUser.qualification = qulificationTxt.text
                 AppModel.shared.currentUser.school = schoolTxt.text
                 AppModel.shared.currentUser.experience = Int(exprienceYearTxt.text!)
-                let dict : [String  :Any] = ["qualification" : AppModel.shared.currentUser.qualification, "school" : AppModel.shared.currentUser.school, "experience" : AppModel.shared.currentUser.experience]
+                AppModel.shared.currentUser.hasDegree = true
+                let dict : [String  :Any] = ["qualification" : AppModel.shared.currentUser.qualification, "school" : AppModel.shared.currentUser.school, "experience" : AppModel.shared.currentUser.experience, "hasDegree" : AppModel.shared.currentUser.hasDegree]
                 print(dict)
                 if degreeImg == nil
                 {
@@ -122,6 +125,13 @@ class TeacherQulificationVC: UIViewController, UIImagePickerControllerDelegate, 
                     return
                 }
             }
+        } else if exprienceYearTxt.text != "" && relevantSegment.selectedSegmentIndex == 1 {
+            
+            AppModel.shared.currentUser.hasDegree = false
+            AppModel.shared.currentUser.experience = Int(exprienceYearTxt.text!)
+            let dict : [String  :Any] = ["experience" : AppModel.shared.currentUser.experience, "hasDegree" : AppModel.shared.currentUser.hasDegree]
+            print(dict)
+            continueUpdating(dict, Data())
         }
         else
         {

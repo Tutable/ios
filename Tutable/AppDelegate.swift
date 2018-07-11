@@ -418,6 +418,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             updateCurrentUserData()
         }
         let deviceToken : String = getDeviceToken()
+        let about : String = getAboutContent()
+        let tearms : String = getTearmsConditionContent()
+        let help : String = getHelpContent()
         AppModel.shared.currentUser = nil
         AppModel.shared.currentClass = nil
         AppModel.shared.firebaseCurrentUser = nil
@@ -435,7 +438,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         
         navigateToRoot()
         setDeviceToken(value: deviceToken)
-        
+        setAboutContent(about)
+        setTearmsConditionContent(tearms)
+        setHelpContent(help)
     }
     
     func redirectAfterTeacherRegistration() -> Int
@@ -978,7 +983,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             let uploadRequest = UNNotificationRequest(identifier: uploadRequestIdentifier, content: uploadContent, trigger: trigger)
             UNUserNotificationCenter.current().add(uploadRequest, withCompletionHandler: nil)
         }
-        
     }
     
     func updateLastMessageInInbox(message : MessageModel, chanelId : String)

@@ -73,7 +73,7 @@ class ClassesListVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         cell.titleLbl.text = dict.name
         if let avgStars = dict.reviews["avgStars"] as? Double
         {
-            cell.starBtn.setTitle(String(avgStars), for: .normal)
+            cell.starBtn.setTitle(String(Int(avgStars)), for: .normal)
         }
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell

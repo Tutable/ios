@@ -62,6 +62,9 @@
                                 <color key="textColor" red="0.29411764709999999" green="0.85490196080000003" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dgK-gK-9C9">
+                                <rect key="frame" x="10" y="145" width="155" height="20"/>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date display herer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DN8-iE-iyw">
                                 <rect key="frame" x="10" y="168" width="155" height="15.5"/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
@@ -109,10 +112,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="dgK-gK-9C9" firstAttribute="leading" secondItem="oaG-CQ-MAn" secondAttribute="leading" id="2mW-zZ-dg8"/>
+                            <constraint firstItem="dgK-gK-9C9" firstAttribute="trailing" secondItem="oaG-CQ-MAn" secondAttribute="trailing" id="3Oa-5M-f9a"/>
                             <constraint firstItem="Idx-2P-SR1" firstAttribute="centerY" secondItem="Mfs-b4-S0W" secondAttribute="centerY" id="7jJ-ZW-I6L"/>
+                            <constraint firstItem="dgK-gK-9C9" firstAttribute="bottom" secondItem="oaG-CQ-MAn" secondAttribute="bottom" id="8Xy-e6-Nit"/>
                             <constraint firstItem="Wh2-qV-WmB" firstAttribute="trailing" secondItem="Mfs-b4-S0W" secondAttribute="trailing" constant="-10" id="95o-He-aye"/>
                             <constraint firstItem="Idx-2P-SR1" firstAttribute="trailing" secondItem="Mfs-b4-S0W" secondAttribute="trailing" constant="-10" id="9p5-RF-uFw"/>
                             <constraint firstAttribute="trailing" secondItem="Mfs-b4-S0W" secondAttribute="trailing" id="A8o-Mi-yez"/>
+                            <constraint firstItem="dgK-gK-9C9" firstAttribute="top" secondItem="oaG-CQ-MAn" secondAttribute="top" id="EJK-IR-uyc"/>
                             <constraint firstItem="gy5-Jw-jfG" firstAttribute="trailing" secondItem="Mfs-b4-S0W" secondAttribute="trailing" id="Hot-3H-FD0"/>
                             <constraint firstItem="PfH-s9-n4d" firstAttribute="trailing" secondItem="oO7-Hr-j90" secondAttribute="trailing" id="Jft-fE-LkJ"/>
                             <constraint firstItem="ccX-dx-gch" firstAttribute="top" secondItem="Mfs-b4-S0W" secondAttribute="bottom" constant="10" id="KmG-iw-YgO"/>
@@ -160,6 +167,7 @@
                 <outlet property="priceLbl" destination="Wh2-qV-WmB" id="bD8-Gp-WOk"/>
                 <outlet property="starBtn" destination="oO7-Hr-j90" id="eym-Jj-GNS"/>
                 <outlet property="starView" destination="PfH-s9-n4d" id="w17-Um-CV8"/>
+                <outlet property="userNameBtn" destination="dgK-gK-9C9" id="9Kh-4I-l4t"/>
                 <outlet property="userNameLbl" destination="oaG-CQ-MAn" id="iT8-ek-YT3"/>
             </connections>
             <point key="canvasLocation" x="-118" y="-100"/>

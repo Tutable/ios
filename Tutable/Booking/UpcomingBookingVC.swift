@@ -79,7 +79,17 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let dict : BookingClassModel = arrUpcomingBookingData[indexPath.row]
         cell.classNameLbl.text = dict.classDetails.name
-        cell.userNameLbl.text = getFirstName(name: dict.teacher.name)
+        
+        if isStudentLogin() {
+            
+            cell.userNameLbl.text = getFirstName(name: dict.teacher.name)
+
+        } else {
+            
+            cell.userNameLbl.text = getFirstName(name: dict.student.name)
+
+        }
+        
         cell.priceLbl.text = setFlotingPriceWithCurrency(dict.classDetails.rate)
         
         if dict.slot.count != 0
@@ -202,8 +212,16 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
         cancelContainerView.removeFromSuperview()
         var param : [String : Any] = [String : Any]()
         param["bookingId"] = selectedBooking.id
-        param["confirmed"] = false
-        APIManager.sharedInstance.serviceCallToBookingAction(param) { (isSuccess) in
+    //    param["confirmed"] = false
+        APIManager.sharedInstance.serviceCallToCancelBookingAction(param) { (isSuccess) in
+            
+            if isSuccess {
+                
+                displayToast("Booking cancelled successfully.")
+                self.serviceCallForUpcomingBookingList()
+                
+            }
+            
             let index = self.arrUpcomingBookingData.index(where: { (temp) -> Bool in
                 temp == self.selectedBooking
             })

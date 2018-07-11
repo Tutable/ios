@@ -111,7 +111,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         if teacherData.experience > 0
         {
-            arrTemp.append(["name" : String(teacherData.experience), "image" : "experience_icon"])
+            arrTemp.append(["name" : String(teacherData.experience) + " years experience", "image" : "experience_icon"])
         }
         
         let certsDict : [String : Any] = teacherData.certs
@@ -143,6 +143,7 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 quality2Btn.setImage(UIImage.init(named: arrTemp[i]["image"]!), for: .normal)
                 quality2Btn.setTitle(arrTemp[i]["name"], for: .normal)
                 quality2Btn.isHidden = false
+                  constraintHeightQualityView.constant = 40
             }
             else if i == 2
             {
@@ -158,6 +159,13 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 quality4Btn.isHidden = false
             }
         }
+        
+        if constraintHeightQualityView.constant == 40.0 {
+            
+            constraintHeightHeaderView.constant = 355.0
+            
+        }
+        
         aboutUserLbl.numberOfLines = 3
         aboutUserLbl.text = teacherData.bio
         constraintHeightAboutUserLbl.constant = aboutUserLbl.getLableHeight(numberOfLines: 3)
@@ -260,7 +268,8 @@ class TeacherDetailVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         cell.titleLbl.text = dict.name
         if let avgStars = dict.reviews["avgStars"] as? Double
         {
-            cell.starBtn.setTitle(String(avgStars), for: .normal)
+            
+            cell.starBtn.setTitle(String(Int(avgStars)), for: .normal)
         }
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell

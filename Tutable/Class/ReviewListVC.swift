@@ -92,7 +92,7 @@ class ReviewListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
                 review.deleted = dict["deleted"] as! Int
                 review.ref = dict["ref"] as! String
-                review.review = dict["review"] as! String
+                review.review = dict["review"] as? String ?? ""
                 review.stars = dict["stars"] as! Double
                 self.reviewData.append(review)
             }

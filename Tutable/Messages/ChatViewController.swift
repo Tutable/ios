@@ -118,7 +118,6 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
     
     func continueFetchData()
     {
-        //deleteAllMessageFromCoreData()
         fetchCoreDataMessages()
         updateUserLastSeen()
     }

@@ -101,7 +101,7 @@ public class APIManager {
                             }
                             else if code == 104
                             {
-                                displayToast("User laready exists")
+                                displayToast("User already exists")
                             }
                         }
                         else if let message = result["message"] as? String{
@@ -169,7 +169,7 @@ public class APIManager {
                         }
                         else if code == 104
                         {
-                            displayToast("User Not Found")
+                            displayToast("User not found")
                             return
                         }
                         else if code == 105
@@ -708,9 +708,11 @@ public class APIManager {
         var params :[String : Any] = [String : Any] ()
         params["data"] = AppModel.shared.currentUser.toJson(dict)
         
+        //print(getMultipartHeaderWithToken())
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
                 multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+                print(key,value)
             }
             
             if degreeData.count != 0
@@ -946,6 +948,7 @@ public class APIManager {
                 DataRequest.addAcceptableImageContentTypes(["image/jpg", "image/jpeg", "image/png", "image/gif"])
                 AppModel.shared.imageQueue[picPath!] = true
                 //let headerParams :[String : String] = getJsonHeader()
+                
                 Alamofire.request("http://ec2-13-59-33-113.us-east-2.compute.amazonaws.com/development/api" + picPath!, headers: headerParams).responseImage { response in
                     if let image = response.result.value {
                         AppModel.shared.imageQueue[picPath!] = image
@@ -969,26 +972,30 @@ public class APIManager {
         }
     }
     
-    //MARK:- Get Photo
-    func serviceCallToGetUserAvatar(_ user:UserModel, btn:UIButton){
+    //MARK:- Get Certificate Image
+    func serviceCallToGetCertificateImage(_ path:String, btn:UIButton, completion: @escaping () -> Void){
         
+//        if let image : UIImage = AppModel.shared.imageQueue[path] as? UIImage
+//        {
+//            btn.setBackgroundImage(image, for: .normal)
+//            completion()
+//            return
+//        }
         let _ :[String : String] = [String:String]()
         
-        var strUrl : String = BASE_URL+"user/getProfilePic/"+user.picture
-        if isStudentLogin()
-        {
-            strUrl = BASE_URL+"student/assets/"+user.picture
-        }
+        let strUrl : String = BASE_URL + path
         
         Alamofire.request(strUrl).responseImage { response in
             if let image = response.result.value {
                 btn.setBackgroundImage(image, for: .normal)
-                AppModel.shared.usersAvatar[user.id] = image
+                AppModel.shared.imageQueue[path] = image
+                completion()
                 return
             }
             else
             {
-                
+                btn.setBackgroundImage(UIImage.init(named: IMAGE.CAMERA_PLACEHOLDER), for: .normal)
+                completion()
             }
         }
     }
@@ -1053,6 +1060,51 @@ public class APIManager {
             }
         }
     }
+    
+    
+    func serviceCallToDeleteWWCCInformation() {
+        
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        
+        var params :[String : Any] = [String : Any] ()
+        
+        params["wwdc"] = true
+        
+        // certificates/delete
+        print(params,headerParams,BASE_URL+"certificates/delete" )
+        Alamofire.request(BASE_URL+"certificates/delete", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            
+            removeLoader()
+            
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let _ = response.result.value {
+           
+                }
+                else if let _ = response.result.error
+                {
+                   // displayToast(error.localizedDescription)
+                    return
+                }
+                break
+            case .failure(let error):
+                print(error)
+             //   displayToast(error.localizedDescription)
+                break
+            }
+        }
+        
+        
+    }
+    
     
     func serviceCallToUpdateClass(_ classImgData : Data, completion: @escaping () -> Void){
         if !APIManager.isConnectedToNetwork()
@@ -1319,7 +1371,46 @@ public class APIManager {
             }
         }
     }
-    
+    func serviceCallToCancelBookingAction(_ params : [String : Any], completion: @escaping (_ isSuccess :Bool) -> Void){
+        if !APIManager.isConnectedToNetwork()
+        {
+            APIManager().networkErrorMsg()
+            return
+        }
+        showLoader()
+        
+        let headerParams :[String : String] = getJsonHeaderWithToken()
+        print(params)
+        Alamofire.request(BASE_URL+"bookings/cancel", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
+            removeLoader()
+            switch response.result {
+            case .success:
+                print(response.result.value!)
+                if let result = response.result.value as? [String:Any]{
+                    if let code = result["code"] as? Int{
+                        if(code == 100){
+                            completion(true)
+                            return
+                        }
+                    }
+                    else if let message = result["message"] as? String{
+                        displayToast(message)
+                        return
+                    }
+                }
+                
+                if let error = response.error{
+                    displayToast(error.localizedDescription)
+                    return
+                }
+                break
+            case .failure(let error):
+                print(error)
+                displayToast(error.localizedDescription)
+                break
+            }
+        }
+    }
     //MARK: - Payment
     func serviceCallToAddStripeToken(_ params : [String : Any], completion: @escaping (_ isSuccess :Bool) -> Void){
         if !APIManager.isConnectedToNetwork()

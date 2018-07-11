@@ -8,6 +8,7 @@
 
 import UIKit
 import DropDown
+import SDWebImage
 
 struct PHOTO {
     static var USER_IMAGE = 1
@@ -93,6 +94,14 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             return
         }
         APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.picture, placeHolder: IMAGE.USER_PLACEHOLDER, btn: [userProfilePicBtn])
+//        if let police : String = AppModel.shared.currentUser.certs["policeCertificate"] as? String
+//        {
+//            APIManager.sharedInstance.serviceCallToGetPhoto(police, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [policeCheckBtn])
+//        }
+//        if let police : String = AppModel.shared.currentUser.certs["policeCertificate"] as? String
+//        {
+//            APIManager.sharedInstance.serviceCallToGetPhoto(police, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [policeCheckBtn])
+//        }
         if getPoliceCertificate() != "" && getChildreanCertificate() != ""
         {
             setCertificateImage()
@@ -135,6 +144,14 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
         let location : LocationModel = LocationModel.init(dict: AppModel.shared.currentUser.address.dictionary())
         suburbTxt.text = location.suburb
         stateLbl.text = location.state
+        if AppModel.shared.currentUser.experience > 0
+        {
+            experienceearTxt.text = String(AppModel.shared.currentUser.experience)
+        }
+        else
+        {
+            experienceearTxt.text = ""
+        }
         if AppModel.shared.currentUser.qualification == "" && qulificationTxt.text == "" && AppModel.shared.currentUser.degreeAsset == ""
         {
             relevantSegment.selectedSegmentIndex = 1
@@ -157,17 +174,22 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
                 APIManager.sharedInstance.serviceCallToGetPhoto(AppModel.shared.currentUser.degreeAsset, placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [degreeImgBtn])
             }
         }
+        setDegreeFields()
     }
     
     func setCertificateImage()
     {
         if getPoliceCertificate() != ""
         {
-            APIManager.sharedInstance.serviceCallToGetCertificate(getPoliceCertificate(), placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [policeCheckBtn])
+            APIManager.sharedInstance.serviceCallToGetCertificateImage(getPoliceCertificate(), btn: policeCheckBtn, completion: {
+                self.policeCheckImg = self.policeCheckBtn.backgroundImage(for: .normal)
+            })
         }
         if getChildreanCertificate() != ""
         {
-            APIManager.sharedInstance.serviceCallToGetCertificate(getChildreanCertificate(), placeHolder: IMAGE.CAMERA_PLACEHOLDER, btn: [childrenCheckBtn])
+            APIManager.sharedInstance.serviceCallToGetCertificateImage(getChildreanCertificate(), btn: childrenCheckBtn, completion: {
+                self.childrenCheckImg = self.childrenCheckBtn.backgroundImage(for: .normal)
+            })
         }
     }
     
@@ -257,19 +279,26 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
     }
     
     @IBAction func clickToChangeSegment(_ sender: Any) {
+        setDegreeFields()
+    }
+    
+    func setDegreeFields()
+    {
         if relevantSegment.selectedSegmentIndex == 0
         {
             qulificationTxt.isUserInteractionEnabled = true
             schoolTxt.isUserInteractionEnabled = true
             degreeImgBtn.isUserInteractionEnabled = true
-            experienceearTxt.isUserInteractionEnabled = true
         }
         else
         {
             qulificationTxt.isUserInteractionEnabled = false
             schoolTxt.isUserInteractionEnabled = false
             degreeImgBtn.isUserInteractionEnabled = false
-            experienceearTxt.isUserInteractionEnabled = false
+            qulificationTxt.text = ""
+            schoolTxt.text = ""
+            degreeImg = nil
+            degreeImgBtn.setBackgroundImage(UIImage.init(named: IMAGE.CAMERA_PLACEHOLDER), for: .normal)
         }
     }
     
@@ -307,6 +336,12 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
         {
             displayToast("Please select certificate for police check")
         }
+        else if policeCheckImg == nil {
+            
+            
+            displayToast("Police check is mandatory.")
+
+        }
         else if relevantSegment.selectedSegmentIndex == 0 && qulificationTxt.text == ""
         {
             displayToast("Please enter your qulification")
@@ -315,10 +350,10 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
         {
             displayToast("Please enter your school name")
         }
-        else if experienceearTxt.text == ""
-        {
-            displayToast("Please enter your experience")
-        }
+//        else if relevantSegment.selectedSegmentIndex == 0 && experienceearTxt.text == ""
+//        {
+//            displayToast("Please enter your experience")
+//        }
         else if relevantSegment.selectedSegmentIndex == 0 && AppModel.shared.currentUser.degreeAsset == "" && degreeImg == nil
         {
             displayToast("Please upload your degree")
@@ -363,9 +398,14 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
                 AppModel.shared.currentUser.school = schoolTxt.text
                 dict["qualification"] = AppModel.shared.currentUser.qualification
                 dict["school"] = AppModel.shared.currentUser.school
-                dict["experience"] = experienceearTxt.text
+                AppModel.shared.currentUser.hasDegree = true
             }
-            
+            else
+            {
+                AppModel.shared.currentUser.hasDegree = false
+            }
+            dict["experience"] = experienceearTxt.text
+            dict["hasDegree"] = AppModel.shared.currentUser.hasDegree
             var imageData : Data = Data()
             var degreeData : Data = Data()
             var policeData : Data = Data()
@@ -386,7 +426,14 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             if childrenCheckImg != nil
             {
                 childrenData = UIImagePNGRepresentation(childrenCheckImg)!
+            } else  {
+                
+               // APIManager.sharedInstance.serviceCallToDeleteWWCCInformation()
+
             }
+
+            
+            print(dict)
             APIManager.sharedInstance.serviceCallToUpdateTeacherDetail(dict, degreeData: degreeData, pictureData: imageData, completion: {
                 if AppModel.shared.firebaseCurrentUser != nil
                 {
@@ -397,13 +444,13 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
                 if policeData.count != 0 || childrenData.count != 0
                 {
                     APIManager.sharedInstance.serviceCallToUpdateCertificates(policeData, childrenData: childrenData, completion: {
-                        displayToast("Profile Updated Sucessfully")
+                        displayToast("Profile updated sucessfully")
                         self.navigationController?.popViewController(animated: true)
                     })
                 }
                 else
                 {
-                    displayToast("Profile Updated Sucessfully")
+                    displayToast("Profile updated sucessfully")
                     self.navigationController?.popViewController(animated: true)
                 }
             })
@@ -425,17 +472,17 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
         else if photoSelectionType == PHOTO.POLICE_IMAGE
         {
             policeCheckImg = nil
-            policeCheckBtn.setBackgroundImage(UIImage.init(named: IMAGE.USER_PLACEHOLDER), for: .normal)
+            policeCheckBtn.setBackgroundImage(UIImage.init(named: IMAGE.CAMERA_PLACEHOLDER), for: .normal)
         }
         else if photoSelectionType == PHOTO.CHILDREN_IMAGE
         {
             childrenCheckImg = nil
-            childrenCheckBtn.setBackgroundImage(UIImage.init(named: IMAGE.USER_PLACEHOLDER), for: .normal)
+            childrenCheckBtn.setBackgroundImage(UIImage.init(named: IMAGE.CAMERA_PLACEHOLDER), for: .normal)
         }
         else if photoSelectionType == PHOTO.DEGREE_IMAGE
         {
             degreeImg = nil
-            degreeImgBtn.setBackgroundImage(UIImage.init(named: IMAGE.USER_PLACEHOLDER), for: .normal)
+            degreeImgBtn.setBackgroundImage(UIImage.init(named: IMAGE.CAMERA_PLACEHOLDER), for: .normal)
         }
     }
     
@@ -459,7 +506,14 @@ class EditTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIIma
             self.onCaptureImageThroughCamera()
         }
         actionSheet.addAction(cameraButton)
+        let deleteButton = UIAlertAction(title: "Delete Photo", style: .default)
+        { _ in
+            print("Delete")
+            self.onRemovePic()
+        }
         
+        
+        actionSheet.addAction(deleteButton)
         let galleryButton = UIAlertAction(title: "Choose Existing Photo", style: .default)
         { _ in
             print("Gallery")
