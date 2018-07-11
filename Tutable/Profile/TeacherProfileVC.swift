@@ -102,11 +102,21 @@ class TeacherProfileVC: UIViewController {
         let certsDict : [String : Any] = AppModel.shared.currentUser.certs
         if let police : String = certsDict["policeCertificate"] as? String, police != ""
         {
-            arrTemp.append(["name" : "Police check", "image" : "accept"])
+            if let isPoliceVerified : Int = certsDict["policeCertificateVerified"] as? Int,isPoliceVerified == 1{
+                arrTemp.append(["name" : "Police check", "image" : "accept"])
+            }else{
+               arrTemp.append(["name" : "Police check", "image" : "rejectRed"])
+            }
+            //arrTemp.append(["name" : "Police check", "image" : "accept"])
         }
         if let children : String = certsDict["childrenCertificate"] as? String, children != ""
         {
-            arrTemp.append(["name" : "WWCC", "image" : "accept"])
+            if let isChildrenVerified : Int = certsDict["childrenCertificateVerified"] as? Int ,isChildrenVerified == 1{
+                arrTemp.append(["name" : "WWCC", "image" : "accept"])
+            }else{
+                arrTemp.append(["name" : "WWCC", "image" : "rejectRed"])
+            }
+            //arrTemp.append(["name" : "WWCC", "image" : "accept"])
         }
         
         quality1Btn.isHidden = true

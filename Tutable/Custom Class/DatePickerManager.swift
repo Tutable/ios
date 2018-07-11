@@ -102,6 +102,7 @@ open class DatePickerManager: NSObject, UIPickerViewDelegate, UIPickerViewDataSo
         alertView.popoverPresentationController?.sourceView = UIViewController.top?.view
         alertView.popoverPresentationController?.sourceRect = view.bounds
         alertView.view.tintColor = .gray
+        
         self.alertView = alertView
 
         // device orientation
@@ -115,7 +116,12 @@ open class DatePickerManager: NSObject, UIPickerViewDelegate, UIPickerViewDataSo
         default: break
         }
         
-        view.center.x = center ?? 0
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            view.center.x = (center! - (UIViewController.top?.view.frame.size.width)!)
+        }else{
+            view.center.x = center ?? 0
+        }
+        
         view.transform = .init(translationX: -10, y: title != nil ? 35 : 0)
         
         self.pickerCompletion = completion
