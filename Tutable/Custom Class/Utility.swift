@@ -385,6 +385,11 @@ extension String
     var trimmed:String{
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
+    var removeNewline:String{
+        var Str = self.replacingOccurrences(of: "\\n\\n", with: "\n")
+        Str = Str.replacingOccurrences(of: "\\n", with: "\n")
+        return Str
+    }
     var encoded:String{
         let str = self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         let data: Data? = str.data(using: String.Encoding.nonLossyASCII)
@@ -418,6 +423,8 @@ extension String
     }
 
 }
+
+
 
 //MARK: - UIView Method
 extension UIView
