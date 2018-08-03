@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -255,15 +255,15 @@
         </view>
     </objects>
     <resources>
-        <image name="tab_browse_off" width="16" height="19"/>
-        <image name="tab_browse_on" width="16" height="19"/>
-        <image name="tab_calendar_off" width="17" height="19"/>
-        <image name="tab_calendar_on" width="17" height="19"/>
-        <image name="tab_msg_off" width="21" height="19"/>
-        <image name="tab_msg_on" width="21" height="19"/>
-        <image name="tab_profile_off" width="17" height="20"/>
-        <image name="tab_profile_on" width="17" height="20"/>
-        <image name="tab_settings_off" width="19" height="19"/>
-        <image name="tab_settings_on" width="19" height="19"/>
+        <image name="tab_browse_off" width="21" height="25"/>
+        <image name="tab_browse_on" width="21" height="25"/>
+        <image name="tab_calendar_off" width="22" height="25"/>
+        <image name="tab_calendar_on" width="22" height="25"/>
+        <image name="tab_msg_off" width="27" height="25"/>
+        <image name="tab_msg_on" width="27" height="25"/>
+        <image name="tab_profile_off" width="22" height="26"/>
+        <image name="tab_profile_on" width="22" height="26"/>
+        <image name="tab_settings_off" width="24" height="24"/>
+        <image name="tab_settings_on" width="24" height="24"/>
     </resources>
 </document>

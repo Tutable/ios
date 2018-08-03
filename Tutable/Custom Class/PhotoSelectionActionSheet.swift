@@ -44,6 +44,7 @@ class PhotoSelectionActionSheet: NSObject, UIImagePickerControllerDelegate, UINa
             self.onCaptureImageThroughGallery()
         }
         actionSheet.addAction(galleryButton)
+        
         UIViewController.top?.present(actionSheet, animated: true, completion: nil)
     }
     
