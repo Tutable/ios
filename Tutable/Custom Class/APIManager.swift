@@ -1014,6 +1014,7 @@ public class APIManager {
         var params :[String : Any] = [String : Any] ()
         
         params["data"] = AppModel.shared.currentClass.toJson(["name":AppModel.shared.currentClass.name, "category" : AppModel.shared.currentClass.category.id, "level" : AppModel.shared.currentClass.level, "bio" : AppModel.shared.currentClass.bio, "timeline" : AppModel.shared.currentClass.timeline, "whyQualified" : AppModel.shared.currentClass.whyQualified, "rate" : AppModel.shared.currentClass.rate])
+       
         
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in params {
