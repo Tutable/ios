@@ -36,15 +36,16 @@ class HelpAboutUsVC: UIViewController {
     {
         if strTitle == "HELP"
         {
-            aboutTxtView.text = getHelpContent()
+            aboutTxtView.text = getHelpContent().removeNewline
         }
         else if strTitle == "ABOUT"
         {
-            aboutTxtView.text = getAboutContent()
+            aboutTxtView.text = getAboutContent().removeNewline
         }
         else if strTitle == "TERMS & CONDITIONS"
         {
-            aboutTxtView.text = getTearmsConditionContent()
+            
+          aboutTxtView.text = getTearmsConditionContent().removeNewline
         }
     }
     

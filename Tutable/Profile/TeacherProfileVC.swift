@@ -38,7 +38,13 @@ class TeacherProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         let tabBar : CustomTabBarController = self.tabBarController as! CustomTabBarController
         tabBar.setTabBarHidden(tabBarHidden: false)
-        
+        APIManager.sharedInstance.serviceCallToGetUserDetail {
+            
+        }
+        if !isStudentLogin()
+        {
+            APIManager.sharedInstance.serviceCallToGetCertificate {}
+        }
         self.setTeacherDetail()
         
     }

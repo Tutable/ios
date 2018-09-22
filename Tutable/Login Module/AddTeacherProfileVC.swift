@@ -273,6 +273,9 @@ class AddTeacherProfileVC: UIViewController, TeacherAvailabilityDelegate, UIImag
             self.onCaptureImageThroughGallery()
         }
         actionSheet.addAction(galleryButton)
+        actionSheet.popoverPresentationController?.sourceView = self.view
+        actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        actionSheet.popoverPresentationController?.permittedArrowDirections = []
         self.present(actionSheet, animated: true, completion: nil)
     }
     
