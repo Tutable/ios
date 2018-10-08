@@ -185,8 +185,18 @@ class ClassDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     @IBAction func clickToMessage(_ sender: Any) {
-        let receiver : FirebaseUserModel = FirebaseUserModel.init(dict: classData.teacher.dictionary())
-        AppDelegate().sharedDelegate().onChannelTap(connectUser: receiver)
+        USER.info(forUserID: teacherData.id) { (user) in
+            DispatchQueue.main.async {
+                let vc : ChatController = STORYBOARD.MESSAGE.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+                vc.currentUser = user
+                vc.TitleLbl = user.name
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+           
+        }
+        
+//        let receiver : FirebaseUserModel = FirebaseUserModel.init(dict: classData.teacher.dictionary())
+//        AppDelegate().sharedDelegate().onChannelTap(connectUser: receiver)//Comment on 6-Oct-2018
     }
     
     @IBAction func clickToUserProfilePicture(_ sender: Any) {
