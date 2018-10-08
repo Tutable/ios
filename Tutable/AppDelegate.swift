@@ -46,6 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     var messageListRef : DatabaseReference!
     var messageListRefHandler:UInt = 0
     var userFcmToken : String = ""
+    var ProfilePic = UIImage()
+    var pathStr = ""
     //Firebase Chat end
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -314,6 +316,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                         vc.isBackBtnDisplay = false
                         if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
                         {
+                            self.calledForLoginUser()
                             rootNavigatioVC.pushViewController(vc, animated: false)
                         }
                     }
@@ -342,6 +345,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                             vc.isBackDisplay = false
                             if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
                             {
+                                self.calledForLoginUser()
                                 rootNavigatioVC.pushViewController(vc, animated: false)
                             }
                         }
@@ -351,6 +355,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                             vc.isBackDisplay = false
                             if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
                             {
+                                self.calledForLoginUser()
                                 rootNavigatioVC.pushViewController(vc, animated: false)
                             }
                         }
@@ -360,6 +365,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                             vc.isBackDisplay = false
                             if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
                             {
+                                self.calledForLoginUser()
                                 rootNavigatioVC.pushViewController(vc, animated: false)
                             }
                         }
@@ -385,6 +391,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         
         if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
         {
+          calledForLoginUser()
             rootNavigatioVC.pushViewController(customTabbarVc, animated: false)
         }
         calledForLoginUser()
@@ -396,6 +403,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         customTabbarVc = self.storyboard().instantiateViewController(withIdentifier: "CustomTabBarController") as! CustomTabBarController
         if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
         {
+            
             rootNavigatioVC.pushViewController(customTabbarVc, animated: false)
         }
         calledForLoginUser()
@@ -548,7 +556,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     {
         if let _ : [String : Any] = getLoginUserData()
         {
-            loginWithFirebase()
+            //loginWithFirebase()
+            loginWithFirebase2()
         }
     }
     
@@ -567,6 +576,124 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             else
             {
 //                print(error?.localizedDescription)
+            }
+        }
+    }
+    
+    
+    
+    //MARK:- Register with Firebase
+    func registerWithFirebase2()
+    {
+        guard let str = AppModel.shared.currentUser.picture else{
+            return
+        }
+        
+        var newStr = ""
+        if str.contains("http://") || str.contains("https://")
+        {
+            newStr = str
+        }
+        else
+        {
+            newStr = BASE_URL + str
+        }
+        
+        
+        
+        let url = URL.init(string: newStr)
+        if url != nil{
+            
+            URLSession.shared.dataTask(with: url!) { (data, response, error) in
+                guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                    let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                    let data = data, error == nil,
+                    let image = UIImage(data: data)
+                    else { return }
+                DispatchQueue.main.async() { () -> Void in
+                    self.ProfilePic = image
+                    USER.registerUser(withName: AppModel.shared.currentUser.name, email: AppModel.shared.currentUser.email, password: AppModel.shared.currentUser.email, profilePic: self.ProfilePic, fcmToken: self.getFcmToken(),notificationCount: 0,location: ["latitude":0,"longitude": 0]) { (handler) in
+                        if handler == nil{
+                            
+                            print("registerd")
+                        }
+                        else{
+                            
+                        }
+                    }
+                }
+                }.resume()
+            
+            
+        }
+        
+        if ProfilePic == nil{
+            ProfilePic = #imageLiteral(resourceName: "profile_avatar_in_post")
+        }
+        
+    }
+    
+    
+    
+    
+    //MARK:- Login with Firebase
+    func loginWithFirebase2()
+    {
+        USER.loginUser(email: AppModel.shared.currentUser.email, password: AppModel.shared.currentUser.email) { (handler) in
+            if handler == nil{
+                if let currentUserID = AppModel.shared.currentUser.id{
+                   
+                    guard let str = AppModel.shared.currentUser.picture else{
+                        return
+                    }
+                    var newStr = ""
+                    if str.contains("http://") || str.contains("https://")
+                    {
+                        newStr = str
+                    }
+                    else
+                    {
+                        newStr = BASE_URL + str
+                    }
+                    
+                    let url = URL.init(string: newStr)
+                    if url != nil{
+                        
+                        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+                            guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                                let data = data, error == nil,
+                                let image = UIImage(data: data)
+                                else { return }
+                            DispatchQueue.main.async() { () -> Void in
+                                self.ProfilePic = image
+                                let storageRef = Storage.storage().reference().child("usersProfilePics").child("\((AppModel.shared.currentUser.id)!).jpg")
+                                let imageData = UIImageJPEGRepresentation(self.ProfilePic, 0.1)
+                                storageRef.putData(imageData!, metadata: nil, completion: { (metadata, err) in
+                                    if err == nil {
+                                        storageRef.downloadURL(completion: { (url, error) in
+                                            if error == nil{
+                                                guard let path = url?.absoluteString else{
+                                                    return
+                                                }
+                                                self.pathStr = path
+                                                let location =  ["latitude":0,"longitude": 0]
+                                                Database.database().reference().child("users").child(currentUserID).child("credentials").updateChildValues(["fcmToken":self.getFcmToken(),"name":AppModel.shared.currentUser.name,"email":AppModel.shared.currentUser.email,"profilePicLink": self.pathStr,"location":location,"notificationCount":0])
+                                                print("Logged in")
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                            }.resume()
+                        
+                        
+                    }
+                }
+                
+            }
+            else{
+                self.registerWithFirebase2()
             }
         }
     }
@@ -608,7 +735,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     func callAllHandler()
     {
         appUsersHandler()
-        inboxListHandler()
+ //       inboxListHandler()
         self.updateCurrentUserData()
     }
     
@@ -696,54 +823,69 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         }
     }
     
-    func inboxListHandler()
-    {
-        inboxListRef.removeObserver(withHandle: inboxListRefHandler)
-        inboxListRefHandler = inboxListRef.observe(DataEventType.value) { (snapshot : DataSnapshot) in
-            AppModel.shared.INBOXLIST = [InboxListModel]()
-            if snapshot.exists()
-            {
-                var arrNewMsg : [String] = [String] ()
-                for child in snapshot.children {
-                    let channel:DataSnapshot = child as! DataSnapshot
-                    if let channelDict = channel.value as? [String : AnyObject]{
-                        if (self.isMyChanel(channelId: channelDict["id"] as! String)) && AppModel.shared.validateInbox(dict: channelDict)
-                        {
-                            let msgList : InboxListModel = InboxListModel.init(dict: channelDict)
-                            AppModel.shared.INBOXLIST.append(msgList)
-                            if msgList.lastMessage.status == 2 && self.inboxNewMessageNoti[msgList.lastMessage.msgId] == nil && msgList.lastMessage.otherUserId == AppModel.shared.firebaseCurrentUser.id
-                            {
-                                if let otherUser : FirebaseUserModel = self.getConnectUserDetail(channelId: msgList.id)
-                                {
-                                    msgList.lastMessage.status = 3
-                                    self.inboxNewMessageNoti[msgList.lastMessage.msgId] = true
-                                    arrNewMsg.append(msgList.id)
-                                    
-                                    let vc : UIViewController = UIApplication.topViewController()!
-                                    if (vc is ChatViewController) && (vc as! ChatViewController).channelId == msgList.id {
-                                    }
-                                    else
-                                    {
-                                        if #available(iOS 10.0, *) {
-                                            self.showLocalPush(title: "New Message", subTitle: otherUser.name + ((msgList.lastMessage.text.decoded != "") ? (" : " + msgList.lastMessage.text.decoded) : " has sent story."), user: otherUser)
-                                        } else {
-                                            // Fallback on earlier versions
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                for i in 0..<arrNewMsg.count
-                {
-                    self.inboxListRef.child(arrNewMsg[i]).child("lastMessage").child("status").setValue(3)
-                }
+    
+    func deleteAllData(_ entity:String) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let results = try persistentContainer.viewContext.fetch(fetchRequest)
+            for object in results {
+                guard let objectData = object as? NSManagedObject else {continue}
+                persistentContainer.viewContext.delete(objectData)
             }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATION.UPDATE_INBOX_LIST), object: nil)
-            self.updateInboxMessageBadge()
+        } catch let error {
+            print("Detele all data in \(entity) error :", error)
         }
     }
+//    func inboxListHandler()
+//    {
+//
+//        inboxListRef.removeObserver(withHandle: inboxListRefHandler)
+//        inboxListRefHandler = inboxListRef.observe(DataEventType.value) { (snapshot : DataSnapshot) in
+//            AppModel.shared.INBOXLIST = [InboxListModel]()
+//            if snapshot.exists()
+//            {
+//                var arrNewMsg : [String] = [String] ()
+//                for child in snapshot.children {
+//                    let channel:DataSnapshot = child as! DataSnapshot
+//                    if let channelDict = channel.value as? [String : AnyObject]{
+//                        if (self.isMyChanel(channelId: channelDict["id"] as! String)) && AppModel.shared.validateInbox(dict: channelDict)
+//                        {
+//                            let msgList : InboxListModel = InboxListModel.init(dict: channelDict)
+//                            AppModel.shared.INBOXLIST.append(msgList)
+//                            if msgList.lastMessage.status == 2 && self.inboxNewMessageNoti[msgList.lastMessage.msgId] == nil && msgList.lastMessage.otherUserId == AppModel.shared.firebaseCurrentUser.id
+//                            {
+//                                if let otherUser : FirebaseUserModel = self.getConnectUserDetail(channelId: msgList.id)
+//                                {
+//                                    msgList.lastMessage.status = 3
+//                                    self.inboxNewMessageNoti[msgList.lastMessage.msgId] = true
+//                                    arrNewMsg.append(msgList.id)
+//
+//                                    let vc : UIViewController = UIApplication.topViewController()!
+//                                    if (vc is ChatViewController) && (vc as! ChatViewController).channelId == msgList.id {
+//                                    }
+//                                    else
+//                                    {
+//                                        if #available(iOS 10.0, *) {
+//                                            self.showLocalPush(title: "New Message", subTitle: otherUser.name + ((msgList.lastMessage.text.decoded != "") ? (" : " + msgList.lastMessage.text.decoded) : " has sent story."), user: otherUser)
+//                                        } else {
+//                                            // Fallback on earlier versions
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                for i in 0..<arrNewMsg.count
+//                {
+//                    self.inboxListRef.child(arrNewMsg[i]).child("lastMessage").child("status").setValue(3)
+//                }
+//            }
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: NOTIFICATION.UPDATE_INBOX_LIST), object: nil)
+//            self.updateInboxMessageBadge()
+//        }
+//    }////comment on 4-Oct-2018
     
     func createChannel(connectUserId : String) -> String
     {
@@ -867,50 +1009,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         return false
     }
     
-    func onSendMessage(message : MessageModel, chanelId : String)
-    {
-        message.status = 2
-        messageListRef.child(chanelId).child(message.key).child("status").setValue(message.status)
-        
-//        updateLastMessageInInbox(message: message, chanelId: chanelId)
-        
-        let otherUserBadgeKey : String = getOtherUserBadgeKey(channelID: chanelId)
-        var otherUserBadge : Int = 1
-        let index = AppModel.shared.INBOXLIST.index { (inbox) -> Bool in
-            inbox.id == chanelId
-        }
-        
-        if index != nil
-        {
-            let inboxList : InboxListModel = AppModel.shared.INBOXLIST[index!]
-            if otherUserBadgeKey == "badge1" {
-                inboxList.badge1 = inboxList.badge1 + 1
-                otherUserBadge = inboxList.badge1
-            }
-            else
-            {
-                inboxList.badge2 = inboxList.badge2 + 1
-                otherUserBadge = inboxList.badge2
-            }
-            inboxList.lastMessage = message
-        }
-        inboxListRef.child(chanelId).child(otherUserBadgeKey).setValue(otherUserBadge)
-        
-        let index1 = AppModel.shared.USERS.index { (user) -> Bool in
-            user.id == message.otherUserId
-        }
-        if index1 != nil
-        {
-            if AppModel.shared.USERS[index1!].last_seen != ""
-            {
-                sendPush(title: "Tutable", body: ("You have new Message from " + AppModel.shared.firebaseCurrentUser.name), user: AppModel.shared.USERS[index1!], type: "1")
-                
-                message.status = 3
-            }
-        }
-        inboxListRef.child(chanelId).child("lastMessage").setValue(message.dictionary())
-        
-    }
+//    func onSendMessage(message : MessageModel, chanelId : String)
+//    {
+//        message.status = 2
+//        messageListRef.child(chanelId).child(message.key).child("status").setValue(message.status)
+//
+////        updateLastMessageInInbox(message: message, chanelId: chanelId)
+//
+//        let otherUserBadgeKey : String = getOtherUserBadgeKey(channelID: chanelId)
+//        var otherUserBadge : Int = 1
+//        let index = AppModel.shared.INBOXLIST.index { (inbox) -> Bool in
+//            inbox.id == chanelId
+//        }
+//
+//        if index != nil
+//        {
+//            let inboxList : InboxListModel = AppModel.shared.INBOXLIST[index!]
+//            if otherUserBadgeKey == "badge1" {
+//                inboxList.badge1 = inboxList.badge1 + 1
+//                otherUserBadge = inboxList.badge1
+//            }
+//            else
+//            {
+//                inboxList.badge2 = inboxList.badge2 + 1
+//                otherUserBadge = inboxList.badge2
+//            }
+//            inboxList.lastMessage = message
+//        }
+//        inboxListRef.child(chanelId).child(otherUserBadgeKey).setValue(otherUserBadge)
+//
+//        let index1 = AppModel.shared.USERS.index { (user) -> Bool in
+//            user.id == message.otherUserId
+//        }
+//        if index1 != nil
+//        {
+//            if AppModel.shared.USERS[index1!].last_seen != ""
+//            {
+//                sendPush(title: "Tutable", body: ("You have new Message from " + AppModel.shared.firebaseCurrentUser.name), user: AppModel.shared.USERS[index1!], type: "1")
+//
+//                message.status = 3
+//            }
+//        }
+//        inboxListRef.child(chanelId).child("lastMessage").setValue(message.dictionary())
+//
+//    }////comment on 4-Oct-2018
     
     func sendPush(title:String, body:String, user:FirebaseUserModel, type : String)
     {
@@ -985,52 +1127,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         }
     }
     
-    func updateLastMessageInInbox(message : MessageModel, chanelId : String)
-    {
-        message.status = 3
-        inboxListRef.child(chanelId).child("date").setValue(message.date)
-        inboxListRef.child(chanelId).child("lastMessage").setValue(message.dictionary())
-    }
+//    func updateLastMessageInInbox(message : MessageModel, chanelId : String)
+//    {
+//        message.status = 3
+//        inboxListRef.child(chanelId).child("date").setValue(message.date)
+//        inboxListRef.child(chanelId).child("lastMessage").setValue(message.dictionary())
+//    }////comment on 4-Oct-2018
+//
+//    func onGetMessage(message : MessageModel, chanelId : String)
+//    {
+//        let myBadgeKey : String = getCurrentUserBadgeKey(chanelId)
+//        let index = AppModel.shared.INBOXLIST.index { (inbox) -> Bool in
+//            inbox.id == chanelId
+//        }
+//        if index != nil
+//        {
+//            let inboxList : InboxListModel = AppModel.shared.INBOXLIST[index!]
+//            if myBadgeKey == "badge1" {
+//                inboxList.badge1 = 0
+//            }else{
+//                inboxList.badge2 = 0
+//            }
+//            inboxListRef.child(chanelId).child(myBadgeKey).setValue(0)
+//        }
+//    }//comment on 4-Oct-2018
     
-    func onGetMessage(message : MessageModel, chanelId : String)
-    {
-        let myBadgeKey : String = getCurrentUserBadgeKey(chanelId)
-        let index = AppModel.shared.INBOXLIST.index { (inbox) -> Bool in
-            inbox.id == chanelId
-        }
-        if index != nil
-        {
-            let inboxList : InboxListModel = AppModel.shared.INBOXLIST[index!]
-            if myBadgeKey == "badge1" {
-                inboxList.badge1 = 0
-            }else{
-                inboxList.badge2 = 0
-            }
-            inboxListRef.child(chanelId).child(myBadgeKey).setValue(0)
-        }
-    }
-    
-    func updateInboxMessageBadge()
-    {
-        var unreadBadge : Int = 0
-        
-        for temp in AppModel.shared.INBOXLIST
-        {
-            if (isMyChanel(channelId: temp.id))
-            {
-                if getCurrentUserBadgeKey(temp.id) == "badge1"
-                {
-                    unreadBadge = unreadBadge + temp.badge1
-                }
-                else
-                {
-                    unreadBadge = unreadBadge + temp.badge2
-                }
-            }
-        }
-        AppModel.shared.firebaseCurrentUser.badge = unreadBadge
-        NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: NOTIFICATION.UPDATE_MESSAGE_BADGE), object: nil)
-    }
+//    func updateInboxMessageBadge()
+//    {
+//        var unreadBadge : Int = 0
+//
+//        for temp in AppModel.shared.INBOXLIST
+//        {
+//            if (isMyChanel(channelId: temp.id))
+//            {
+//                if getCurrentUserBadgeKey(temp.id) == "badge1"
+//                {
+//                    unreadBadge = unreadBadge + temp.badge1
+//                }
+//                else
+//                {
+//                    unreadBadge = unreadBadge + temp.badge2
+//                }
+//            }
+//        }
+//        AppModel.shared.firebaseCurrentUser.badge = unreadBadge
+//        NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: NOTIFICATION.UPDATE_MESSAGE_BADGE), object: nil)
+//    }//comment on 4-Oct-2018
     
     //MARK:- Other func.
     func showLoader()
@@ -1046,7 +1188,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     
     func removeLoader()
     {
-        window?.isUserInteractionEnabled = true
+        DispatchQueue.main.async {
+            self.window?.isUserInteractionEnabled = true
+        }
+       
         if activityLoader == nil
         {
             return
@@ -1212,12 +1357,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         updateLastSeen(isOnline: false)
+        deleteAllData("Message")
         application.applicationIconBadgeNumber = 0
     }
 
@@ -1312,12 +1459,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
 
 extension AppDelegate : MessagingDelegate {
     func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
-        //print("Firebase registration token: \(fcmToken)")
+        print("Firebase registration token: \(fcmToken)")
         userFcmToken = fcmToken
     }
     
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        //print("Received data message: \(remoteMessage.appData)")
+        print("Received data message: \(remoteMessage.appData)")
     }
 }
 
