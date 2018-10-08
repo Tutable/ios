@@ -57,6 +57,27 @@ func getTableBackgroundViewForNoData(_ str:String, size:CGSize) -> UIView{
     return noDataLabel
 }
 
+
+enum MessageOwner {
+    case sender
+    case receiver
+}
+enum MessageType {
+    case photo
+    case text
+    case location
+}
+
+//MARK:- RoundedImageView
+class RoundedImageView: UIImageView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let radius: CGFloat = self.bounds.size.width / 2.0
+        self.layer.cornerRadius = radius
+        self.clipsToBounds = true
+    }
+}
+
 //MARK:- Toast
 func displayToast(_ message:String)
 {
@@ -354,8 +375,38 @@ extension UIImage {
         return scaledImage!
     }
     
+    
+    
 }
 
+
+
+extension UIImageView
+{
+    func circleCorner(){
+        self.layer.cornerRadius = self.layer.frame.size.height / 2
+        self.layer.masksToBounds = true
+    }
+    func downloaded(from url: URL, contentMode mode: UIViewContentMode = .scaleAspectFill) {
+        contentMode = mode
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data, error == nil,
+                let image = UIImage(data: data)
+                else { return }
+            DispatchQueue.main.async() {
+                self.image = image
+            }
+            }.resume()
+    }
+    func downloaded(from link: String, contentMode mode: UIViewContentMode = .scaleAspectFill) {
+        guard let url = URL(string: link) else { return }
+        downloaded(from: url, contentMode: mode)
+    }
+    
+}
 
 extension Data {
     var html2AttributedString: NSAttributedString? {
@@ -416,13 +467,14 @@ extension String
         return String(self[i] as Character)
     }
     
-    subscript (r: Range<Int>) -> String {
-        let start = index(startIndex, offsetBy: r.lowerBound)
-        let end = index(startIndex, offsetBy: r.upperBound)
-        return String(self[Range(start ..< end)])
-    }
+//    subscript (r: Range<Int>) -> String {
+//        let start = index(startIndex, offsetBy: r.lowerBound)
+//        let end = index(startIndex, offsetBy: r.upperBound)
+//        return String(self[Range(start ..< end)])
+//    }
 
 }
+
 
 
 
@@ -525,6 +577,26 @@ extension UITextField
         self.leftView = leftView
         self.leftViewMode = .always
     }
+    
+    func circleCorner(){
+        self.layer.cornerRadius = self.layer.frame.size.height / 2
+        self.layer.masksToBounds = true
+    }
+   
+    func circleCorner(cornerRadius: CGFloat){
+        self.layer.cornerRadius = self.layer.frame.size.height / cornerRadius
+        self.layer.masksToBounds = true
+    }
+    
+    func addRightPadding(padding: CGFloat)
+    {
+        let rightView = UIView()
+        rightView.frame = CGRect(x: 0, y: 0, width: padding, height: self.frame.height)
+        
+        self.rightView = rightView
+        self.rightViewMode = .always
+    }
+    
 }
 
 extension UITextView
