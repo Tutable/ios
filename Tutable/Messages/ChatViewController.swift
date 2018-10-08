@@ -252,7 +252,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
                         self.coreDataMsgDict[tempMsg.msgId] = true
                         if i == messagesArr.count-1
                         {
-                            AppDelegate().sharedDelegate().updateLastMessageInInbox(message: tempMsg, chanelId: self.channelId)
+//                            AppDelegate().sharedDelegate().updateLastMessageInInbox(message: tempMsg, chanelId: self.channelId)////comment on 4-Oct-2018
                         }
                     }
                     self.tblView.reloadData()
@@ -296,7 +296,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
                         self.addMessage(message)
                         if message.otherUserId == AppModel.shared.firebaseCurrentUser.id
                         {
-                            AppDelegate().sharedDelegate().onGetMessage(message: message, chanelId: self.channelId)
+//                            AppDelegate().sharedDelegate().onGetMessage(message: message, chanelId: self.channelId)////comment on 4-Oct-2018
                         }
                         
                     }
@@ -324,7 +324,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
                         self.addMessage(message)
                         if message.otherUserId == AppModel.shared.firebaseCurrentUser.id
                         {
-                            AppDelegate().sharedDelegate().onGetMessage(message: message, chanelId: self.channelId)
+//                            AppDelegate().sharedDelegate().onGetMessage(message: message, chanelId: self.channelId)////comment on 4-Oct-2018
                         }
                     }
                     
@@ -441,7 +441,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, UITableViewDeleg
             newMsgRef.setValue(msgModel.dictionary())
             msgTextView.text = ""
             constraintHeightMsgTextView.constant = 50
-            AppDelegate().sharedDelegate().onSendMessage(message: msgModel, chanelId: channelId)
+//            AppDelegate().sharedDelegate().onSendMessage(message: msgModel, chanelId: channelId)////comment on 4-Oct-2018
         }
     }
     

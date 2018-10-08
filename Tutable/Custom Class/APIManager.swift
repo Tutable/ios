@@ -857,7 +857,7 @@ public class APIManager {
                 })
                 upload.responseJSON { response in
                     removeLoader()
-                    print(response.result.value!)
+                    print(response.result.value)
                     if let result = response.result.value as? [String:Any]{
                         if let code = result["code"] as? Int{
                             if(code == 100){

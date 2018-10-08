@@ -103,6 +103,11 @@
 		18FE55642073950B00FE4C36 /* PastBookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE55632073950B00FE4C36 /* PastBookingVC.swift */; };
 		18FE55692073A2E300FE4C36 /* CustomUpcomingBookingTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FE55672073A2E200FE4C36 /* CustomUpcomingBookingTVC.xib */; };
 		18FE556A2073A2E300FE4C36 /* CustomUpcomingBookingTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE55682073A2E200FE4C36 /* CustomUpcomingBookingTVC.swift */; };
+		221A6E0D21661A7D00AA6D92 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A6E0C21661A7D00AA6D92 /* Conversation.swift */; };
+		221A6E1021661B3300AA6D92 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A6E0F21661B3300AA6D92 /* User.swift */; };
+		221A6E1221661C2700AA6D92 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A6E1121661C2700AA6D92 /* Messages.swift */; };
+		2251516221679A90009CF19A /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251516121679A90009CF19A /* ChatController.swift */; };
+		2251516421679B90009CF19A /* ChatCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251516321679B90009CF19A /* ChatCells.swift */; };
 		B71511F4C9DD70D1C99714B4 /* Pods_Tutable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC2988E7CBABE374D53E7E3F /* Pods_Tutable.framework */; };
 		D8D49B262077962F00CC4851 /* ClassBookingRequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D49B252077962F00CC4851 /* ClassBookingRequestVC.swift */; };
 		D8D49B2C2077BBF400CC4851 /* CreditCardDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D49B2B2077BBF400CC4851 /* CreditCardDetailVC.swift */; };
@@ -210,6 +215,11 @@
 		18FE55632073950B00FE4C36 /* PastBookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastBookingVC.swift; sourceTree = "<group>"; };
 		18FE55672073A2E200FE4C36 /* CustomUpcomingBookingTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomUpcomingBookingTVC.xib; sourceTree = "<group>"; };
 		18FE55682073A2E200FE4C36 /* CustomUpcomingBookingTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUpcomingBookingTVC.swift; sourceTree = "<group>"; };
+		221A6E0C21661A7D00AA6D92 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		221A6E0F21661B3300AA6D92 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		221A6E1121661C2700AA6D92 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
+		2251516121679A90009CF19A /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		2251516321679B90009CF19A /* ChatCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCells.swift; sourceTree = "<group>"; };
 		D8D49B252077962F00CC4851 /* ClassBookingRequestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassBookingRequestVC.swift; sourceTree = "<group>"; };
 		D8D49B2B2077BBF400CC4851 /* CreditCardDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardDetailVC.swift; sourceTree = "<group>"; };
 		E82ECA5DF19E77D816B0CE3F /* Pods-Tutable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tutable.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tutable/Pods-Tutable.debug.xcconfig"; sourceTree = "<group>"; };
@@ -303,9 +313,12 @@
 		18615BCC2068B8C9004A6876 /* Messages */ = {
 			isa = PBXGroup;
 			children = (
+				221A6E0E21661AF700AA6D92 /* ChatModel */,
 				18615BD22068B926004A6876 /* MessageVC.swift */,
 				188FB351207E20AA00663CE7 /* ChatViewController.swift */,
 				18119191207601C900CC9D3D /* NotificationVC.swift */,
+				2251516121679A90009CF19A /* ChatController.swift */,
+				2251516321679B90009CF19A /* ChatCells.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -474,6 +487,16 @@
 				1880397D206A14CA00179778 /* ReviewListVC.swift */,
 			);
 			path = Class;
+			sourceTree = "<group>";
+		};
+		221A6E0E21661AF700AA6D92 /* ChatModel */ = {
+			isa = PBXGroup;
+			children = (
+				221A6E0C21661A7D00AA6D92 /* Conversation.swift */,
+				221A6E0F21661B3300AA6D92 /* User.swift */,
+				221A6E1121661C2700AA6D92 /* Messages.swift */,
+			);
+			path = ChatModel;
 			sourceTree = "<group>";
 		};
 		7914F19116A2A7BA543AC3C6 /* Pods */ = {
@@ -710,6 +733,7 @@
 				18F2DCE4208A32CE008F56EE /* PaymentMethodVC.swift in Sources */,
 				18B9918620692620009F8A13 /* CustomCategoryCVC.swift in Sources */,
 				18FE55642073950B00FE4C36 /* PastBookingVC.swift in Sources */,
+				221A6E1221661C2700AA6D92 /* Messages.swift in Sources */,
 				18615BD12068B90D004A6876 /* SettingsVC.swift in Sources */,
 				18B9918D20692841009F8A13 /* CustomClassesCVC.swift in Sources */,
 				185CC578207DEAA400B05B8A /* EditTeacherProfileVC.swift in Sources */,
@@ -736,6 +760,7 @@
 				184637EA207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.swift in Sources */,
 				18FE556A2073A2E300FE4C36 /* CustomUpcomingBookingTVC.swift in Sources */,
 				18615BDD2068D496004A6876 /* PhotoSelectionVC.swift in Sources */,
+				221A6E0D21661A7D00AA6D92 /* Conversation.swift in Sources */,
 				18B9919520693973009F8A13 /* ClassDetailVC.swift in Sources */,
 				186A751F206510340013D863 /* Toast.swift in Sources */,
 				186A7505206504CB0013D863 /* WelcomePageVC.swift in Sources */,
@@ -752,16 +777,19 @@
 				18C441CB206A5ECC005C6251 /* RegistrationVC.swift in Sources */,
 				18FE5562207394F600FE4C36 /* UpcomingBookingVC.swift in Sources */,
 				188FB352207E20AB00663CE7 /* ChatViewController.swift in Sources */,
+				2251516221679A90009CF19A /* ChatController.swift in Sources */,
 				18803980206A18E200179778 /* FloatRatingView.swift in Sources */,
 				185CC56C207DE36200B05B8A /* SendChatMessageTVC.swift in Sources */,
 				185CC575207DEA6D00B05B8A /* TeacherAvailabilityVC.swift in Sources */,
 				18119192207601C900CC9D3D /* NotificationVC.swift in Sources */,
+				2251516421679B90009CF19A /* ChatCells.swift in Sources */,
 				18C441CD206A673D005C6251 /* ClassesListVC.swift in Sources */,
 				185CC572207DEA6D00B05B8A /* TeacherFinishVC.swift in Sources */,
 				186A7516206510340013D863 /* DisablePasteForTextField.swift in Sources */,
 				18615BD52068B93A004A6876 /* BrowseVC.swift in Sources */,
 				18615BD32068B926004A6876 /* MessageVC.swift in Sources */,
 				186A7503206504B60013D863 /* StudentRegistration.swift in Sources */,
+				221A6E1021661B3300AA6D92 /* User.swift in Sources */,
 				186A7501206504A30013D863 /* LoginVC.swift in Sources */,
 				18803985206A2A6700179778 /* CustomClassesTVC.swift in Sources */,
 				18B99191206938E8009F8A13 /* CustomReviewsTVC.swift in Sources */,
