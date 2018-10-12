@@ -70,6 +70,10 @@ class StudentRegistration: UIViewController, UITextFieldDelegate, UIImagePickerC
         {
             displayToast("Please enter name.")
         }
+        else if profilePicBtn.currentBackgroundImage == UIImage(named: "user_avatar")
+        {
+            displayToast("Please enter profile picture.")
+        }
         else if emailTxt.text?.trimmed == ""
         {
             displayToast("Please enter email.")

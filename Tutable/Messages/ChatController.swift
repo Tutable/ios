@@ -13,6 +13,7 @@ import MobileCoreServices
 class ChatController: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     fileprivate var currentVC: UIViewController!
     @IBOutlet weak var ProfilePic: UIImageView!
+    var userProfilePic: UIImageView = UIImageView()
     let barHeight: CGFloat = 50
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var chatTxtView: UIView!
@@ -29,7 +30,12 @@ class ChatController: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
     var items = [Messages]()
     override func viewDidLoad() {
         super.viewDidLoad()
-         fetchData()
+        download_Current_User_image()
+        fetchData()
+        
+        
+        print(AppModel.shared.currentUser.picture)
+       
         
         customization()
       
@@ -66,7 +72,7 @@ class ChatController: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
         case .receiver:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Receiver", for: indexPath) as! ReceiverCell
             cell.clearCellData()
-            cell.profilePic.downloaded(from: AppModel.shared.currentUser.picture)
+            cell.profilePic.image = userProfilePic.image
             switch self.items[indexPath.row].type {
             case .text:
                 cell.message.text = self.items[indexPath.row].content as! String
@@ -239,7 +245,30 @@ class ChatController: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
         self.navigationItem.title = self.currentUser?.name
         
     }
-    
+      //MARK: download_Current_User_image
+    func download_Current_User_image(){
+        guard let str = AppModel.shared.currentUser.picture else{
+            return
+        }
+        
+        var newStr = ""
+        if str.contains("http://") || str.contains("https://")
+        {
+            newStr = str
+        }
+        else
+        {
+            newStr = BASE_URL + str
+        }
+        
+        
+        
+        let url = URL.init(string: newStr)
+        if url != nil{
+            userProfilePic.downloaded(from: url!)
+            
+    }
+    }
     //Downloads messages
     func fetchData() {
         Messages.downloadAllMessages(forUserID: self.currentUser!.id, completion: {[weak weakSelf = self] (message) in

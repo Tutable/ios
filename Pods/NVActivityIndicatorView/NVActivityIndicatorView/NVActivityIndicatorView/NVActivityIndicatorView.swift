@@ -476,9 +476,12 @@ public final class NVActivityIndicatorView: UIView {
      Stop animating.
      */
     public final func stopAnimating() {
-        isHidden = true
-        isAnimating = false
-        layer.sublayers?.removeAll()
+        DispatchQueue.main.async {
+            self.isHidden = true
+            self.isAnimating = false
+            self.layer.sublayers?.removeAll()
+        }
+       
     }
 
     // MARK: Internal

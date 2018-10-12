@@ -282,7 +282,7 @@ public class APIManager {
             return
         }
         showLoader()
-        
+        print(params)
         let headerParams :[String : String] = getJsonHeader()
         
         Alamofire.request(BASE_URL+"teachers/social", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headerParams).responseJSON { (response) in
@@ -734,7 +734,7 @@ public class APIManager {
                 })
                 upload.responseJSON { response in
                     removeLoader()
-                    print(response.result.value!)
+                    print(response.result.value)
                     if let result = response.result.value as? [String:Any]{
                         if let code = result["code"] as? Int{
                             if(code == 100 || code == 104){

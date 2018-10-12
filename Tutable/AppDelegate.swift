@@ -214,6 +214,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                         }
                     }
                     finalDict["facebook"] = userDict
+                    finalDict["email"] = userDict["email"]
                     print(finalDict)
                     self.socialLoginResponse(finalDict)
                 }
@@ -292,6 +293,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                 finalDict["picture"] = picture.absoluteString
             }
             finalDict["google"] = userDict
+            finalDict["email"] = userDict["email"]
             print(finalDict)
             socialLoginResponse(finalDict)
         }
@@ -391,7 +393,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         
         if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
         {
-          calledForLoginUser()
+//          calledForLoginUser()
             rootNavigatioVC.pushViewController(customTabbarVc, animated: false)
         }
         calledForLoginUser()

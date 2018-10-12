@@ -295,7 +295,10 @@ class USER: NSObject {
                     if error == nil {
                         let profilePic = UIImage.init(data: data!)
                         let user = USER.init(name: name!, email: email!, id: forUserID, profilePic: profilePic!, latitude: latitude, longitude: longitude,fcmToken: fcmToken!)
-                        removeLoader()
+                        DispatchQueue.main.async {
+                            removeLoader()
+                        }
+                        
                         completion(user)
                         
                     }
