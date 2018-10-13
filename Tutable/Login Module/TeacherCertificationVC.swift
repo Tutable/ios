@@ -98,16 +98,16 @@ class TeacherCertificationVC: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @IBAction func clickToSubmit(_ sender: Any) {
-        if getPoliceCertificate() == "" && policeCheckImg == nil
-        {
-            displayToast("Please select certificate for police check")
-        }
+//        if getPoliceCertificate() == "" && policeCheckImg == nil
+//        {
+//            displayToast("Please select certificate for police check")
+//        }
 //        else if AppModel.shared.currentUser.childrenCert == "" && childrenCheckImg == nil
 //        {
 //            displayToast("Please select certificate for children check")
 //        }
-        else
-        {
+//        else
+//        {
             var policeData : Data = Data()
             var childrenData : Data = Data()
             
@@ -117,7 +117,7 @@ class TeacherCertificationVC: UIViewController, UIImagePickerControllerDelegate,
             if childrenCheckImg != nil, let tempData = UIImagePNGRepresentation(childrenCheckImg){
                 childrenData = tempData
             }
-            if policeCheckImg == nil && getPoliceCertificate() != ""
+            if policeCheckImg == nil //&& getPoliceCertificate() != ""
             {
                 let vc : TeacherFinishVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherFinishVC") as! TeacherFinishVC
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -130,7 +130,7 @@ class TeacherCertificationVC: UIViewController, UIImagePickerControllerDelegate,
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
-        }
+        //}
         
     }
     
