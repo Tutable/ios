@@ -103,6 +103,7 @@
 		18FE55642073950B00FE4C36 /* PastBookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE55632073950B00FE4C36 /* PastBookingVC.swift */; };
 		18FE55692073A2E300FE4C36 /* CustomUpcomingBookingTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FE55672073A2E200FE4C36 /* CustomUpcomingBookingTVC.xib */; };
 		18FE556A2073A2E300FE4C36 /* CustomUpcomingBookingTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE55682073A2E200FE4C36 /* CustomUpcomingBookingTVC.swift */; };
+		220369242171DA1B00E2AD19 /* GoogleService-Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 220369232171DA1A00E2AD19 /* GoogleService-Info-dev.plist */; };
 		221A6E0D21661A7D00AA6D92 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A6E0C21661A7D00AA6D92 /* Conversation.swift */; };
 		221A6E1021661B3300AA6D92 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A6E0F21661B3300AA6D92 /* User.swift */; };
 		221A6E1221661C2700AA6D92 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A6E1121661C2700AA6D92 /* Messages.swift */; };
@@ -215,6 +216,7 @@
 		18FE55632073950B00FE4C36 /* PastBookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastBookingVC.swift; sourceTree = "<group>"; };
 		18FE55672073A2E200FE4C36 /* CustomUpcomingBookingTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomUpcomingBookingTVC.xib; sourceTree = "<group>"; };
 		18FE55682073A2E200FE4C36 /* CustomUpcomingBookingTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUpcomingBookingTVC.swift; sourceTree = "<group>"; };
+		220369232171DA1A00E2AD19 /* GoogleService-Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-dev.plist"; sourceTree = "<group>"; };
 		221A6E0C21661A7D00AA6D92 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		221A6E0F21661B3300AA6D92 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		221A6E1121661C2700AA6D92 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 		186A74EC2064BFCD0013D863 /* Tutable */ = {
 			isa = PBXGroup;
 			children = (
+				220369232171DA1A00E2AD19 /* GoogleService-Info-dev.plist */,
 				184637E7207B388800F0B8A4 /* Tutable.entitlements */,
 				188FB356207E257B00663CE7 /* TutableModel.xcdatamodel */,
 				186A74ED2064BFCD0013D863 /* AppDelegate.swift */,
@@ -584,6 +587,7 @@
 				18750BB02074957300ABF3B6 /* Class.storyboard in Resources */,
 				186A74F52064BFCD0013D863 /* Assets.xcassets in Resources */,
 				18611AB1208465B700C45FA5 /* Roboto-Light.ttf in Resources */,
+				220369242171DA1B00E2AD19 /* GoogleService-Info-dev.plist in Resources */,
 				18B9918720692620009F8A13 /* CustomCategoryCVC.xib in Resources */,
 				18803986206A2A6700179778 /* CustomClassesTVC.xib in Resources */,
 				184637EB207B3E1700F0B8A4 /* CustomAcceptRejectNotiTVC.xib in Resources */,

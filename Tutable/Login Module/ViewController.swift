@@ -33,12 +33,14 @@ class ViewController: UIViewController {
     
     @IBAction func clickToTech(_ sender: Any) {
         setUserType(type: 1)
+        UserDefaults.standard.set("Teacher", forKey: "type")
         let vc : LoginVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func clickToLearn(_ sender: Any) {
         setUserType(type: 2)
+        UserDefaults.standard.set("Student", forKey: "type")
         let vc : LoginVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
         self.navigationController?.pushViewController(vc, animated: true)
     }

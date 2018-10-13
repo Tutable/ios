@@ -190,7 +190,11 @@ class USER: NSObject {
                                 guard let path = url?.absoluteString else{
                                     return
                                 }
-                                let values: [String: Any] = ["name": withName, "email": email, "profilePicLink": path,"location":location,"fcmToken":fcmToken,"notificationCount":notificationCount]
+                                var type = ""
+                                if let typeValue = UserDefaults.standard.value(forKey: "type") as? String{
+                                    type = typeValue
+                                }
+                                let values: [String: Any] = ["name": withName, "email": email, "profilePicLink": path,"location":location,"fcmToken":fcmToken,"notificationCount":notificationCount,"type":type]
                                 Database.database().reference().child("users").child((AppModel.shared.currentUser.id)!).child("credentials").updateChildValues(values, withCompletionBlock: { (error, _) in
                                     if error == nil {
                                         removeLoader()

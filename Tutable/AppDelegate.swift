@@ -73,8 +73,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         // Push Notification
         registerPushNotification(application)
         
+        // Load Firebase Development DB file.
+        let filePath = Bundle.main.path(forResource: "GoogleService-Info-dev", ofType: "plist")
+        guard let fileopts = FirebaseOptions(contentsOfFile: filePath!)
+            else { assert(false, "Couldn't load config file") }
+        FirebaseApp.configure(options: fileopts)
+        
+//        // Load Firebase Live DB file.
+//        let filePath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist")
+//        guard let fileopts = FirebaseOptions(contentsOfFile: filePath!)
+//            else { assert(false, "Couldn't load config file") }
+//        FirebaseApp.configure(options: fileopts)
+        
         //Firebase chat start
-        FirebaseApp.configure()
+       // FirebaseApp.configure()
         
         //create Table
         appUsersRef = Database.database().reference().child("USERS")
@@ -680,7 +692,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                                                 }
                                                 self.pathStr = path
                                                 let location =  ["latitude":0,"longitude": 0]
-                                                Database.database().reference().child("users").child(currentUserID).child("credentials").updateChildValues(["fcmToken":self.getFcmToken(),"name":AppModel.shared.currentUser.name,"email":AppModel.shared.currentUser.email,"profilePicLink": self.pathStr,"location":location,"notificationCount":0])
+                                                var type = ""
+                                                if let typeValue = UserDefaults.standard.value(forKey: "type") as? String{
+                                                   type = typeValue
+                                                }
+                                                Database.database().reference().child("users").child(currentUserID).child("credentials").updateChildValues(["fcmToken":self.getFcmToken(),"name":AppModel.shared.currentUser.name,"email":AppModel.shared.currentUser.email,"profilePicLink": self.pathStr,"location":location,"notificationCount":0,"type":type])
                                                 print("Logged in")
                                             }
                                         })

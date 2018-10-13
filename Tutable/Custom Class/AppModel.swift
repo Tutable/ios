@@ -12,6 +12,7 @@ class AppModel: NSObject {
     static let shared = AppModel()
     var token : String = ""
     var currentUser : UserModel!
+    var type: String = ""
     var currentClass : ClassModel!
     var usersAvatar:[String:UIImage] = [String:UIImage]()
     var imageQueue:[String:Any] = [String:Any]()
