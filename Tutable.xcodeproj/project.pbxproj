@@ -685,7 +685,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" ad9c07bbd1d0a9abf4b99795ae0484f5b711d517 d6d29bb02f9025a528bd8eaaf4463f069f76927ac6c2d9db6acefab038823ada";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" ad9c07bbd1d0a9abf4b99795ae0484f5b711d517 d6d29bb02f9025a528bd8eaaf4463f069f76927ac6c2d9db6acefab038823ada\n";
 		};
 		1B8776A1892CC5EFBBF27000 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -946,15 +946,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Tutable/Tutable.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 6Q233F3ZPX;
+				DEVELOPMENT_TEAM = ANGN3Z43YT;
 				INFOPLIST_FILE = Tutable/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.TutableDev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.Tutable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1c50d665-297e-4e43-a1cc-d6955272bf01";
-				PROVISIONING_PROFILE_SPECIFIER = Tutable_IOSDev;
+				PROVISIONING_PROFILE_SPECIFIER = Tutable_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tutable/Custom Class/Tutable-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -969,15 +970,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Tutable/Tutable.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 6Q233F3ZPX;
+				DEVELOPMENT_TEAM = ANGN3Z43YT;
 				INFOPLIST_FILE = Tutable/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.TutableDev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.Tutable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1c50d665-297e-4e43-a1cc-d6955272bf01";
-				PROVISIONING_PROFILE_SPECIFIER = Tutable_IOSDev;
+				PROVISIONING_PROFILE_SPECIFIER = Tutable_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tutable/Custom Class/Tutable-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
