@@ -94,9 +94,11 @@ class LoginVC: UIViewController {
                             }
                             else if redirectionType == 2
                             {
-                                let vc : TeacherCertificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
-                                vc.isBackDisplay = false
-                                self.navigationController?.pushViewController(vc, animated: true)
+//                                let vc : TeacherCertificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
+//                                vc.isBackDisplay = false
+//                                self.navigationController?.pushViewController(vc, animated: true)//Comment on 17-Oct-2018
+                                
+                                 AppDelegate().sharedDelegate().navigateToDashboard()
                             }
                             else if redirectionType == 3
                             {

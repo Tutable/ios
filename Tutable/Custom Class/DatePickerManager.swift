@@ -117,7 +117,8 @@ open class DatePickerManager: NSObject, UIPickerViewDelegate, UIPickerViewDataSo
         }
         
         if UIDevice.current.userInterfaceIdiom == .pad{
-            view.center.x = (center! - (UIViewController.top?.view.frame.size.width)!)
+            let xValue =  view.center.x
+            view.center.x = xValue
         }else{
             view.center.x = center ?? 0
         }

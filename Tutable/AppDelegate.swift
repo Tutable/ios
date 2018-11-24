@@ -73,17 +73,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         // Push Notification
         registerPushNotification(application)
         
-        // Load Firebase Development DB file.
-        let filePath = Bundle.main.path(forResource: "GoogleService-Info-dev", ofType: "plist")
-        guard let fileopts = FirebaseOptions(contentsOfFile: filePath!)
-            else { assert(false, "Couldn't load config file") }
-        FirebaseApp.configure(options: fileopts)
-        
-//        // Load Firebase Live DB file.
-//        let filePath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist")
+//        // Load Firebase Development DB file.
+//        let filePath = Bundle.main.path(forResource: "GoogleService-Info-dev", ofType: "plist")
 //        guard let fileopts = FirebaseOptions(contentsOfFile: filePath!)
 //            else { assert(false, "Couldn't load config file") }
 //        FirebaseApp.configure(options: fileopts)
+        
+        // Load Firebase Live DB file.
+        let filePath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist")
+        guard let fileopts = FirebaseOptions(contentsOfFile: filePath!)
+            else {
+                assert(false, "Couldn't load config file")
+               return false
+        }
+        FirebaseApp.configure(options: fileopts)
         
         //Firebase chat start
        // FirebaseApp.configure()
@@ -365,13 +368,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                         }
                         else if redirectionType == 2
                         {
-                            let vc : TeacherCertificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
-                            vc.isBackDisplay = false
-                            if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
-                            {
-                                self.calledForLoginUser()
-                                rootNavigatioVC.pushViewController(vc, animated: false)
-                            }
+//                            let vc : TeacherCertificationVC = STORYBOARD.MAIN.instantiateViewController(withIdentifier: "TeacherCertificationVC") as! TeacherCertificationVC
+//                            vc.isBackDisplay = false
+//                            if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController
+//                            {
+//                                self.calledForLoginUser()
+//                                rootNavigatioVC.pushViewController(vc, animated: false)
+//                            }//comment on 10-Oct-2018
+                            AppDelegate().sharedDelegate().navigateToDashboard()
+                            
                         }
                         else if redirectionType == 3
                         {
@@ -413,6 +418,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     
     func navigateToProfile()
     {
+        
         setLoginUserData(AppModel.shared.currentUser.dictionary())
         customTabbarVc = self.storyboard().instantiateViewController(withIdentifier: "CustomTabBarController") as! CustomTabBarController
         if let rootNavigatioVC : UINavigationController = self.window?.rootViewController as? UINavigationController

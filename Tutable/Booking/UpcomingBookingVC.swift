@@ -130,13 +130,33 @@ class UpcomingBookingVC: UIViewController, UITableViewDelegate, UITableViewDataS
         let dict : BookingClassModel = arrUpcomingBookingData[sender.tag]
         if isStudentLogin()
         {
-            let receiver : FirebaseUserModel = FirebaseUserModel.init(dict: dict.teacher.dictionary())
-            AppDelegate().sharedDelegate().onChannelTap(connectUser: receiver)
+            
+            USER.info(forUserID: dict.teacher.id) { (user) in
+                DispatchQueue.main.async {
+                    let vc : ChatController = STORYBOARD.MESSAGE.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+                    vc.currentUser = user
+                    vc.TitleLbl = user.name
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+            }
+//            let receiver : FirebaseUserModel = FirebaseUserModel.init(dict: dict.teacher.dictionary())
+//            AppDelegate().sharedDelegate().onChannelTap(connectUser: receiver)
         }
         else
         {
-            let receiver : FirebaseUserModel = FirebaseUserModel.init(dict: dict.student.dictionary())
-            AppDelegate().sharedDelegate().onChannelTap(connectUser: receiver)
+            
+            USER.info(forUserID: dict.student.id) { (user) in
+                DispatchQueue.main.async {
+                    let vc : ChatController = STORYBOARD.MESSAGE.instantiateViewController(withIdentifier: "ChatController") as! ChatController
+                    vc.currentUser = user
+                    vc.TitleLbl = user.name
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+            }
+//            let receiver : FirebaseUserModel = FirebaseUserModel.init(dict: dict.student.dictionary())
+//            AppDelegate().sharedDelegate().onChannelTap(connectUser: receiver)
         }
     }
 
